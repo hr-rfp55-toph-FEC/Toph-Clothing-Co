@@ -4,21 +4,25 @@ import RelatedItemsAndOutfit from './RelatedItemsAndOutfit/RelatedItemsAndOutfit
 import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import RatingsAndReviews from './RatingsAndReviews/RatingsAndReviews.jsx';
 
-class App extends React.Component{
+class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+
+    };
   }
 
   render() {
     return (
       <div>
         'Hello from react!'
-        <ProductDetail />
+        {/* <ProductDetail />
         <RelatedItemsAndOutfit />
         <QuestionsAndAnswers />
-        <RatingsAndReviews />
+        <RatingsAndReviews /> */}
       </div>
-    )
+    );
   }
 }
 
