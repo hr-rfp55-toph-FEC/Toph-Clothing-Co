@@ -1,4 +1,8 @@
 import React from 'react';
+import ProductDetail from './ProductDetail/ProductDetail.jsx';
+import RelatedItemsAndOutfit from './RelatedItemsAndOutfit/RelatedItemsAndOutfit.jsx';
+import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers.jsx';
+import RatingsAndReviews from './RatingsAndReviews/RatingsAndReviews.jsx';
 
 class App extends React.Component{
   constructor(props) {
@@ -8,7 +12,11 @@ class App extends React.Component{
   render() {
     return (
       <div>
-        'Hello from react'
+        'Hello from react!'
+        <ProductDetail />
+        <RelatedItemsAndOutfit />
+        <QuestionsAndAnswers />
+        <RatingsAndReviews />
       </div>
     )
   }

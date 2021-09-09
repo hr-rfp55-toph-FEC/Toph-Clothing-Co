@@ -4,7 +4,7 @@
   "description": "FEC Team 6 Toph Project Catwalk",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --mode development --watch"
   },
