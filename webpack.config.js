@@ -10,6 +10,13 @@ module.exports = {
     filename: 'bundle.js',
     path: DIST_DIR,
   },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'client', 'dist'),
+    },
+    compress: true,
+    port: 9000,
+  },
   resolve: { extensions: ['.js', '.jsx'] },
   plugins: [new ESLintPlugin()],
   module: {
