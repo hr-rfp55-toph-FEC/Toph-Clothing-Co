@@ -22,6 +22,7 @@
     "@babel/runtime": "^7.15.4",
     "@testing-library/react": "^12.0.0",
     "axios": "^0.21.4",
+    "babel-jest": "^27.1.1",
     "jest": "^27.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -35,11 +36,29 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-webpack-plugin": "^3.0.1",
     "webpack": "^5.52.0",
     "webpack-cli": "^4.8.0"
+  },
+  "jest": {
+    "modulePaths": [
+      "/node_modules"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "bower_components"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tests/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/tests/__mocks__/styleMock.js"
+    }
   }
 }
