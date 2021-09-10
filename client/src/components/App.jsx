@@ -16,11 +16,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        'Hello from react!'
-        {/* <ProductDetail />
+        `Hello from react!`
+        <ProductDetail />
         <RelatedItemsAndOutfit />
         <QuestionsAndAnswers />
-        <RatingsAndReviews /> */}
+        <RatingsAndReviews />
       </div>
     );
   }
