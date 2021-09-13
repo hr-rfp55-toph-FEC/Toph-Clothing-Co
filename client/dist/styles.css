@@ -23,6 +23,33 @@ body {
 
 /* Bishal Related Products & Outfit Creation */
 
+/* Cards CSS */
+.carousel-card-container {
+  display: flex;
+  gap: 10px 10px;
+  width: 80%;
+  margin: auto;
+  justify-content: space-around;
+
+}
+.product-list-card {
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid gray;
+  height: 300px;
+  width: 300px;
+}
+
+.card-image-container {
+  width: auto;
+  height: 60%;
+}
+
+.card-details-container {
+  width: auto;
+  height: 40%;
+}
+
 /* Alex Questions & Answers */
 
 /* Ya Ratings & Reviews */

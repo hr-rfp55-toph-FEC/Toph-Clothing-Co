@@ -5,7 +5,6 @@ const Carousel = (props) => {
   const placeholder = props;
   return (
     <div className="carousel-card-container">
-      Carousel
       <ProductListCard />
       <ProductListCard />
       <ProductListCard />
