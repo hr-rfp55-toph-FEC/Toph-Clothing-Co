@@ -28,6 +28,18 @@ body {
 /* Ya Ratings & Reviews */
 .ratings-reviews {
   display: flex;
+  flex-direction: column;
+}
+
+.ratings-reviews-title {
+  display: block;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.ratings-reviews-container {
+  display: flex;
+  flex-direction: row;
 }
 
 .reviews-list {

@@ -12,10 +12,12 @@ const RatingsAndReviews = class extends React.Component {
 
   render() {
     return (
-      <div className="ratings-reviews">
-        <h4>ratings & reviews</h4>
-        <ReviewsList />
-      </div>
+      <section className="ratings-reviews">
+        <h4 className="ratings-reviews-title">ratings & reviews</h4>
+        <div className="ratings-reviews-container">
+          <ReviewsList />
+        </div>
+      </section>
     );
   }
 };
