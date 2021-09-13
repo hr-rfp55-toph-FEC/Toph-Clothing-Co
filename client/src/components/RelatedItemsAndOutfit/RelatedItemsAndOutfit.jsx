@@ -1,4 +1,6 @@
 import React from 'react';
+import RelatedProducts from './RelatedProducts';
+import UserOutfit from './UserOutfit';
 
 class RelatedItemsAndOutfit extends React.Component {
   constructor(props) {
@@ -11,8 +13,13 @@ class RelatedItemsAndOutfit extends React.Component {
 
   render() {
     return (
-      <div>
-        RelatedItemsAndOutfit
+      <div className="related-lists">
+        <div className="related-product-list-container">
+          <RelatedProducts />
+        </div>
+        <div className="outfit-list-container">
+          <UserOutfit />
+        </div>
       </div>
     );
   }
