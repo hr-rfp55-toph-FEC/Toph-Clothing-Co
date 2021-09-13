@@ -1,6 +1,7 @@
 import React from 'react';
+import ReviewsList from './ReviewsList';
 
-class RatingsAndReviews extends React.Component {
+const RatingsAndReviews = class extends React.Component {
   constructor(props) {
     super(props);
 
@@ -13,9 +14,10 @@ class RatingsAndReviews extends React.Component {
     return (
       <div>
         RatingsAndReviews
+        <ReviewsList />
       </div>
     );
   }
-}
+};
 
 export default RatingsAndReviews;
