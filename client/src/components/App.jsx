@@ -15,8 +15,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        `Hello from react!`
+      <div className="app-container">
+        <div>`TitleBar`</div>
         <ProductDetail />
         <RelatedItemsAndOutfit />
         <QuestionsAndAnswers />

@@ -1,5 +1,22 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+  /*
+  shrink width of body
+  */
+}
+
+#app {
+  width: 70%;
+  margin: auto;
+  border: solid;
+  border-width: 1px;
+
+}
+
+
+.app-container {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Daniel Product Detail & Overview */

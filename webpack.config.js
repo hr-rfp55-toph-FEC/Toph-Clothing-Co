@@ -16,6 +16,7 @@ module.exports = {
     },
     compress: true,
     port: 9000,
+    open: true,
   },
   resolve: { extensions: ['.js', '.jsx'] },
   plugins: [new ESLintPlugin()],
