@@ -26,3 +26,11 @@ body {
 /* Alex Questions & Answers */
 
 /* Ya Ratings & Reviews */
+.ratings-reviews {
+  display: flex;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+}

@@ -24,7 +24,6 @@ const ReviewsList = class extends React.Component {
       method: 'get',
       baseURL: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/',
       headers: {
-        'User-Agent': 'request',
         Authorization: config.TOKEN,
       },
       params: {
@@ -33,7 +32,6 @@ const ReviewsList = class extends React.Component {
     };
     axios(options)
       .then((response) => {
-        // console.log(response.data);
         this.setState({ reviews: response.data.results });
       })
       .catch((err) => {
@@ -44,7 +42,7 @@ const ReviewsList = class extends React.Component {
   render() {
     return (
       <div className="reviews-list">
-        {this.state.reviews.map((review) => <ReviewTile review={review} />)}
+        {this.state.reviews.map((review) => <ReviewTile review={review} key={review.review_id} />)}
       </div>
     );
   }
