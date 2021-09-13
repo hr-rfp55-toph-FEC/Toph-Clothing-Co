@@ -27,7 +27,7 @@ const ReviewsList = class extends React.Component {
         Authorization: config.TOKEN,
       },
       params: {
-        product_id: 40344,
+        product_id: 40348,
       },
     };
     axios(options)
@@ -42,6 +42,9 @@ const ReviewsList = class extends React.Component {
   render() {
     return (
       <div className="reviews-list">
+        <h3>{this.state.reviews.length}
+          reviews, sorted by
+        </h3>
         {this.state.reviews.map((review) => <ReviewTile review={review} key={review.review_id} />)}
       </div>
     );
