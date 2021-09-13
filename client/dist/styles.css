@@ -42,12 +42,18 @@ body {
 
 .card-image-container {
   width: auto;
-  height: 60%;
+  min-height: auto;
+}
+
+.category-heading {
+  margin: 5px 2px;
 }
 
 .card-details-container {
   width: auto;
-  height: 40%;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Alex Questions & Answers */
