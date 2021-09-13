@@ -65,6 +65,7 @@
       "\\.(css|less)$": "<rootDir>/tests/__mocks__/styleMock.js"
     },
     "setupFilesAfterEnv": ["<rootDir>/setUpSampleTests.js"],
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "verbose": true
   }
 }
