@@ -1,17 +1,9 @@
 const { api } = require('./api.js');
 
-const getReviews = (queryParams) => (api.get('/reviews', {
-  params: {
-    product_id: queryParams.product_id,
-    count: queryParams.count,
-    sort: queryParams.sort,
-  },
-}));
+const getReviews = (params) => (api.get('/reviews', { params }));
 
-const getReviewMeta = (queryParams) => (api.get('/reviews/meta', {
-  params: {
-    product_id: queryParams.product_id,
-  },
-}));
+const getReviewMeta = (params) => (api.get('/reviews/meta', { params }));
 
-module.exports = { getReviews, getReviewMeta };
+const postReview = (body) => (api.post('/reviews', { body }));
+
+module.exports = { getReviews, getReviewMeta, postReview };
