@@ -29,7 +29,7 @@ class App extends React.Component {
 
 export default App;
 
-App.propTypes = {
-  sampleProp: PropTypes.isInstanceOf(Array).isRequired,
+// App.propTypes = {
+//   sampleProp: PropTypes.isInstanceOf(Array).isRequired,
 
-};
+// };

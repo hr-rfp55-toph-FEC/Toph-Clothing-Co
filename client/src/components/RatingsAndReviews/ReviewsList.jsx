@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import ReviewTile from './ReviewTile';
 import SortReviews from './SortReviews';
-import config from '../../config/config';
 
 const ReviewsList = class extends React.Component {
   constructor(props) {
@@ -29,24 +28,12 @@ const ReviewsList = class extends React.Component {
   }
 
   getReviews() {
-    const options = {
-      url: 'reviews/',
-      method: 'get',
-      baseURL: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/',
-      headers: {
-        Authorization: config.TOKEN,
-      },
-      params: {
-        product_id: 40345,
-        count: 100,
-      },
-    };
-    axios(options)
+    axios.get('/reviews')
       .then((response) => {
         this.setState({ reviews: response.data.results }, this.updateDisplay);
       })
       .catch((err) => {
-        console.error(err);
+        throw new Error(err.message);
       });
   }
 
