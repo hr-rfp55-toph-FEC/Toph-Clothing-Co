@@ -6,7 +6,12 @@ const getReviews = (queryParams) => (api.get('/reviews', {
     count: queryParams.count,
     sort: queryParams.sort,
   },
-})
-);
+}));
 
-module.exports = { getReviews };
+const getReviewMeta = (queryParams) => (api.get('/reviews/meta', {
+  params: {
+    product_id: queryParams.product_id,
+  },
+}));
+
+module.exports = { getReviews, getReviewMeta };
