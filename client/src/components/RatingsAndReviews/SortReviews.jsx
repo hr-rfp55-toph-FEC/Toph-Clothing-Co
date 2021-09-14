@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SortReviews = (props) => (
-  <select value='relevance'>
+  <select value="relevance">
     <option value="relevance">relevance</option>
     <option value="newest">newest</option>
     <option value="helpful">helpful</option>
