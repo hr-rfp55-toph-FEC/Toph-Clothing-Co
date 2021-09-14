@@ -8,8 +8,8 @@ logs
 .DS_Store
 
 ## API keys ##
-src/config/config.js
-compiled/config/config.js
+server/helpers/config/config.js
+
 
 # Runtime data
 pids
