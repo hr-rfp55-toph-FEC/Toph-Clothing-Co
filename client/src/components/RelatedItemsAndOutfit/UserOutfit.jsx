@@ -6,7 +6,7 @@ const UserOutfit = (props) => {
   return (
     <div>
       User Outfits Here:
-      <Carousel />
+      {/* <Carousel /> */}
     </div>
   );
 };

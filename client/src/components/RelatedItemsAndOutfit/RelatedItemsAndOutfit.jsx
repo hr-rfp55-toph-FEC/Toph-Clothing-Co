@@ -15,16 +15,18 @@ class RelatedItemsAndOutfit extends React.Component {
       },
     });
     this.state = {
-      relatedProds: [],
+      relatedProdsInfo: [],
+      relatedProdStyles: [],
     };
   }
 
   componentDidMount() {
     const currProdId = '40344';
     //hard code in a currentProdId for now
-    this.getRelatedProducts(currProdId);
+    this.getRelatedProductsInfo(currProdId);
+    this.getRelatedProductStyles(currProdId);
     //and info about userOutfit
-  };
+  }
 
   getProductInfo(prodId) {
     return this.api.get(`/products/${prodId}`)
@@ -32,12 +34,32 @@ class RelatedItemsAndOutfit extends React.Component {
       .catch((err) => console.log(err));
   }
 
-  getRelatedProducts(currProdId) {
-    this.api.get(`/products/${currProdId}/related`)
+  getRelatedProductIds(currProdId) {
+    return this.api.get(`/products/${currProdId}/related`)
+      .catch((err) => console.log(err));
+  }
+
+  getProductStyles(currProdId) {
+    return this.api.get(`/products/${currProdId}/styles`)
+      .then((data) => data)
+      .catch((err) => console.log(err));
+  }
+
+  getRelatedProductsInfo(currProdId) {
+    this.getRelatedProductIds(currProdId)
       .then((relatedIds) => relatedIds.data.map((id) => this.getProductInfo(id)))
-      .then((relatedProdsPromise) => Promise.all(relatedProdsPromise))
+      .then((relatedProdsInfoPromises) => Promise.all(relatedProdsInfoPromises))
       .then((response) => response.map((res) => res.data))
-      .then((relProds) => this.setState({ relatedProds: relProds }))
+      .then((relProdsInfo) => this.setState({ relatedProdsInfo: relProdsInfo }))
+      .catch((err) => console.log(err));
+  }
+
+  getRelatedProductStyles(currProdId) {
+    this.getRelatedProductIds(currProdId)
+      .then((relatedIds) => relatedIds.data.map((id) => this.getProductStyles(id)))
+      .then((relatedStylesPromises) => Promise.all(relatedStylesPromises))
+      .then((response) => response.map((res) => res.data))
+      .then((relProdStyles) => this.setState({ relatedProdStyles: relProdStyles }))
       .catch((err) => console.log(err));
   }
 
@@ -45,7 +67,10 @@ class RelatedItemsAndOutfit extends React.Component {
     return (
       <div className="related-lists">
         <div className="related-product-list-container">
-          <RelatedProducts relatedProds={this.state.relatedProds}/>
+          <RelatedProducts
+            ProdsInfo={this.state.relatedProdsInfo}
+            ProdStyles={this.state.relatedProdStyles}
+          />
         </div>
         <div className="outfit-list-container">
           <UserOutfit />
@@ -54,5 +79,9 @@ class RelatedItemsAndOutfit extends React.Component {
     );
   }
 }
+
+// RelatedItemsAndOutfit.propTypes = {
+//   relatedProdsInfo: PropTypes.array
+// };
 
 export default RelatedItemsAndOutfit;

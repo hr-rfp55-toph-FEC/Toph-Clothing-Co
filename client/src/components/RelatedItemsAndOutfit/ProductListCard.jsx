@@ -1,7 +1,8 @@
 import React from 'react';
 
-const ProductListCard = (props) => {
-  const placeholder = props;
+const ProductListCard = ({productInfo}) => {
+
+  console.log(productInfo);
   return (
     <div className="product-list-card">
       <div className="card-image-container">
@@ -10,9 +11,14 @@ const ProductListCard = (props) => {
       </div>
 
       <div className="card-details-container">
-        <h5 className="category-heading">Category</h5>
-        <p>Expanded Product Name with Extra Text</p>
-        <span>$100</span>
+        <h5 className="category-heading">
+          {productInfo.category}
+        </h5>
+        <p>{productInfo.name}</p>
+        <span>
+          $
+          {productInfo.default_price}
+        </span>
         <div>Rating Stars</div>
       </div>
     </div>

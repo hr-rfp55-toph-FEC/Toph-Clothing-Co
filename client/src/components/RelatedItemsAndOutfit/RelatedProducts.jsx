@@ -1,14 +1,18 @@
 import React from 'react';
 import Carousel from './Carousel';
 
-const RelatedProducts = (props) => {
-  const placeholder = props;
+const RelatedProducts = ({ ProdsInfo, ProdStyles }) => {
+  const placeholder = { ProdStyles };
   return (
     <div>
       Related Products Here:
-      <Carousel />
+      <Carousel ProdsInfo={ProdsInfo} ProdStyles={ProdStyles} />
     </div>
   );
 };
+
+// RelatedProducts.propTypes = {
+//   relatedProds: PropTypes.array,
+// };
 
 export default RelatedProducts;
