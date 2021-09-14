@@ -77,12 +77,14 @@ const ReviewsList = class extends React.Component {
           {' '}
           <SortReviews />
         </h3>
-        {display.map((review) => (
-          <ReviewTile
-            review={review}
-            key={review.review_id}
-          />
-        ))}
+        <div className="reviews-list-container">
+          {display.map((review) => (
+            <ReviewTile
+              review={review}
+              key={review.review_id}
+            />
+          ))}
+        </div>
         <div className="buttons-container">
           {moreReviewsButton}
           <button type="submit" id="add-a-review">add a review</button>
