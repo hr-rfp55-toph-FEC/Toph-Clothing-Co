@@ -17,7 +17,10 @@ function ImageGallery(props) {
 }
 
 ImageGallery.propTypes = {
-  productStyles: PropTypes.shape.isRequired,
+  productStyles: PropTypes.instanceOf(Object).isRequired,
+  // productStyles: PropTypes.shape({
+  //   photos: PropTypes.arrayOf,
+  // }).isRequired,
 };
 
 export default ImageGallery;

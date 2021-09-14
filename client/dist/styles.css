@@ -63,6 +63,12 @@ body {
   flex-direction: column;
 }
 
+/* .product-right-component {
+  height: 33.33%;
+  font-size: 1vw;
+} */
+
+
 #product-information {
   height: 33.33%;
 }
@@ -110,7 +116,7 @@ body {
 
 #overview-and-share {
   display: flex;
-  padding: 5% 5%;
+  padding: 3% 3%;
   border-color: black;
   border-style: solid;
   border-width: 1px;
@@ -118,14 +124,14 @@ body {
 
 #product-overview {
   width: 65%;
-  padding: 0 5%;
+  padding: 2% 5%;
   border-right: 1px solid gray;
 
 }
 
 #product-social {
   width: 35%;
-  padding: 0 5%;
+  padding: 2% 5%;
   border-left: 1px solid gray;
   display: flex;
   justify-content: space-evenly;

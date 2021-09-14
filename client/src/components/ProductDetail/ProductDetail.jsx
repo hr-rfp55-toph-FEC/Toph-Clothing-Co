@@ -70,6 +70,7 @@ class ProductDetail extends React.Component {
     };
     axios(options)
       .then((result) => {
+        console.log(result.data.results[0]);
         this.setState({
           productStyles: result.data.results[0],
         });

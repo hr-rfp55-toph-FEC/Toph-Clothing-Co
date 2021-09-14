@@ -3,7 +3,7 @@ import React from 'react';
 
 function StyleSelector() {
   return (
-    <div id="style-selector">
+    <div id="style-selector" className="product-right-component">
       <b>STYLE</b>
       <b>{' > '}</b>
       SELECTED STYLE

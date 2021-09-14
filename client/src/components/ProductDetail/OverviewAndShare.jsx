@@ -23,7 +23,7 @@ function OverviewAndShare(props) {
 }
 
 OverviewAndShare.propTypes = {
-  product: PropTypes.shape.isRequired,
+  product: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default OverviewAndShare;

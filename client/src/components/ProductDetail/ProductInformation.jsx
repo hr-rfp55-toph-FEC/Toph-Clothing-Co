@@ -10,7 +10,7 @@ function ProductInformation(props) {
   }
 
   return (
-    <div id="product-information">
+    <div id="product-information" className="product-right-component">
       <div id="product-rating">
         <span id="product-stars">★★★★★</span>
         <span id="product-reviews">Read all [#] reviews (fill me in)</span>
@@ -23,7 +23,7 @@ function ProductInformation(props) {
 }
 
 ProductInformation.propTypes = {
-  product: PropTypes.shape.isRequired,
+  product: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default ProductInformation;
