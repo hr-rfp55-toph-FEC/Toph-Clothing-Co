@@ -30,7 +30,16 @@ app.get('/', (req, res) => {
 
 //Ya
 app.get('/reviews', (req, res) => {
-
+  // console.log(req.query);
+  reviews.getReviews(req.query)
+    .then((APIRes) => {
+      res.send(APIRes.data);
+      res.status(200).end();
+    })
+    .catch((err) => {
+      console.error(err);
+      res.end();
+    });
 });
 
 

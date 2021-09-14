@@ -28,12 +28,18 @@ const ReviewsList = class extends React.Component {
   }
 
   getReviews() {
-    axios.get('/reviews')
+    axios.get('/reviews', {
+      params: {
+        product_id: 40344,
+        count: 100,
+        sort: 'relevant',
+      },
+    })
       .then((response) => {
         this.setState({ reviews: response.data.results }, this.updateDisplay);
       })
       .catch((err) => {
-        throw new Error(err.message);
+        console.error(err);
       });
   }
 

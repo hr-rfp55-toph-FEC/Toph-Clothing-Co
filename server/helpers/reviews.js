@@ -1,17 +1,12 @@
-const axios = require('axios');
-const api = require('./api.js');
+const { api } = require('./api.js');
 
-const getReviews = (productId) => {
-  api.get('/reviews', {
-    params: {
-      product_id: 40345,
-      count: 100,
-    }
-  })
-}
-module.exports = {
+const getReviews = (queryParams) => (api.get('/reviews', {
+  params: {
+    product_id: queryParams.product_id,
+    count: queryParams.count,
+    sort: queryParams.sort,
+  },
+})
+);
 
-
-
-
-};
+module.exports = { getReviews };
