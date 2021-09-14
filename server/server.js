@@ -32,13 +32,10 @@ app.use(express.urlencoded({ extended: true }));
 //Bishal - Related Products
 app.get('/related/:id', (req, res) => {
   const currId = req.params.id;
-  const promises = [related.getRelatedProductsInfo(currId),
-    related.getRelatedProductStyles(currId)];
-  return Promise.all(promises)
+  related.genRelProdResObj(currId)
     .then((data) => res.json(data))
     .catch((err) => console.log(err));
 });
-
 
 
 

@@ -1,4 +1,4 @@
-const api = require('./api.js');
+const { api } = require('./api.js');
 
 module.exports = {
 
@@ -10,6 +10,14 @@ module.exports = {
     .catch((err) => console.log(err)),
 
   getProductStyles: (currProdId) => api.get(`/products/${currProdId}/styles`)
+    .then((data) => data)
+    .catch((err) => console.log(err)),
+
+  getProductMeta: (currProdId) => api.get('/reviews/meta', {
+    params: {
+      product_id: currProdId,
+    },
+  })
     .then((data) => data)
     .catch((err) => console.log(err)),
 
@@ -26,5 +34,21 @@ module.exports = {
     .then((response) => response.map((res) => res.data))
     .then((relProdStyles) => relProdStyles)
     .catch((err) => console.log(err)),
+
+  getRelatedProductMeta: (currProdId) => module.exports.getRelatedProductIds(currProdId)
+    .then((relatedIds) => relatedIds.data.map((id) => module.exports.getProductMeta(id)))
+    .then((relProdMetaPromises) => Promise.all(relProdMetaPromises))
+    .then((response) => response.map((res) => res.data))
+    .then((relProdMeta) => relProdMeta)
+    .catch((err) => console.log(err)),
+
+  genRelProdResObj: (currProdId) => {
+    const promises = [module.exports.getRelatedProductsInfo(currProdId),
+      module.exports.getRelatedProductStyles(currProdId),
+      module.exports.getRelatedProductMeta(currProdId),
+    ];
+    return Promise.all(promises)
+      .catch((err) => console.log(err));
+  },
 
 };
