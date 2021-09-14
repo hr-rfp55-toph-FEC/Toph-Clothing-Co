@@ -10,9 +10,13 @@ const ReviewsList = class extends React.Component {
 
     this.state = {
       reviews: [],
+      display: [],
+      reviewCount: 2,
+      showMoreReviewsButton: false
     };
 
     this.getReviews = this.getReviews.bind(this);
+    this.updateDisplay = this.updateDisplay.bind(this);
   }
 
   componentDidMount() {
@@ -33,31 +37,27 @@ const ReviewsList = class extends React.Component {
     };
     axios(options)
       .then((response) => {
-        this.setState({ reviews: response.data.results });
+        this.setState({ reviews: response.data.results }, this.updateDisplay);
       })
       .catch((err) => {
         console.error(err);
       });
   }
 
-  render() {
-    const { reviews } = this.state;
-    let reviewDisplay;
+  updateDisplay() {
+    const { reviews, reviewCount } = this.state;
+    let reviewsCopy;
     if (reviews.length <= 2) {
-      reviewDisplay = reviews.map((review) => (
-        <ReviewTile
-          review={review}
-          key={review.review_id}
-        />
-      ));
+      reviewsCopy = reviews;
     } else {
-      reviewDisplay = reviews.slice(0, 2).map((review) => (
-        <ReviewTile
-          review={review}
-          key={review.review_id}
-        />
-      ));
+      reviewsCopy = reviews.slice(0, reviewCount);
+      this.setState({ showMoreReviewsButton: true });
     }
+    this.setState({ display: reviewsCopy });
+  }
+
+  render() {
+    const { display, reviews } = this.state;
 
     return (
       <div className="reviews-list">
@@ -68,7 +68,12 @@ const ReviewsList = class extends React.Component {
           {' '}
           <SortReviews />
         </h3>
-        {reviewDisplay}
+        {display.map((review) => (
+          <ReviewTile
+            review={review}
+            key={review.review_id}
+          />
+        ))}
         <div className="buttons-container">
           <button type="button">more reviews</button>
           <button type="submit">add a review</button>
