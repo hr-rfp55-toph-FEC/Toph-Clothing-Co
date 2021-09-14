@@ -41,8 +41,8 @@ body {
 }
 
 .card-image-container {
-  width: auto;
-  min-height: auto;
+  flex-basis: auto;
+
 }
 
 .category-heading {
@@ -50,8 +50,7 @@ body {
 }
 
 .card-details-container {
-  width: auto;
-  min-height: auto;
+  flex-basis: auto;
   display: flex;
   flex-direction: column;
 }
