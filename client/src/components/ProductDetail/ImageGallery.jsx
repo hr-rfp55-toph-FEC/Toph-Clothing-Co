@@ -11,7 +11,7 @@ function ImageGallery(props) {
 
   return (
     <div id="image-gallery">
-      <img id="image-main" src={productStyles.photos[0].url} alt="Main Product" />
+      <img id="image-main" src={productStyles.results[0].photos[0].url} alt="Main Product" />
     </div>
   );
 }

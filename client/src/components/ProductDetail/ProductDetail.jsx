@@ -7,8 +7,6 @@ import StyleSelector from './StyleSelector';
 import AddToCart from './AddToCart';
 import OverviewAndShare from './OverviewAndShare';
 
-import config from '../../../../config';
-
 class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -16,69 +14,36 @@ class ProductDetail extends React.Component {
     this.state = {
       product: {},
       productStyles: {},
-      // product: {
-      //   id: 40344,
-      //   campus: 'hr-rfp',
-      //   name: 'Camo Onesie',
-      //   slogan: 'Blend in to your crowd',
-      //   description: 'The So Fatigues will wake you up and fit you in.
-      // This high energy camo will have you blending in to even the wildest surroundings.',
-      //   category: 'Jackets',
-      //   default_price: '140.00',
-      //   created_at: '2021-08-13T14:38:44.509Z',
-      //   updated_at: '2021-08-13T14:38:44.509Z',
-      // },
+      // productRatings: {},
       expanded: false,
     };
   }
 
   componentDidMount() {
     this.getProductList();
-    this.getProductInformation();
+    this.getProductStyles(40344);
   }
 
   getProductList() {
-    const options = {
-      method: 'get',
-      url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products',
-      headers: {
-        Authorization: config.TOKEN,
-      },
-    };
-    axios(options)
+    axios.get('/products')
       .then((result) => {
-        console.log(result.data);
+        // console.log(result.data);
         this.setState({
           product: result.data[0],
         });
       })
-      .catch((error) => {
-        throw new Error(error.message);
-        // console.log('Error in getting all products', error);
-      });
+      .catch((error) => { throw new Error(`Error in getting product list from server: ${error.message}`); });
   }
 
-  getProductInformation() {
-    // const { product } = this.state;
-
-    const options = {
-      method: 'get',
-      url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/40344/styles',
-      headers: {
-        Authorization: config.TOKEN,
-      },
-    };
-    axios(options)
+  getProductStyles(productID) {
+    axios.get(`/products/${productID}/styles`)
       .then((result) => {
-        console.log(result.data.results[0]);
+        // console.log(result.data);
         this.setState({
-          productStyles: result.data.results[0],
+          productStyles: result.data,
         });
       })
-      .catch((error) => {
-        throw new Error(error.message);
-        // console.log('Error in getting all products', error);
-      });
+      .catch((error) => { throw new Error(`Error in getting product styles from server: ${error.message}`); });
   }
 
   render() {
