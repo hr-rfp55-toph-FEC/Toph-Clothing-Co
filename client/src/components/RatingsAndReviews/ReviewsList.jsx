@@ -65,6 +65,7 @@ const ReviewsList = class extends React.Component {
           {reviews.length}
           {' '}
           reviews, sorted by
+          {' '}
           <SortReviews />
         </h3>
         {reviewDisplay}
