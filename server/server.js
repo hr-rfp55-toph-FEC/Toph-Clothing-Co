@@ -1,6 +1,5 @@
 const path = require('path');
 const express = require('express'); // npm installed
-const api = require('./helpers/api.js');
 const overview = require('./helpers/overview.js');
 const qna = require('./helpers/qna.js');
 const related = require('./helpers/related.js');
@@ -30,8 +29,13 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-//Bishal
+//Bishal - Related Products
+app.get('/related/:id', (req, res) => {
 
+  const relCache = [];
+  //this will send back an array of objects to the Client that
+
+});
 
 
 
