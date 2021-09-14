@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ReviewTile from './ReviewTile';
+import SortReviews from './SortReviews';
 import config from '../../config/config';
 
 const ReviewsList = class extends React.Component {
@@ -27,7 +28,7 @@ const ReviewsList = class extends React.Component {
         Authorization: config.TOKEN,
       },
       params: {
-        product_id: 40348,
+        product_id: 40344,
       },
     };
     axios(options)
@@ -40,12 +41,37 @@ const ReviewsList = class extends React.Component {
   }
 
   render() {
+    const { reviews } = this.state;
+    let reviewDisplay;
+    if (reviews.length <= 2) {
+      reviewDisplay = reviews.map((review) => (
+        <ReviewTile
+          review={review}
+          key={review.review_id}
+        />
+      ));
+    } else {
+      reviewDisplay = reviews.slice(0, 2).map((review) => (
+        <ReviewTile
+          review={review}
+          key={review.review_id}
+        />
+      ));
+    }
+
     return (
       <div className="reviews-list">
-        <h3>{this.state.reviews.length}
+        <h3>
+          {reviews.length}
+          {' '}
           reviews, sorted by
+          <SortReviews />
         </h3>
-        {this.state.reviews.map((review) => <ReviewTile review={review} key={review.review_id} />)}
+        {reviewDisplay}
+        <div className="buttons-container">
+          <button type="button">more reviews</button>
+          <button type="submit">add a review</button>
+        </div>
       </div>
     );
   }

@@ -46,3 +46,13 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.review-tile {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+}
