@@ -17,10 +17,15 @@ const ReviewsList = class extends React.Component {
 
     this.getReviews = this.getReviews.bind(this);
     this.updateDisplay = this.updateDisplay.bind(this);
+    this.handleMoreReviews = this.handleMoreReviews.bind(this);
   }
 
   componentDidMount() {
     this.getReviews();
+  }
+
+  handleMoreReviews() {
+    this.setState((prevState) => ({ reviewCount: prevState.reviewCount + 2 }), this.updateDisplay);
   }
 
   getReviews() {
@@ -32,7 +37,7 @@ const ReviewsList = class extends React.Component {
         Authorization: config.TOKEN,
       },
       params: {
-        product_id: 40344,
+        product_id: 40345,
       },
     };
     axios(options)
@@ -75,8 +80,8 @@ const ReviewsList = class extends React.Component {
           />
         ))}
         <div className="buttons-container">
-          <button type="button">more reviews</button>
-          <button type="submit">add a review</button>
+          <button type="button" id="more-reviews" onClick={this.handleMoreReviews}>more reviews</button>
+          <button type="submit" id="add-a-review">add a review</button>
         </div>
       </div>
     );

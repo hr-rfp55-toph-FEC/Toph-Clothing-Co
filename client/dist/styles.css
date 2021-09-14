@@ -56,3 +56,7 @@ body {
   display: flex;
   flex-direction: row;
 }
+
+#more-reviews, #add-a-review {
+  text-transform: uppercase;
+}
