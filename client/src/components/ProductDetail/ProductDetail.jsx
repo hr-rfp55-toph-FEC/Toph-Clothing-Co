@@ -1,4 +1,8 @@
 import React from 'react';
+import ImageGallery from './ImageGallery';
+import ProductInformation from './ProductInformation';
+import StyleSelector from './StyleSelector';
+import AddToCard from './AddToCard';
 
 class ProductDetail extends React.Component {
   constructor(props) {
