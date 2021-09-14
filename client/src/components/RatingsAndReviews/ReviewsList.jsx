@@ -38,6 +38,7 @@ const ReviewsList = class extends React.Component {
       },
       params: {
         product_id: 40345,
+        count: 100,
       },
     };
     axios(options)
@@ -56,7 +57,7 @@ const ReviewsList = class extends React.Component {
       reviewsCopy = reviews;
     } else {
       reviewsCopy = reviews.slice(0, reviewCount);
-      if (reviewCount <= reviewsCopy.length) {
+      if (reviewCount < reviews.length) {
         this.setState({ showMoreReviewsButton: true });
       } else {
         this.setState({ showMoreReviewsButton: false });
