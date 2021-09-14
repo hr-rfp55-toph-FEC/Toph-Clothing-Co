@@ -7,7 +7,7 @@ const reviews = require('./helpers/reviews.js');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
+app.use(express.static(path.join(__dirname, '..', '/client/dist')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // other configuration...
@@ -40,6 +40,6 @@ app.get('/related/:id', (req, res) => {
 
 
 
-app.listen(9001, () => {
-  console.log('connected to server at 9001');
+app.listen(9000, () => {
+  console.log('connected to server at 9000');
 });
