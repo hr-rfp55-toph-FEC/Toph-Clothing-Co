@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ProductDetail from './ProductDetail/ProductDetail';
 import RelatedItemsAndOutfit from './RelatedItemsAndOutfit/RelatedItemsAndOutfit';
 import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers';
@@ -27,3 +28,8 @@ class App extends React.Component {
 }
 
 export default App;
+
+// App.propTypes = {
+//   sampleProp: PropTypes.isInstanceOf(Array).isRequired,
+
+// };
