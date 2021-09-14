@@ -2,12 +2,17 @@ import React from 'react';
 import ProductListCard from './ProductListCard';
 
 //Carousel component is a general component so should be able to manage data from Related Items and from UserOutfit
-const Carousel = ( {ProdsInfo, ProdStyles} ) => {
-  const placeholder = 1;
+const Carousel = ( {prodsInfo, prodsStyles, prodsMeta} ) => {
+  console.log('carousel');
   return (
     <div className="carousel-card-container">
-      {ProdsInfo.map((prod) => (
-        <ProductListCard key={prod.id} productInfo={prod} />
+      {prodsInfo.map((prod, index) => (
+        <ProductListCard
+          key={prod.id}
+          prodInfo={prod}
+          prodStyles={prodsStyles[index]}
+          prodMeta={prodsMeta[index]}
+        />
       ))}
     </div>
   );

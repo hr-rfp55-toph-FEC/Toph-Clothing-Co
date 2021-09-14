@@ -1,12 +1,12 @@
 import React from 'react';
 import Carousel from './Carousel';
 
-const RelatedProducts = ({ ProdsInfo, ProdStyles }) => {
-  const placeholder = { ProdStyles };
+const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta }) => {
+  const placeholder = { prodsStyles };
   return (
     <div>
       Related Products Here:
-      <Carousel ProdsInfo={ProdsInfo} ProdStyles={ProdStyles} />
+      <Carousel prodsInfo={prodsInfo} prodsStyles={prodsStyles} prodsMeta={prodsMeta} />
     </div>
   );
 };

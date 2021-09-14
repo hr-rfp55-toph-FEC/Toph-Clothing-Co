@@ -9,15 +9,24 @@ class RelatedItemsAndOutfit extends React.Component {
     super(props);
     this.server = server;
     this.state = {
-      relatedProdsInfo: [],
-      relatedProdStyles: [],
+      relProdsInfo: [],
+      relProdsStyles: [],
+      relProdsMeta: [],
     };
   }
 
   componentDidMount() {
     const currProdId = '40344';
-    server.get(`/related/${currProdId}`)
-      .then((data) => console.log(data))
+    this.getRelatedData(currProdId);
+  }
+
+  getRelatedData(currProdId) {
+    this.server.get(`/related/${currProdId}`)
+      .then((res) => this.setState({
+        relProdsInfo: res.data[0],
+        relProdsStyles: res.data[1],
+        relProdsMeta: res.data[2]
+      }))
       .catch((err) => console.log(err));
   }
 
@@ -26,8 +35,9 @@ class RelatedItemsAndOutfit extends React.Component {
       <div className="related-lists">
         <div className="related-product-list-container">
           <RelatedProducts
-            ProdsInfo={this.state.relatedProdsInfo}
-            ProdStyles={this.state.relatedProdStyles}
+            prodsInfo={this.state.relProdsInfo}
+            prodsStyles={this.state.relProdsStyles}
+            prodsMeta={this.state.relProdsMeta}
           />
         </div>
         <div className="outfit-list-container">
