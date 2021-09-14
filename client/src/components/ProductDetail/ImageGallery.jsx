@@ -1,10 +1,23 @@
 // import React, { useState } from 'react';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function ImageGallery() {
+function ImageGallery(props) {
+  const { productStyles } = props;
+
+  if (JSON.stringify(productStyles) === '{}') {
+    return null;
+  }
+
   return (
-    <div>Image Gallery</div>
+    <div id="image-gallery">
+      <img id="image-main" src={productStyles.photos[0].url} alt="Main Product" />
+    </div>
   );
 }
+
+ImageGallery.propTypes = {
+  productStyles: PropTypes.shape.isRequired,
+};
 
 export default ImageGallery;

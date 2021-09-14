@@ -3,7 +3,11 @@ import React from 'react';
 
 function StyleSelector() {
   return (
-    <div>Style Selector</div>
+    <div id="style-selector">
+      <b>STYLE</b>
+      <b>{' > '}</b>
+      SELECTED STYLE
+    </div>
   );
 }
 
