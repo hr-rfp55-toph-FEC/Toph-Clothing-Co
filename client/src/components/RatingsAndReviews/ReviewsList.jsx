@@ -37,7 +37,7 @@ const ReviewsList = class extends React.Component {
         Authorization: config.TOKEN,
       },
       params: {
-        product_id: 40345,
+        product_id: 40348,
       },
     };
     axios(options)
@@ -62,7 +62,13 @@ const ReviewsList = class extends React.Component {
   }
 
   render() {
-    const { display, reviews } = this.state;
+    const { display, reviews, showMoreReviewsButton } = this.state;
+    let moreReviewsButton;
+    if (showMoreReviewsButton) {
+      moreReviewsButton = <button type="button" id="more-reviews" onClick={this.handleMoreReviews}>more reviews</button>;
+    } else {
+      moreReviewsButton = <p />;
+    }
 
     return (
       <div className="reviews-list">
@@ -80,7 +86,7 @@ const ReviewsList = class extends React.Component {
           />
         ))}
         <div className="buttons-container">
-          <button type="button" id="more-reviews" onClick={this.handleMoreReviews}>more reviews</button>
+          {moreReviewsButton}
           <button type="submit" id="add-a-review">add a review</button>
         </div>
       </div>
