@@ -39,12 +39,10 @@ body {
 }
 
 .ratings-reviews-container {
-  display: flex;
   flex-direction: row;
 }
 
 .reviews-list {
-  display: flex;
   flex-direction: column;
 }
 
@@ -53,16 +51,15 @@ h3 {
 }
 
 .review-tile {
-  display: flex;
   flex-direction: column;
   border: dotted;
   border-width: 1px;
   margin: 10px 20px;
   padding: 5px;
+  overflow-wrap: break-word;
 }
 
 .buttons-container {
-  display: flex;
   flex-direction: row;
   margin: 20px 0;
 }
