@@ -12,7 +12,7 @@ const ReviewsList = class extends React.Component {
       reviews: [],
       display: [],
       reviewCount: 2,
-      showMoreReviewsButton: false
+      showMoreReviewsButton: false,
     };
 
     this.getReviews = this.getReviews.bind(this);
@@ -37,7 +37,7 @@ const ReviewsList = class extends React.Component {
         Authorization: config.TOKEN,
       },
       params: {
-        product_id: 40348,
+        product_id: 40345,
       },
     };
     axios(options)
@@ -56,7 +56,11 @@ const ReviewsList = class extends React.Component {
       reviewsCopy = reviews;
     } else {
       reviewsCopy = reviews.slice(0, reviewCount);
-      this.setState({ showMoreReviewsButton: true });
+      if (reviewCount <= reviewsCopy.length) {
+        this.setState({ showMoreReviewsButton: true });
+      } else {
+        this.setState({ showMoreReviewsButton: false });
+      }
     }
     this.setState({ display: reviewsCopy });
   }
