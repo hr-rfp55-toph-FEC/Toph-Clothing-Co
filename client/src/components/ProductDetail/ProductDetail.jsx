@@ -1,4 +1,5 @@
 import React from 'react';
+import Stars from '../Stars';
 
 class ProductDetail extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class ProductDetail extends React.Component {
     return (
       <div>
         ProductDetail
+        <Stars rating={3.7230498230436345} />
       </div>
     );
   }
