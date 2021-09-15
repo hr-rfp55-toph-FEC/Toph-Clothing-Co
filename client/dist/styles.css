@@ -56,6 +56,7 @@ h3 {
 }
 
 .review-tile {
+  display: flex;
   flex-direction: column;
   border: dotted;
   border-width: 1px;
@@ -63,6 +64,19 @@ h3 {
   padding: 5px;
   overflow-wrap: break-word;
   height: 80px;
+}
+
+.review-heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.review-summary {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: medium;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin: 10px 0;
 }
 
 .buttons-container {
