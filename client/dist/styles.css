@@ -14,7 +14,7 @@ body {
   margin: auto;
   border: solid;
   border-width: 1px;
-
+  min-width: 700px;
 }
 
 
@@ -88,6 +88,7 @@ h3 {
 
 img.thumbnail {
   margin: 10px 10px 10px 0;
+  cursor: pointer;
 }
 
 .more-body {
@@ -111,7 +112,6 @@ img.thumbnail {
 .stars-outer {
   display: inline-block;
   position: relative;
-  font-family: 'FontAwesome';
 }
 
 .stars-inner {
@@ -123,6 +123,6 @@ img.thumbnail {
   width: 0;
 }
 
-.stars-inner::before {
-  color: #f8ce0b;
-}
+/* .stars-outer, .stars-inner {
+  font-size: 1.0vw;
+} */
