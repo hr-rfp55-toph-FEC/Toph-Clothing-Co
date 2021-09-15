@@ -30,7 +30,7 @@ const ReviewsList = class extends React.Component {
   getReviews() {
     axios.get('/reviews', {
       params: {
-        product_id: 40345,
+        product_id: 40344,
         count: 100,
         sort: 'relevance',
       },

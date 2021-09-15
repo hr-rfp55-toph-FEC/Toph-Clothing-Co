@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../Stars';
 import Thumbnail from './Thumbnail';
@@ -19,6 +19,17 @@ const ReviewTile = ({ review }) => {
     extraSummaryinBody = '...'.concat(review.summary.slice(57));
   }
 
+  const [showMoreBody, setShowMoreBody] = useState(false);
+  let displayBody;
+  let showMoreSnippet;
+  if (review.body.length <= 250) {
+    displayBody = review.body;
+    showMoreSnippet = <p />;
+  } else {
+    displayBody = review.body.slice(0, 250).concat('...');
+    showMoreSnippet = <p onClick={() => setShowMoreBody(true)} className="more-body">Show more...</p>;
+  }
+
   return (
     <div className="review-tile">
       <div className="review-heading">
@@ -32,9 +43,9 @@ const ReviewTile = ({ review }) => {
       <div className="review-content">
         <div className="review-summary">{displaySummary}</div>
         <div className="review-body">
-          {extraSummaryinBody}
-          <br />
-          {review.body}
+          <p>{extraSummaryinBody}</p>
+          {showMoreBody ? review.body : displayBody}
+          {showMoreSnippet}
           <div className="review-photos">
             {review.photos.map((photo) => (
               <Thumbnail

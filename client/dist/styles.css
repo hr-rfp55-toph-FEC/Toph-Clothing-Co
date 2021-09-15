@@ -86,8 +86,14 @@ h3 {
   text-transform: uppercase;
 }
 
-.thumbnail {
-  margin: 10px 0;
+img.thumbnail {
+  margin: 10px 10px 10px 0;
+}
+
+.more-body {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .buttons-container {
