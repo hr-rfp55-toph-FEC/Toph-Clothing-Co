@@ -6,7 +6,6 @@ import UserOutfit from './UserOutfits/UserOutfit';
 class RelatedItemsAndOutfit extends React.Component {
   constructor(props) {
     super(props);
-    this.server = server;
     this.state = {
       prodsInfo: [],
       prodsStyles: [],
@@ -21,7 +20,7 @@ class RelatedItemsAndOutfit extends React.Component {
   }
 
   getRelatedData(currProdId) {
-    this.server.get(`/related/${currProdId}`)
+    server.get(`/related/${currProdId}`)
       .then((res) => this.setState({
         prodsInfo: res.data[0],
         prodsStyles: res.data[1],
