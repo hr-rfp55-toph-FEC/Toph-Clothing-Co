@@ -60,7 +60,7 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta, isRelatedProducts, isU
           <br />
         </p>
         { Object.keys(prodMeta.ratings).length !== 0
-        && <Stars id={prodMeta.product_id} rating={calcAvgRating(prodMeta)} />}
+        && <Stars id={isRelatedProducts ? prodMeta.product_id : } rating={calcAvgRating(prodMeta)} />}
       </div>
     </div>
   );
