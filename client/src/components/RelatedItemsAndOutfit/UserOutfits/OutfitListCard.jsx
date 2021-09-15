@@ -1,25 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../../Stars';
+import calcAvgRating from '../../helpers/calcAvgRating';
 
 const UserListCard = ({ prodInfo, prodStyles, prodMeta }) => {
   const origPrice = prodStyles.results[1].original_price;
   const salePrice = prodStyles.results[1].sale_price;
-  const calcAvgRating = (metaData) => {
-    const { ratings } = metaData;
-    if (!Object.keys(ratings).length) {
-      return 0;
-    }
-    const weights = Object.keys(ratings);
-    const rates = Object.values(ratings);
-    let weightedSum = 0;
-    let totalRates = 0;
-    weights.forEach((weight, index) => {
-      weightedSum += weight * rates[index];
-      totalRates += Number(rates[index]);
-    });
-    return weightedSum / totalRates;
-  };
 
   const onClickHandler = (e) => {
     //doSomethingUserRelated
@@ -53,7 +39,7 @@ const UserListCard = ({ prodInfo, prodStyles, prodMeta }) => {
           <br />
         </p>
         { Object.keys(prodMeta.ratings).length !== 0
-        && <Stars id={prodMeta.product_id} rating={calcAvgRating(prodMeta)} />}
+        && <Stars id={prodMeta.product_id} rating={calcAvgRating(prodMeta.ratings)} />}
       </div>
     </div>
   );
