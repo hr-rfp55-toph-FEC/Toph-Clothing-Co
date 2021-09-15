@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import axios from 'axios';
 
 import ImageGallery from './ImageGallery';
@@ -6,6 +7,8 @@ import ProductInformation from './ProductInformation';
 import StyleSelector from './StyleSelector';
 import AddToCart from './AddToCart';
 import OverviewAndShare from './OverviewAndShare';
+=======
+>>>>>>> main
 
 class ProductDetail extends React.Component {
   constructor(props) {
@@ -94,6 +97,7 @@ class ProductDetail extends React.Component {
     }
 
     return (
+<<<<<<< HEAD
       <div id="product-main-container">
         <div id="product-upper-container">
           <ImageGallery productStyles={productStyles} />
@@ -109,6 +113,10 @@ class ProductDetail extends React.Component {
           </div>
         </div>
         <OverviewAndShare product={product} />
+=======
+      <div>
+        ProductDetail
+>>>>>>> main
       </div>
     );
   }
