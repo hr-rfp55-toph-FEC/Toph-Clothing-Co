@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const SortReviews = (props) => (
-  <select value="relevance">
-    <option value="relevance">relevance</option>
-    <option value="newest">newest</option>
-    <option value="helpful">helpful</option>
-  </select>
-);
+const SortReviews = () => {
+  const [value, handleChange] = useState('relevance');
+
+  return (
+    <select
+      value={value}
+      onChange={({ target }) => { handleChange(target.value); }}
+    >
+      <option value="relevance">relevance</option>
+      <option value="newest">newest</option>
+      <option value="helpful">helpful</option>
+    </select>
+  );
+};
 
 export default SortReviews;

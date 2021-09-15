@@ -27,7 +27,7 @@ function ReviewStars({ rating, id }) {
 
 ReviewStars.propTypes = {
   rating: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default ReviewStars;
