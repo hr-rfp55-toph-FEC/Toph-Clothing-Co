@@ -27,7 +27,7 @@ const ReviewTile = ({ review }) => {
     showMoreSnippet = <p />;
   } else {
     displayBody = review.body.slice(0, 250).concat('...');
-    showMoreSnippet = <p onClick={() => setShowMoreBody(true)} className="more-body">Show more...</p>;
+    showMoreSnippet = <p onClick={() => setShowMoreBody(true)} className="more-body" role="presentation">Show more...</p>;
   }
 
   return (
