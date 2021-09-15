@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Stars from '../Stars';
-
 
 const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
   const origPrice = prodStyles.results[2].original_price;
   const salePrice = prodStyles.results[2].sale_price;
-  const calcAvgRating = () => {
-
+  const calcAvgRating = (prodMeta) => {
+    const { ratings } = prodMeta;
+    return 4;
   };
+
 
   return (
     <div className="product-list-card">
@@ -36,7 +37,8 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
             : <span>{` $${origPrice}`}</span>}
           <br />
         </p>
-        <Stars id={prodMeta.product_id} rating={5 * Math.random()} />
+        { Object.keys(prodMeta.ratings).length !== 0
+        && <Stars id={prodMeta.product_id} rating={calcAvgRating(prodMeta)} />}
       </div>
     </div>
   );
