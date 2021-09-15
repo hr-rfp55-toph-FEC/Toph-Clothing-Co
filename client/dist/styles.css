@@ -55,7 +55,7 @@ h3 {
 }
 
 .reviews-list-container {
-  max-height: 640px;
+  max-height: 600px;
   overflow-y: scroll;
 }
 
@@ -78,9 +78,12 @@ h3 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: medium;
   font-weight: bold;
-  text-transform: capitalize;
   margin: 10px 0;
   overflow-wrap: break-word;
+}
+
+.review-summary::first-letter {
+  text-transform: uppercase;
 }
 
 .buttons-container {
