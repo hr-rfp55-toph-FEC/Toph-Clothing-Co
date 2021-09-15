@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function Stars({ rating }) {
+function Stars({ rating, id }) {
   useEffect(() => {
     const starPercentage = (rating / 5) * 100;
-    document.querySelector('.stars-inner').style.width = `${starPercentage}%`;
-  }, [rating]);
+    document.getElementById(id).style.width = `${starPercentage}%`;
+  }, [rating, id]);
 
   return (
     <div className="stars-outer">
@@ -14,7 +14,7 @@ function Stars({ rating }) {
       <i className="far fa-star" />
       <i className="far fa-star" />
       <i className="far fa-star" />
-      <div className="stars-inner">
+      <div className="stars-inner" id={id}>
         <i className="fas fa-star" />
         <i className="fas fa-star" />
         <i className="fas fa-star" />

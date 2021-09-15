@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
+import Stars from '../Stars';
+
 
 const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
   const origPrice = prodStyles.results[2].original_price;
   const salePrice = prodStyles.results[2].sale_price;
+  const calcAvgRating = () => {
+
+  };
+
   return (
     <div className="product-list-card">
       <div className="card-image-container">
@@ -22,15 +28,15 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
           <br />
           {salePrice
             ? (
-              <p>
+              <>
                 <span className="sale-price">{`$${salePrice} `}</span>
                 <span className="orig-price-strike">{`$${origPrice}`}</span>
-              </p>
+              </>
             )
-            : <p>{` $${origPrice}`}</p>}
+            : <span>{` $${origPrice}`}</span>}
           <br />
-          -- Rating Stars here --
         </p>
+        <Stars id={prodMeta.product_id} rating={5 * Math.random()} />
       </div>
     </div>
   );
