@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function Stars({ rating, id }) {
+function ReviewStars({ rating, id }) {
   useEffect(() => {
     const starPercentage = (rating / 5) * 100;
     document.getElementById(id).querySelector('.stars-inner').style.width = `${starPercentage}%`;
@@ -25,9 +25,9 @@ function Stars({ rating, id }) {
   );
 }
 
-Stars.propTypes = {
+ReviewStars.propTypes = {
   rating: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
 };
 
-export default Stars;
+export default ReviewStars;
