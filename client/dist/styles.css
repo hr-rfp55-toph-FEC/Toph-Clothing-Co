@@ -86,6 +86,10 @@ h3 {
   text-transform: uppercase;
 }
 
+.thumbnail {
+  margin: 10px 0;
+}
+
 .buttons-container {
   flex-direction: row;
   margin: 20px 0;

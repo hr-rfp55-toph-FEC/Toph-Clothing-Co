@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../Stars';
+import Thumbnail from './Thumbnail';
 
 const ReviewTile = ({ review }) => {
   let readableDate = new Date(review.date);
@@ -34,6 +35,14 @@ const ReviewTile = ({ review }) => {
           {extraSummaryinBody}
           <br />
           {review.body}
+          <div className="review-photos">
+            {review.photos.map((photo) => (
+              <Thumbnail
+                photo={photo}
+                key={photo.id}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
