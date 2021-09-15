@@ -1,12 +1,16 @@
 import React from 'react';
 import Carousel from './Carousel';
 
-const UserOutfit = (props) => {
-  const placeholder = props;
+const UserOutfit = ({prodsInfo, prodsStyles, prodsMeta}) => {
+  const placeholder = prodsInfo;
   return (
     <div>
       User Outfits Here:
-      {/* <Carousel /> */}
+      <Carousel isUserOutfits={true}
+        prodsInfo={prodsInfo}
+        prodsStyles={prodsStyles}
+        prodsMeta={prodsMeta}
+      />
     </div>
   );
 };

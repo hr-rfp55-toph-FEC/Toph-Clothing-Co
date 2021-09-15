@@ -6,7 +6,7 @@ const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta }) => {
   return (
     <div>
       Related Products Here:
-      <Carousel prodsInfo={prodsInfo} prodsStyles={prodsStyles} prodsMeta={prodsMeta} />
+      <Carousel isRelatedProducts={true} prodsInfo={prodsInfo} prodsStyles={prodsStyles} prodsMeta={prodsMeta} />
     </div>
   );
 };

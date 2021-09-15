@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Stars from '../Stars';
 
-const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
+const ProductListCard = ({prodInfo, prodStyles, prodMeta, isRelatedProducts, isUserOutfits}) => {
   const origPrice = prodStyles.results[2].original_price;
   const salePrice = prodStyles.results[2].sale_price;
   const calcAvgRating = (prodMeta) => {
@@ -19,10 +19,22 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
     });
     return weightedSum / totalRates;
   };
+
+  const onClickHandler = (e) => {
+    //if card is related products do this
+    if (isRelatedProducts) {
+    //we need to pass in some prop variable to signify if this is related card or product card
+    } else if (isUserOutfits) {
+
+
+    }
+    //we need to pass in some prop variable to signify if this is related card or product card
+    //also need to change button type depending on what kind of Card it is
+  };
   return (
     <div className="product-list-card">
       <div className="card-image-container">
-        <button type="button" className="card-button">X</button>
+        <button onClick={onClickHandler} type="button" className="card-button">X</button>
         <img
           src={prodStyles.results[2].photos[0].url}
           alt="model-in-clothing"

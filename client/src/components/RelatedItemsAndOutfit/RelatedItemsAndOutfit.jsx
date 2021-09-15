@@ -41,7 +41,11 @@ class RelatedItemsAndOutfit extends React.Component {
           />
         </div>
         <div className="outfit-list-container">
-          <UserOutfit />
+          <UserOutfit
+            prodsInfo={this.state.relProdsInfo}
+            prodsStyles={this.state.relProdsStyles}
+            prodsMeta={this.state.relProdsMeta}
+          />
         </div>
       </div>
     );
