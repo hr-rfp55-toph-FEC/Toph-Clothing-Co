@@ -94,7 +94,6 @@ class ProductDetail extends React.Component {
     }
 
     return (
-<<<<<<< HEAD
       <div id="product-main-container">
         <div id="product-upper-container">
           <ImageGallery productStyles={productStyles} />
@@ -110,10 +109,6 @@ class ProductDetail extends React.Component {
           </div>
         </div>
         <OverviewAndShare product={product} />
-=======
-      <div>
-        ProductDetail
->>>>>>> main
       </div>
     );
   }

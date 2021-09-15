@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.send('Server says hello!');
 });
 
-//Daniel
+// Daniel
 
 app.get('/products', (req, res) => {
   products.getProductList()
