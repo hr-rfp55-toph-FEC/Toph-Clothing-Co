@@ -7,7 +7,7 @@ function OverviewAndShare(props) {
 
   return (
     <div id="overview-and-share">
-      <div id="product-overview">
+      <div id="slogan-description-container">
         <span id="product-slogan"><b>{product.slogan}</b></span>
         <br />
         <span id="product-description">{product.description}</span>

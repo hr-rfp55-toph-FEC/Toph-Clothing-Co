@@ -7,75 +7,66 @@ import StyleSelector from './StyleSelector';
 import AddToCart from './AddToCart';
 import OverviewAndShare from './OverviewAndShare';
 
-class ProductDetail extends React.Component {
+class ProductOverview extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      isFetching: true,
+      expanded: false,
       product: {},
       productStyles: {},
       productReviews: {},
       productRatings: {},
       productStarRatings: 3.7, // Hardcoded for now to play around with it
-      expanded: false,
     };
   }
 
   componentDidMount() {
-    // For now, grabs all products from the API and sets the current product as the 1st one (40344)
-    this.getProductList();
-    // For now, grabs product details only for the 1st product
-    this.getProductStyles(40344);
-    this.getProductReviews(40344);
-    this.getProductRatings(40344);
-  }
-
-  getProductList() {
-    axios.get('/products')
-      .then((result) => {
-        // console.log(result.data);
+    Promise.all([
+      // For now, grab all products from the API and set the current product as the 1st one (40344)
+      ProductOverview.getProductList(),
+      // For now, grab product details only for the 1st product
+      ProductOverview.getProductStyles(40344),
+      ProductOverview.getProductReviews(40344),
+      ProductOverview.getProductRatings(40344),
+    ])
+      .then((results) => {
+        // console.log(results);
         this.setState({
-          product: result.data[0],
+          product: results[0].data[0],
+          productStyles: results[1].data,
+          productReviews: results[2].data,
+          productRatings: results[3].data,
+          isFetching: false,
         });
       })
+      .catch((error) => { throw new Error(`Error in fetching from server: ${error.message}`); });
+  }
+
+  static getProductList() {
+    return axios.get('/products')
       .catch((error) => { throw new Error(`Error in getting product list from server: ${error.message}`); });
   }
 
-  getProductStyles(productID) {
-    axios.get(`/products/${productID}/styles`)
-      .then((result) => {
-        // console.log(result.data);
-        this.setState({
-          productStyles: result.data,
-        });
-      })
+  static getProductStyles(productID) {
+    return axios.get(`/products/${productID}/styles`)
       .catch((error) => { throw new Error(`Error in getting product styles from server: ${error.message}`); });
   }
 
-  getProductReviews(productID) {
-    axios.get(`/reviews/?product_id=${productID}`)
-      .then((result) => {
-        // console.log(result.data);
-        this.setState({
-          productReviews: result.data,
-        });
-      })
+  static getProductReviews(productID) {
+    return axios.get(`/reviews/?product_id=${productID}`)
       .catch((error) => { throw new Error(`Error in getting product reviews from server: ${error.message}`); });
   }
 
-  getProductRatings(productID) {
-    axios.get(`/reviews/meta/?product_id=${productID}`)
-      .then((result) => {
-        // console.log(result.data);
-        this.setState({
-          productRatings: result.data,
-        });
-      })
-      .catch((error) => { throw new Error(`Error in getting product reviews from server: ${error.message}`); });
+  static getProductRatings(productID) {
+    return axios.get(`/reviews/meta/?product_id=${productID}`)
+      .catch((error) => { throw new Error(`Error in getting product ratings from server: ${error.message}`); });
   }
 
   render() {
     const {
+      isFetching,
       expanded,
       product,
       productStyles,
@@ -84,10 +75,14 @@ class ProductDetail extends React.Component {
       productStarRatings,
     } = this.state;
 
+    if (isFetching) {
+      return null;
+    }
+
+    // Placeholder for 'expanded view'
     if (expanded === true) {
       return (
         <div>
-          ProductDetail
           <ImageGallery productStyles={productStyles} />
         </div>
       );
@@ -102,6 +97,7 @@ class ProductDetail extends React.Component {
               product={product}
               productReviews={productReviews}
               productRatings={productRatings}
+              productStyles={productStyles}
               productStarRatings={productStarRatings}
             />
             <StyleSelector />
@@ -114,4 +110,4 @@ class ProductDetail extends React.Component {
   }
 }
 
-export default ProductDetail;
+export default ProductOverview;

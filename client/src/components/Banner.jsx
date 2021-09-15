@@ -9,7 +9,7 @@ function Banner() {
         <input className="product-search" type="text" />
         {/* <img className="magny" src="/assets/magny.png" alt="magny Icon" /> */}
       </div>
-      <div className="banner"> END OF SUMMER SALE! BUY ONE GET ONE 50% OFF!</div>
+      <div className="mini-banner"> END OF SUMMER SALE! BUY ONE GET ONE 50% OFF!</div>
     </div>
   );
 }

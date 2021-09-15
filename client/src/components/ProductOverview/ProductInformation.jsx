@@ -4,11 +4,15 @@ import PropTypes from 'prop-types';
 import Stars from '../Stars';
 
 function ProductInformation(props) {
-  const { product, productReviews, productStarRatings } = props;
+  const {
+    product,
+    productReviews,
+    productStyles,
+    productStarRatings,
+  } = props;
 
-  if (JSON.stringify(product) === '{}') {
-    return null;
-  }
+  const origPrice = productStyles.results[2].original_price;
+  const salePrice = productStyles.results[2].sale_price;
 
   return (
     <div id="product-information" className="product-right-component">
@@ -22,7 +26,16 @@ function ProductInformation(props) {
       </div>
       <div id="product-category">{product.category.toUpperCase()}</div>
       <div id="product-name"><b>{product.name}</b></div>
-      <div id="product-price">Price (fill me in)</div>
+      <div id="product-price-main">
+        {salePrice
+          ? (
+            <>
+              <span className="sale-price">{`$${salePrice} `}</span>
+              <span className="orig-price-strike">{`$${origPrice}`}</span>
+            </>
+          )
+          : <span>{` $${origPrice}`}</span>}
+      </div>
     </div>
   );
 }
@@ -30,6 +43,7 @@ function ProductInformation(props) {
 ProductInformation.propTypes = {
   product: PropTypes.instanceOf(Object).isRequired,
   productReviews: PropTypes.instanceOf(Object).isRequired,
+  productStyles: PropTypes.instanceOf(Object).isRequired,
   productStarRatings: PropTypes.number.isRequired,
 };
 
