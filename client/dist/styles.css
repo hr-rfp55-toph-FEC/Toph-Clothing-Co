@@ -58,12 +58,11 @@ h3 {
 .review-tile {
   display: flex;
   flex-direction: column;
-  border: dotted;
+  border-bottom: solid;
   border-width: 1px;
   margin: 10px 20px;
   padding: 5px;
-  overflow-wrap: break-word;
-  height: 80px;
+  height:fit-content;
 }
 
 .review-heading {
@@ -77,6 +76,7 @@ h3 {
   font-weight: bold;
   text-transform: capitalize;
   margin: 10px 0;
+  overflow-wrap: break-word;
 }
 
 .buttons-container {

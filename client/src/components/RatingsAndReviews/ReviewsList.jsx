@@ -32,7 +32,7 @@ const ReviewsList = class extends React.Component {
       params: {
         product_id: 40344,
         count: 100,
-        sort: 'newest',
+        sort: 'relevance',
       },
     })
       .then((response) => {

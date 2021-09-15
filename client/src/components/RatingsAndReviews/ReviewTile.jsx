@@ -9,12 +9,11 @@ const ReviewTile = ({ review }) => {
       <div className="review-heading">
         <span className="review-stars">
           {review.rating}
-          stars
-          {' '}
+          <> stars</>
         </span>
         <span className="reviewer-info">
           {review.reviewer_name}
-          {', '}
+          <>, </>
           {readableDate.toDateString().slice(4)}
         </span>
       </div>
