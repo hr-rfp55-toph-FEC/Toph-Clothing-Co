@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Stars from '../Stars';
+import Stars from '../../Stars';
 
 const ProductListCard = ({prodInfo, prodStyles, prodMeta, isRelatedProducts, isUserOutfits}) => {
   const origPrice = prodStyles.results[2].original_price;
@@ -60,7 +60,7 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta, isRelatedProducts, isU
           <br />
         </p>
         { Object.keys(prodMeta.ratings).length !== 0
-        && <Stars id={isRelatedProducts ? prodMeta.product_id : } rating={calcAvgRating(prodMeta)} />}
+        && <Stars id={prodMeta.product_id} rating={calcAvgRating(prodMeta)} />}
       </div>
     </div>
   );

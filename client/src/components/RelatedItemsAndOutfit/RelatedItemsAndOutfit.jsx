@@ -1,17 +1,18 @@
 import React from 'react';
-import server from './Axios';
 import axios from 'axios';
-import RelatedProducts from './RelatedProducts';
-import UserOutfit from './UserOutfit';
+import server from './Axios';
+import RelatedProducts from './RelatedProducts/RelatedProducts';
+import UserOutfit from './UserOutfits/UserOutfit';
 
 class RelatedItemsAndOutfit extends React.Component {
   constructor(props) {
     super(props);
     this.server = server;
     this.state = {
-      relProdsInfo: [],
-      relProdsStyles: [],
-      relProdsMeta: [],
+      prodsInfo: [],
+      prodsStyles: [],
+      prodsMeta: [],
+      isFetching: true,
     };
   }
 
@@ -23,30 +24,40 @@ class RelatedItemsAndOutfit extends React.Component {
   getRelatedData(currProdId) {
     this.server.get(`/related/${currProdId}`)
       .then((res) => this.setState({
-        relProdsInfo: res.data[0],
-        relProdsStyles: res.data[1],
-        relProdsMeta: res.data[2]
+        prodsInfo: res.data[0],
+        prodsStyles: res.data[1],
+        prodsMeta: res.data[2],
+        isFetching: false,
       }))
       .catch((err) => console.log(err));
   }
 
   render() {
+    const { isFetching } = this.state;
     return (
-      <div className="related-lists">
-        <div className="related-product-list-container">
-          <RelatedProducts
-            prodsInfo={this.state.relProdsInfo}
-            prodsStyles={this.state.relProdsStyles}
-            prodsMeta={this.state.relProdsMeta}
-          />
-        </div>
-        <div className="outfit-list-container">
-          <UserOutfit
-            prodsInfo={this.state.relProdsInfo}
-            prodsStyles={this.state.relProdsStyles}
-            prodsMeta={this.state.relProdsMeta}
-          />
-        </div>
+      <div>
+        {isFetching ? (
+          <div>Loading...</div>
+        )
+          : (
+            <div className="related-lists">
+              <div className="related-product-list-container">
+                <RelatedProducts
+                  prodsInfo={this.state.prodsInfo}
+                  prodsStyles={this.state.prodsStyles}
+                  prodsMeta={this.state.prodsMeta}
+                />
+              </div>
+              <div className="outfit-list-container">
+                {/* <UserOutfit
+            prodsInfo={this.state.prodsInfo}
+            prodsStyles={this.state.prodsStyles}
+            prodsMeta={this.state.prodsMeta}
+          /> */}
+              </div>
+            </div>
+          )}
+
       </div>
     );
   }

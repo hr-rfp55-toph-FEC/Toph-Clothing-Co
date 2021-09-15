@@ -1,8 +1,8 @@
 import React from 'react';
-import Carousel from './Carousel';
+import Carousel from './OutfitCarousel';
 
 const UserOutfit = ({prodsInfo, prodsStyles, prodsMeta}) => {
-  const placeholder = prodsInfo;
+  console.log(prodsInfo);
   return (
     <div>
       User Outfits Here:
