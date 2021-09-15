@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReviewStars from './ReviewStars';
+import Stars from '../Stars';
 
 const ReviewTile = ({ review }) => {
   const readableDate = new Date(review.date);
@@ -9,7 +9,7 @@ const ReviewTile = ({ review }) => {
     <div className="review-tile">
       <div className="review-heading">
         <span className="review-stars" id={review.review_id}>
-          <ReviewStars rating={review.rating} id={review.review_id} />
+          <Stars rating={review.rating} id={`r${review.review_id}`} />
         </span>
         <span className="reviewer-info">
           {review.reviewer_name}
