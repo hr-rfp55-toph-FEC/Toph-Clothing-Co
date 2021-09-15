@@ -14,7 +14,7 @@ class ProductDetail extends React.Component {
     return (
       <div>
         ProductDetail
-        <Stars rating={3.7230498230436345} />
+        {/* <Stars rating={3.7230498230436345} /> */}
       </div>
     );
   }
