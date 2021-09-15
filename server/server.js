@@ -1,6 +1,5 @@
 const path = require('path');
 const express = require('express'); // npm installed
-const api = require('./helpers/api.js');
 const overview = require('./helpers/overview.js');
 const qna = require('./helpers/qna.js');
 const related = require('./helpers/related.js');
@@ -73,9 +72,13 @@ app.post('/reviews', (req, res) => {
 
 
 
-//Bishal
-
-
+//Bishal - Related Products
+app.get('/related/:id', (req, res) => {
+  const currId = req.params.id;
+  related.genRelProdResObj(currId)
+    .then((data) => res.json(data))
+    .catch((err) => console.log(err));
+});
 
 
 
