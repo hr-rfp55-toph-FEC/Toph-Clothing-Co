@@ -1,11 +1,16 @@
 // import React, { useState } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Stars from '../Stars';
 
 function ProductInformation(props) {
   const { product, productReviews, productRatings } = props;
 
-  // useEffect()
+  useEffect(() => {
+    if (document.getElementById('product-stars') !== null) {
+      // document.getElementById('product-stars').value = null;
+    }
+  });
 
   if (JSON.stringify(product) === '{}') {
     return null;
@@ -14,7 +19,8 @@ function ProductInformation(props) {
   return (
     <div id="product-information" className="product-right-component">
       <div id="product-rating">
-        <span id="product-stars">★★★★★</span>
+        <Stars />
+        {/* <span id="product-stars">★★★★★</span> */}
         <a id="product-reviews" href="#bottom">
           {productReviews.results === undefined || productReviews.results.length === 0
             ? null
