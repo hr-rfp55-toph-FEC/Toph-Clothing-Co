@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import ProductDetail from './ProductDetail/ProductDetail';
 import RelatedItemsAndOutfit from './RelatedItemsAndOutfit/RelatedItemsAndOutfit';
 import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers';
