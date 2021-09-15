@@ -43,9 +43,7 @@ class RelatedItemsAndOutfit extends React.Component {
             <div className="related-lists">
               <div className="related-product-list-container">
                 <RelatedProducts
-                  prodsInfo={this.state.prodsInfo}
-                  prodsStyles={this.state.prodsStyles}
-                  prodsMeta={this.state.prodsMeta}
+                  stateData={this.state}
                 />
               </div>
               <div className="outfit-list-container">

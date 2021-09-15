@@ -1,12 +1,12 @@
 import React from 'react';
 import ProductListCard from './ProductListCard';
 
-const RelatedCarousel = ( {prodsInfo, prodsStyles, prodsMeta} ) => (
+const RelatedCarousel = ({prodsInfo, prodsStyles, prodsMeta}) => (
   <div className="carousel-card-container">
-    {prodsInfo.map((prod, index) => (
+    {prodsInfo.map((prodInfo, index) => (
       <ProductListCard
-        key={prod.id}
-        prodInfo={prod}
+        key={prodInfo.id}
+        prodInfo={prodInfo}
         prodStyles={prodsStyles[index]}
         prodMeta={prodsMeta[index]}
       />

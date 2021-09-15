@@ -1,8 +1,8 @@
 import React from 'react';
 import RelatedCarousel from './RelatedCarousel';
 
-const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta }) => {
-  console.log(prodsInfo);
+const RelatedProducts = ({ stateData }) => {
+  const { prodsInfo, prodsStyles, prodsMeta } = stateData;
   return (
     <div>
       Related Products Here:

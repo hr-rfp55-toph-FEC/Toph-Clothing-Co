@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import Stars from '../../Stars';
 
-const ProductListCard = ({prodInfo, prodStyles, prodMeta, isRelatedProducts, isUserOutfits}) => {
+const UserListCard = ({prodInfo, prodStyles, prodMeta}) => {
   const origPrice = prodStyles.results[2].original_price;
   const salePrice = prodStyles.results[2].sale_price;
   const calcAvgRating = (prodMeta) => {
@@ -21,15 +21,7 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta, isRelatedProducts, isU
   };
 
   const onClickHandler = (e) => {
-    //if card is related products do this
-    if (isRelatedProducts) {
-    //we need to pass in some prop variable to signify if this is related card or product card
-    } else if (isUserOutfits) {
-
-
-    }
-    //we need to pass in some prop variable to signify if this is related card or product card
-    //also need to change button type depending on what kind of Card it is
+    //doSomethingUserRelated
   };
   return (
     <div className="product-list-card">
@@ -66,4 +58,4 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta, isRelatedProducts, isU
   );
 };
 
-export default ProductListCard;
+export default UserListCard;

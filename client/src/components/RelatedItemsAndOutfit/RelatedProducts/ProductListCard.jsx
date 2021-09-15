@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import Stars from '../../Stars';
 
 const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
   const origPrice = prodStyles.results[2].original_price;
   const salePrice = prodStyles.results[2].sale_price;
+
   const calcAvgRating = (metaData) => {
     const { ratings } = metaData;
     if (!Object.keys(ratings).length) {
@@ -19,11 +20,8 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
     });
     return weightedSum / totalRates;
   };
-
   const onClickHandler = (e) => {
-    //if card is related products do this
-    //we need to pass in some prop variable to signify if this is related card or product card
-    //also need to change button type depending on what kind of Card it is
+    //this will do something for ProductListCards
   };
   return (
     <div className="product-list-card">
@@ -54,7 +52,7 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
           <br />
         </p>
         { Object.keys(prodMeta.ratings).length !== 0
-        && <Stars id={prodMeta.product_id} rating={calcAvgRating(prodMeta)} />}
+        && <Stars id={`BG${prodMeta.product_id}`} rating={calcAvgRating(prodMeta)} />}
       </div>
     </div>
   );

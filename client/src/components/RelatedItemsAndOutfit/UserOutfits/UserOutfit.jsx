@@ -1,18 +1,15 @@
 import React from 'react';
-import Carousel from './OutfitCarousel';
+import OutfitCarousel from './OutfitCarousel';
 
-const UserOutfit = ({prodsInfo, prodsStyles, prodsMeta}) => {
-  console.log(prodsInfo);
-  return (
-    <div>
-      User Outfits Here:
-      <Carousel isUserOutfits={true}
-        prodsInfo={prodsInfo}
-        prodsStyles={prodsStyles}
-        prodsMeta={prodsMeta}
-      />
-    </div>
-  );
-};
+const UserOutfit = ({prodsInfo, prodsStyles, prodsMeta}) => (
+  <div>
+    User Outfits Here:
+    <OutfitCarousel isUserOutfits={true}
+      prodsInfo={prodsInfo}
+      prodsStyles={prodsStyles}
+      prodsMeta={prodsMeta}
+    />
+  </div>
+);
 
 export default UserOutfit;
