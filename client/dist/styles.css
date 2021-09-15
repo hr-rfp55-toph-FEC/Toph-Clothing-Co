@@ -57,6 +57,7 @@ body {
   margin: 2px 2px;
   /* object-fit: contain; */
   height: 70%;
+  position: relative;
 }
 
 .card-image-container img {
@@ -65,12 +66,21 @@ body {
   object-fit: cover;
 }
 
+.card-button {
+  /* right: 1px; */
+  z-index: 9000;
+  position: absolute;
+  opacity: 0.8;
+  right: 2%;
+  top: 1%;
+
+}
+
 
 .card-details-container {
   /* display: flex; */
   flex-direction: column;
   flex-wrap: wrap;
-
   font-size: 1vw;
 
 }

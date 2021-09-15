@@ -19,11 +19,10 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
     });
     return weightedSum / totalRates;
   };
-
-
   return (
     <div className="product-list-card">
       <div className="card-image-container">
+        <button type="button" className="card-button">X</button>
         <img
           src={prodStyles.results[2].photos[0].url}
           alt="model-in-clothing"
