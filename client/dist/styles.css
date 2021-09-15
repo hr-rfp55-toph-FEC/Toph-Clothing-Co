@@ -38,9 +38,8 @@ body {
   /* display: flex;
   flex-direction: column; */
   border: 0.1px solid gray;
-  /* height: 400px;
-  width: 700px; */
-  width: 500px;
+  height: 550px;
+  width: 700px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   border-radius: 5px;
@@ -64,15 +63,29 @@ body {
 
 
 .card-details-container {
-  flex-basis: auto;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
+  flex-wrap: wrap;
+
   font-size: 1vw;
+
 }
 
 .category-heading {
   margin: 5px 2px;
   font-size: 1.2vw;
+}
+
+.product-details {
+  margin: 1px 5px 1px 5px;
+}
+
+.sale-price {
+  color: red
+}
+.orig-price-strike {
+  color: gray;
+  text-decoration: line-through;
 }
 
 /* Alex Questions & Answers */

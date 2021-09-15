@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
-  console.log(prodInfo, prodStyles, prodMeta);
+  const origPrice = prodStyles.results[2].original_price;
+  const salePrice = prodStyles.results[2].sale_price;
   return (
     <div className="product-list-card">
       <div className="card-image-container">
         <img
-          src={prodStyles.results[0].photos[0].url}
+          src={prodStyles.results[2].photos[0].url}
           alt="model-in-clothing"
         />
 
       </div>
 
       <div className="card-details-container">
-        <h5 className="category-heading">
+        <h6 className="category-heading">
           {prodInfo.category}
-        </h5>
-        <p>{prodInfo.name}</p>
-        <span>
-          $
-          {prodInfo.default_price}
-        </span>
-        <div>-- Rating Stars here -- </div>
+        </h6>
+        <p className="product-details">
+          {prodInfo.name}
+          <br />
+          {salePrice
+            ? (
+              <p>
+                <span className="sale-price">{`$${salePrice} `}</span>
+                <span className="orig-price-strike">{`$${origPrice}`}</span>
+              </p>
+            )
+            : <p>{` $${origPrice}`}</p>}
+          <br />
+          -- Rating Stars here --
+        </p>
       </div>
     </div>
   );
