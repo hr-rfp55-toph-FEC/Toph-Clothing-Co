@@ -1,5 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
 import axios from 'axios';
 
 import ImageGallery from './ImageGallery';
@@ -7,8 +6,6 @@ import ProductInformation from './ProductInformation';
 import StyleSelector from './StyleSelector';
 import AddToCart from './AddToCart';
 import OverviewAndShare from './OverviewAndShare';
-=======
->>>>>>> main
 
 class ProductDetail extends React.Component {
   constructor(props) {

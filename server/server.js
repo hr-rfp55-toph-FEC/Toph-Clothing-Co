@@ -68,9 +68,6 @@ app.get('/reviews/meta', (req, res) => {
 
 
 
-<<<<<<< HEAD
-// Ya
-=======
 //Ya
 app.get('/reviews', (req, res) => {
   const { product_id, count, sort } = req.query;
@@ -84,7 +81,6 @@ app.get('/reviews', (req, res) => {
       res.end();
     });
 });
->>>>>>> main
 
 app.get('/reviews/meta', (req, res) => {
   const { product_id } = req.query;
