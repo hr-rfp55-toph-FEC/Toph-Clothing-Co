@@ -79,6 +79,7 @@ class ProductDetail extends React.Component {
       productStyles,
       productReviews,
       productRatings,
+      productStarRatings,
     } = this.state;
 
     if (expanded === true) {
@@ -99,6 +100,7 @@ class ProductDetail extends React.Component {
               product={product}
               productReviews={productReviews}
               productRatings={productRatings}
+              productStarRatings={productStarRatings}
             />
             <StyleSelector />
             <AddToCart />

@@ -1,16 +1,10 @@
 // import React, { useState } from 'react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../Stars';
 
 function ProductInformation(props) {
-  const { product, productReviews, productRatings } = props;
-
-  useEffect(() => {
-    if (document.getElementById('product-stars') !== null) {
-      // document.getElementById('product-stars').value = null;
-    }
-  });
+  const { product, productReviews, productStarRatings } = props;
 
   if (JSON.stringify(product) === '{}') {
     return null;
@@ -19,8 +13,7 @@ function ProductInformation(props) {
   return (
     <div id="product-information" className="product-right-component">
       <div id="product-rating">
-        <Stars />
-        {/* <span id="product-stars">★★★★★</span> */}
+        <Stars rating={productStarRatings} />
         <a id="product-reviews" href="#bottom">
           {productReviews.results === undefined || productReviews.results.length === 0
             ? null
@@ -37,7 +30,7 @@ function ProductInformation(props) {
 ProductInformation.propTypes = {
   product: PropTypes.instanceOf(Object).isRequired,
   productReviews: PropTypes.instanceOf(Object).isRequired,
-  productRatings: PropTypes.instanceOf(Object).isRequired,
+  productStarRatings: PropTypes.number.isRequired,
 };
 
 export default ProductInformation;
