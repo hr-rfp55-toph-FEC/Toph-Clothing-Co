@@ -95,3 +95,24 @@ body {
 /* Alex Questions & Answers */
 
 /* Ya Ratings & Reviews */
+
+/* Stars*/
+
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: 'FontAwesome';
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-inner::before {
+  color: #f8ce0b;
+}
