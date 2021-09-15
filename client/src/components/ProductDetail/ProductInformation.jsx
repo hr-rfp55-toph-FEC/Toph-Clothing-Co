@@ -13,7 +13,7 @@ function ProductInformation(props) {
   return (
     <div id="product-information" className="product-right-component">
       <div id="product-rating">
-        {/* <Stars rating={productStarRatings} /> */}
+        <Stars rating={productStarRatings} id={`DH-${product.id}`} />
         <a id="product-reviews" href="#bottom">
           {productReviews.results === undefined || productReviews.results.length === 0
             ? null

@@ -16,7 +16,7 @@ class ProductDetail extends React.Component {
       productStyles: {},
       productReviews: {},
       productRatings: {},
-      productStarRatings: 3.7,
+      productStarRatings: 3.7, // Hardcoded for now to play around with it
       expanded: false,
     };
   }
