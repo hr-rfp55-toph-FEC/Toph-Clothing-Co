@@ -8,7 +8,7 @@ const ReviewTile = ({ review }) => {
   return (
     <div className="review-tile">
       <div className="review-heading">
-        <span className="review-stars" id={review.review_id}>
+        <span className="review-stars">
           <Stars rating={review.rating} id={`r${review.review_id}`} />
         </span>
         <span className="reviewer-info">
