@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import Stars from '../Stars';
 
 const ReviewTile = ({ review }) => {
-  const readableDate = new Date(review.date);
+  let readableDate = new Date(review.date);
+  readableDate = readableDate.toDateString().slice(4);
+  const reviewMonthDay = readableDate.slice(0, -5);
+  const reviewYear = readableDate.slice(-4);
+  const displayUser = review.reviewer_name.concat(', ', reviewMonthDay, ', ', reviewYear);
 
   return (
     <div className="review-tile">
@@ -12,9 +16,7 @@ const ReviewTile = ({ review }) => {
           <Stars rating={review.rating} id={`r${review.review_id}`} />
         </span>
         <span className="reviewer-info">
-          {review.reviewer_name}
-          <>, </>
-          {readableDate.toDateString().slice(4)}
+          {displayUser}
         </span>
       </div>
       <div className="review-content">
