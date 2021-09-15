@@ -104,6 +104,71 @@ body {
 /* Alex Questions & Answers */
 
 /* Ya Ratings & Reviews */
+.ratings-reviews {
+  display: flex;
+  flex-direction: column;
+}
+
+.ratings-reviews-title {
+  display: block;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 20px 20px;
+}
+
+.ratings-reviews-container {
+  flex-direction: row;
+}
+
+.reviews-list {
+  flex-direction: column;
+}
+
+h3 {
+  margin: 20px 20px;
+}
+
+.reviews-list-container {
+  max-height: 600px;
+  overflow-y: scroll;
+}
+
+.review-tile {
+  display: flex;
+  flex-direction: column;
+  border-bottom: solid;
+  border-width: 1px;
+  margin: 10px 20px;
+  padding: 5px;
+  height:fit-content;
+}
+
+.review-heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.review-summary {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: medium;
+  font-weight: bold;
+  margin: 10px 0;
+  overflow-wrap: break-word;
+}
+
+.review-summary::first-letter {
+  text-transform: uppercase;
+}
+
+.buttons-container {
+  flex-direction: row;
+  margin: 20px 0;
+}
+
+#more-reviews, #add-a-review {
+  text-transform: uppercase;
+  margin: 0 20px;
+}
 
 /* Stars*/
 

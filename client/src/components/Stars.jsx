@@ -29,4 +29,8 @@ export default Stars;
 
 Stars.propTypes = {
   rating: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
