@@ -36,6 +36,28 @@ app.get('/products/:product_id/styles', (req, res) => {
     });
 });
 
+app.get('/reviews/', (req, res) => {
+  // console.log('req.query:', req.query);
+  products.getProductReviews(req.query.product_id)
+    .then((result) => {
+      res.status(200).send(result.data);
+    })
+    .catch((error) => {
+      res.status(404).send(error);
+    });
+});
+
+app.get('/reviews/meta', (req, res) => {
+  // console.log('req.query:', req.query);
+  products.getProductRatings(req.query.product_id)
+    .then((result) => {
+      res.status(200).send(result.data);
+    })
+    .catch((error) => {
+      res.status(404).send(error);
+    });
+});
+
 // Alex
 
 

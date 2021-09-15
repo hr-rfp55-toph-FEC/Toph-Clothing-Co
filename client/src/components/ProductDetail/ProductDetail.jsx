@@ -14,7 +14,8 @@ class ProductDetail extends React.Component {
     this.state = {
       product: {},
       productStyles: {},
-      // productRatings: {},
+      productReviews: {},
+      productRatings: {},
       expanded: false,
     };
   }
@@ -22,6 +23,8 @@ class ProductDetail extends React.Component {
   componentDidMount() {
     this.getProductList();
     this.getProductStyles(40344);
+    this.getProductReviews(40344);
+    this.getProductRatings(40344);
   }
 
   getProductList() {
@@ -46,8 +49,36 @@ class ProductDetail extends React.Component {
       .catch((error) => { throw new Error(`Error in getting product styles from server: ${error.message}`); });
   }
 
+  getProductReviews(productID) {
+    axios.get(`/reviews/?product_id=${productID}`)
+      .then((result) => {
+        // console.log(result.data);
+        this.setState({
+          productReviews: result.data,
+        });
+      })
+      .catch((error) => { throw new Error(`Error in getting product reviews from server: ${error.message}`); });
+  }
+
+  getProductRatings(productID) {
+    axios.get(`/reviews/meta/?product_id=${productID}`)
+      .then((result) => {
+        console.log(result.data);
+        this.setState({
+          productRatings: result.data,
+        });
+      })
+      .catch((error) => { throw new Error(`Error in getting product reviews from server: ${error.message}`); });
+  }
+
   render() {
-    const { expanded, product, productStyles } = this.state;
+    const {
+      expanded,
+      product,
+      productStyles,
+      productReviews,
+      productRatings,
+    } = this.state;
 
     if (expanded === true) {
       return (
@@ -63,7 +94,11 @@ class ProductDetail extends React.Component {
         <div id="product-upper-container">
           <ImageGallery productStyles={productStyles} />
           <div id="product-right-container">
-            <ProductInformation product={product} />
+            <ProductInformation
+              product={product}
+              productReviews={productReviews}
+              productRatings={productRatings}
+            />
             <StyleSelector />
             <AddToCart />
           </div>
