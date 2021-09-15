@@ -22,7 +22,9 @@ class ProductDetail extends React.Component {
   }
 
   componentDidMount() {
+    // For now, grabs all products from the API and sets the current product as the 1st one (40344)
     this.getProductList();
+    // For now, grabs product details only for the 1st product
     this.getProductStyles(40344);
     this.getProductReviews(40344);
     this.getProductRatings(40344);
@@ -64,7 +66,7 @@ class ProductDetail extends React.Component {
   getProductRatings(productID) {
     axios.get(`/reviews/meta/?product_id=${productID}`)
       .then((result) => {
-        console.log(result.data);
+        // console.log(result.data);
         this.setState({
           productRatings: result.data,
         });
