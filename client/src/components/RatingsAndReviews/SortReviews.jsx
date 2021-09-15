@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 const SortReviews = () => {
-  const [value, handleChange] = useState('relevance');
+  const [value, setValue] = useState('relevance');
 
   return (
     <select
       value={value}
-      onChange={({ target }) => { handleChange(target.value); }}
+      onChange={({ target }) => { setValue(target.value); }}
     >
       <option value="relevance">relevance</option>
       <option value="newest">newest</option>
