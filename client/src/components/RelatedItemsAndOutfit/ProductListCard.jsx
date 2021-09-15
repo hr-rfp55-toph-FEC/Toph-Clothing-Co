@@ -6,7 +6,18 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
   const salePrice = prodStyles.results[2].sale_price;
   const calcAvgRating = (prodMeta) => {
     const { ratings } = prodMeta;
-    return 4;
+    if (!Object.keys(ratings).length) {
+      return 0;
+    }
+    const weights = Object.keys(ratings);
+    const rates = Object.values(ratings);
+    let weightedSum = 0;
+    let totalRates = 0;
+    weights.forEach((weight, index) => {
+      weightedSum += weight * rates[index];
+      totalRates += Number(rates[index]);
+    });
+    return weightedSum / totalRates;
   };
 
 
