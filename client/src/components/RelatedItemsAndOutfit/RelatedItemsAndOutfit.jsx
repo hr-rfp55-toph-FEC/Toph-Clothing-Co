@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import server from './Axios';
 import RelatedProducts from './RelatedProducts/RelatedProducts';
 import UserOutfit from './UserOutfits/UserOutfit';
@@ -33,7 +32,9 @@ class RelatedItemsAndOutfit extends React.Component {
   }
 
   render() {
-    const { isFetching } = this.state;
+    const {
+      isFetching, prodsInfo, prodsMeta, prodsStyles,
+    } = this.state;
     return (
       <div>
         {isFetching ? (
@@ -43,15 +44,17 @@ class RelatedItemsAndOutfit extends React.Component {
             <div className="related-lists">
               <div className="related-product-list-container">
                 <RelatedProducts
-                  stateData={this.state}
+                  prodsInfo={prodsInfo}
+                  prodsStyles={prodsStyles}
+                  prodsMeta={prodsMeta}
                 />
               </div>
               <div className="outfit-list-container">
-                {/* <UserOutfit
-            prodsInfo={this.state.prodsInfo}
-            prodsStyles={this.state.prodsStyles}
-            prodsMeta={this.state.prodsMeta}
-          /> */}
+                <UserOutfit
+                  prodsInfo={prodsInfo}
+                  prodsStyles={prodsStyles}
+                  prodsMeta={prodsMeta}
+                />
               </div>
             </div>
           )}
@@ -60,9 +63,5 @@ class RelatedItemsAndOutfit extends React.Component {
     );
   }
 }
-
-// RelatedItemsAndOutfit.propTypes = {
-//   relatedProdsInfo: PropTypes.array
-// };
 
 export default RelatedItemsAndOutfit;

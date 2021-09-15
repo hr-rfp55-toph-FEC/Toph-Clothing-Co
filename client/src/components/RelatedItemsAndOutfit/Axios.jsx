@@ -6,4 +6,3 @@ const server = axios.create({
 });
 
 export default server;
-// ESLint didnt like me importing and using this without the this keyword in a class Method.

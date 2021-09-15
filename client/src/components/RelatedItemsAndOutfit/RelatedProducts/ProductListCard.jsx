@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Stars from '../../Stars';
 
-const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
+const ProductListCard = ({ prodInfo, prodStyles, prodMeta }) => {
   const origPrice = prodStyles.results[2].original_price;
   const salePrice = prodStyles.results[2].sale_price;
 
@@ -56,6 +57,12 @@ const ProductListCard = ({prodInfo, prodStyles, prodMeta}) => {
       </div>
     </div>
   );
+};
+
+ProductListCard.propTypes = {
+  prodInfo: PropTypes.isInstanceOf(Array).isRequired,
+  prodStyles: PropTypes.isInstanceOf(Array).isRequired,
+  prodMeta: PropTypes.isInstanceOf(Array).isRequired,
 };
 
 export default ProductListCard;

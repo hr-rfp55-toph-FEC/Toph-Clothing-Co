@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Stars from '../../Stars';
 
-const UserListCard = ({prodInfo, prodStyles, prodMeta}) => {
-  const origPrice = prodStyles.results[2].original_price;
-  const salePrice = prodStyles.results[2].sale_price;
-  const calcAvgRating = (prodMeta) => {
-    const { ratings } = prodMeta;
+const UserListCard = ({ prodInfo, prodStyles, prodMeta }) => {
+  const origPrice = prodStyles.results[1].original_price;
+  const salePrice = prodStyles.results[1].sale_price;
+  const calcAvgRating = (metaData) => {
+    const { ratings } = metaData;
     if (!Object.keys(ratings).length) {
       return 0;
     }
@@ -26,9 +27,9 @@ const UserListCard = ({prodInfo, prodStyles, prodMeta}) => {
   return (
     <div className="product-list-card">
       <div className="card-image-container">
-        <button onClick={onClickHandler} type="button" className="card-button">X</button>
+        <button onClick={onClickHandler} type="button" className="card-button">+</button>
         <img
-          src={prodStyles.results[2].photos[0].url}
+          src={prodStyles.results[1].photos[0].url}
           alt="model-in-clothing"
         />
 
@@ -56,6 +57,12 @@ const UserListCard = ({prodInfo, prodStyles, prodMeta}) => {
       </div>
     </div>
   );
+};
+
+UserListCard.propTypes = {
+  prodInfo: PropTypes.isInstanceOf(Array).isRequired,
+  prodStyles: PropTypes.isInstanceOf(Array).isRequired,
+  prodMeta: PropTypes.isInstanceOf(Array).isRequired,
 };
 
 export default UserListCard;
