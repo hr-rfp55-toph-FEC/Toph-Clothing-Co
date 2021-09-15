@@ -9,6 +9,15 @@ const ReviewTile = ({ review }) => {
   const reviewYear = readableDate.slice(-4);
   const displayUser = review.reviewer_name.concat(', ', reviewMonthDay, ', ', reviewYear);
 
+  let displaySummary;
+  let extraSummaryinBody;
+  if (review.summary.length <= 60) {
+    displaySummary = review.summary;
+  } else {
+    displaySummary = review.summary.slice(0, 57).concat('...');
+    extraSummaryinBody = '...'.concat(review.summary.slice(57));
+  }
+
   return (
     <div className="review-tile">
       <div className="review-heading">
@@ -20,8 +29,12 @@ const ReviewTile = ({ review }) => {
         </span>
       </div>
       <div className="review-content">
-        <div className="review-summary">{review.summary}</div>
-        <div className="review-body">{review.body}</div>
+        <div className="review-summary">{displaySummary}</div>
+        <div className="review-body">
+          {extraSummaryinBody}
+          <br />
+          {review.body}
+        </div>
       </div>
     </div>
   );
