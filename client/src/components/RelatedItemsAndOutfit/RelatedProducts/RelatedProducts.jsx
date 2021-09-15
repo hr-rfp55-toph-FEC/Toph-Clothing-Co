@@ -10,9 +10,9 @@ const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta }) => (
 );
 
 RelatedProducts.propTypes = {
-  prodsInfo: PropTypes.isInstanceOf(Array).isRequired,
-  prodsStyles: PropTypes.isInstanceOf(Array).isRequired,
-  prodsMeta: PropTypes.isInstanceOf(Array).isRequired,
+  prodsInfo: PropTypes.instanceOf(Array).isRequired,
+  prodsStyles: PropTypes.instanceOf(Array).isRequired,
+  prodsMeta: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default RelatedProducts;

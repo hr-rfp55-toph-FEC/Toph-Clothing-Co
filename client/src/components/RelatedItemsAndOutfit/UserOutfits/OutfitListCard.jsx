@@ -60,9 +60,9 @@ const UserListCard = ({ prodInfo, prodStyles, prodMeta }) => {
 };
 
 UserListCard.propTypes = {
-  prodInfo: PropTypes.isInstanceOf(Array).isRequired,
-  prodStyles: PropTypes.isInstanceOf(Array).isRequired,
-  prodMeta: PropTypes.isInstanceOf(Array).isRequired,
+  prodInfo: PropTypes.instanceOf(Array).isRequired,
+  prodStyles: PropTypes.instanceOf(Array).isRequired,
+  prodMeta: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default UserListCard;
