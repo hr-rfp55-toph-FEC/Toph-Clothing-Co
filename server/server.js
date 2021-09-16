@@ -121,7 +121,12 @@ app.get('/related/:id', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-
+app.get('/currentProduct/:id', (req, res) => {
+  const currId = req.params.id;
+  related.getCurrrentProductsInfo(currId)
+    .then((data) => res.json(data))
+    .catch((err) => console.log(err));
+});
 
 app.listen(9000, () => {
   console.log('connected to server at 9000');

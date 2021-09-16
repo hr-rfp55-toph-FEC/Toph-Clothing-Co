@@ -7,6 +7,7 @@ class RelatedItemsAndOutfit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currItem: [],
       prodsInfo: [],
       prodsStyles: [],
       prodsMeta: [],
@@ -16,7 +17,16 @@ class RelatedItemsAndOutfit extends React.Component {
 
   componentDidMount() {
     const currProdId = '40344';
+    this.getCurrProdData(currProdId);
     this.getRelatedData(currProdId);
+  }
+
+  getCurrProdData(currProdId) {
+    server.get(`/currentProduct/${currProdId}`)
+      .then((res) => this.setState({
+        currItem: res.data,
+      }))
+      .catch((err) => console.log(err));
   }
 
   getRelatedData(currProdId) {

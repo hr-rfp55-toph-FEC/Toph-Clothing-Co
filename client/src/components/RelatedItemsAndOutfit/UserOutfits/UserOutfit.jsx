@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import Carousel from './Carousel';
 import OutfitListCard from './OutfitListCard';
 
-const UserOutfit = ({ prodsInfo, prodsStyles, prodsMeta }) => (
+const UserOutfit = ({ prodsInfo, prodsStyles, prodsMeta }) => {
+
+
+  return (
   <div className="outfit-list-container">
     Related Products Here:
     <Carousel prodsInfo={prodsInfo} prodsStyles={prodsStyles} prodsMeta={prodsMeta} >
@@ -17,7 +20,7 @@ const UserOutfit = ({ prodsInfo, prodsStyles, prodsMeta }) => (
       ))}
     </Carousel>
   </div>
-);
+)}
 
 UserOutfit.propTypes = {
   prodsInfo: PropTypes.instanceOf(Object).isRequired,
