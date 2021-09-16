@@ -58,6 +58,6 @@ const Carousel = ({ prodsInfo, children }) => {
 
 Carousel.propTypes = {
   prodsInfo: PropTypes.instanceOf(Object).isRequired,
-  children: PropTypes.isRequired,
+  children: PropTypes.instanceOf(Array).isRequired,
 };
 export default Carousel;
