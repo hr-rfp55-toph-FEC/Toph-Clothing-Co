@@ -1,6 +1,17 @@
 * {
   box-sizing: border-box;
 }
+/*
+Clamping our HTML here will define the minimum font size unit for our app when shrunken and when full-screen.
+All children will have > 1 rem. That way, they'll never be smaller than the minimum bounds we're defining here.
+
+MIN should be the minimum font size for all elements when shrunken
+VALUE should be the minimum font size for all elements when full-screen
+MAX doesn't matter too much right now
+*/
+html {
+  font-size: clamp(8px, 0.6vw, 24px);
+}
 
 /*
 Clamping our HTML here will define the minimum font size unit for our app when shrunken and when full-screen.
@@ -16,9 +27,6 @@ html {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  /*
-  shrink width of body
-  */
 }
 
 #app {
@@ -338,26 +346,99 @@ body {
 
 /* Bishal Related Products & Outfit Creation */
 
-/* Cards CSS */
-.carousel-card-container {
+/* Related Products Container */
+
+.related-product-list-container, .outfit-list-container {
+  max-width: fit-content;
+  margin: 30px auto 15px auto;
+}
+
+
+/* Carousel CSS */
+.carousel-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-wrapper {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.carousel-content-wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-content {
+  display: flex;
+  gap: 10px 10px;
+  transition: all 250ms linear;
+
+}
+
+
+/* .carousel-content > * {
+  width: 100%;
+  flex-shrink: 0;
+  flex-grow: 1;
+} */
+
+
+.left-arrow, .right-arrow {
+  position:absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 25px;
+  background-color:whitesmoke;
+  border: none;
+  transition: background-color 0.4s, width 0.3s, height 0.3s, opacity 0.6s;
+  opacity: 0.6;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+}
+
+.left-arrow {
+  left: -20px;
+}
+
+.right-arrow {
+  right: -20px;
+}
+
+.arrow-hover:hover {
+  background-color:rgb(177, 197, 177);
+  width: 42px;
+  height: 42px;
+  opacity: 0.9;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+/* .carousel-card-container {
   display: flex;
   gap: 10px 10px;
   width: 90%;
   margin: auto;
   justify-content: space-between;
-  /* overflow-y: scroll; */
 
-}
+} */
+
+/* Cards CSS */
 
 .product-list-card {
-  /* display: flex;
-  flex-direction: column; */
   border: 0.1px solid gray;
-  height: 550px;
-  width: 700px;
+  height: 350px;
+  width: 250px;
+  min-width: 250px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  border-radius: 5px;
 }
 
 .product-list-card:hover {
@@ -392,14 +473,16 @@ body {
   /* display: flex; */
   flex-direction: column;
   flex-wrap: wrap;
-  font-size: 1vw;
+  font-size: calc(5px + 0.8vw);
 
 }
 
 .category-heading {
   margin: 5px 2px;
-  font-size: 1.2vw;
+  font-size: calc(5px + 0.8vw);
+  color:gray;
 }
+
 
 .product-details {
   margin: 1px 5px 1px 5px;
