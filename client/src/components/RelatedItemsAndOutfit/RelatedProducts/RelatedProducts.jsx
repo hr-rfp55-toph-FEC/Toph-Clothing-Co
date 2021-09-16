@@ -1,11 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RelatedCarousel from './RelatedCarousel';
+import Carousel from './Carousel';
+import ProductListCard from './ProductListCard';
 
 const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta }) => (
-  <div>
+  <div className="related-product-list-container">
     Related Products Here:
-    <RelatedCarousel prodsInfo={prodsInfo} prodsStyles={prodsStyles} prodsMeta={prodsMeta} />
+    <Carousel prodsInfo={prodsInfo} prodsStyles={prodsStyles} prodsMeta={prodsMeta}>
+      {prodsInfo.map((prodInfo, index) => (
+        <ProductListCard
+          key={prodInfo.id}
+          prodInfo={prodInfo}
+          prodStyles={prodsStyles[index]}
+          prodMeta={prodsMeta[index]}
+        />
+      ))}
+    </Carousel>
   </div>
 );
 

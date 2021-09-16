@@ -7,6 +7,7 @@ class RelatedItemsAndOutfit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currProd: [],
       prodsInfo: [],
       prodsStyles: [],
       prodsMeta: [],
@@ -16,7 +17,16 @@ class RelatedItemsAndOutfit extends React.Component {
 
   componentDidMount() {
     const currProdId = '40344';
+    this.getCurrProdData(currProdId);
     this.getRelatedData(currProdId);
+  }
+
+  getCurrProdData(currProdId) {
+    server.get(`/currentProduct/${currProdId}`)
+      .then((res) => this.setState({
+        currProd: res.data,
+      }))
+      .catch((err) => console.log(err));
   }
 
   getRelatedData(currProdId) {
@@ -32,7 +42,7 @@ class RelatedItemsAndOutfit extends React.Component {
 
   render() {
     const {
-      isFetching, prodsInfo, prodsMeta, prodsStyles,
+      isFetching, prodsInfo, prodsMeta, prodsStyles, currProd
     } = this.state;
     return (
       <div>
@@ -41,20 +51,17 @@ class RelatedItemsAndOutfit extends React.Component {
         )
           : (
             <div className="related-lists">
-              <div className="related-product-list-container">
-                <RelatedProducts
-                  prodsInfo={prodsInfo}
-                  prodsStyles={prodsStyles}
-                  prodsMeta={prodsMeta}
-                />
-              </div>
-              <div className="outfit-list-container">
-                <UserOutfit
-                  prodsInfo={prodsInfo}
-                  prodsStyles={prodsStyles}
-                  prodsMeta={prodsMeta}
-                />
-              </div>
+              <RelatedProducts
+                prodsInfo={prodsInfo}
+                prodsStyles={prodsStyles}
+                prodsMeta={prodsMeta}
+              />
+              <UserOutfit
+                currProd={currProd}
+                prodsInfo={prodsInfo}
+                prodsStyles={prodsStyles}
+                prodsMeta={prodsMeta}
+              />
             </div>
           )}
 
