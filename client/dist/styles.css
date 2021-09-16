@@ -149,11 +149,18 @@ body {
   margin-right: 2%;
 } */
 
-#product-reviews {
-  margin-left: 2%;
+#product-reviews, #product-reviews-no-stars {
   font-size: 1.4vmin;
   text-decoration: underline;
   color: black;
+}
+
+#product-reviews {
+  margin-left: 2%;
+}
+
+#product-reviews-no-stars {
+  margin-left: 0%;
 }
 
 #product-category {

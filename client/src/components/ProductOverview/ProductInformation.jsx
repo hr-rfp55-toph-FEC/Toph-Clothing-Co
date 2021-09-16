@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-// import React from 'react';
+// import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../Stars';
 import calcAvgRating from '../helpers/calcAvgRating';
@@ -12,7 +12,8 @@ function ProductInformation(props) {
     productStyles,
   } = props;
 
-  const [starsHidden, useStarsHidden] = useState(Object.keys(productRatings.ratings).length !== 0);
+  const showStars = Object.keys(productRatings.ratings).length !== 0;
+  const productReviewsID = showStars ? 'product-reviews' : 'product-reviews-no-stars';
 
   const origPrice = productStyles.results[2].original_price;
   const salePrice = productStyles.results[2].sale_price;
@@ -20,9 +21,9 @@ function ProductInformation(props) {
   return (
     <div id="product-information" className="product-right-component">
       <div id="product-rating">
-        { starsHidden
+        { showStars
         && <Stars rating={calcAvgRating(productRatings.ratings)} id={`DH-${product.id}`} />}
-        <a id="product-reviews" href="#bottom">
+        <a id={productReviewsID} href="#bottom">
           {productReviews.results === undefined || productReviews.results.length === 0
             ? null
             : `Read all ${productReviews.results.length} reviews`}
