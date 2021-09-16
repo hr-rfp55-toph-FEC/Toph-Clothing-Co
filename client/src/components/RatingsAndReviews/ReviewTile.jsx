@@ -24,10 +24,20 @@ const ReviewTile = ({ review }) => {
   let showMoreSnippet;
   if (review.body.length <= 250) {
     displayBody = review.body;
-    showMoreSnippet = <p />;
   } else {
     displayBody = review.body.slice(0, 250).concat('...');
     showMoreSnippet = <p onClick={() => setShowMoreBody(true)} className="more-body" role="presentation">Show more...</p>;
+  }
+
+  let recommendProduct;
+  if (review.recommend) {
+    recommendProduct = (
+      <p className="recommend-product">
+        <i className="fas fa-check" />
+        {' '}
+        I recommend this product
+      </p>
+    );
   }
 
   return (
@@ -46,6 +56,7 @@ const ReviewTile = ({ review }) => {
           <p>{extraSummaryinBody}</p>
           {showMoreBody ? review.body : displayBody}
           {showMoreSnippet}
+          {recommendProduct}
           <div className="review-photos">
             {review.photos.map((photo) => (
               <Thumbnail
