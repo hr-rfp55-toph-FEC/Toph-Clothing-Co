@@ -68,7 +68,7 @@ app.get('/reviews/meta', (req, res) => {
 
 
 
-//Ya
+// Ya
 app.get('/reviews', (req, res) => {
   const { product_id, count, sort } = req.query;
   reviews.getReviews({ product_id, count, sort })
@@ -95,6 +95,17 @@ app.get('/reviews/meta', (req, res) => {
     });
 });
 
+app.put('/reviews/:review_id/helpful', (req, res) => {
+  reviews.markHelpful(req.params.review_id)
+    .then(() => {
+      res.status(204).end();
+    })
+    .catch((err) => {
+      console.error(err);
+      res.end();
+    });
+});
+
 app.post('/reviews', (req, res) => {
   const {
     product_id, rating, summary, body, recommend, name, email, photos, characteristics,
@@ -113,7 +124,7 @@ app.post('/reviews', (req, res) => {
 
 
 
-//Bishal - Related Products
+// Bishal - Related Products
 app.get('/related/:id', (req, res) => {
   const currId = req.params.id;
   related.genRelProdResObj(currId)
