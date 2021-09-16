@@ -3,17 +3,14 @@ import PropTypes from 'prop-types';
 import Stars from '../../Stars';
 import calcAvgRating from '../../helpers/calcAvgRating';
 
-const UserListCard = ({ prodInfo, prodStyles, prodMeta }) => {
+const UserListCard = ({ prodInfo, prodStyles, prodMeta, removeOutfit }) => {
   const origPrice = prodStyles.results[1].original_price;
   const salePrice = prodStyles.results[1].sale_price;
 
-  const onClickHandler = (e) => {
-    //doSomethingUserRelated
-  };
   return (
     <div className="product-list-card">
       <div className="card-image-container">
-        <button onClick={onClickHandler} type="button" className="card-button">+</button>
+        <button onClick={(e) => removeOutfit(prodInfo.id)} type="button" className="card-button">X</button>
         <img
           src={prodStyles.results[1].photos[0].url}
           alt="model-in-clothing"
@@ -49,6 +46,7 @@ UserListCard.propTypes = {
   prodInfo: PropTypes.instanceOf(Object).isRequired,
   prodStyles: PropTypes.instanceOf(Object).isRequired,
   prodMeta: PropTypes.instanceOf(Object).isRequired,
+  removeOutfit: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default UserListCard;

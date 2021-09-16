@@ -21,6 +21,18 @@ module.exports = {
     .then((data) => data)
     .catch((err) => console.log(err)),
 
+  getCurrrentProductsInfo: (currProdId) => {
+    const getProductInfo = module.exports.getProductInfo(currProdId).then((res) => res.data);
+    const getProductStyles = module.exports.getProductStyles(currProdId).then((res) => res.data);
+    const getProductMeta = module.exports.getProductMeta(currProdId).then((res) => res.data);
+    // const promises = [module.exports.getProductInfo(currProdId),
+    //   module.exports.getProductStyles(currProdId),
+    //   module.exports.getProductMeta(currProdId)];
+    const promises = [getProductInfo, getProductStyles, getProductMeta];
+    return Promise.all(promises)
+      .catch((err) => console.log(err));
+  },
+
   getRelatedProductsInfo: (currProdId) => module.exports.getRelatedProductIds(currProdId)
     .then((relatedIds) => relatedIds.data.map((id) => module.exports.getProductInfo(id)))
     .then((relatedProdsInfoPromises) => Promise.all(relatedProdsInfoPromises))
