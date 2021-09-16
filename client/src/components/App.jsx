@@ -1,6 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import ProductDetail from './ProductDetail/ProductDetail';
+import Banner from './Banner';
+import ProductOverview from './ProductOverview/ProductOverview';
 import RelatedItemsAndOutfit from './RelatedItemsAndOutfit/RelatedItemsAndOutfit';
 import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers';
 import RatingsAndReviews from './RatingsAndReviews/RatingsAndReviews';
@@ -17,8 +18,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="app-container">
-        <div>`TitleBar`</div>
-        <ProductDetail />
+        <Banner />
+        <ProductOverview />
         <RelatedItemsAndOutfit />
         <QuestionsAndAnswers />
         <RatingsAndReviews />
