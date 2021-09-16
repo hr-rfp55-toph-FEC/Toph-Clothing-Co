@@ -170,7 +170,7 @@ body {
 }
 
 #product-name {
-  font-size: 5vmin;
+  font-size: 1.5rem;
   margin: 2% 0;
 }
 
@@ -403,7 +403,8 @@ body {
 }
 
 h3 {
-  margin: 20px 20px;
+  margin: 20px;
+  font-size: 1.6rem;
 }
 
 .reviews-list-container {
@@ -418,7 +419,7 @@ h3 {
   border-width: 1px;
   margin: 10px 20px;
   padding: 5px;
-  height:fit-content;
+  height: fit-content;
 }
 
 .review-heading {
@@ -426,9 +427,13 @@ h3 {
   justify-content: space-between;
 }
 
+.review-stars {
+  font-size: 1.6rem;
+}
+
 .review-summary {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: medium;
+  font-size: 1.8rem;
   font-weight: bold;
   margin: 10px 0;
   overflow-wrap: break-word;
@@ -436,6 +441,76 @@ h3 {
 
 .review-summary::first-letter {
   text-transform: uppercase;
+}
+
+.reviewer-info, .review-body {
+  font-size: 1.6rem;
+}
+
+img.thumbnail {
+  margin: 10px 10px 10px 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+img.thumbnail:hover {
+  opacity: 0.7;
+}
+
+.modal-background {
+  display: block;
+  position: fixed;
+  z-index: 9000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  width: fit-content;
+  height: fit-content;
+}
+
+.close-modal {
+  position: absolute;
+  color: #f1f1f1;
+  top: 15px;
+  right: 35px;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#modal-caption {
+  color: #f1f1f1;
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.more-body, .helpful-yes {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sales-response {
+  background-color: lightgray;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.response-heading {
+  padding: 0 10px 10px 0;
+  font-weight: bold;
 }
 
 .buttons-container {
@@ -453,7 +528,6 @@ h3 {
 .stars-outer {
   display: inline-block;
   position: relative;
-  font-family: 'FontAwesome';
 }
 
 .stars-inner {
@@ -465,10 +539,6 @@ h3 {
   width: 0;
 }
 
-.stars-inner::before {
-  color: #f8ce0b;
-}
-
-.stars-outer, .stars-inner {
-  font-size: 0.9vw;
-}
+/* .stars-outer, .stars-inner {
+  font-size: 1.0vw;
+} */
