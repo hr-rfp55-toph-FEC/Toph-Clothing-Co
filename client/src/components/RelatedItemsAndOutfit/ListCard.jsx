@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Stars from '../../Stars';
-import calcAvgRating from '../../helpers/calcAvgRating';
+import Stars from '../Stars';
+import calcAvgRating from '../helpers/calcAvgRating';
 
-const ProductListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
-  const origPrice = prodStyles.results[2].original_price;
-  const salePrice = prodStyles.results[2].sale_price;
+const ListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
+  const origPrice = prodStyles.results[0].original_price;
+  const salePrice = prodStyles.results[0].sale_price;
+  console.log(origPrice, salePrice, prodInfo.id);
 
   const onClickHandler = (e) => {
     //This will open the comparison Modal
@@ -16,7 +17,7 @@ const ProductListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
         {/* <button onClick={onClickHandler} type="button" className="card-button">X</button> */}
         { children }
         <img
-          src={prodStyles.results[2].photos[0].url}
+          src={prodStyles.results[0].photos[0].url}
           alt="model-in-clothing"
         />
 
@@ -46,10 +47,11 @@ const ProductListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
   );
 };
 
-ProductListCard.propTypes = {
+ListCard.propTypes = {
   prodInfo: PropTypes.instanceOf(Object).isRequired,
   prodStyles: PropTypes.instanceOf(Object).isRequired,
   prodMeta: PropTypes.instanceOf(Object).isRequired,
+  children: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default ProductListCard;
+export default ListCard;
