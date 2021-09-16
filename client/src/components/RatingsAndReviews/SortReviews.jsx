@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const SortReviews = () => {
-  const [value, setValue] = useState('relevance');
-
-  return (
+const SortReviews = ({ sortHandler, sortBy }) => (
+  <label>
+    sorted by:
     <select
-      value={value}
-      onChange={({ target }) => { setValue(target.value); }}
+      value={sortBy}
+      onChange={({ target }) => { sortHandler(target.value); }}
     >
-      <option value="relevance">relevance</option>
+      <option value="relevant">relevant</option>
       <option value="newest">newest</option>
       <option value="helpful">helpful</option>
     </select>
-  );
+  </label>
+);
+
+SortReviews.propTypes = {
+  sortHandler: PropTypes.instanceOf(Function).isRequired,
+  sortBy: PropTypes.string.isRequired,
 };
 
 export default SortReviews;
