@@ -1,9 +1,16 @@
 * {
   box-sizing: border-box;
 }
+/*
+Clamping our HTML here will define the minimum font size unit for our app when shrunken and when full-screen.
+All children will have > 1 rem. That way, they'll never be smaller than the minimum bounds we're defining here.
 
+MIN should be the minimum font size for all elements when shrunken
+VALUE should be the minimum font size for all elements when full-screen
+MAX doesn't matter too much right now
+*/
 html {
-  font-size: clamp(12px, 0.6vw, 36px);
+  font-size: clamp(8px, 0.6vw, 24px);
 }
 
 body {
@@ -266,7 +273,7 @@ body {
 
 .left-arrow, .right-arrow {
   position:absolute;
-  z-index: 9000;
+  z-index: 1;
   top: 50%;
   transform: translateY(-50%);
   width: 38px;
@@ -277,7 +284,6 @@ body {
   transition: background-color 0.4s, width 0.3s, height 0.3s, opacity 0.6s;
   opacity: 0.6;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-
 
 }
 
