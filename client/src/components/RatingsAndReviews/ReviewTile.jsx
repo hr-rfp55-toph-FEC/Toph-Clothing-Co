@@ -51,25 +51,16 @@ const ReviewTile = ({ review, getReviews }) => {
     );
   }
 
-  const [helpful, setHelpful] = useState(review.helpfulness);
   function markAsHelpful(reviewId) {
-    // console.log(`i was clicked, reviewId is: ${reviewId}`);
     axios.put(`/reviews/${reviewId}/helpful`, {
       params: {
         review_id: reviewId,
       },
     })
       .then(() => {
-        // console.log('i heard back from axios put request');
-        setHelpful(helpful + 1);
-      })
-      .then(() => {
-        // console.log(helpful);
         getReviews();
-        // console.log('i got the new review results');
       })
       .catch((err) => {
-        // console.log('i am in catch error block');
         console.error(err);
       });
   }
