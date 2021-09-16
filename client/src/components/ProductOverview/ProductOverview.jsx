@@ -20,6 +20,8 @@ class ProductOverview extends React.Component {
       productRatings: {},
       productStyleSelected: {},
     };
+
+    this.selectProductStyle = this.selectProductStyle.bind(this);
   }
 
   componentDidMount() {
@@ -65,6 +67,10 @@ class ProductOverview extends React.Component {
       .catch((error) => { throw new Error(`Error in getting product ratings from server: ${error.message}`); });
   }
 
+  selectProductStyle(style) {
+    this.setState({ productStyleSelected: style });
+  }
+
   render() {
     const {
       isFetching,
@@ -103,6 +109,7 @@ class ProductOverview extends React.Component {
             <StyleSelector
               productStyles={productStyles}
               productStyleSelected={productStyleSelected}
+              selectProductStyle={this.selectProductStyle}
             />
             <AddToCart />
           </div>

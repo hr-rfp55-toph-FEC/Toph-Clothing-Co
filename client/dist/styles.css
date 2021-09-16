@@ -199,6 +199,7 @@ body {
   margin: 2% 0;
 }
 
+/* Note: We can limit children to a max font size while still applying the root clamp (e.g. font-size: min(3rem, 26px);) */
 #product-name {
   font-size: 3rem;
   margin: 2% 0;

@@ -7,6 +7,7 @@ function StyleSelector(props) {
   const {
     productStyles,
     productStyleSelected,
+    selectProductStyle,
   } = props;
 
   console.log('productStyles', productStyles);
@@ -24,6 +25,8 @@ function StyleSelector(props) {
           <StyleThumbnail
             style={style}
             key={style.style_id}
+            productStyleSelected={productStyleSelected}
+            selectProductStyle={selectProductStyle}
           />
         ))}
       </div>
@@ -34,6 +37,7 @@ function StyleSelector(props) {
 StyleSelector.propTypes = {
   productStyles: PropTypes.instanceOf(Object).isRequired,
   productStyleSelected: PropTypes.instanceOf(Object).isRequired,
+  selectProductStyle: PropTypes.func.isRequired,
 };
 
 export default StyleSelector;

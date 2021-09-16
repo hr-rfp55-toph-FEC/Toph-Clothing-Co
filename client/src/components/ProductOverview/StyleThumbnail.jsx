@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 function StyleThumbnail(props) {
   const {
     style,
+    productStyleSelected,
+    selectProductStyle,
   } = props;
 
-  const [checkState, setCheckState] = useState(false);
+  const isStyleSelected = productStyleSelected.style_id === style.style_id;
 
-  console.log('style', style);
+  // console.log('style', style);
 
-  function handlecheck() {
+  function handleSelectThumbnail() {
     // console.log('click');
-    setCheckState(!checkState);
+    selectProductStyle(style);
   }
 
   let styleThumbnailContainerClass = 'product-style-thumbnail-container';
-  styleThumbnailContainerClass += checkState ? '-checked' : '';
+  styleThumbnailContainerClass += isStyleSelected ? '-checked' : '';
   let styleThumbnailClass = 'product-style-thumbnail';
-  styleThumbnailClass += checkState ? '-checked' : '';
+  styleThumbnailClass += isStyleSelected ? '-checked' : '';
 
   // Default product style thumbnail to 1st photo within that style
   return (
-    <div onClick={handlecheck} onKeyPress={handlecheck} role="menuitem" tabIndex="0" className={styleThumbnailContainerClass}>
-      {checkState && <div className="checky-check">✓</div>}
+    <div onClick={handleSelectThumbnail} onKeyPress={handleSelectThumbnail} role="menuitem" tabIndex="0" className={styleThumbnailContainerClass}>
+      {isStyleSelected && <div className="checky-check">✓</div>}
       <img className={styleThumbnailClass} src={style.photos[0].thumbnail_url} alt="Style Thumbnail" />
     </div>
   );
@@ -31,6 +33,8 @@ function StyleThumbnail(props) {
 
 StyleThumbnail.propTypes = {
   style: PropTypes.instanceOf(Object).isRequired,
+  productStyleSelected: PropTypes.instanceOf(Object).isRequired,
+  selectProductStyle: PropTypes.func.isRequired,
 };
 
 export default StyleThumbnail;
