@@ -82,6 +82,7 @@ const ReviewsList = class extends React.Component {
             <ReviewTile
               review={review}
               key={review.review_id}
+              getReviews={this.getReviews}
             />
           ))}
         </div>
