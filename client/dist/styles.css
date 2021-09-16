@@ -14,6 +14,7 @@ body {
   margin: auto;
   border: solid;
   border-width: 1px;
+  min-width: 700px;
 }
 
 
@@ -22,7 +23,201 @@ body {
   flex-direction: column;
 }
 
+/* Banner and Title */
+
+.titlebar {
+  /* background: rgb(17,83,61);
+  background: radial-gradient(circle, rgba(17,83,61,1) 0%, rgba(25,184,141,0.43040966386554624) 0%, rgba(17,83,61,1) 100%);  color: rgb(51, 92, 86); */
+  height: 10vh;
+  background: rgb(20,98,78);
+  background: radial-gradient(circle, rgba(20,98,78,1) 0%, rgba(19,97,77,1) 21%, rgba(34,48,46,1) 82%);
+  background-image: url('https://t3.ftcdn.net/jpg/04/36/93/58/360_F_436935867_bFgV6XSbklEyrOlwvps8WNo1SerlSnuu.jpg');
+  background-size: cover;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* Logo option 1 */
+.logo {
+  height: 8vh;
+  margin-left: 45%;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+}
+
+/* Logo option 2 */
+.logo2 {
+  height: 9vh;
+  margin-left: 1.5%;
+  margin-bottom: 0.5%;
+}
+
+.product-search {
+  margin-right: 5%;
+  height: 1.5vw;
+  width: 15%;
+  color: #ffffff;
+  font-size: 0.7vw;
+  background-color: transparent;
+  border: 0.1vw solid transparent;
+  border-bottom: 0.1vw solid #b3f8f2;
+  /* padding-bottom: 0.1vw; */
+  margin-bottom: 1.1%;
+  background-image: url("/assets/magny.png");
+  background-repeat: no-repeat;
+  background-size: 0.7vw 0.7vw;
+  background-position: 98% center;
+}
+
+.mini-banner {
+  text-align: center;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-style: italic;
+  font-size: 0.7vw;
+  color: rgb(90, 90, 90);
+  padding: 0.4% 0;
+  letter-spacing: 0.03vw;
+  background: rgb(208,213,211);
+  background: linear-gradient(180deg, rgba(208,213,211,1) 12%, rgba(242,240,240,1) 42%, rgba(228,236,234,1) 68%);
+}
+
 /* Daniel Product Detail & Overview */
+
+#product-upper-container {
+  display: flex;
+}
+
+#image-gallery {
+  width: 60%;
+  height: 65vh;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#image-main {
+    flex-shrink: 10;
+    width: 100%;
+    /* max-width: 100%;
+    max-height: 100%; */
+}
+
+#product-right-container {
+  width: 40%;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* .product-right-component {
+  height: 33.33%;
+  font-size: 1vw;
+} */
+
+#product-information {
+  height: 33.33%;
+}
+
+#style-selector {
+  height: 33.33%;
+  font-size: 1vw;
+};
+
+#add-to-cart {
+  height: 33.33%;
+  font-size: 1vw;
+};
+
+/* bug: Need to have this block here otherwise #product-reviews block doesn't work... */
+#product-rating {
+  font-size: 10vw;
+}
+
+/* #product-stars {
+  font-size: 1vw;
+  letter-spacing: 0.1vw;
+  margin-right: 2%;
+} */
+
+#product-reviews {
+  margin-left: 2%;
+  font-size: .7vw;
+  text-decoration: underline;
+  color: black;
+}
+
+#product-category {
+  font-size: 1vw;
+  margin: 2% 0;
+}
+
+#product-name {
+  font-size: 5vmin;
+  margin: 2% 0;
+}
+
+#product-price-main {
+  font-size: 1vw;
+  margin: 6% 0;
+}
+
+#overview-and-share {
+  display: flex;
+  height: 25vh;
+  padding: 3% 3%;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#slogan-description-container {
+  width: 65%;
+  padding: 2% 5%;
+  border-right: 1px solid gray;
+
+}
+
+#product-social {
+  width: 35%;
+  padding: 2% 5%;
+  border-left: 1px solid gray;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#product-slogan {
+  font-size: 1vw;
+  line-height: 3vw;
+}
+
+#product-description {
+  font-size: 0.8vw;
+}
+
+.social-icon {
+  height: 25%;
+}
+
+.sale-price {
+  color: red
+}
+
+.orig-price-strike {
+  margin-left: 2%;
+  color: gray;
+  text-decoration: line-through;
+}
 
 /* Bishal Related Products & Outfit Creation */
 
@@ -189,4 +384,8 @@ h3 {
 
 .stars-inner::before {
   color: #f8ce0b;
+}
+
+.stars-outer, .stars-inner {
+  font-size: 0.9vw;
 }

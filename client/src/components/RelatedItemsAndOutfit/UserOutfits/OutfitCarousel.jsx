@@ -16,9 +16,9 @@ const OutfitCarousel = ({ prodsInfo, prodsStyles, prodsMeta }) => (
 );
 
 OutfitCarousel.propTypes = {
-  prodsInfo: PropTypes.instanceOf(Array).isRequired,
-  prodsStyles: PropTypes.instanceOf(Array).isRequired,
-  prodsMeta: PropTypes.instanceOf(Array).isRequired,
+  prodsInfo: PropTypes.instanceOf(Object).isRequired,
+  prodsStyles: PropTypes.instanceOf(Object).isRequired,
+  prodsMeta: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default OutfitCarousel;
