@@ -56,18 +56,18 @@ body {
 
 .product-search {
   margin-right: 5%;
-  height: 1.5vw;
+  height: 3vmin;
   width: 15%;
   color: #ffffff;
-  font-size: 0.7vw;
+  font-size: 1.4vmin;
   background-color: transparent;
-  border: 0.1vw solid transparent;
-  border-bottom: 0.1vw solid #b3f8f2;
+  border: 0.2vmin solid transparent;
+  border-bottom: 0.2vmin solid #b3f8f2;
   /* padding-bottom: 0.1vw; */
   margin-bottom: 1.1%;
   background-image: url("/assets/magny.png");
   background-repeat: no-repeat;
-  background-size: 0.7vw 0.7vw;
+  background-size: 1.4vmin 1.4vmin;
   background-position: 98% center;
 }
 
@@ -75,10 +75,10 @@ body {
   text-align: center;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-style: italic;
-  font-size: 0.7vw;
+  font-size: 1.4vmin;
   color: rgb(90, 90, 90);
   padding: 0.4% 0;
-  letter-spacing: 0.03vw;
+  letter-spacing: 0.06vmin;
   background: rgb(208,213,211);
   background: linear-gradient(180deg, rgba(208,213,211,1) 12%, rgba(242,240,240,1) 42%, rgba(228,236,234,1) 68%);
 }
@@ -130,17 +130,17 @@ body {
 
 #style-selector {
   height: 33.33%;
-  font-size: 1vw;
+  font-size: 2vmin;
 };
 
 #add-to-cart {
   height: 33.33%;
-  font-size: 1vw;
+  font-size: 2vmin;
 };
 
 /* bug: Need to have this block here otherwise #product-reviews block doesn't work... */
 #product-rating {
-  font-size: 10vw;
+  font-size: 20vmin;
 }
 
 /* #product-stars {
@@ -151,23 +151,23 @@ body {
 
 #product-reviews {
   margin-left: 2%;
-  font-size: .7vw;
+  font-size: 1.4vmin;
   text-decoration: underline;
   color: black;
 }
 
 #product-category {
-  font-size: 1vw;
+  font-size: 2vmin;
   margin: 2% 0;
 }
 
 #product-name {
-  font-size: 5vmin;
+  font-size: 4vmin;
   margin: 2% 0;
 }
 
 #product-price-main {
-  font-size: 1vw;
+  font-size: 2vmin;
   margin: 6% 0;
 }
 
@@ -197,12 +197,12 @@ body {
 }
 
 #product-slogan {
-  font-size: 1vw;
-  line-height: 3vw;
+  font-size: 2vmin;
+  line-height: 6vmin;
 }
 
 #product-description {
-  font-size: 0.8vw;
+  font-size: 1.6vmin;
 }
 
 .social-icon {
@@ -387,5 +387,5 @@ h3 {
 }
 
 .stars-outer, .stars-inner {
-  font-size: 0.9vw;
+  font-size: 1.8vmin;
 }
