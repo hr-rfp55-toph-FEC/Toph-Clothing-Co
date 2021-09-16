@@ -3,21 +3,24 @@ import PropTypes from 'prop-types';
 
 const Thumbnail = ({ photo }) => {
   const [showModal, setShowModal] = useState(false);
-  const thumbnail = (<img className="thumbnail" src={photo.url} alt="review-attachment" width="100px" role="presentation" onClick={() => setShowModal(true)} />);
 
-  const modal = (
-    <div id="review-modal" className="modal-background">
-      <span className="close-modal" onClick={() => setShowModal(false)} role="presentation">x</span>
-      <img className="modal-content" src={photo.url} alt="fullsize" />
-      <div id="modal-caption">User photo</div>
-    </div>
-  );
-
+  let modal = <></>;
   if (showModal) {
-    return modal;
+    modal = (
+      <div id="review-modal" className="modal-background">
+        <span className="close-modal" onClick={() => setShowModal(false)} role="presentation">x</span>
+        <img className="modal-content" src={photo.url} alt="fullsize" />
+        <div id="modal-caption">User photo</div>
+      </div>
+    );
   }
 
-  return thumbnail;
+  return (
+    <span>
+      <img className="thumbnail" src={photo.url} alt="review-attachment" width="100px" role="presentation" onClick={() => setShowModal(true)} />
+      {modal}
+    </span>
+  );
 };
 
 Thumbnail.propTypes = {
