@@ -357,7 +357,40 @@ h3 {
 
 img.thumbnail {
   margin: 10px 10px 10px 0;
+  border-radius: 5px;
   cursor: pointer;
+}
+img.thumbnail:hover {
+  opacity: 0.7;
+}
+
+.modal-container {
+  position: fixed;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 90%;
+  height: 90%;
+  overflow: auto;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.closeimg {
+  color:black;
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#modal-caption {
+  margin: auto;
+  display: block;
+  text-align: center;
+  padding: 10px 0;
 }
 
 .more-body {
@@ -374,16 +407,6 @@ img.thumbnail {
 #more-reviews, #add-a-review {
   text-transform: uppercase;
   margin: 0 20px;
-}
-
-.modal-container {
-  position: fixed;
-  background-color: white;
-  top: 50%;
-  left: 50%;
-  z-index: 9000;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 /* Stars*/
