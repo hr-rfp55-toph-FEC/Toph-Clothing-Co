@@ -18,7 +18,6 @@ class ProductOverview extends React.Component {
       productStyles: {},
       productReviews: {},
       productRatings: {},
-      productStarRatings: 3.7, // Hardcoded for now to play around with it
     };
   }
 
@@ -32,7 +31,7 @@ class ProductOverview extends React.Component {
       ProductOverview.getProductRatings(40344),
     ])
       .then((results) => {
-        // console.log(results);
+        console.log(results);
         this.setState({
           product: results[0].data[0],
           productStyles: results[1].data,
@@ -72,7 +71,6 @@ class ProductOverview extends React.Component {
       productStyles,
       productReviews,
       productRatings,
-      productStarRatings,
     } = this.state;
 
     if (isFetching) {
@@ -98,7 +96,6 @@ class ProductOverview extends React.Component {
               productReviews={productReviews}
               productRatings={productRatings}
               productStyles={productStyles}
-              productStarRatings={productStarRatings}
             />
             <StyleSelector />
             <AddToCart />

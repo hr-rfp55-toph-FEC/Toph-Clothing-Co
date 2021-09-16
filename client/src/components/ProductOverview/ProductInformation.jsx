@@ -1,15 +1,18 @@
-// import React, { useState } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
+// import React from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../Stars';
+import calcAvgRating from '../helpers/calcAvgRating';
 
 function ProductInformation(props) {
   const {
     product,
     productReviews,
+    productRatings,
     productStyles,
-    productStarRatings,
   } = props;
+
+  const [starsHidden, useStarsHidden] = useState(Object.keys(productRatings.ratings).length !== 0);
 
   const origPrice = productStyles.results[2].original_price;
   const salePrice = productStyles.results[2].sale_price;
@@ -17,7 +20,8 @@ function ProductInformation(props) {
   return (
     <div id="product-information" className="product-right-component">
       <div id="product-rating">
-        <Stars rating={productStarRatings} id={`DH-${product.id}`} />
+        { starsHidden
+        && <Stars rating={calcAvgRating(productRatings.ratings)} id={`DH-${product.id}`} />}
         <a id="product-reviews" href="#bottom">
           {productReviews.results === undefined || productReviews.results.length === 0
             ? null
@@ -43,8 +47,8 @@ function ProductInformation(props) {
 ProductInformation.propTypes = {
   product: PropTypes.instanceOf(Object).isRequired,
   productReviews: PropTypes.instanceOf(Object).isRequired,
+  productRatings: PropTypes.instanceOf(Object).isRequired,
   productStyles: PropTypes.instanceOf(Object).isRequired,
-  productStarRatings: PropTypes.number.isRequired,
 };
 
 export default ProductInformation;
