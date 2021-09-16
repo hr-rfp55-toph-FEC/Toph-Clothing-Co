@@ -7,7 +7,7 @@ class RelatedItemsAndOutfit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currItem: [],
+      currProd: [],
       prodsInfo: [],
       prodsStyles: [],
       prodsMeta: [],
@@ -24,7 +24,7 @@ class RelatedItemsAndOutfit extends React.Component {
   getCurrProdData(currProdId) {
     server.get(`/currentProduct/${currProdId}`)
       .then((res) => this.setState({
-        currItem: res.data,
+        currProd: res.data,
       }))
       .catch((err) => console.log(err));
   }
@@ -42,7 +42,7 @@ class RelatedItemsAndOutfit extends React.Component {
 
   render() {
     const {
-      isFetching, prodsInfo, prodsMeta, prodsStyles,
+      isFetching, prodsInfo, prodsMeta, prodsStyles, currProd
     } = this.state;
     return (
       <div>
@@ -57,6 +57,7 @@ class RelatedItemsAndOutfit extends React.Component {
                 prodsMeta={prodsMeta}
               />
               <UserOutfit
+                currProd={currProd}
                 prodsInfo={prodsInfo}
                 prodsStyles={prodsStyles}
                 prodsMeta={prodsMeta}
