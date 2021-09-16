@@ -125,6 +125,7 @@ ReviewTile.propTypes = {
     reviewer_name: PropTypes.string,
     summary: PropTypes.string,
   }).isRequired,
+  getReviews: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default ReviewTile;
