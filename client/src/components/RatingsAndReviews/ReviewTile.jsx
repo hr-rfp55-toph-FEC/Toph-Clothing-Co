@@ -65,7 +65,7 @@ const ReviewTile = ({ review, getReviews }) => {
       });
   }
   const helpfulSection = (
-    <div className="helpful-review">
+    <p className="helpful-review">
       Helpful?
       {' '}
       <span className="helpful-yes" onClick={() => markAsHelpful(review.review_id)} role="presentation">Yes</span>
@@ -75,7 +75,7 @@ const ReviewTile = ({ review, getReviews }) => {
         {review.helpfulness}
         )
       </span>
-    </div>
+    </p>
   );
 
   return (
