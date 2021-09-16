@@ -4,7 +4,7 @@
 
 /*
 Clamping our HTML here will define the minimum font size unit for our app when shrunken and when full-screen.
-All children will have > 1 rem. That way, they'll never be smaller than the minimum bounds we're definine here.
+All children will have > 1 rem. That way, they'll never be smaller than the minimum bounds we're defining here.
 
 MIN should be the minimum font size for all elements when shrunken
 VALUE should be the minimum font size for all elements when full-screen
