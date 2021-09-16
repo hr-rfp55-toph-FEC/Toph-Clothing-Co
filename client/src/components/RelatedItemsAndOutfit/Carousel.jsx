@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const Carousel = ({ prodsInfo, children }) => {
+const Carousel = ({ children }) => {
   const [currIndex, setCurrIndex] = useState(0);
-  const [length, setLength] = useState(prodsInfo.length);
+  const [length, setLength] = useState(children.length);
+  const mappedChildrenLength = children[1].length;
   useEffect(() => {
-    setLength(prodsInfo.length);
-  }, [prodsInfo]);
+    if (mappedChildrenLength > length) {
+      setLength(mappedChildrenLength);
+    }
+  }, [children, length, mappedChildrenLength]);
 
   const showPrev = () => {
     if (currIndex === 0) {
@@ -57,7 +60,6 @@ const Carousel = ({ prodsInfo, children }) => {
 };
 
 Carousel.propTypes = {
-  prodsInfo: PropTypes.instanceOf(Object).isRequired,
   children: PropTypes.instanceOf(Array).isRequired,
 };
 export default Carousel;
