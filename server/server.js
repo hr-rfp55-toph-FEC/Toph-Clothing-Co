@@ -118,7 +118,7 @@ app.get('/related/:id', (req, res) => {
   const currId = req.params.id;
   related.genRelProdResObj(currId)
     .then((data) => res.json(data))
-    .catch((err) => console.log(err));
+    .catch(() => res.end());
 });
 
 app.get('/currentProduct/:id', (req, res) => {
