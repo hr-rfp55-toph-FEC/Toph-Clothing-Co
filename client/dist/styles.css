@@ -13,10 +13,6 @@ html {
   font-size: clamp(8px, 0.6vw, 24px);
 }
 
-html {
-  font-size: clamp(8px, 0.6vw, 24px);
-}
-
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
