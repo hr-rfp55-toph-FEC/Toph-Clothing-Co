@@ -8,6 +8,13 @@ const UserOutfit = ({ currProd, prodsInfo, prodsStyles, prodsMeta }) => {
   const [currOutfits, setCurrOutfits] = useState([]);
   const addToCurrOutfits = (e) => {
     e.preventDefault();
+    let alreadyAdded = false;
+    currOutfits.forEach((outfit) => {
+      if (outfit[0].id === currProd[0].id) {
+        alreadyAdded = true;
+      }
+    });
+    if (alreadyAdded) return;
     setCurrOutfits((oldList) => [...oldList, currProd]);
   };
   const removeOutfit = (idToRemove) => {
