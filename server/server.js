@@ -113,9 +113,13 @@ app.post('/reviews', (req, res) => {
 
 
 
-// Bishal
-
-
+//Bishal - Related Products
+app.get('/related/:id', (req, res) => {
+  const currId = req.params.id;
+  related.genRelProdResObj(currId)
+    .then((data) => res.json(data))
+    .catch((err) => console.log(err));
+});
 
 
 

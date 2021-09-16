@@ -1,4 +1,4 @@
-const api = require('./api.js');
+const { api } = require('./api.js');
 
 function getProductList() {
   return api.get('/products');
