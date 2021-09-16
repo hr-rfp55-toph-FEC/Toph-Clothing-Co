@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Thumbnail = ({ photo }) => {
   const [showModal, setShowModal] = useState(false);
 
-  let modal = <></>;
+  let modal;
   if (showModal) {
     modal = (
       <div id="review-modal" className="modal-background">

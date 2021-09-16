@@ -335,7 +335,7 @@ h3 {
   border-width: 1px;
   margin: 10px 20px;
   padding: 5px;
-  height:fit-content;
+  height: fit-content;
 }
 
 .review-heading {
@@ -395,6 +395,7 @@ img.thumbnail:hover {
 }
 
 #modal-caption {
+  color: #f1f1f1;
   margin: auto;
   display: block;
   width: 80%;
@@ -407,6 +408,17 @@ img.thumbnail:hover {
   color: blue;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.sales-response {
+  background-color: lightgray;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.response-heading {
+  padding: 0 10px 10px 0;
+  font-weight: bold;
 }
 
 .buttons-container {

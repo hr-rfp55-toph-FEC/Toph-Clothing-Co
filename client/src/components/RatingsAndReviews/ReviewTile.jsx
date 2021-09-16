@@ -40,6 +40,16 @@ const ReviewTile = ({ review }) => {
     );
   }
 
+  let salesResponse;
+  if (review.response) {
+    salesResponse = (
+      <div className="sales-response">
+        <div className="response-heading">Response: </div>
+        {review.response}
+      </div>
+    );
+  }
+
   return (
     <div className="review-tile">
       <div className="review-heading">
@@ -57,6 +67,7 @@ const ReviewTile = ({ review }) => {
           {showMoreBody ? review.body : displayBody}
           {showMoreSnippet}
           {recommendProduct}
+          {salesResponse}
           <div className="review-photos">
             {review.photos.map((photo) => (
               <Thumbnail
@@ -80,6 +91,7 @@ ReviewTile.propTypes = {
     photos: PropTypes.instanceOf(Array),
     rating: PropTypes.number,
     recommend: PropTypes.bool,
+    response: PropTypes.string,
     review_id: PropTypes.number,
     reviewer_name: PropTypes.string,
     summary: PropTypes.string,
