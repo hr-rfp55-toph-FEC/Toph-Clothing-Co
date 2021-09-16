@@ -414,7 +414,7 @@ img.thumbnail:hover {
   padding: 10px 0;
 }
 
-.more-body {
+.more-body, .helpful-yes {
   color: blue;
   text-decoration: underline;
   cursor: pointer;
