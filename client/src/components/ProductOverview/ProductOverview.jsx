@@ -18,6 +18,7 @@ class ProductOverview extends React.Component {
       productStyles: {},
       productReviews: {},
       productRatings: {},
+      productStyleSelected: {},
     };
   }
 
@@ -37,6 +38,7 @@ class ProductOverview extends React.Component {
           productStyles: results[1].data,
           productReviews: results[2].data,
           productRatings: results[3].data,
+          productStyleSelected: results[1].data.results[0],
           isFetching: false,
         });
       })
@@ -71,6 +73,7 @@ class ProductOverview extends React.Component {
       productStyles,
       productReviews,
       productRatings,
+      productStyleSelected,
     } = this.state;
 
     if (isFetching) {
@@ -89,7 +92,7 @@ class ProductOverview extends React.Component {
     return (
       <div id="product-main-container">
         <div id="product-upper-container">
-          <ImageGallery productStyles={productStyles} />
+          <ImageGallery productStyleSelected={productStyleSelected} />
           <div id="product-right-container">
             <ProductInformation
               product={product}
@@ -97,7 +100,10 @@ class ProductOverview extends React.Component {
               productRatings={productRatings}
               productStyles={productStyles}
             />
-            <StyleSelector />
+            <StyleSelector
+              productStyles={productStyles}
+              productStyleSelected={productStyleSelected}
+            />
             <AddToCart />
           </div>
         </div>

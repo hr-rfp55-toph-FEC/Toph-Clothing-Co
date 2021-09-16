@@ -92,6 +92,7 @@ body {
 #image-gallery {
   width: 60%;
   height: 65vh;
+  min-height: 80vh;
   border-color: black;
   border-style: solid;
   border-width: 1px;
@@ -126,16 +127,21 @@ body {
 
 #product-information {
   height: 33.33%;
+  min-height: 80px;
 }
 
 #style-selector {
   height: 33.33%;
   font-size: 2vmin;
+  min-height: 80px;
+
 };
 
 #add-to-cart {
   height: 33.33%;
   font-size: 2vmin;
+  min-height: 80px;
+
 };
 
 /* bug: Need to have this block here otherwise #product-reviews block doesn't work... */
@@ -178,6 +184,16 @@ body {
   margin: 6% 0;
 }
 
+/* .sale-price {
+  color: red
+}
+
+.orig-price-strike {
+  margin-left: 2%;
+  color: gray;
+  text-decoration: line-through;
+} */
+
 #overview-and-share {
   display: flex;
   height: 25vh;
@@ -216,15 +232,52 @@ body {
   height: 25%;
 }
 
-.sale-price {
-  color: red
+/* Style Selector */
+
+/* Thumbnail option 1: Distored; zoom is good */
+
+#style-selector-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5%;
+  width: 35vmin;
 }
 
-.orig-price-strike {
-  margin-left: 2%;
-  color: gray;
-  text-decoration: line-through;
+.product-style-thumbnail-container {
+  margin-top: 7%;
 }
+
+.product-style-thumbnail {
+  border: 1px solid;
+  border-radius: 50%;
+  width: 6.5vmin;
+  height: 6.5vmin;
+}
+
+/* Thumbnail option 2: Not distorted; centered but zoomed in too much */
+
+/* #style-selector-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2%;
+}
+
+.product-style-thumbnail-container {
+  border: 1px solid;
+  width: 7vmin;
+  height: 7vmin;
+  border-radius: 50%;
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.product-style-thumbnail {
+  border-radius: 50%;
+} */
 
 /* Bishal Related Products & Outfit Creation */
 
