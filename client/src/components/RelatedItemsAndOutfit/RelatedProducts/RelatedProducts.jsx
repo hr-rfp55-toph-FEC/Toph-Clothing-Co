@@ -4,13 +4,15 @@ import RelatedCarousel from './RelatedCarousel';
 import Carousel from './Carousel';
 
 const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta }) => (
-  <div>
+  <div className="related-products-container">
     Related Products Here:
     {/* <RelatedCarousel prodsInfo={prodsInfo}
     prodsStyles={prodsStyles} prodsMeta={prodsMeta} /> */}
-    <Carousel>
-
-    </Carousel>
+    <Carousel
+      prodsInfo={prodsInfo}
+      prodsStyles={prodsStyles}
+      prodsMeta={prodsMeta}
+    />
   </div>
 );
 
