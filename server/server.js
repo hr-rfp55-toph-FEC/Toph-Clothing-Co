@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express'); // npm installed
-const overview = require('./helpers/overview.js');
+const api = require('./helpers/api.js');
+const products = require('./helpers/products.js');
 const qna = require('./helpers/qna.js');
 const related = require('./helpers/related.js');
 const reviews = require('./helpers/reviews.js');
@@ -16,12 +17,52 @@ app.get('/', (req, res) => {
   res.send('Server says hello!');
 });
 
-//Daniel
+// Daniel
 
+app.get('/products', (req, res) => {
+  products.getProductList()
+    .then((result) => {
+      res.status(200).send(result.data);
+    })
+    .catch((error) => {
+      res.status(404).send(error);
+    });
+});
 
+app.get('/products/:product_id/styles', (req, res) => {
+  // console.log('req.params:', req.params);
+  products.getProductStyles(req.params.product_id)
+    .then((result) => {
+      res.status(200).send(result.data);
+    })
+    .catch((error) => {
+      res.status(404).send(error);
+    });
+});
 
+app.get('/reviews/', (req, res) => {
+  // console.log('req.query:', req.query);
+  products.getProductReviews(req.query.product_id)
+    .then((result) => {
+      res.status(200).send(result.data);
+    })
+    .catch((error) => {
+      res.status(404).send(error);
+    });
+});
 
-//Alex
+app.get('/reviews/meta', (req, res) => {
+  // console.log('req.query:', req.query);
+  products.getProductRatings(req.query.product_id)
+    .then((result) => {
+      res.status(200).send(result.data);
+    })
+    .catch((error) => {
+      res.status(404).send(error);
+    });
+});
+
+// Alex
 
 
 
