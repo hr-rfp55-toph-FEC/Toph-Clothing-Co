@@ -3,7 +3,7 @@
 }
 
 html {
-  font-size: clamp(12px, 2vw, 36px);
+  font-size: clamp(12px, 0.6vw, 36px);
 }
 
 body {
