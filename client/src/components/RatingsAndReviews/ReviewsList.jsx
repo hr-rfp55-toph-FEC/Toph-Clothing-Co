@@ -19,9 +19,7 @@ const ReviewsList = class extends React.Component {
     this.updateDisplay = this.updateDisplay.bind(this);
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.sortClickHandler = this.sortClickHandler.bind(this);
-    this.sortByHelpful = this.sortByHelpful.bind(this);
-    this.sortByNewest = this.sortByNewest.bind(this);
-    this.sortByRelevant = this.sortByRelevant.bind(this);
+    this.sortByOption = this.sortByOption.bind(this);
   }
 
   componentDidMount() {
@@ -32,15 +30,7 @@ const ReviewsList = class extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { sortBy } = this.state;
     if (sortBy !== prevState.sortBy) {
-      if (sortBy === 'helpful') {
-        this.sortByHelpful(this.updateDisplay);
-      }
-      if (sortBy === 'newest') {
-        this.sortByNewest(this.updateDisplay);
-      }
-      if (sortBy === 'relevant') {
-        this.sortByRelevant(this.updateDisplay);
-      }
+      this.sortByOption(sortBy, this.updateDisplay);
     }
   }
 
@@ -84,35 +74,29 @@ const ReviewsList = class extends React.Component {
     this.setState({ sortBy: value });
   }
 
-  sortByHelpful(callback) {
+  sortByOption(option, callback) {
     const { reviews } = this.state;
     const reviewsCopy = reviews.slice();
-    reviewsCopy.sort((a, b) => (a.helpfulness < b.helpfulness ? 1 : -1));
-    this.setState({ reviews: reviewsCopy }, callback);
-  }
-
-  sortByNewest(callback) {
-    const { reviews } = this.state;
-    const reviewsCopy = reviews.slice();
-    reviewsCopy.sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return dateA < dateB ? 1 : -1;
-    });
-    this.setState({ reviews: reviewsCopy }, callback);
-  }
-
-  sortByRelevant(callback) {
-    const { reviews } = this.state;
-    const reviewsCopy = reviews.slice();
-    reviewsCopy.sort((a, b) => {
-      if (a.helpfulness === b.helpfulness) {
+    if (option === 'helpful') {
+      reviewsCopy.sort((a, b) => (a.helpfulness < b.helpfulness ? 1 : -1));
+    }
+    if (option === 'newest') {
+      reviewsCopy.sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
         return dateA < dateB ? 1 : -1;
-      }
-      return a.helpfulness < b.helpfulness ? 1 : -1;
-    });
+      });
+    }
+    if (option === 'relevant') {
+      reviewsCopy.sort((a, b) => {
+        if (a.helpfulness === b.helpfulness) {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateA < dateB ? 1 : -1;
+        }
+        return a.helpfulness < b.helpfulness ? 1 : -1;
+      });
+    }
     this.setState({ reviews: reviewsCopy }, callback);
   }
 
