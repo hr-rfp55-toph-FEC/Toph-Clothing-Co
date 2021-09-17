@@ -589,29 +589,40 @@ body {
 /* Alex Questions & Answers */
 
 /* Ya Ratings & Reviews */
-.ratings-reviews {
+#ratings-reviews-section {
   display: flex;
   flex-direction: column;
 }
 
-.ratings-reviews-title {
+#ratings-reviews-title {
   display: block;
   font-weight: 400;
+  font-size: 2rem;
   text-transform: uppercase;
-  margin: 20px 20px;
+  margin: 1rem 3rem;
 }
 
-.ratings-reviews-container {
+.ratings-and-reviews {
+  display: flex;
   flex-direction: row;
+  justify-content: space-between;
+}
+
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 0 2rem;
 }
 
 .reviews-list {
+  display: flex;
   flex-direction: column;
 }
 
 h3 {
   margin: 20px;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 
 .reviews-list-container {
@@ -619,13 +630,24 @@ h3 {
   overflow-y: scroll;
 }
 
+#sort-dropdown {
+  border: none;
+  border-bottom: solid 2.5px black;
+  background-color: transparent;
+  font-size: 1.8rem;
+  font-weight: bold;
+  height: 3.3rem;
+  width: 10rem;
+  padding: 0 0 0 0.5rem;
+}
+
 .review-tile {
   display: flex;
   flex-direction: column;
   border-bottom: solid;
-  border-width: 1px;
-  margin: 10px 20px;
-  padding: 5px;
+  border-width: 1.5px;
+  margin: 1rem 2rem;
+  padding: 0.5rem;
   height: fit-content;
 }
 
@@ -711,12 +733,12 @@ img.thumbnail:hover {
 
 .sales-response {
   background-color: lightgray;
-  margin: 10px 0;
-  padding: 10px;
+  margin: 1rem 0;
+  padding: 1rem;
 }
 
 .response-heading {
-  padding: 0 10px 10px 0;
+  padding: 0 1rem 1rem 0;
   font-weight: bold;
 }
 
@@ -725,9 +747,35 @@ img.thumbnail:hover {
   margin: 20px 0;
 }
 
-#more-reviews, #add-a-review {
+.interactive-button {
   text-transform: uppercase;
-  margin: 0 20px;
+  margin: 0 2rem;
+  padding: 2rem 2rem;
+  display: inline-block;
+  border: 0.1em solid #000000;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 450;
+  color: #000000;
+  text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+  background-color: #ffffff;
+  text-align: center;
+  transition: all 0.15s;
+  cursor: pointer;
+  letter-spacing: 0.1rem;
+}
+
+.interactive-button:hover{
+  text-shadow: 0 0 2em rgba(255,255,255,1);
+  color: #ffffff;
+  border-color: #ffffff;
+  background-color:#447c47;
+}
+
+#plus-icon {
+  margin: 0 0 0.5rem 2rem;
 }
 
 /* Stars*/
