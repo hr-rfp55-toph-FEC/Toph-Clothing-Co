@@ -261,6 +261,13 @@ body {
   gap: 5%;
   width: 30rem;
   max-height: 16.3rem;
+  overflow-y: hidden;
+}
+
+/* Implement logic to scroll cleanly when there's 8+ style thumbnails later */
+
+/* #style-selector-body {
+  max-height: 16.3rem;
   overflow-y: scroll;
 }
 
@@ -268,8 +275,7 @@ body {
   display: none;
 }
 
-/* Implement logic to scroll cleanly when there's 8+ style thumbnails later */
-/* #style-selector-body::-webkit-scrollbar {
+#style-selector-body::-webkit-scrollbar {
   background-color: white;
 }
 
