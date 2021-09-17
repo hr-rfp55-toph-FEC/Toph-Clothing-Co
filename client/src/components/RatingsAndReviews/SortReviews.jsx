@@ -7,6 +7,7 @@ const SortReviews = ({ sortClickHandler, sortBy }) => (
     <select
       value={sortBy}
       onChange={({ target }) => { sortClickHandler(target.value); }}
+      id="sort-dropdown"
     >
       <option value="relevant">relevant</option>
       <option value="newest">newest</option>
