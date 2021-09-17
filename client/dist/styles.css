@@ -527,6 +527,7 @@ body {
 .product-rating-w-stars {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .reviews-list {

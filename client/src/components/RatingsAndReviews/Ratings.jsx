@@ -1,19 +1,30 @@
 import React from 'react';
 import axios from 'axios';
+import calcAvgRating from '../helpers/calcAvgRating';
+import Stars from '../Stars';
 
 const Ratings = class extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      metaData: {}
+      metaData: {},
+      avgRating: null,
     };
 
     this.getReviewMeta = this.getReviewMeta.bind(this);
+    this.calculateRating = this.calculateRating.bind(this);
   }
 
   componentDidMount() {
     this.getReviewMeta();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { metaData } = this.state;
+    if (prevState.metaData.product_id !== metaData.product_id) {
+      this.calculateRating();
+    }
   }
 
   getReviewMeta() {
@@ -31,12 +42,23 @@ const Ratings = class extends React.Component {
       });
   }
 
+  calculateRating() {
+    const { metaData } = this.state;
+    const productRating = calcAvgRating(metaData.ratings).toFixed(1);
+    this.setState({ avgRating: productRating });
+  }
+
   render() {
+    const { avgRating, metaData } = this.state;
+
     return (
       <div className="ratings-details">
         <div className="product-rating-w-stars">
-          <div>product avg rating </div>
-          stars
+          <div id="product-rating-score">{avgRating}</div>
+          <Stars
+            rating={avgRating}
+            id={`YL-${metaData.product_id}`}
+          />
         </div>
         <div>
           % of reviews that recommend this product
