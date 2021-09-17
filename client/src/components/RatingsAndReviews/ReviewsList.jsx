@@ -106,7 +106,7 @@ const ReviewsList = class extends React.Component {
     } = this.state;
     let moreReviewsButton;
     if (showMoreReviewsButton) {
-      moreReviewsButton = <button type="button" id="more-reviews" onClick={this.handleMoreReviews}>more reviews</button>;
+      moreReviewsButton = <button type="button" className="interactive-button" onClick={this.handleMoreReviews}>more reviews</button>;
     } else {
       moreReviewsButton = <p />;
     }
@@ -135,7 +135,7 @@ const ReviewsList = class extends React.Component {
         </div>
         <div className="buttons-container">
           {moreReviewsButton}
-          <button type="submit" id="add-a-review">
+          <button type="submit" className="interactive-button">
             add a review
             <span id="plus-icon"><i className="fas fa-plus" /></span>
           </button>

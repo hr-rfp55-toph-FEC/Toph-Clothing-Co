@@ -644,7 +644,7 @@ img.thumbnail:hover {
   margin: 20px 0;
 }
 
-#more-reviews, #add-a-review {
+.interactive-button {
   text-transform: uppercase;
   margin: 0 2rem;
   padding: 2rem 2rem;
@@ -664,14 +664,7 @@ img.thumbnail:hover {
   letter-spacing: 0.1rem;
 }
 
-#more-reviews:hover{
-  text-shadow: 0 0 2em rgba(255,255,255,1);
-  color: #ffffff;
-  border-color: #ffffff;
-  background-color:#447c47;
-}
-
-#add-a-review:hover{
+.interactive-button:hover{
   text-shadow: 0 0 2em rgba(255,255,255,1);
   color: #ffffff;
   border-color: #ffffff;
