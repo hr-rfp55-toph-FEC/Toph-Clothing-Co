@@ -646,7 +646,40 @@ img.thumbnail:hover {
 
 #more-reviews, #add-a-review {
   text-transform: uppercase;
-  margin: 0 20px;
+  margin: 0 2rem;
+  padding: 2rem 2rem;
+  display: inline-block;
+  border: 0.1em solid #000000;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 450;
+  color: #000000;
+  text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+  background-color: #ffffff;
+  text-align: center;
+  transition: all 0.15s;
+  cursor: pointer;
+  letter-spacing: 0.1rem;
+}
+
+#more-reviews:hover{
+  text-shadow: 0 0 2em rgba(255,255,255,1);
+  color: #ffffff;
+  border-color: #ffffff;
+  background-color:#696969;
+}
+
+#add-a-review:hover{
+  text-shadow: 0 0 2em rgba(255,255,255,1);
+  color: #ffffff;
+  border-color: #ffffff;
+  background-color:#696969;
+}
+
+#plus-icon {
+  margin: 0 0 0.5rem 2rem;
 }
 
 /* Stars*/

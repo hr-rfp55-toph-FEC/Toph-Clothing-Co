@@ -151,7 +151,10 @@ const ReviewsList = class extends React.Component {
         </div>
         <div className="buttons-container">
           {moreReviewsButton}
-          <button type="submit" id="add-a-review">add a review</button>
+          <button type="submit" id="add-a-review">
+            add a review
+            <span id="plus-icon"><i className="fas fa-plus" /></span>
+          </button>
         </div>
       </div>
     );
