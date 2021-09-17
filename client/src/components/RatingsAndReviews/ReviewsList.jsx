@@ -10,6 +10,7 @@ const ReviewsList = class extends React.Component {
     this.state = {
       reviews: [],
       display: [],
+      sortBy: 'relevant',
       reviewCount: 2,
       showMoreReviewsButton: false,
     };
@@ -17,22 +18,32 @@ const ReviewsList = class extends React.Component {
     this.getReviews = this.getReviews.bind(this);
     this.updateDisplay = this.updateDisplay.bind(this);
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
+    this.sortClickHandler = this.sortClickHandler.bind(this);
+    this.sortByOption = this.sortByOption.bind(this);
   }
 
   componentDidMount() {
-    this.getReviews();
+    const { sortBy } = this.state;
+    this.getReviews(sortBy);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { sortBy } = this.state;
+    if (sortBy !== prevState.sortBy) {
+      this.sortByOption(sortBy, this.updateDisplay);
+    }
   }
 
   handleMoreReviews() {
     this.setState((prevState) => ({ reviewCount: prevState.reviewCount + 2 }), this.updateDisplay);
   }
 
-  getReviews() {
+  getReviews(sortBy) {
     axios.get('/reviews', {
       params: {
         product_id: 40345,
         count: 100,
-        sort: 'relevance',
+        sort: sortBy,
       },
     })
       .then((response) => {
@@ -59,11 +70,43 @@ const ReviewsList = class extends React.Component {
     this.setState({ display: reviewsCopy });
   }
 
+  sortClickHandler(value) {
+    this.setState({ sortBy: value });
+  }
+
+  sortByOption(option, callback) {
+    const { reviews } = this.state;
+    const reviewsCopy = reviews.slice();
+    if (option === 'helpful') {
+      reviewsCopy.sort((a, b) => (a.helpfulness < b.helpfulness ? 1 : -1));
+    }
+    if (option === 'newest') {
+      reviewsCopy.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA < dateB ? 1 : -1;
+      });
+    }
+    if (option === 'relevant') {
+      reviewsCopy.sort((a, b) => {
+        if (a.helpfulness === b.helpfulness) {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateA < dateB ? 1 : -1;
+        }
+        return a.helpfulness < b.helpfulness ? 1 : -1;
+      });
+    }
+    this.setState({ reviews: reviewsCopy }, callback);
+  }
+
   render() {
-    const { display, reviews, showMoreReviewsButton } = this.state;
+    const {
+      display, reviews, showMoreReviewsButton, sortBy,
+    } = this.state;
     let moreReviewsButton;
     if (showMoreReviewsButton) {
-      moreReviewsButton = <button type="button" id="more-reviews" onClick={this.handleMoreReviews}>more reviews</button>;
+      moreReviewsButton = <button type="button" className="interactive-button" onClick={this.handleMoreReviews}>more reviews</button>;
     } else {
       moreReviewsButton = <p />;
     }
@@ -73,9 +116,12 @@ const ReviewsList = class extends React.Component {
         <h3>
           {reviews.length}
           {' '}
-          reviews, sorted by
+          reviews,
           {' '}
-          <SortReviews />
+          <SortReviews
+            sortClickHandler={this.sortClickHandler}
+            sortBy={sortBy}
+          />
         </h3>
         <div className="reviews-list-container">
           {display.map((review) => (
@@ -83,12 +129,16 @@ const ReviewsList = class extends React.Component {
               review={review}
               key={review.review_id}
               getReviews={this.getReviews}
+              sortBy={sortBy}
             />
           ))}
         </div>
         <div className="buttons-container">
           {moreReviewsButton}
-          <button type="submit" id="add-a-review">add a review</button>
+          <button type="submit" className="interactive-button">
+            add a review
+            <span id="plus-icon"><i className="fas fa-plus" /></span>
+          </button>
         </div>
       </div>
     );

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Stars from '../Stars';
 import Thumbnail from './Thumbnail';
 
-const ReviewTile = ({ review, getReviews }) => {
+const ReviewTile = ({ review, getReviews, sortBy }) => {
   let readableDate = new Date(review.date);
   readableDate = readableDate.toDateString().slice(4);
   const reviewMonthDay = readableDate.slice(0, -5);
@@ -58,7 +58,7 @@ const ReviewTile = ({ review, getReviews }) => {
       },
     })
       .then(() => {
-        getReviews();
+        getReviews(sortBy);
       })
       .catch((err) => {
         console.error(err);
@@ -126,6 +126,7 @@ ReviewTile.propTypes = {
     summary: PropTypes.string,
   }).isRequired,
   getReviews: PropTypes.instanceOf(Function).isRequired,
+  sortBy: PropTypes.string.isRequired,
 };
 
 export default ReviewTile;
