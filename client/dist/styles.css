@@ -390,6 +390,7 @@ body {
 .ratings-reviews-title {
   display: block;
   font-weight: 400;
+  font-size: 2rem;
   text-transform: uppercase;
   margin: 20px 20px;
 }
@@ -399,6 +400,7 @@ body {
 }
 
 .reviews-list {
+  display: flex;
   flex-direction: column;
 }
 

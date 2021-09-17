@@ -19,9 +19,9 @@ const ReviewsList = class extends React.Component {
     this.updateDisplay = this.updateDisplay.bind(this);
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.sortClickHandler = this.sortClickHandler.bind(this);
-    this.sortReviewsByHelpful = this.sortReviewsByHelpful.bind(this);
-    this.sortReviewsByNewest = this.sortReviewsByNewest.bind(this);
-    this.sortReviewsByRelevant = this.sortReviewsByRelevant.bind(this);
+    this.sortByHelpful = this.sortByHelpful.bind(this);
+    this.sortByNewest = this.sortByNewest.bind(this);
+    this.sortByRelevant = this.sortByRelevant.bind(this);
   }
 
   componentDidMount() {
@@ -31,17 +31,15 @@ const ReviewsList = class extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { sortBy } = this.state;
-    // console.log(`previous sort: ${prevState.sortBy}`);
     if (sortBy !== prevState.sortBy) {
-      // console.log(`sort option updated! now sorting by ${sortBy}`);
       if (sortBy === 'helpful') {
-        this.sortReviewsByHelpful(this.updateDisplay);
+        this.sortByHelpful(this.updateDisplay);
       }
       if (sortBy === 'newest') {
-        this.sortReviewsByNewest(this.updateDisplay);
+        this.sortByNewest(this.updateDisplay);
       }
       if (sortBy === 'relevant') {
-        this.sortReviewsByRelevant(this.updateDisplay);
+        this.sortByRelevant(this.updateDisplay);
       }
     }
   }
@@ -53,7 +51,7 @@ const ReviewsList = class extends React.Component {
   getReviews(sortBy) {
     axios.get('/reviews', {
       params: {
-        product_id: 40344,
+        product_id: 40345,
         count: 100,
         sort: sortBy,
       },
@@ -86,14 +84,14 @@ const ReviewsList = class extends React.Component {
     this.setState({ sortBy: value });
   }
 
-  sortReviewsByHelpful(callback) {
+  sortByHelpful(callback) {
     const { reviews } = this.state;
     const reviewsCopy = reviews.slice();
     reviewsCopy.sort((a, b) => (a.helpfulness < b.helpfulness ? 1 : -1));
     this.setState({ reviews: reviewsCopy }, callback);
   }
 
-  sortReviewsByNewest(callback) {
+  sortByNewest(callback) {
     const { reviews } = this.state;
     const reviewsCopy = reviews.slice();
     reviewsCopy.sort((a, b) => {
@@ -104,7 +102,7 @@ const ReviewsList = class extends React.Component {
     this.setState({ reviews: reviewsCopy }, callback);
   }
 
-  sortReviewsByRelevant(callback) {
+  sortByRelevant(callback) {
     const { reviews } = this.state;
     const reviewsCopy = reviews.slice();
     reviewsCopy.sort((a, b) => {
