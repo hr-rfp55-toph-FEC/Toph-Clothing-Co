@@ -5,8 +5,9 @@ import ListCard from '../ListCard';
 import ComparisonModal from '../ComparisonModal.jsx';
 
 const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta, currProd }) => {
-  const [ModalClass, setModalClass] = useState('comparison-modal-container');
-  const openModelHandler = () => {
+  const [modalClass, setModalClass] = useState('comparison-modal-container');
+  const openModelHandler = (relProdName, relProdMeta) => {
+    console.log(relProdName, relProdMeta);
     setModalClass('comparison-modal-container comp-show-modal');
   };
   const closeModalHandler = () => {
@@ -15,7 +16,12 @@ const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta, currProd }) => {
 
   return (
     <div className="related-product-list-container">
-      <ComparisonModal ModalClass={ModalClass} closeModalHandler={closeModalHandler} />
+      <ComparisonModal
+        modalClass={modalClass}
+        closeModalHandler={closeModalHandler}
+        currProd={currProd}
+
+      />
       <h2 className="related-products-header">RELATED PRODUCTS</h2>
       <Carousel>
         {prodsInfo.map((prodInfo, index) => (
@@ -25,7 +31,7 @@ const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta, currProd }) => {
             prodStyles={prodsStyles[index]}
             prodMeta={prodsMeta[index]}
           >
-            <button type="button" onClick={openModelHandler} className="card-button">
+            <button type="button" onClick={(e) => openModelHandler(prodInfo.name, prodsMeta[index].characteristics)} className="card-button">
               <i className="far fa-star star-for-button" />
             </button>
           </ListCard>

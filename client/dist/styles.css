@@ -550,6 +550,7 @@ body {
 .comp-modal-header {
   font-size: 2.5rem;
   text-align: center;
+  margin-bottom: auto;
 }
 
 /* .table-wrapper {
