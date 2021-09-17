@@ -100,7 +100,7 @@ body {
 
 #product-upper-container {
   display: flex;
-  height: 60rem;
+  height: 62rem;
 }
 
 #image-gallery {
@@ -129,7 +129,7 @@ body {
   border-color: black;
   border-style: solid;
   border-width: 1px;
-  padding: 2%;
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
 }
@@ -140,20 +140,22 @@ body {
 } */
 
 #product-information {
-  height: 33.33%;
+  /* height: 33.33%; */
+  height: calc(100% / 3);
   min-height: 80px;
   display: flex;
   flex-direction: column;
 }
 
 #style-selector {
-  height: 33.33%;
-  font-size: 1.5rem;
+  /* height: 33.33%; */
+  height: calc(100% / 3);
   min-height: 80px;
 };
 
 #add-to-cart {
-  height: 33.33%;
+  /* height: 33.33%; */
+  height: calc(100% / 3);
   font-size: 1.7rem;
   min-height: 80px;
 };
@@ -255,19 +257,16 @@ body {
 
 /* Style Selector */
 
+#style-selector-header {
+  font-size: 1.5rem;
+}
+
 #style-selector-body {
   display: flex;
   flex-wrap: wrap;
-  gap: 5%;
+  gap: 0 5%;
   width: 30rem;
-  max-height: 16.3rem;
-  overflow-y: hidden;
-}
-
-/* Implement logic to scroll cleanly when there's 8+ style thumbnails later */
-
-/* #style-selector-body {
-  max-height: 16.3rem;
+  height: 16rem;
   overflow-y: scroll;
 }
 
@@ -282,47 +281,49 @@ body {
 #style-selector-body::-webkit-scrollbar-button {
   background-color: darkgrey;
   outline: 1px solid slategrey;
-} */
-
-.product-style-thumbnail-container {
-  margin-top: 6%;
 }
 
+.product-style-thumbnail-container, .product-style-thumbnail-container-checked {
+  /* padding: 2% 0; */
+  padding-top: 4%;
+  height: 50%;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+/* To do: Add special coloring when checked later on */
 /* .product-style-thumbnail-container-checked {
-  margin-top: 1%;
 } */
 
-.product-style-thumbnail {
-  border: 3px double rgb(40, 80, 47);
+.product-style-thumbnail, .product-style-thumbnail-checked {
   border-radius: 50%;
   width: 6rem;
   height: 6rem;
-  display: inline-block;
-  position: relative;
   z-index: -1;
+}
+
+.product-style-thumbnail {
+  border: 3px double rgb(40, 80, 47);
 }
 
 .product-style-thumbnail-checked {
   border: 3px solid rgb(0, 0, 0);
-  border-radius: 50%;
-  width: 6rem;
-  height: 6rem;
-  display: inline-block;
-  position: relative;
-  z-index: -1;
 }
 
 .product-style-thumbnail-container,
 .product-style-thumbnail-container-checked:hover{
   cursor: pointer;
-  align-items: inherit;
+  /* align-items: inherit; */
 }
 
 .checky-check{
-  position: relative;
-  top: 20%;
-  left: 69%;
+  position: absolute;
+  top: 1.2rem;
+  left: 4rem;
   border-radius: 50%;
+  display: inline-block;
+  padding-top: 0.12rem;
   text-align: center;
   background-color: rgb(0, 0, 0);
   color: white;
