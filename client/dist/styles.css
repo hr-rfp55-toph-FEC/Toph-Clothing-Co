@@ -512,6 +512,13 @@ body {
   margin: 0 2rem;
 }
 
+.ratings-container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin: 0 2rem;
+}
+
 .reviews-list {
   display: flex;
   flex-direction: column;
