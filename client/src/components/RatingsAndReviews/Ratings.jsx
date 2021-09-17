@@ -6,8 +6,29 @@ const Ratings = class extends React.Component {
     super(props);
 
     this.state = {
-
+      metaData: {}
     };
+
+    this.getReviewMeta = this.getReviewMeta.bind(this);
+  }
+
+  componentDidMount() {
+    this.getReviewMeta();
+  }
+
+  getReviewMeta() {
+    const { productId } = this.props;
+    axios.get('/reviews/meta', {
+      params: {
+        product_id: productId,
+      },
+    })
+      .then((response) => {
+        this.setState({ metaData: response.data });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   render() {
