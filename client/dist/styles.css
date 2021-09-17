@@ -519,6 +519,16 @@ body {
   margin: 0 2rem;
 }
 
+.ratings-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-rating-w-stars {
+  display: flex;
+  flex-direction: row;
+}
+
 .reviews-list {
   display: flex;
   flex-direction: column;

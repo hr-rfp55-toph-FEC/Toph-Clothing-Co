@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import ReviewTile from './ReviewTile';
 import SortReviews from './SortReviews';
 
@@ -39,9 +40,10 @@ const ReviewsList = class extends React.Component {
   }
 
   getReviews(sortBy) {
+    const { productId } = this.props;
     axios.get('/reviews', {
       params: {
-        product_id: 40345,
+        product_id: productId,
         count: 100,
         sort: sortBy,
       },
@@ -143,6 +145,10 @@ const ReviewsList = class extends React.Component {
       </div>
     );
   }
+};
+
+ReviewsList.propTypes = {
+  productId: PropTypes.number.isRequired,
 };
 
 export default ReviewsList;
