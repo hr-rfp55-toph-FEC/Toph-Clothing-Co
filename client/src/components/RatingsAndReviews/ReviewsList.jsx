@@ -21,6 +21,7 @@ const ReviewsList = class extends React.Component {
     this.sortClickHandler = this.sortClickHandler.bind(this);
     this.sortReviewsByHelpful = this.sortReviewsByHelpful.bind(this);
     this.sortReviewsByNewest = this.sortReviewsByNewest.bind(this);
+    this.sortReviewsByRelevant = this.sortReviewsByRelevant.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +40,9 @@ const ReviewsList = class extends React.Component {
       if (sortBy === 'newest') {
         this.sortReviewsByNewest(this.updateDisplay);
       }
+      if (sortBy === 'relevant') {
+        this.sortReviewsByRelevant(this.updateDisplay);
+      }
     }
   }
 
@@ -49,7 +53,7 @@ const ReviewsList = class extends React.Component {
   getReviews(sortBy) {
     axios.get('/reviews', {
       params: {
-        product_id: 40347,
+        product_id: 40344,
         count: 100,
         sort: sortBy,
       },
@@ -96,6 +100,20 @@ const ReviewsList = class extends React.Component {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
       return dateA < dateB ? 1 : -1;
+    });
+    this.setState({ reviews: reviewsCopy }, callback);
+  }
+
+  sortReviewsByRelevant(callback) {
+    const { reviews } = this.state;
+    const reviewsCopy = reviews.slice();
+    reviewsCopy.sort((a, b) => {
+      if (a.helpfulness === b.helpfulness) {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA < dateB ? 1 : -1;
+      }
+      return a.helpfulness < b.helpfulness ? 1 : -1;
     });
     this.setState({ reviews: reviewsCopy }, callback);
   }
