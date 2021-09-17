@@ -3,6 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import calcAvgRating from '../helpers/calcAvgRating';
 import Stars from '../Stars';
+import RatingTable from './RatingTable';
 
 const Ratings = class extends React.Component {
   constructor(props) {
@@ -70,8 +71,10 @@ const Ratings = class extends React.Component {
           {recommended}
           % of reviews recommend this product
         </div>
-        <div>
-          a list of stars breakdown from 5 to 1 stars
+        <div id="breakdown-table">
+          <RatingTable
+            ratings={metaData.ratings}
+          />
         </div>
         <div>
           size

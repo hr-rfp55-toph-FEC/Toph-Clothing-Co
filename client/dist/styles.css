@@ -509,14 +509,14 @@ body {
   display: flex;
   flex-direction: column;
   width: 70%;
-  margin: 0 3rem;
+  margin: 0 3rem 0 0;
 }
 
 .ratings-container {
   display: flex;
   flex-direction: column;
   width: 30%;
-  margin: 0 3rem;
+  margin: 0 0 0 3rem;
 }
 
 .rating-breakdown {
