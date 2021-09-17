@@ -255,14 +255,28 @@ body {
 
 /* Style Selector */
 
-/* Thumbnail option 1: Distored; zoom is good */
-
 #style-selector-body {
   display: flex;
   flex-wrap: wrap;
   gap: 5%;
   width: 30rem;
+  max-height: 16.3rem;
+  overflow-y: scroll;
 }
+
+#style-selector-body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Implement logic to scroll cleanly when there's 8+ style thumbnails later */
+/* #style-selector-body::-webkit-scrollbar {
+  background-color: white;
+}
+
+#style-selector-body::-webkit-scrollbar-button {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+} */
 
 .product-style-thumbnail-container {
   margin-top: 6%;
@@ -306,31 +320,6 @@ body {
   height: 1.7rem;
   font-size: 1.275rem;
 }
-
-/* Thumbnail option 2: Not distorted; centered but zoomed in too much */
-
-/* #style-selector-body {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2%;
-}
-
-.product-style-thumbnail-container {
-  border: 1px solid;
-  width: 7vmin;
-  height: 7vmin;
-  border-radius: 50%;
-
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.product-style-thumbnail {
-  border-radius: 50%;
-} */
 
 /* Bishal Related Products & Outfit Creation */
 
