@@ -68,7 +68,10 @@ class ProductOverview extends React.Component {
   }
 
   selectProductStyle(style) {
-    this.setState({ productStyleSelected: style });
+    const { productStyleSelected } = this.state;
+    if (style.style_id !== productStyleSelected.style_id) {
+      this.setState({ productStyleSelected: style });
+    }
   }
 
   render() {
@@ -104,7 +107,7 @@ class ProductOverview extends React.Component {
               product={product}
               productReviews={productReviews}
               productRatings={productRatings}
-              productStyles={productStyles}
+              productStyleSelected={productStyleSelected}
             />
             <StyleSelector
               productStyles={productStyles}

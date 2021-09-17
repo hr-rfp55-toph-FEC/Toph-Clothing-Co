@@ -10,8 +10,8 @@ function StyleSelector(props) {
     selectProductStyle,
   } = props;
 
-  console.log('productStyles', productStyles);
-  console.log('productStyleSelected', productStyleSelected);
+  // console.log('productStyles', productStyles);
+  // console.log('productStyleSelected', productStyleSelected);
 
   return (
     <div id="style-selector" className="product-right-component">

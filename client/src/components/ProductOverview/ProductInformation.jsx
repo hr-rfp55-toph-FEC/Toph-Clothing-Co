@@ -9,14 +9,17 @@ function ProductInformation(props) {
     product,
     productReviews,
     productRatings,
-    productStyles,
+    productStyleSelected,
   } = props;
+
+  // console.log('product', product);
+  // console.log('productStyleSelected', productStyleSelected);
 
   const showStars = Object.keys(productRatings.ratings).length !== 0;
   const productReviewsID = showStars ? 'product-reviews' : 'product-reviews-no-stars';
 
-  const origPrice = productStyles.results[2].original_price;
-  const salePrice = productStyles.results[2].sale_price;
+  const origPrice = productStyleSelected.original_price;
+  const salePrice = productStyleSelected.sale_price;
 
   return (
     <div id="product-information" className="product-right-component">
@@ -49,7 +52,7 @@ ProductInformation.propTypes = {
   product: PropTypes.instanceOf(Object).isRequired,
   productReviews: PropTypes.instanceOf(Object).isRequired,
   productRatings: PropTypes.instanceOf(Object).isRequired,
-  productStyles: PropTypes.instanceOf(Object).isRequired,
+  productStyleSelected: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default ProductInformation;

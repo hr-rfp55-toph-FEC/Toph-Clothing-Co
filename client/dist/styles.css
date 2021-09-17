@@ -1,17 +1,6 @@
 * {
   box-sizing: border-box;
 }
-/*
-Clamping our HTML here will define the minimum font size unit for our app when shrunken and when full-screen.
-All children will have > 1 rem. That way, they'll never be smaller than the minimum bounds we're defining here.
-
-MIN should be the minimum font size for all elements when shrunken
-VALUE should be the minimum font size for all elements when full-screen
-MAX doesn't matter too much right now
-*/
-html {
-  font-size: clamp(8px, 0.6vw, 24px);
-}
 
 /*
 Clamping our HTML here will define the minimum font size unit for our app when shrunken and when full-screen.
@@ -34,7 +23,7 @@ body {
   margin: auto;
   border: solid;
   border-width: 1px;
-  min-width: 700px;
+  min-width: 860px;
 }
 
 
@@ -111,13 +100,13 @@ body {
 
 #product-upper-container {
   display: flex;
+  height: 60rem;
 }
 
 #image-gallery {
-  width: 60%;
+  width: 65%;
   /* height: 65vh;
   min-height: 80vh; */
-  height: 60rem;
   border-color: black;
   border-style: solid;
   border-width: 1px;
@@ -136,7 +125,7 @@ body {
 }
 
 #product-right-container {
-  width: 40%;
+  width: 35%;
   border-color: black;
   border-style: solid;
   border-width: 1px;
@@ -153,23 +142,23 @@ body {
 #product-information {
   height: 33.33%;
   min-height: 80px;
+  display: flex;
+  flex-direction: column;
 }
 
 #style-selector {
   height: 33.33%;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   min-height: 80px;
-
 };
 
 #add-to-cart {
   height: 33.33%;
   font-size: 1.7rem;
   min-height: 80px;
-
 };
 
-/* bug: Need to have this block here otherwise #product-reviews block doesn't work... */
+/* bug: Need to have this block here otherwise #product-reviews block doesn't work... this block doesn't work now */
 #product-rating {
   font-size: 17rem;
 }
@@ -195,19 +184,23 @@ body {
 }
 
 #product-category {
-  font-size: 1.7rem;
-  margin: 2% 0;
+  font-size: 1.5rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.25rem;
 }
 
 /* Note: We can limit children to a max font size while still applying the root clamp (e.g. font-size: min(3rem, 26px);) */
 #product-name {
-  font-size: 3rem;
-  margin: 2% 0;
+  font-size: 3.3rem;
+  /* margin: 2% 0; */
+  overflow-wrap: break-word;
 }
 
 #product-price-main {
-  font-size: 1.8rem;
-  margin: 6% 0;
+  font-size: 1.5rem;
+  margin: 1.3rem 0;
+  margin-bottom: 2rem;
+  margin-top: auto;
 }
 
 /* .sale-price {
@@ -272,18 +265,14 @@ body {
 }
 
 .product-style-thumbnail-container {
-  margin-top: 7%;
-}
-
-.product-style-thumbnail-container-checked {
-  margin-top: 1%;
+  margin-top: 6%;
 }
 
 .product-style-thumbnail {
   border: 3px double rgb(40, 80, 47);
   border-radius: 50%;
-  width: 5.5rem;
-  height: 5.5rem;
+  width: 6rem;
+  height: 6rem;
   display: inline-block;
   position: relative;
   z-index: -1;
@@ -292,8 +281,8 @@ body {
 .product-style-thumbnail-checked {
   border: 3px solid rgb(0, 0, 0);
   border-radius: 50%;
-  width: 5.5rem;
-  height: 5.5rem;
+  width: 6rem;
+  height: 6rem;
   display: inline-block;
   position: relative;
   z-index: -1;
@@ -304,7 +293,6 @@ body {
   cursor: pointer;
   align-items: inherit;
 }
-
 
 .checky-check{
   position: relative;
@@ -317,7 +305,6 @@ body {
   width: 1.7rem;
   height: 1.7rem;
   font-size: 1.275rem;
-
 }
 
 /* Thumbnail option 2: Not distorted; centered but zoomed in too much */
