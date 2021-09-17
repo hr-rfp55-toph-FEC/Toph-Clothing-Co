@@ -18,7 +18,7 @@ const ReviewsList = class extends React.Component {
     this.getReviews = this.getReviews.bind(this);
     this.updateDisplay = this.updateDisplay.bind(this);
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
-    this.sortHandler = this.sortHandler.bind(this);
+    this.sortClickHandler = this.sortClickHandler.bind(this);
   }
 
   componentDidMount() {
@@ -28,9 +28,9 @@ const ReviewsList = class extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { sortBy } = this.state;
-    // console.log(prevState.sortBy);
+    console.log(`previous sort: ${prevState.sortBy}`);
     if (sortBy !== prevState.sortBy) {
-      console.log(`new sort option! now sorting by ${sortBy}`);
+      console.log(`sort option updated! now sorting by ${sortBy}`);
       this.getReviews(sortBy);
     }
   }
@@ -42,7 +42,7 @@ const ReviewsList = class extends React.Component {
   getReviews(sortBy) {
     axios.get('/reviews', {
       params: {
-        product_id: 40347,
+        product_id: 40344,
         count: 100,
         sort: sortBy,
       },
@@ -72,8 +72,8 @@ const ReviewsList = class extends React.Component {
     this.setState({ display: reviewsCopy });
   }
 
-  sortHandler(value) {
-    this.setState({ sortBy: value }, this.getReviews(value));
+  sortClickHandler(value) {
+    this.setState({ sortBy: value });
   }
 
   render() {
@@ -95,7 +95,7 @@ const ReviewsList = class extends React.Component {
           reviews,
           {' '}
           <SortReviews
-            sortHandler={this.sortHandler}
+            sortClickHandler={this.sortClickHandler}
             sortBy={sortBy}
           />
         </h3>
