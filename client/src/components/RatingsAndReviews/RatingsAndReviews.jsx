@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewsList from './ReviewsList';
+import Ratings from './Ratings';
 
 const RatingsAndReviews = class extends React.Component {
   constructor(props) {
@@ -12,10 +13,15 @@ const RatingsAndReviews = class extends React.Component {
 
   render() {
     return (
-      <section className="ratings-reviews" id="ratings-reviews-section">
-        <h4 className="ratings-reviews-title">ratings & reviews</h4>
-        <div className="ratings-reviews-container">
-          <ReviewsList />
+      <section id="ratings-reviews-section">
+        <h4 id="ratings-reviews-title">ratings & reviews</h4>
+        <div className="ratings-and-reviews">
+          <div className="ratings-container">
+            <Ratings />
+          </div>
+          <div className="reviews-container">
+            <ReviewsList />
+          </div>
         </div>
       </section>
     );
