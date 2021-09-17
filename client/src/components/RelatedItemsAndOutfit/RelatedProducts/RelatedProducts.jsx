@@ -6,21 +6,23 @@ import ComparisonModal from '../ComparisonModal.jsx';
 
 const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta, currProd }) => {
   const [modalClass, setModalClass] = useState('comparison-modal-container');
+  const [modalRelProd, setmodalRelProd] = useState({});
   const openModelHandler = (relProdName, relProdMeta) => {
-    console.log(relProdName, relProdMeta);
+    setmodalRelProd({ [relProdName]: relProdMeta });
     setModalClass('comparison-modal-container comp-show-modal');
   };
   const closeModalHandler = () => {
     setModalClass('comparison-modal-container');
   };
-
   return (
     <div className="related-product-list-container">
       <ComparisonModal
         modalClass={modalClass}
         closeModalHandler={closeModalHandler}
-        currProd={currProd}
-
+        currProd={{
+          [currProd[0].name]: currProd[2].characteristics,
+        }}
+        modalRelProd={modalRelProd}
       />
       <h2 className="related-products-header">RELATED PRODUCTS</h2>
       <Carousel>

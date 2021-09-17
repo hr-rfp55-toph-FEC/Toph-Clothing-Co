@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const ComparisonModal = ({ closeModalHandler, modalClass }) => {
+const ComparisonModal = ({ closeModalHandler, modalClass, currProd, modalRelProd }) => {
   const [characteristics, setCharacteristics] = useState([1, 2, 3]);
   const [orderNumber, setOrderNumber] = useState(0);
-
+  console.log(currProd, modalRelProd);
   const rowItemDiv = (prodChar, orderNumber) => <div style={{ order: `${orderNumber}` }} className="comp-table-cell"><h3>{prodChar}</h3></div>;
   const characteristicList = (char, orderNumber) => <div style={{ order: `${orderNumber}` }} className="comp-table-cell"><h3>{char}</h3></div>;
 
