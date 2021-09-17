@@ -12,7 +12,7 @@ const RatingsAndReviews = class extends React.Component {
 
   render() {
     return (
-      <section className="ratings-reviews">
+      <section className="ratings-reviews" id="ratings-reviews-section">
         <h4 className="ratings-reviews-title">ratings & reviews</h4>
         <div className="ratings-reviews-container">
           <ReviewsList />
