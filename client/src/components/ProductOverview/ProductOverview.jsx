@@ -18,8 +18,10 @@ class ProductOverview extends React.Component {
       productStyles: {},
       productReviews: {},
       productRatings: {},
-      productStarRatings: 3.7, // Hardcoded for now to play around with it
+      productStyleSelected: {},
     };
+
+    this.selectProductStyle = this.selectProductStyle.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +40,7 @@ class ProductOverview extends React.Component {
           productStyles: results[1].data,
           productReviews: results[2].data,
           productRatings: results[3].data,
+          productStyleSelected: results[1].data.results[0],
           isFetching: false,
         });
       })
@@ -64,6 +67,13 @@ class ProductOverview extends React.Component {
       .catch((error) => { throw new Error(`Error in getting product ratings from server: ${error.message}`); });
   }
 
+  selectProductStyle(style) {
+    const { productStyleSelected } = this.state;
+    if (style.style_id !== productStyleSelected.style_id) {
+      this.setState({ productStyleSelected: style });
+    }
+  }
+
   render() {
     const {
       isFetching,
@@ -72,7 +82,7 @@ class ProductOverview extends React.Component {
       productStyles,
       productReviews,
       productRatings,
-      productStarRatings,
+      productStyleSelected,
     } = this.state;
 
     if (isFetching) {
@@ -91,16 +101,19 @@ class ProductOverview extends React.Component {
     return (
       <div id="product-main-container">
         <div id="product-upper-container">
-          <ImageGallery productStyles={productStyles} />
+          <ImageGallery productStyleSelected={productStyleSelected} />
           <div id="product-right-container">
             <ProductInformation
               product={product}
               productReviews={productReviews}
               productRatings={productRatings}
-              productStyles={productStyles}
-              productStarRatings={productStarRatings}
+              productStyleSelected={productStyleSelected}
             />
-            <StyleSelector />
+            <StyleSelector
+              productStyles={productStyles}
+              productStyleSelected={productStyleSelected}
+              selectProductStyle={this.selectProductStyle}
+            />
             <AddToCart />
           </div>
         </div>
