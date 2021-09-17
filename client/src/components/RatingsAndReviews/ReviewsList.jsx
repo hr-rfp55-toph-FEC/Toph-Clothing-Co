@@ -20,6 +20,7 @@ const ReviewsList = class extends React.Component {
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.sortClickHandler = this.sortClickHandler.bind(this);
     this.sortReviewsByHelpful = this.sortReviewsByHelpful.bind(this);
+    this.sortReviewsByNewest = this.sortReviewsByNewest.bind(this);
   }
 
   componentDidMount() {
@@ -32,9 +33,11 @@ const ReviewsList = class extends React.Component {
     // console.log(`previous sort: ${prevState.sortBy}`);
     if (sortBy !== prevState.sortBy) {
       // console.log(`sort option updated! now sorting by ${sortBy}`);
-      this.getReviews(sortBy);
       if (sortBy === 'helpful') {
-        this.sortReviewsByHelpful(sortBy);
+        this.sortReviewsByHelpful(this.updateDisplay);
+      }
+      if (sortBy === 'newest') {
+        this.sortReviewsByNewest(this.updateDisplay);
       }
     }
   }
@@ -52,7 +55,6 @@ const ReviewsList = class extends React.Component {
       },
     })
       .then((response) => {
-        // console.log(`got reviews! sorted by: ${sortBy}`);
         this.setState({ reviews: response.data.results }, this.updateDisplay);
       })
       .catch((err) => {
@@ -80,11 +82,22 @@ const ReviewsList = class extends React.Component {
     this.setState({ sortBy: value });
   }
 
-  sortReviewsByHelpful() {
+  sortReviewsByHelpful(callback) {
     const { reviews } = this.state;
     const reviewsCopy = reviews.slice();
     reviewsCopy.sort((a, b) => (a.helpfulness < b.helpfulness ? 1 : -1));
-    this.setState({ reviews: reviewsCopy });
+    this.setState({ reviews: reviewsCopy }, callback);
+  }
+
+  sortReviewsByNewest(callback) {
+    const { reviews } = this.state;
+    const reviewsCopy = reviews.slice();
+    reviewsCopy.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA < dateB ? 1 : -1;
+    });
+    this.setState({ reviews: reviewsCopy }, callback);
   }
 
   render() {
