@@ -6,7 +6,6 @@ import calcAvgRating from '../helpers/calcAvgRating';
 const ListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
   const origPrice = prodStyles.results[0].original_price;
   const salePrice = prodStyles.results[0].sale_price;
-  console.log(origPrice, salePrice, prodInfo.id);
 
   const onClickHandler = (e) => {
     //This will open the comparison Modal
