@@ -98,10 +98,14 @@ body {
 
 /* Daniel Product Detail & Overview */
 
+/* Top Overview Container */
+
 #product-upper-container {
   display: flex;
   height: 62rem;
 }
+
+/* Image section (Left side of Top Overview Container) */
 
 #image-gallery {
   width: 65%;
@@ -125,6 +129,8 @@ body {
     max-height: 100%; */
 }
 
+/* Product Info & Options (Right side of Top Overview Container) */
+
 #product-right-container {
   width: 35%;
   border-color: black;
@@ -140,10 +146,11 @@ body {
   font-size: 1vw;
 } */
 
+/* Don't need min height here. Entire top section (#product-upper-container) has height set to 62rem -> clamped at 8px*62 height */
 #product-information {
   /* height: 33.33%; */
   height: calc(100% / 3);
-  min-height: 80px;
+  /* min-height: 80px; */
   display: flex;
   flex-direction: column;
 }
@@ -151,15 +158,19 @@ body {
 #style-selector {
   /* height: 33.33%; */
   height: calc(100% / 3);
-  min-height: 80px;
+  /* min-height: 80px; */
 };
 
 #add-to-cart {
   /* height: 33.33%; */
   height: calc(100% / 3);
   font-size: 1.7rem;
-  min-height: 80px;
+  /* min-height: 80px; */
 };
+
+/* Product Info & Options Sub-Components */
+
+/* Product Info & Options Sub-Component: Stars, Reviews, Category, Name, Price */
 
 /* bug: Need to have this block here otherwise #product-reviews block doesn't work... this block doesn't work now */
 #product-rating {
@@ -216,47 +227,7 @@ body {
   text-decoration: line-through;
 } */
 
-#overview-and-share {
-  display: flex;
-  /* height: 25vh; */
-  height: 20rem;
-  padding: 3% 3%;
-  border-color: black;
-  border-style: solid;
-  border-width: 1px;
-}
-
-#slogan-description-container {
-  width: 65%;
-  padding: 2% 5%;
-  border-right: 1px solid gray;
-
-}
-
-#product-social {
-  width: 35%;
-  padding: 2% 5%;
-  border-left: 1px solid gray;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-#product-slogan {
-  font-size: 1.7rem;
-  line-height: 5rem;
-}
-
-#product-description {
-  font-size: 1.36rem;
-}
-
-.social-icon {
-  /* height: 25%; */
-  height: 2.5rem;
-}
-
-/* Style Selector */
+/* Product Info & Options Sub-Component: Style Selector */
 
 #style-selector-header {
   font-size: 1.5rem;
@@ -275,16 +246,17 @@ body {
   display: none;
 }
 
-#style-selector-body::-webkit-scrollbar {
+/* #style-selector-body::-webkit-scrollbar {
   background-color: white;
 }
 
 #style-selector-body::-webkit-scrollbar-button {
   background-color: darkgrey;
   outline: 1px solid slategrey;
-}
+} */
 
-.product-style-thumbnail-container, .product-style-thumbnail-container-checked {
+.product-style-thumbnail-container,
+.product-style-thumbnail-container-checked {
   /* padding: 2% 0; */
   padding-top: 4%;
   height: 50%;
@@ -297,7 +269,8 @@ body {
 /* .product-style-thumbnail-container-checked {
 } */
 
-.product-style-thumbnail, .product-style-thumbnail-checked {
+.product-style-thumbnail,
+.product-style-thumbnail-checked {
   border-radius: 50%;
   width: 6rem;
   height: 6rem;
@@ -312,7 +285,7 @@ body {
   border: 3px solid rgb(0, 0, 0);
 }
 
-.checky-check{
+.checky-check {
   position: absolute;
   top: 1.2rem;
   left: 4rem;
@@ -328,11 +301,14 @@ body {
   z-index: 1;
 }
 
-/* To do: figure out how to make check-mark appear with 0.25s transition */
+/* To do: figure out how to make check-mark appear with 0.25s transition. The below doesn't work */
+/* .checky-check {
+  transition: all 2s;
+} */
 
 .product-style-thumbnail,
 .product-style-thumbnail-checked {
-  transition: all 0.25s;
+  transition: opacity 0.25s;
 }
 
 .checky-check,
@@ -344,6 +320,62 @@ body {
 .product-style-thumbnail:hover {
   opacity: 0.7;
   /* border: 3px solid rgb(0, 0, 0); */
+}
+
+/* Product Info & Options Sub-Component: Add to Cart */
+
+/* Bug fix to prevent containers from shifting - override transition time on button class */
+#size-dropdown,
+#quantity-dropdown,
+#add-to-cart-button,
+#add-to-favorites-button {
+  transition: all 0s;
+}
+
+/* Bottom Overview Container */
+
+#overview-and-share {
+  display: flex;
+  /* height: 25vh; */
+  height: 20rem;
+  padding: 3% 3%;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+}
+
+/* Slogan & Description (Left side of Bottom Overview Container) */
+
+#slogan-description-container {
+  width: 65%;
+  padding: 2% 5%;
+  border-right: 1px solid gray;
+
+}
+
+#product-slogan {
+  font-size: 1.7rem;
+  line-height: 5rem;
+}
+
+#product-description {
+  font-size: 1.36rem;
+}
+
+/* Social (Right side of Bottom Overview Container) */
+
+#product-social {
+  width: 35%;
+  padding: 2% 5%;
+  border-left: 1px solid gray;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.social-icon {
+  /* height: 25%; */
+  height: 2.5rem;
 }
 
 /* Bishal Related Products & Outfit Creation */

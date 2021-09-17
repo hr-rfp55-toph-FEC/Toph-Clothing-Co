@@ -114,7 +114,7 @@ class ProductOverview extends React.Component {
               productStyleSelected={productStyleSelected}
               selectProductStyle={this.selectProductStyle}
             />
-            <AddToCart />
+            <AddToCart productStyleSelected={productStyleSelected} />
           </div>
         </div>
         <OverviewAndShare product={product} />
