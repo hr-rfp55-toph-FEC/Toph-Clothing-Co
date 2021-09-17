@@ -3,23 +3,31 @@ import PropTypes from 'prop-types';
 import Carousel from '../Carousel';
 import ListCard from '../ListCard';
 
-const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta }) => (
-  <div className="related-product-list-container">
-    <h2 className="related-products-header">RELATED PRODUCTS</h2>
-    <Carousel>
-      {prodsInfo.map((prodInfo, index) => (
-        <ListCard
-          key={prodInfo.id}
-          prodInfo={prodInfo}
-          prodStyles={prodsStyles[index]}
-          prodMeta={prodsMeta[index]}
-        >
-          <button type="button" className="card-button">X</button>
-        </ListCard>
-      ))}
-    </Carousel>
-  </div>
-);
+const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta }) => {
+  const openModel = () => {
+    console.log('open model!');
+  };
+
+  return (
+    <div className="related-product-list-container">
+      <h2 className="related-products-header">RELATED PRODUCTS</h2>
+      <Carousel>
+        {prodsInfo.map((prodInfo, index) => (
+          <ListCard
+            key={prodInfo.id}
+            prodInfo={prodInfo}
+            prodStyles={prodsStyles[index]}
+            prodMeta={prodsMeta[index]}
+          >
+            <button type="button" onClick={openModel} className="card-button">
+              <i className="far fa-star star-for-button" />
+            </button>
+          </ListCard>
+        ))}
+      </Carousel>
+    </div>
+  );
+};
 
 RelatedProducts.propTypes = {
   prodsInfo: PropTypes.instanceOf(Object).isRequired,
