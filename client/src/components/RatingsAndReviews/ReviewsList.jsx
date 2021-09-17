@@ -19,6 +19,7 @@ const ReviewsList = class extends React.Component {
     this.updateDisplay = this.updateDisplay.bind(this);
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.sortClickHandler = this.sortClickHandler.bind(this);
+    this.sortReviewsByHelpful = this.sortReviewsByHelpful.bind(this);
   }
 
   componentDidMount() {
@@ -28,10 +29,13 @@ const ReviewsList = class extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { sortBy } = this.state;
-    console.log(`previous sort: ${prevState.sortBy}`);
+    // console.log(`previous sort: ${prevState.sortBy}`);
     if (sortBy !== prevState.sortBy) {
-      console.log(`sort option updated! now sorting by ${sortBy}`);
+      // console.log(`sort option updated! now sorting by ${sortBy}`);
       this.getReviews(sortBy);
+      if (sortBy === 'helpful') {
+        this.sortReviewsByHelpful(sortBy);
+      }
     }
   }
 
@@ -42,13 +46,13 @@ const ReviewsList = class extends React.Component {
   getReviews(sortBy) {
     axios.get('/reviews', {
       params: {
-        product_id: 40344,
+        product_id: 40347,
         count: 100,
         sort: sortBy,
       },
     })
       .then((response) => {
-        console.log(`got reviews! sorted by: ${sortBy}`);
+        // console.log(`got reviews! sorted by: ${sortBy}`);
         this.setState({ reviews: response.data.results }, this.updateDisplay);
       })
       .catch((err) => {
@@ -74,6 +78,13 @@ const ReviewsList = class extends React.Component {
 
   sortClickHandler(value) {
     this.setState({ sortBy: value });
+  }
+
+  sortReviewsByHelpful() {
+    const { reviews } = this.state;
+    const reviewsCopy = reviews.slice();
+    reviewsCopy.sort((a, b) => (a.helpfulness < b.helpfulness ? 1 : -1));
+    this.setState({ reviews: reviewsCopy });
   }
 
   render() {
