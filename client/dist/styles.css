@@ -452,7 +452,7 @@ body {
   opacity: 10;
   font-size: 2.0rem;
   color: green;
-  transition: top 0.8s, right 0.8s, font-size 0.8s;
+  transition: font-size 0.8s;
 }
 
 @keyframes spin {
@@ -530,7 +530,7 @@ body {
   background-color: whitesmoke;
   padding: 1rem 1.5rem;
   width: 80rem;
-  height: 40rem;
+  height: auto;
   border-radius: 0.5rem;
 }
 
@@ -546,16 +546,13 @@ body {
   border-color: transparent;
 }
 
-.comp-close-modal:hover {
-  /* box-shadow: 0px 0px 10px 10px grey; */
-}
 
 .comp-modal-header {
   font-size: 2.5rem;
-  margin-left: 30rem;
+  text-align: center;
 }
 
-.table-wrapper {
+/* .table-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -563,7 +560,30 @@ body {
 
 .flex {
   align-items: center;
+} */
+
+.comp-table {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 0 3rem 0;
+  padding: 0;
 }
+.comp-table-cell {
+  box-sizing: border-box;
+  flex-grow: 1;
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  overflow: hidden;
+  list-style: none;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+/* Table column sizing
+================================== */
+.comp-table--3cols > .comp-table-cell  { width: 33.33%; }
+
 
 
 /* Alex Questions & Answers */

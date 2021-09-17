@@ -7,9 +7,6 @@ const ListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
   const origPrice = prodStyles.results[0].original_price;
   const salePrice = prodStyles.results[0].sale_price;
 
-  const onClickHandler = (e) => {
-    //This will open the comparison Modal
-  };
   return (
     <div className="product-list-card">
       <div className="card-image-container">
