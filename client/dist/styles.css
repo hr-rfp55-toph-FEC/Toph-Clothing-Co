@@ -299,6 +299,7 @@ body {
   height: 55px;
   opacity: 0.9;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  cursor: pointer;
 }
 
 
@@ -363,6 +364,7 @@ body {
   font-size: 2.5rem;
   animation-name: spin;
   animation-duration: 1000ms;
+  cursor: pointer;
   /* animation-iteration-count: infinite; */
   /* animation-timing-function: linear; */
 }
@@ -405,34 +407,7 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   visibility: hidden;
-  transform: scale(1.1);
-}
-
-
-.comp-modal-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 1rem 1.5rem;
-  width: 80rem;
-  height: 40rem;
-  border-radius: 0.5rem;
-}
-
-.comp-close-modal {
-  float: right;
-  width: 1.5rem;
-  line-height: 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 0.25rem;
-  background-color: lightgray;
-}
-
-.comp-close-modal:hover {
-  background-color: darkgray;
+  transform: scale(2.0);
 }
 
 .comp-show-modal {
@@ -442,6 +417,50 @@ body {
   transform: scale(1.0);
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
+
+.comp-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: whitesmoke;
+  padding: 1rem 1.5rem;
+  width: 80rem;
+  height: 40rem;
+  border-radius: 0.5rem;
+}
+
+.comp-close-modal {
+  float: right;
+  font-size: 4rem;
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 1.0rem;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.comp-close-modal:hover {
+  /* box-shadow: 0px 0px 10px 10px grey; */
+}
+
+.comp-modal-header {
+  font-size: 2.5rem;
+  margin-left: 30rem;
+}
+
+.table-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.flex {
+  align-items: center;
+}
+
 
 /* Alex Questions & Answers */
 

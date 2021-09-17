@@ -4,7 +4,7 @@ import Carousel from '../Carousel';
 import ListCard from '../ListCard';
 import ComparisonModal from '../ComparisonModal.jsx';
 
-const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta }) => {
+const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta, currProd }) => {
   const [ModalClass, setModalClass] = useState('comparison-modal-container');
   const openModelHandler = () => {
     setModalClass('comparison-modal-container comp-show-modal');
@@ -39,6 +39,7 @@ RelatedProducts.propTypes = {
   prodsInfo: PropTypes.instanceOf(Object).isRequired,
   prodsStyles: PropTypes.instanceOf(Object).isRequired,
   prodsMeta: PropTypes.instanceOf(Object).isRequired,
+  currProd: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default RelatedProducts;

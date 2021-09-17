@@ -52,6 +52,7 @@ class RelatedItemsAndOutfit extends React.Component {
           : (
             <div className="related-lists">
               <RelatedProducts
+                currProd={currProd}
                 prodsInfo={prodsInfo}
                 prodsStyles={prodsStyles}
                 prodsMeta={prodsMeta}
