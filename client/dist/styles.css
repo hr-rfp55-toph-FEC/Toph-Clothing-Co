@@ -509,25 +509,39 @@ body {
   display: flex;
   flex-direction: column;
   width: 70%;
-  margin: 0 2rem;
+  margin: 0 3rem;
 }
 
 .ratings-container {
   display: flex;
   flex-direction: column;
   width: 30%;
-  margin: 0 2rem;
+  margin: 0 3rem;
 }
 
-.ratings-details {
+.rating-breakdown {
   display: flex;
   flex-direction: column;
 }
 
-.product-rating-w-stars {
+.rating-summary {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+#product-rating-score {
+  font-size: 5rem;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0 2rem 0 0;
+  border-right: solid 1.5px black;
+}
+
+.ratings-stars {
+  margin: 0 0 0 2rem;
 }
 
 .reviews-list {
@@ -536,7 +550,7 @@ body {
 }
 
 h3 {
-  margin: 20px;
+  margin: 2.5rem;
   font-size: 1.8rem;
 }
 

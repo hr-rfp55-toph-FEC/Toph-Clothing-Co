@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import calcAvgRating from '../helpers/calcAvgRating';
 import Stars from '../Stars';
 
@@ -52,13 +53,15 @@ const Ratings = class extends React.Component {
     const { avgRating, metaData } = this.state;
 
     return (
-      <div className="ratings-details">
-        <div className="product-rating-w-stars">
+      <div className="rating-breakdown">
+        <div className="rating-summary">
           <div id="product-rating-score">{avgRating}</div>
-          <Stars
-            rating={avgRating}
-            id={`YL-${metaData.product_id}`}
-          />
+          <div className="ratings-stars">
+            <Stars
+              rating={avgRating}
+              id={`YL-${metaData.product_id}`}
+            />
+          </div>
         </div>
         <div>
           % of reviews that recommend this product
@@ -75,6 +78,10 @@ const Ratings = class extends React.Component {
       </div>
     );
   }
+};
+
+Ratings.propTypes = {
+  productId: PropTypes.number.isRequired,
 };
 
 export default Ratings;
