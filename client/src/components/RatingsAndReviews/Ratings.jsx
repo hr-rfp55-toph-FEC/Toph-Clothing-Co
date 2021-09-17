@@ -11,10 +11,11 @@ const Ratings = class extends React.Component {
     this.state = {
       metaData: {},
       avgRating: null,
+      recommended: null,
     };
 
     this.getReviewMeta = this.getReviewMeta.bind(this);
-    this.calculateRating = this.calculateRating.bind(this);
+    this.calcRatingAndRec = this.calcRatingAndRec.bind(this);
   }
 
   componentDidMount() {
@@ -24,7 +25,7 @@ const Ratings = class extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { metaData } = this.state;
     if (prevState.metaData.product_id !== metaData.product_id) {
-      this.calculateRating();
+      this.calcRatingAndRec();
     }
   }
 
@@ -43,14 +44,16 @@ const Ratings = class extends React.Component {
       });
   }
 
-  calculateRating() {
+  calcRatingAndRec() {
     const { metaData } = this.state;
     const productRating = calcAvgRating(metaData.ratings).toFixed(1);
-    this.setState({ avgRating: productRating });
+    const recommendRaw = ((Number(metaData.recommended.true)
+      / (Number(metaData.recommended.false) + Number(metaData.recommended.true))) * 100).toFixed(0);
+    this.setState({ avgRating: productRating, recommended: recommendRaw });
   }
 
   render() {
-    const { avgRating, metaData } = this.state;
+    const { avgRating, recommended, metaData } = this.state;
 
     return (
       <div className="rating-breakdown">
@@ -63,8 +66,9 @@ const Ratings = class extends React.Component {
             />
           </div>
         </div>
-        <div>
-          % of reviews that recommend this product
+        <div id="recommend-percentage">
+          {recommended}
+          % of reviews recommend this product
         </div>
         <div>
           a list of stars breakdown from 5 to 1 stars
