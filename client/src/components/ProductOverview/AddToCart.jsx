@@ -1,5 +1,5 @@
-// import React, { useState } from 'react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+// import React from 'react';
 import PropTypes from 'prop-types';
 
 function AddToCart(props) {
@@ -7,24 +7,35 @@ function AddToCart(props) {
     productStyleSelected,
   } = props;
 
-  console.log(productStyleSelected);
-  console.log(Object.values(productStyleSelected.skus));
+  const [selectedSize, setSelectedSize] = useState({});
+  const [sizesInStock, setSizesInStock] = useState({});
 
-  // // Grab only the sizes that are in stock for current style
-  // const sizesInStock = [];
-  // const sizeOptions = Object.values(productStyleSelected.skus);
-  // for (let i = 0; i < sizeOptions.length; i += 1) {
-  //   const option = sizeOptions[i];
-  //   if (option.quantity > 0) {
-  //     // Handle the edge case where there are duplicate XLs - set 2nd XL equal to XXL
-  //     // The 'right' way to do this is to edit the productStyle object itself; too much work for now
-  //     if (option.size === 'XL' && sizesInStock.indexOf('XL') !== -1) {
-  //       sizesInStock.push('XXL');
-  //     } else {
-  //       sizesInStock.push(option.size);
-  //     }
-  //   }
-  // }
+  // Grab only the sizes that are in stock for current style
+  useEffect(() => {
+    // console.log('productStyleSelected', productStyleSelected);
+    // console.log('productStyleSelected SKUs', productStyleSelected.skus);
+    // console.log('Object.values of SKUs', Object.values(productStyleSelected.skus));
+    const sizeOptions = Object.entries(productStyleSelected.skus);
+    // console.log('sizeOptions', sizeOptions);
+    const sizeOptionsFiltered = {};
+    for (let i = 0; i < sizeOptions.length; i += 1) {
+      const sku = sizeOptions[i][0];
+      const option = sizeOptions[i][1];
+      // console.log(sku);
+      // console.log(option);
+      if (option.quantity > 0) {
+        // Handle the edge case where there are duplicate XLs - set 2nd XL equal to XXL
+        // The right way to do this is to edit the productStyle object itself; too much work for now
+        if (option.size === 'XL'
+        && Object.values(sizeOptionsFiltered).map((optionFiltered) => optionFiltered.size).indexOf('XL') !== -1) {
+          option.size = 'XXL';
+        }
+        sizeOptionsFiltered[sku] = option;
+      }
+    }
+    setSizesInStock(sizeOptionsFiltered);
+    console.log(sizeOptionsFiltered);
+  }, [productStyleSelected]);
 
   // console.log(sizesInStock);
 
