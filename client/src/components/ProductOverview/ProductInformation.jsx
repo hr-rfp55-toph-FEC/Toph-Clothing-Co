@@ -26,7 +26,7 @@ function ProductInformation(props) {
       <div id="product-rating">
         { showStars
         && <Stars rating={calcAvgRating(productRatings.ratings)} id={`DH-${product.id}`} />}
-        <a id={productReviewsID} href="#bottom">
+        <a id={productReviewsID} href="#ratings-reviews-section">
           {productReviews.results === undefined || productReviews.results.length === 0
             ? null
             : `Read all ${productReviews.results.length} reviews`}

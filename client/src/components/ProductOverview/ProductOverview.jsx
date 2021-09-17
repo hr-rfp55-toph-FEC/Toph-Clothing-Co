@@ -34,7 +34,7 @@ class ProductOverview extends React.Component {
       ProductOverview.getProductRatings(40344),
     ])
       .then((results) => {
-        console.log(results);
+        // console.log(results);
         this.setState({
           product: results[0].data[0],
           productStyles: results[1].data,
