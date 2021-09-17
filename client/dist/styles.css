@@ -288,6 +288,10 @@ body {
   margin-top: 6%;
 }
 
+/* .product-style-thumbnail-container-checked {
+  margin-top: 1%;
+} */
+
 .product-style-thumbnail {
   border: 3px double rgb(40, 80, 47);
   border-radius: 50%;
