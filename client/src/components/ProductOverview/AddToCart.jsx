@@ -7,9 +7,10 @@ function AddToCart(props) {
   const {
     productStyleSelected,
     sizesInStock,
+    selectedSize,
+    selectSize,
   } = props;
 
-  const [selectedSize, setSelectedSize] = useState({});
   // const [isLoading, setIsLoading] = useState(true);
 
   // // Grab only the sizes in stock for current style. Using Object.entries() to appease linter.
@@ -29,8 +30,8 @@ function AddToCart(props) {
   //   console.log(quantity);
   // });
 
-  console.log('productStyleSelected', productStyleSelected);
-  console.log('sizesInStock', sizesInStock);
+  // console.log('productStyleSelected', productStyleSelected);
+  // console.log('sizesInStock', sizesInStock);
 
   function disabledSizeSelector(message) {
     return (
@@ -41,23 +42,10 @@ function AddToCart(props) {
   }
 
   function handleSizeSelector(event) {
-    let targetedSize = {};
-    const sizesInStockEntries = Object.entries(sizesInStock);
-    for (let i = 0; i < sizesInStockEntries.length; i += 1) {
-      const sku = sizesInStockEntries[i][0];
-      const option = sizesInStockEntries[i][1];
-      if (option.size === event.target.value) {
-        targetedSize = {
-          sku,
-          quantity: option.quantity,
-          size: option.size,
-        };
-      }
-    }
-    setSelectedSize(targetedSize);
+    selectSize(event.target.value);
   }
 
-  console.log('selectedSize', selectedSize);
+  // console.log('selectedSize', selectedSize);
 
   return (
     <div id="add-to-cart" className="product-right-component">
@@ -98,6 +86,8 @@ function AddToCart(props) {
 AddToCart.propTypes = {
   productStyleSelected: PropTypes.instanceOf(Object).isRequired,
   sizesInStock: PropTypes.instanceOf(Object).isRequired,
+  selectedSize: PropTypes.instanceOf(Object).isRequired,
+  selectSize: PropTypes.func.isRequired,
 };
 
 export default AddToCart;

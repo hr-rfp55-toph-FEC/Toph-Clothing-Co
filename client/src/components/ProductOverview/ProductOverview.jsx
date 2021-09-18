@@ -49,9 +49,11 @@ class ProductOverview extends React.Component {
       productRatings: {},
       productStyleSelected: {},
       sizesInStock: {},
+      selectedSize: {},
     };
 
     this.selectProductStyle = this.selectProductStyle.bind(this);
+    this.selectSize = this.selectSize.bind(this);
   }
 
   componentDidMount() {
@@ -108,6 +110,27 @@ class ProductOverview extends React.Component {
     }
   }
 
+  selectSize(size) {
+    const { sizesInStock } = this.state;
+    let targetedSize = {};
+    const sizesInStockEntries = Object.entries(sizesInStock);
+    for (let i = 0; i < sizesInStockEntries.length; i += 1) {
+      const sku = sizesInStockEntries[i][0];
+      const option = sizesInStockEntries[i][1];
+      if (option.size === size) {
+        targetedSize = {
+          sku,
+          quantity: option.quantity,
+          size: option.size,
+        };
+      }
+    }
+    console.log('targetedSize', targetedSize);
+    this.setState({
+      selectedSize: targetedSize,
+    });
+  }
+
   render() {
     const {
       isFetching,
@@ -118,7 +141,12 @@ class ProductOverview extends React.Component {
       productRatings,
       productStyleSelected,
       sizesInStock,
+      selectedSize,
     } = this.state;
+
+    console.log('productStyleSelected', productStyleSelected);
+    console.log('sizesInStock', sizesInStock);
+    console.log('selectedSize', selectedSize);
 
     if (isFetching) {
       return null;
@@ -152,6 +180,8 @@ class ProductOverview extends React.Component {
             <AddToCart
               productStyleSelected={productStyleSelected}
               sizesInStock={sizesInStock}
+              selectedSize={selectedSize}
+              selectSize={this.selectSize}
             />
           </div>
         </div>
