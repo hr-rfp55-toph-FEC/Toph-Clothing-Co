@@ -149,6 +149,7 @@ const ReviewsList = class extends React.Component {
 
 ReviewsList.propTypes = {
   productId: PropTypes.number.isRequired,
+  starFilter: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default ReviewsList;

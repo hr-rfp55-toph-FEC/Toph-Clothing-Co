@@ -95,6 +95,8 @@ const Ratings = class extends React.Component {
       avgRating, recommended, metaData, ratingBreakdown,
     } = this.state;
 
+    const { handleStarClick } = this.props;
+
     return (
       <div className="rating-breakdown">
         <div className="rating-summary">
@@ -114,7 +116,10 @@ const Ratings = class extends React.Component {
           <table>
             <tbody>
               {ratingBreakdown.map((row) => (
-                <TableRow row={row} />
+                <TableRow
+                  row={row}
+                  handleStarClick={handleStarClick}
+                />
               ))}
             </tbody>
           </table>
@@ -132,6 +137,7 @@ const Ratings = class extends React.Component {
 
 Ratings.propTypes = {
   productId: PropTypes.number.isRequired,
+  handleStarClick: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default Ratings;

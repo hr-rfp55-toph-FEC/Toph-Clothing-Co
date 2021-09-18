@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TableRow = ({ row }) => {
+const TableRow = ({ row, handleStarClick }) => {
   const barStyle = {
     width: row[2],
   };
 
   return (
-    <tr>
+    <tr id={`${row[0]}-stars-row`} onClick={() => handleStarClick(row[0])}>
       <td className="align-left">
         {row[0]}
         {' '}
@@ -29,6 +29,7 @@ const TableRow = ({ row }) => {
 
 TableRow.propTypes = {
   row: PropTypes.instanceOf(Array).isRequired,
+  handleStarClick: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default TableRow;

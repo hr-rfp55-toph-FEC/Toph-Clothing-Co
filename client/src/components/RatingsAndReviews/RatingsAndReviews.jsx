@@ -8,11 +8,25 @@ const RatingsAndReviews = class extends React.Component {
 
     this.state = {
       productId: 40345,
+      starFilter: [],
     };
+
+    this.handleStarClick = this.handleStarClick.bind(this);
+  }
+
+  handleStarClick(starCount) {
+    const { starFilter } = this.state;
+    const selectedStars = starFilter.slice();
+    if (selectedStars.includes(starCount)) {
+      selectedStars.splice(selectedStars.indexOf(starCount), 1);
+    } else {
+      selectedStars.push(starCount);
+    }
+    this.setState({ starFilter: selectedStars });
   }
 
   render() {
-    const { productId } = this.state;
+    const { productId, starFilter } = this.state;
 
     return (
       <section id="ratings-reviews-section">
@@ -21,11 +35,13 @@ const RatingsAndReviews = class extends React.Component {
           <div className="ratings-container">
             <Ratings
               productId={productId}
+              handleStarClick={this.handleStarClick}
             />
           </div>
           <div className="reviews-container">
             <ReviewsList
               productId={productId}
+              starFilter={starFilter}
             />
           </div>
         </div>
