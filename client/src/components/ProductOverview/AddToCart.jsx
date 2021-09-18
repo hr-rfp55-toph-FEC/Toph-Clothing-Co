@@ -9,6 +9,7 @@ function AddToCart(props) {
 
   const [selectedSize, setSelectedSize] = useState({});
   const [sizesInStock, setSizesInStock] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   // Grab only the sizes in stock for current style. Using Object.entries() to appease linter.
   useEffect(() => {
@@ -39,10 +40,19 @@ function AddToCart(props) {
       }
     }
     setSizesInStock(sizeOptionsFiltered);
+    setIsLoading(false); // This is ok, hooks don't trigger re-renders when state is unchanged
     console.log('sizeOptionsFiltered', sizeOptionsFiltered);
-  }, [productStyleSelected]);
+  }, [productStyleSelected, isLoading]);
 
   // console.log('sizesInStock', sizesInStock);
+
+  function disabledSizeSelector(message) {
+    return (
+      <select disabled defaultValue={message} id="size-dropdown" className="interactive-button">
+        <option disabled hidden value={message}>{message}</option>
+      </select>
+    );
+  }
 
   function handleSizeSelector(event) {
     setSelectedSize(sizesInStock[event.target.value]);
@@ -53,19 +63,17 @@ function AddToCart(props) {
   return (
     <div id="add-to-cart" className="product-right-component">
       <div id="add-to-cart-dropdowns" className="add-to-cart-component">
-        {Object.values(sizesInStock).length === 0
-          ? (
-            <select disabled defaultValue="Out of Stock" id="size-dropdown" className="interactive-button">
-              <option disabled hidden value="Out of Stock">OUT OF STOCK</option>
-            </select>
-          )
-          : (
-            <select defaultValue="Select Size" id="size-dropdown" className="interactive-button" onChange={handleSizeSelector}>
-              <option disabled hidden value="Select Size">SELECT SIZE</option>
-              {Object.values(sizesInStock)
-                .map((size) => <option key={size.size}>{size.size}</option>)}
-            </select>
-          )}
+        {isLoading && disabledSizeSelector('LOADING...')}
+        {!isLoading
+          && (Object.values(sizesInStock).length === 0
+            ? disabledSizeSelector('OUT OF STOCK')
+            : (
+              <select defaultValue="Select Size" id="size-dropdown" className="interactive-button" onChange={handleSizeSelector}>
+                <option disabled hidden value="Select Size">SELECT SIZE</option>
+                {Object.values(sizesInStock)
+                  .map((size) => <option key={size.size}>{size.size}</option>)}
+              </select>
+            ))}
         {Object.values(selectedSize).length === 0
           ? (
             <select disabled defaultValue="—" id="quantity-dropdown" className="interactive-button">
