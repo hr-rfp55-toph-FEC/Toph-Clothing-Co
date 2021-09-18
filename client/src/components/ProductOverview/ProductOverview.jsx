@@ -29,9 +29,9 @@ class ProductOverview extends React.Component {
       // For now, grab all products from the API and set the current product as the 1st one (40344)
       ProductOverview.getProductList(),
       // For now, grab product details only for the 1st product
-      ProductOverview.getProductStyles(40350),
-      ProductOverview.getProductReviews(40350),
-      ProductOverview.getProductRatings(40350),
+      ProductOverview.getProductStyles(40370),
+      ProductOverview.getProductReviews(40370),
+      ProductOverview.getProductRatings(40370),
     ])
       .then((results) => {
         // console.log(results);

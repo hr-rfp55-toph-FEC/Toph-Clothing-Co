@@ -13,6 +13,8 @@ function AddToCart(props) {
 
   // Grab only the sizes in stock for current style. Using Object.entries() to appease linter.
   useEffect(() => {
+    // setSelectedSize({});
+    // setSizesInStock({});
     console.log('productStyleSelected', productStyleSelected);
     // console.log('productStyleSelected SKUs', productStyleSelected.skus);
     // console.log('Object.values of SKUs', Object.values(productStyleSelected.skus));
@@ -24,19 +26,21 @@ function AddToCart(props) {
       const option = sizeOptions[i][1];
       // console.log(sku);
       // console.log(option);
-      if (option.quantity > 0) {
+      if (option.quantity > 10) {
         // Handle the edge case where there are duplicate XLs - set 2nd XL equal to XXL
         // The right way to do this is to edit the productStyle object itself; too much work for now
         if (option.size === 'XL'
           && Object.values(sizeOptionsFiltered).map((optionFiltered) => optionFiltered.size).indexOf('XL') !== -1) {
           option.size = 'XXL';
         }
-        // Use size instead of SKU as key to allow for easier use. TBD if this causes issues.
-        sizeOptionsFiltered[option.size] = {
-          sku,
-          quantity: option.quantity,
-          size: option.size,
-        };
+        sizeOptionsFiltered[sku] = option;
+        // // Using size instead of SKU as the key is cleaner for code re-use,
+        // // ...but causes shoe sizes to display out of order
+        // sizeOptionsFiltered[option.size] = {
+        //   sku,
+        //   quantity: option.quantity,
+        //   size: option.size,
+        // };
       }
     }
     setSizesInStock(sizeOptionsFiltered);
@@ -60,7 +64,20 @@ function AddToCart(props) {
   }
 
   function handleSizeSelector(event) {
-    setSelectedSize(sizesInStock[event.target.value]);
+    let targetedSize = {};
+    const sizesInStockEntries = Object.entries(sizesInStock);
+    for (let i = 0; i < sizesInStockEntries.length; i += 1) {
+      const sku = sizesInStockEntries[i][0];
+      const option = sizesInStockEntries[i][1];
+      if (option.size === event.target.value) {
+        targetedSize = {
+          sku,
+          quantity: option.quantity,
+          size: option.size,
+        };
+      }
+    }
+    setSelectedSize(targetedSize);
   }
 
   console.log('selectedSize', selectedSize);
