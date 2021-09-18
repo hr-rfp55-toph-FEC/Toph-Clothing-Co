@@ -13,7 +13,7 @@ function AddToCart(props) {
 
   // Grab only the sizes in stock for current style. Using Object.entries() to appease linter.
   useEffect(() => {
-    // console.log('productStyleSelected', productStyleSelected);
+    console.log('productStyleSelected', productStyleSelected);
     // console.log('productStyleSelected SKUs', productStyleSelected.skus);
     // console.log('Object.values of SKUs', Object.values(productStyleSelected.skus));
     const sizeOptions = Object.entries(productStyleSelected.skus);
@@ -44,6 +44,11 @@ function AddToCart(props) {
     console.log('sizeOptionsFiltered', sizeOptionsFiltered);
   }, [productStyleSelected, isLoading]);
 
+  // useEffect(() => {
+  //   const quantity = selectedSize.quantity;
+  //   console.log(quantity);
+  // });
+
   // console.log('sizesInStock', sizesInStock);
 
   function disabledSizeSelector(message) {
@@ -58,7 +63,7 @@ function AddToCart(props) {
     setSelectedSize(sizesInStock[event.target.value]);
   }
 
-  // console.log('selectedSize', selectedSize);
+  console.log('selectedSize', selectedSize);
 
   return (
     <div id="add-to-cart" className="product-right-component">
@@ -81,10 +86,10 @@ function AddToCart(props) {
             </select>
           )
           : (
-            <select defaultValue="Quantity Dropdown" id="quantity-dropdown" className="interactive-button">
-              <option disabled hidden value="Quantity Dropdown">1</option>
-              {/* {Object.values(sizesInStock)
-                .map((size) => <option key={size.size}>{size.size}</option>)} */}
+            <select id="quantity-dropdown" className="interactive-button">
+              {[...Array(Math.min(selectedSize.quantity + 1, 16)).keys()]
+                .slice(1)
+                .map((quantity) => <option key={quantity}>{quantity}</option>)}
             </select>
           )}
       </div>
