@@ -545,7 +545,7 @@ body {
 }
 
 #recommend-percentage {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   text-align: justify;
   margin: 1.5rem 0;
 }
@@ -592,7 +592,8 @@ h3 {
 }
 
 .reviews-list-container {
-  max-height: 600px;
+  max-height: 800px;
+  min-height: 50vh;
   overflow-y: scroll;
 }
 
@@ -614,7 +615,7 @@ h3 {
   border-width: 1.5px;
   margin: 1rem 2rem;
   padding: 0.5rem;
-  height: fit-content;
+  height: max-content;
 }
 
 .review-heading {
@@ -640,6 +641,8 @@ h3 {
 
 .reviewer-info, .review-body {
   font-size: 1.6rem;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 img.thumbnail {
