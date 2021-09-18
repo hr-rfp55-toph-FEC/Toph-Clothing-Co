@@ -22,9 +22,8 @@ const ListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
         <h6 className="category-heading">
           {prodInfo.category}
         </h6>
-        <p className="product-details">
-          {prodInfo.name}
-          <br />
+        <p className="product-name-p">{prodInfo.name}</p>
+        <p className="prod-price-p">
           {salePrice
             ? (
               <>
@@ -33,10 +32,11 @@ const ListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
               </>
             )
             : <span>{` $${origPrice}`}</span>}
-          <br />
         </p>
-        { Object.keys(prodMeta.ratings).length !== 0
-        && <Stars id={`BG${prodMeta.product_id}`} rating={calcAvgRating(prodMeta.ratings)} />}
+        <div className="rel-prod-card-stars">
+          { Object.keys(prodMeta.ratings).length !== 0
+          && <Stars id={`BG${prodMeta.product_id}`} rating={calcAvgRating(prodMeta.ratings)} />}
+        </div>
       </div>
     </div>
   );

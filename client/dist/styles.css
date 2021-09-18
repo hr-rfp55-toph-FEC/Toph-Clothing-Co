@@ -32,6 +32,25 @@ body {
   flex-direction: column;
 }
 
+/* Stars*/
+
+.stars-outer {
+  display: inline-block;
+  position: relative;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-outer, .stars-inner {
+  font-size: 1.5rem;
+}
 /* Banner and Title */
 
 .titlebar {
@@ -411,8 +430,8 @@ body {
 
 .product-list-card {
   border: 0.1px solid gray;
-  height: 350px;
-  width: 250px;
+  height: 50rem;
+  width: 30rem;
   min-width: 250px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
@@ -432,7 +451,8 @@ body {
 .card-image-container img {
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: black;
 }
 
 .card-button {
@@ -474,22 +494,35 @@ body {
 }
 
 .card-details-container {
-  /* display: flex; */
+  display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  font-size: calc(5px + 0.8vw);
+  /* align-content: flex-start; default val*/
+  gap: 0.5rem;
 
 }
 
 .category-heading {
-  margin: 5px 2px;
-  font-size: calc(5px + 0.8vw);
+  margin: 1rem 1rem 0.5rem 1rem;
+  font-size: 1.7rem;
   color:gray;
 }
 
 
-.product-details {
-  margin: 1px 5px 1px 5px;
+.product-name-p {
+  margin: 0rem 1rem 0.5rem 1rem;
+  font-size: 2.0rem;
+}
+
+.prod-price-p {
+  margin: 0rem 1rem 0.5rem 1rem;
+  font-size: 1.4rem;
+}
+
+.rel-prod-card-stars {
+  margin: 0rem 1rem 0.5rem 1rem;
+  font-size: 1.5rem;
+
 }
 
 .sale-price {
@@ -545,6 +578,9 @@ body {
   border-radius: 1.0rem;
   background-color: transparent;
   border-color: transparent;
+  position: sticky;
+  top: 1.0rem;
+  right: 0.7rem;
 }
 
 
@@ -880,7 +916,7 @@ img.thumbnail:hover {
   margin: 0 0 0.5rem 2rem;
 }
 
-/* Stars*/
+/* Stars
 
 .stars-outer {
   display: inline-block;
@@ -898,4 +934,4 @@ img.thumbnail:hover {
 
 .stars-outer, .stars-inner {
   font-size: 1.5rem;
-}
+} */

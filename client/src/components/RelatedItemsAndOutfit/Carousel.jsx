@@ -41,7 +41,7 @@ const Carousel = ({ children }) => {
         <div className="carousel-content-wrapper">
           <div
             className="carousel-content"
-            style={{ transform: `translateX(-${currIndex * 25}%)` }}
+            style={{ transform: `translateX(-${currIndex * 25}rem)` }}
           >
             { children }
           </div>
