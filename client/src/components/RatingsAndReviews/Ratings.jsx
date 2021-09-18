@@ -53,6 +53,11 @@ const Ratings = class extends React.Component {
     this.setState({ avgRating: productRating, recommended: recommendRaw });
   }
 
+// let ratingArr = Object.entries(ratings).reverse();
+// const totalRatingsCount = Object.values(ratings)
+//   .map((item) => Number(item))
+//   .reduce((acc, item) => (acc + item));
+
   render() {
     const { avgRating, recommended, metaData } = this.state;
 

@@ -550,6 +550,29 @@ body {
   margin: 1.5rem 0;
 }
 
+table {
+  font-size: 1.5rem;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1rem;
+}
+
+td {
+  cursor: pointer;
+}
+
+.meter-bar {
+  border-radius: 2px;
+  background-color: #F0F2F2;
+  box-shadow: inset 0 0 0 1px #e3e6e6;
+  height: 10px;
+  width: 20rem;
+}
+
+.actual-progress {
+  border-color: #447c47;
+}
+
 .reviews-list {
   display: flex;
   flex-direction: column;
