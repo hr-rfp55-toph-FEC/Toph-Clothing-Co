@@ -587,6 +587,8 @@ tr:hover{
 
 .actual-progress-full {
   border-radius: 2px;
+  background-color: #447c47;
+  height: 12px;
 }
 
 .filter-message {
@@ -616,9 +618,10 @@ h3 {
 }
 
 .reviews-list-container {
-  max-height: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  height: max-content;
   min-height: 50vh;
-  overflow-y: scroll;
 }
 
 #sort-dropdown {
