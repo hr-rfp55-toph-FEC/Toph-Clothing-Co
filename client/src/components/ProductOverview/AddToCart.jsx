@@ -30,13 +30,12 @@ function AddToCart(props) {
           && Object.values(sizeOptionsFiltered).map((optionFiltered) => optionFiltered.size).indexOf('XL') !== -1) {
           option.size = 'XXL';
         }
-        sizeOptionsFiltered[sku] = option;
-        // // Alternate approach - uses size as key (but problems w/ sizes ordered alphabetically?)
-        // sizeOptionsFiltered[option.size] = {
-        //   sku,
-        //   quantity: option.quantity,
-        //   size: option.size,
-        // };
+        // Use size instead of SKU as key to allow for easier use. TBD if this causes issues.
+        sizeOptionsFiltered[option.size] = {
+          sku,
+          quantity: option.quantity,
+          size: option.size,
+        };
       }
     }
     setSizesInStock(sizeOptionsFiltered);
@@ -46,21 +45,10 @@ function AddToCart(props) {
   // console.log('sizesInStock', sizesInStock);
 
   function handleSizeSelector(event) {
-    const sizesInStockEntries = Object.entries(sizesInStock);
-    for (let i = 0; i < sizesInStockEntries.length; i += 1) {
-      const sku = sizesInStockEntries[i][0];
-      const option = sizesInStockEntries[i][1];
-      if (option.size === event.target.value) {
-        setSelectedSize({
-          sku,
-          quantity: option.quantity,
-          size: option.size,
-        });
-      }
-    }
+    setSelectedSize(sizesInStock[event.target.value]);
   }
 
-  console.log('selectedSize', selectedSize);
+  // console.log('selectedSize', selectedSize);
 
   return (
     <div id="add-to-cart" className="product-right-component">
