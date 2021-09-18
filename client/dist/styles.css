@@ -530,7 +530,8 @@ body {
   background-color: whitesmoke;
   padding: 1rem 1.5rem;
   width: 80rem;
-  height: auto;
+  height: 50rem;
+  overflow-y: scroll;
   border-radius: 0.5rem;
 }
 

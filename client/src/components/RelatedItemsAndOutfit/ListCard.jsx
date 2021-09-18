@@ -10,7 +10,6 @@ const ListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
   return (
     <div className="product-list-card">
       <div className="card-image-container">
-        {/* <button onClick={onClickHandler} type="button" className="card-button">X</button> */}
         { children }
         <img
           src={prodStyles.results[0].photos[0].url}

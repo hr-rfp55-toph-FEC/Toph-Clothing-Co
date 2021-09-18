@@ -33,13 +33,14 @@ const ComparisonModal = ({ closeModalHandler, modalClass, currProd, modalRelProd
         <button type="button" onClick={closeModalHandler} className="comp-close-modal">&times;</button>
         <h1 className="comp-modal-header">Comparing</h1>
         <div className="comp-table comp-table--3cols">
-
+          {/* Table column 1 */}
           <div style={{ order: '0' }} className="comp-table-cell"><h3>{Object.keys(currProd)[0]}</h3></div>
           {characteristics.map((characteristic, index) => {
             for (let i = 0; i < currProdEntries.length; i += 1) {
               if (currProdEntries[i][0] === characteristic) {
                 const charVal = currProdEntries[i][1].value;
-                const prodId = `BGM-${currProdEntries[i][1].id}`;
+                if (charVal === null) break;
+                const prodId = `BGM-${currProdEntries[i][1].id}${Math.random() * 100000}`;
                 return rowItemDiv(
                   <Stars key={prodId} rating={Number(charVal)} id={prodId} />,
                   index + 1, prodId,
@@ -48,17 +49,18 @@ const ComparisonModal = ({ closeModalHandler, modalClass, currProd, modalRelProd
             }
             return noValue(index + 1, `bga${100000 * Math.random()}`);
           })}
-
+          {/* Table column 2 */}
           <div style={{ order: '0' }} className="comp-table-cell" />
           {characteristics.map((characteristic, index) => characteristicList(characteristic,
             index + 1, `bg${characteristic}bg`))}
-
+          {/* Table column 3 */}
           <div style={{ order: '0' }} className="comp-table-cell"><h3>{Object.keys(modalRelProd)[0]}</h3></div>
           {characteristics.map((characteristic, index) => {
             for (let i = 0; i < relProdEntries.length; i += 1) {
               if (relProdEntries[i][0] === characteristic) {
                 const charVal = relProdEntries[i][1].value;
-                const prodId = `BGM-${relProdEntries[i][1].id}`;
+                if (charVal === null) break;
+                const prodId = `BGM-${currProdEntries[i][1].id}${Math.random() * 100000}`;
                 return rowItemDiv(
                   <Stars key={prodId} rating={Number(charVal)} id={prodId} />,
                   index + 1, prodId,
