@@ -42,7 +42,7 @@ class RelatedItemsAndOutfit extends React.Component {
 
   render() {
     const {
-      isFetching, prodsInfo, prodsMeta, prodsStyles, currProd
+      isFetching, prodsInfo, prodsMeta, prodsStyles, currProd,
     } = this.state;
     return (
       <div>
