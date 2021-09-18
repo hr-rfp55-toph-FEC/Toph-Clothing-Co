@@ -15,7 +15,7 @@ function AddToCart(props) {
   useEffect(() => {
     // setSelectedSize({});
     // setSizesInStock({});
-    console.log('productStyleSelected', productStyleSelected);
+    // console.log('productStyleSelected', productStyleSelected);
     // console.log('productStyleSelected SKUs', productStyleSelected.skus);
     // console.log('Object.values of SKUs', Object.values(productStyleSelected.skus));
     const sizeOptions = Object.entries(productStyleSelected.skus);
@@ -26,7 +26,7 @@ function AddToCart(props) {
       const option = sizeOptions[i][1];
       // console.log(sku);
       // console.log(option);
-      if (option.quantity > 10) {
+      if (option.quantity > 0) {
         // Handle the edge case where there are duplicate XLs - set 2nd XL equal to XXL
         // The right way to do this is to edit the productStyle object itself; too much work for now
         if (option.size === 'XL'
@@ -45,7 +45,7 @@ function AddToCart(props) {
     }
     setSizesInStock(sizeOptionsFiltered);
     setIsLoading(false); // This is ok, hooks don't trigger re-renders when state is unchanged
-    console.log('sizeOptionsFiltered', sizeOptionsFiltered);
+    // console.log('sizeOptionsFiltered', sizeOptionsFiltered);
   }, [productStyleSelected, isLoading]);
 
   // useEffect(() => {
@@ -80,7 +80,7 @@ function AddToCart(props) {
     setSelectedSize(targetedSize);
   }
 
-  console.log('selectedSize', selectedSize);
+  // console.log('selectedSize', selectedSize);
 
   return (
     <div id="add-to-cart" className="product-right-component">
