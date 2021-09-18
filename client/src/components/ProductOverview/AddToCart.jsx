@@ -31,6 +31,12 @@ function AddToCart(props) {
           option.size = 'XXL';
         }
         sizeOptionsFiltered[sku] = option;
+        // // Alternate approach - uses size as key (but problems w/ sizes ordered alphabetically?)
+        // sizeOptionsFiltered[option.size] = {
+        //   sku,
+        //   quantity: option.quantity,
+        //   size: option.size,
+        // };
       }
     }
     setSizesInStock(sizeOptionsFiltered);
@@ -38,6 +44,23 @@ function AddToCart(props) {
   }, [productStyleSelected]);
 
   // console.log('sizesInStock', sizesInStock);
+
+  function handleSizeSelector(event) {
+    const sizesInStockEntries = Object.entries(sizesInStock);
+    for (let i = 0; i < sizesInStockEntries.length; i += 1) {
+      const sku = sizesInStockEntries[i][0];
+      const option = sizesInStockEntries[i][1];
+      if (option.size === event.target.value) {
+        setSelectedSize({
+          sku,
+          quantity: option.quantity,
+          size: option.size,
+        });
+      }
+    }
+  }
+
+  console.log('selectedSize', selectedSize);
 
   return (
     <div id="add-to-cart" className="product-right-component">
@@ -49,13 +72,25 @@ function AddToCart(props) {
             </select>
           )
           : (
-            <select defaultValue="Select Size" id="size-dropdown" className="interactive-button">
+            <select defaultValue="Select Size" id="size-dropdown" className="interactive-button" onChange={handleSizeSelector}>
               <option disabled hidden value="Select Size">SELECT SIZE</option>
               {Object.values(sizesInStock)
                 .map((size) => <option key={size.size}>{size.size}</option>)}
             </select>
           )}
-        <button type="button" id="quantity-dropdown" className="interactive-button">1</button>
+        {Object.values(selectedSize).length === 0
+          ? (
+            <select disabled defaultValue="—" id="quantity-dropdown" className="interactive-button">
+              <option disabled hidden value="—">—</option>
+            </select>
+          )
+          : (
+            <select defaultValue="Quantity Dropdown" id="quantity-dropdown" className="interactive-button">
+              <option disabled hidden value="Quantity Dropdown">1</option>
+              {/* {Object.values(sizesInStock)
+                .map((size) => <option key={size.size}>{size.size}</option>)} */}
+            </select>
+          )}
       </div>
       <div id="add-to-cart-buttons" className="add-to-cart-component">
         <button type="button" id="add-to-cart-button" className="interactive-button">Add To Bag</button>
