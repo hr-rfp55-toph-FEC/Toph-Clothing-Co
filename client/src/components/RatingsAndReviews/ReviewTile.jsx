@@ -28,7 +28,7 @@ const ReviewTile = ({ review, getReviews, sortBy }) => {
     displayBody = review.body;
   } else {
     displayBody = review.body.slice(0, 250).concat('...');
-    showMoreSnippet = <p onClick={() => { setShowMoreBody(true); setButtonDisplay(false); }} className="more-body" role="presentation">Show more...</p>;
+    showMoreSnippet = <p onClick={() => { setShowMoreBody(true); setButtonDisplay(false); }} className="clicked-text" role="presentation">Show more...</p>;
   }
   if (!buttonDisplay) {
     showMoreSnippet = <></>;
@@ -72,7 +72,7 @@ const ReviewTile = ({ review, getReviews, sortBy }) => {
     <p className="helpful-review">
       Helpful?
       {' '}
-      <span className="helpful-yes" onClick={() => markAsHelpful(review.review_id)} role="presentation">Yes</span>
+      <span className="clicked-text" onClick={() => markAsHelpful(review.review_id)} role="presentation">Yes</span>
       {' '}
       <span>
         (

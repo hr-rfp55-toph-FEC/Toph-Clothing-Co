@@ -95,7 +95,30 @@ const Ratings = class extends React.Component {
       avgRating, recommended, metaData, ratingBreakdown,
     } = this.state;
 
-    const { handleStarClick } = this.props;
+    const { handleStarClick, removeFilter, starFilter } = this.props;
+
+    let filterMesage;
+    let clearFilter;
+    let displayStarFilter = '';
+    starFilter.forEach((starCount) => {
+      if (displayStarFilter === '') {
+        displayStarFilter += `${starCount}-stars`;
+      } else {
+        displayStarFilter += `, ${starCount}-stars`;
+      }
+    });
+    if (starFilter.length > 0) {
+      filterMesage = (
+        <div className="filter-message">
+          <span id="filter-label">FILTERED BY: </span>
+          <br />
+          {displayStarFilter}
+        </div>
+      );
+      clearFilter = (
+        <div id="clear-filter" onClick={() => removeFilter()} role="presentation">Clear Filter</div>
+      );
+    }
 
     return (
       <div className="rating-breakdown">
@@ -118,11 +141,14 @@ const Ratings = class extends React.Component {
               {ratingBreakdown.map((row) => (
                 <TableRow
                   row={row}
+                  key={`${row[0]}-stars-row`}
                   handleStarClick={handleStarClick}
                 />
               ))}
             </tbody>
           </table>
+          {filterMesage}
+          {clearFilter}
         </div>
         <div>
           size
@@ -138,6 +164,8 @@ const Ratings = class extends React.Component {
 Ratings.propTypes = {
   productId: PropTypes.number.isRequired,
   handleStarClick: PropTypes.instanceOf(Function).isRequired,
+  removeFilter: PropTypes.instanceOf(Function).isRequired,
+  starFilter: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default Ratings;

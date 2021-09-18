@@ -12,17 +12,22 @@ const RatingsAndReviews = class extends React.Component {
     };
 
     this.handleStarClick = this.handleStarClick.bind(this);
+    this.removeFilter = this.removeFilter.bind(this);
   }
 
   handleStarClick(starCount) {
     const { starFilter } = this.state;
     const selectedStars = starFilter.slice();
-    if (selectedStars.includes(starCount)) {
-      selectedStars.splice(selectedStars.indexOf(starCount), 1);
+    if (selectedStars.includes(Number(starCount))) {
+      selectedStars.splice(selectedStars.indexOf(Number(starCount)), 1);
     } else {
-      selectedStars.push(starCount);
+      selectedStars.push(Number(starCount));
     }
     this.setState({ starFilter: selectedStars });
+  }
+
+  removeFilter() {
+    this.setState({ starFilter: [] });
   }
 
   render() {
@@ -36,6 +41,8 @@ const RatingsAndReviews = class extends React.Component {
             <Ratings
               productId={productId}
               handleStarClick={this.handleStarClick}
+              removeFilter={this.removeFilter}
+              starFilter={starFilter}
             />
           </div>
           <div className="reviews-container">

@@ -561,6 +561,10 @@ td {
   cursor: pointer;
 }
 
+tr:hover{
+  background-color: #E9FAC8;
+}
+
 .align-right {
   text-align: right;
 }
@@ -579,6 +583,26 @@ td {
   border-bottom-left-radius: 2px;
   background-color: #447c47;
   height: 12px;
+}
+
+.actual-progress-full {
+  border-radius: 2px;
+}
+
+.filter-message {
+  font-size: 1.6rem;
+}
+
+#filter-label {
+  color: rgb(63, 63, 63);
+  font-weight: bold;
+}
+
+#clear-filter {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007185;
+  cursor: pointer;
 }
 
 .reviews-list {
@@ -694,10 +718,11 @@ img.thumbnail:hover {
   padding: 10px 0;
 }
 
-.more-body, .helpful-yes {
-  color: blue;
+.clicked-text {
+  color: #007185;
   text-decoration: underline;
   cursor: pointer;
+  font-size: 1.6rem;
 }
 
 .sales-response {
