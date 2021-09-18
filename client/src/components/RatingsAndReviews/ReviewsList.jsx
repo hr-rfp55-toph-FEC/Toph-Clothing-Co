@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import ReviewTile from './ReviewTile';
 import SortReviews from './SortReviews';
 
@@ -29,8 +30,12 @@ const ReviewsList = class extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { sortBy } = this.state;
+    const { starFilter } = this.props;
     if (sortBy !== prevState.sortBy) {
       this.sortByOption(sortBy, this.updateDisplay);
+    }
+    if (starFilter.length !== prevProps.starFilter.length) {
+      this.updateDisplay();
     }
   }
 
@@ -39,9 +44,10 @@ const ReviewsList = class extends React.Component {
   }
 
   getReviews(sortBy) {
+    const { productId } = this.props;
     axios.get('/reviews', {
       params: {
-        product_id: 40345,
+        product_id: productId,
         count: 100,
         sort: sortBy,
       },
@@ -56,16 +62,24 @@ const ReviewsList = class extends React.Component {
 
   updateDisplay() {
     const { reviews, reviewCount } = this.state;
-    let reviewsCopy;
-    if (reviews.length <= 2) {
-      reviewsCopy = reviews;
-    } else {
-      reviewsCopy = reviews.slice(0, reviewCount);
-      if (reviewCount < reviews.length) {
-        this.setState({ showMoreReviewsButton: true });
+    const { starFilter } = this.props;
+    let reviewsCopy = [];
+
+    if (starFilter.length === 0) {
+      if (reviews.length <= 2) {
+        reviewsCopy = reviews;
       } else {
-        this.setState({ showMoreReviewsButton: false });
+        reviewsCopy = reviews.slice(0, reviewCount);
+        if (reviewCount < reviews.length) {
+          this.setState({ showMoreReviewsButton: true });
+        } else {
+          this.setState({ showMoreReviewsButton: false });
+        }
       }
+    } else {
+      starFilter.forEach((starCount) => {
+        reviewsCopy = reviewsCopy.concat(reviews.filter((review) => review.rating === starCount));
+      });
     }
     this.setState({ display: reviewsCopy });
   }
@@ -143,6 +157,11 @@ const ReviewsList = class extends React.Component {
       </div>
     );
   }
+};
+
+ReviewsList.propTypes = {
+  productId: PropTypes.number.isRequired,
+  starFilter: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default ReviewsList;
