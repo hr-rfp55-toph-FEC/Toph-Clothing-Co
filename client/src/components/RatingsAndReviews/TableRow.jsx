@@ -11,7 +11,7 @@ const TableRow = ({ row }) => {
       <td className="align-left">
         {row[0]}
         {' '}
-        stars
+        {row[0] === '1' ? 'star' : 'stars'}
       </td>
       <td>
         <div className="meter-bar" role="progressbar">
@@ -21,7 +21,7 @@ const TableRow = ({ row }) => {
       <td className="align-right">
         {row[1]}
         {' '}
-        reviews
+        {row[1] === '0' || row[1] === '1' ? 'review' : 'reviews'}
       </td>
     </tr>
   );

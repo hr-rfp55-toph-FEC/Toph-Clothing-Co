@@ -49,21 +49,42 @@ const Ratings = class extends React.Component {
   calcRatingAndRec() {
     const { metaData } = this.state;
 
-    const productRating = calcAvgRating(metaData.ratings).toFixed(1);
-    const recommendPercentage = ((Number(metaData.recommended.true)
-    / (Number(metaData.recommended.false) + Number(metaData.recommended.true))) * 100).toFixed(0);
+    let productRating;
+    let recommendPercentage;
+    let totalRatingsCount;
+    let ratingsWithPercentage;
 
-    const ratings = Object.entries(metaData.ratings).reverse();
-    const totalRatingsCount = Object.values(metaData.ratings)
-      .map((item) => Number(item))
-      .reduce((acc, item) => (acc + item));
-    const ratingWithPercentage = ratings
-      .map((rating) => ([rating[0], rating[1], ((Number(rating[1]) / totalRatingsCount) * 100).toFixed(0).concat('%')]));
+    let ratings = Object.entries(metaData.ratings).reverse();
+    if (ratings.length < 5) {
+      const allStars = [1, 2, 3, 4, 5].map((number) => String(number));
+      const absent = allStars.filter((num) => !Object.keys(metaData.ratings).includes(num));
+      absent.forEach((num) => {
+        ratings.push([num, '0']);
+      });
+    }
+    ratings.sort((a, b) => (a[0] < b[0] ? 1 : -1));
+
+    if (Object.keys(metaData.ratings).length > 0) {
+      productRating = calcAvgRating(metaData.ratings).toFixed(1);
+      recommendPercentage = ((Number(metaData.recommended.true)
+        / (Number(metaData.recommended.false) + Number(metaData.recommended.true))) * 100).toFixed(0);
+      totalRatingsCount = Object.values(metaData.ratings)
+        .map((item) => Number(item))
+        .reduce((acc, item) => (acc + item));
+
+      ratingsWithPercentage = ratings
+        .map((rating) => ([rating[0], rating[1], ((Number(rating[1]) / totalRatingsCount) * 100).toFixed(0).concat('%')]));
+    } else {
+      productRating = 0;
+      recommendPercentage = 0;
+      ratingsWithPercentage = ratings
+        .map((rating) => ([rating[0], rating[1], '0%']));
+    }
 
     this.setState({
       avgRating: productRating,
       recommended: recommendPercentage,
-      ratingBreakdown: ratingWithPercentage,
+      ratingBreakdown: ratingsWithPercentage,
     });
   }
 
