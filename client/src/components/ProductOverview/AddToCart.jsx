@@ -10,7 +10,7 @@ function AddToCart(props) {
   const [selectedSize, setSelectedSize] = useState({});
   const [sizesInStock, setSizesInStock] = useState({});
 
-  // Grab only the sizes that are in stock for current style
+  // Grab only the sizes in stock for current style. Using Object.entries() to appease linter.
   useEffect(() => {
     // console.log('productStyleSelected', productStyleSelected);
     // console.log('productStyleSelected SKUs', productStyleSelected.skus);
@@ -27,22 +27,34 @@ function AddToCart(props) {
         // Handle the edge case where there are duplicate XLs - set 2nd XL equal to XXL
         // The right way to do this is to edit the productStyle object itself; too much work for now
         if (option.size === 'XL'
-        && Object.values(sizeOptionsFiltered).map((optionFiltered) => optionFiltered.size).indexOf('XL') !== -1) {
+          && Object.values(sizeOptionsFiltered).map((optionFiltered) => optionFiltered.size).indexOf('XL') !== -1) {
           option.size = 'XXL';
         }
         sizeOptionsFiltered[sku] = option;
       }
     }
     setSizesInStock(sizeOptionsFiltered);
-    console.log(sizeOptionsFiltered);
+    console.log('sizeOptionsFiltered', sizeOptionsFiltered);
   }, [productStyleSelected]);
 
-  // console.log(sizesInStock);
+  // console.log('sizesInStock', sizesInStock);
 
   return (
     <div id="add-to-cart" className="product-right-component">
       <div id="add-to-cart-dropdowns" className="add-to-cart-component">
-        <button type="button" id="size-dropdown" className="interactive-button">Select Size</button>
+        {Object.values(sizesInStock).length === 0
+          ? (
+            <select disabled defaultValue="Out of Stock" id="size-dropdown" className="interactive-button">
+              <option disabled hidden value="Out of Stock">OUT OF STOCK</option>
+            </select>
+          )
+          : (
+            <select defaultValue="Select Size" id="size-dropdown" className="interactive-button">
+              <option disabled hidden value="Select Size">SELECT SIZE</option>
+              {Object.values(sizesInStock)
+                .map((size) => <option key={size.size}>{size.size}</option>)}
+            </select>
+          )}
         <button type="button" id="quantity-dropdown" className="interactive-button">1</button>
       </div>
       <div id="add-to-cart-buttons" className="add-to-cart-component">
