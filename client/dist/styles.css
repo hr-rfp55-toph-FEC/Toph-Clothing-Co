@@ -509,14 +509,14 @@ body {
   display: flex;
   flex-direction: column;
   width: 70%;
-  margin: 0 3rem 0 0;
+  margin: 0 3rem 0 1rem;
 }
 
 .ratings-container {
   display: flex;
   flex-direction: column;
   width: 30%;
-  margin: 0 0 0 3rem;
+  margin: 0 1rem 0 3rem;
 }
 
 .rating-breakdown {
@@ -561,16 +561,24 @@ td {
   cursor: pointer;
 }
 
+.align-right {
+  text-align: right;
+}
+
 .meter-bar {
   border-radius: 2px;
   background-color: #F0F2F2;
   box-shadow: inset 0 0 0 1px #e3e6e6;
-  height: 10px;
-  width: 20rem;
+  height: 12px;
+  width: 16rem;
+  margin: 0 0.5rem;
 }
 
 .actual-progress {
-  border-color: #447c47;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  background-color: #447c47;
+  height: 12px;
 }
 
 .reviews-list {

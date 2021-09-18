@@ -13,6 +13,7 @@ const Ratings = class extends React.Component {
       metaData: {},
       avgRating: null,
       recommended: null,
+      ratingBreakdown: [],
     };
 
     this.getReviewMeta = this.getReviewMeta.bind(this);
@@ -47,19 +48,29 @@ const Ratings = class extends React.Component {
 
   calcRatingAndRec() {
     const { metaData } = this.state;
+
     const productRating = calcAvgRating(metaData.ratings).toFixed(1);
-    const recommendRaw = ((Number(metaData.recommended.true)
-      / (Number(metaData.recommended.false) + Number(metaData.recommended.true))) * 100).toFixed(0);
-    this.setState({ avgRating: productRating, recommended: recommendRaw });
+    const recommendPercentage = ((Number(metaData.recommended.true)
+    / (Number(metaData.recommended.false) + Number(metaData.recommended.true))) * 100).toFixed(0);
+
+    const ratings = Object.entries(metaData.ratings).reverse();
+    const totalRatingsCount = Object.values(metaData.ratings)
+      .map((item) => Number(item))
+      .reduce((acc, item) => (acc + item));
+    const ratingWithPercentage = ratings
+      .map((rating) => ([rating[0], rating[1], ((Number(rating[1]) / totalRatingsCount) * 100).toFixed(0).concat('%')]));
+
+    this.setState({
+      avgRating: productRating,
+      recommended: recommendPercentage,
+      ratingBreakdown: ratingWithPercentage,
+    });
   }
 
-// let ratingArr = Object.entries(ratings).reverse();
-// const totalRatingsCount = Object.values(ratings)
-//   .map((item) => Number(item))
-//   .reduce((acc, item) => (acc + item));
-
   render() {
-    const { avgRating, recommended, metaData } = this.state;
+    const {
+      avgRating, recommended, metaData, ratingBreakdown,
+    } = this.state;
 
     return (
       <div className="rating-breakdown">
@@ -78,7 +89,7 @@ const Ratings = class extends React.Component {
         </div>
         <div id="breakdown-table">
           <RatingTable
-            ratings={metaData.ratings}
+            ratings={ratingBreakdown}
           />
         </div>
         <div>
