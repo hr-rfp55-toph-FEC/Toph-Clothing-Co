@@ -3,7 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import calcAvgRating from '../helpers/calcAvgRating';
 import Stars from '../Stars';
-import RatingTable from './RatingTable';
+import TableRow from './TableRow';
 
 const Ratings = class extends React.Component {
   constructor(props) {
@@ -54,11 +54,11 @@ const Ratings = class extends React.Component {
     let totalRatingsCount;
     let ratingsWithPercentage;
 
-    let ratings = Object.entries(metaData.ratings).reverse();
+    const ratings = Object.entries(metaData.ratings).reverse();
     if (ratings.length < 5) {
       const allStars = [1, 2, 3, 4, 5].map((number) => String(number));
-      const absent = allStars.filter((num) => !Object.keys(metaData.ratings).includes(num));
-      absent.forEach((num) => {
+      const absentStars = allStars.filter((num) => !Object.keys(metaData.ratings).includes(num));
+      absentStars.forEach((num) => {
         ratings.push([num, '0']);
       });
     }
@@ -67,6 +67,7 @@ const Ratings = class extends React.Component {
     if (Object.keys(metaData.ratings).length > 0) {
       productRating = calcAvgRating(metaData.ratings).toFixed(1);
       recommendPercentage = ((Number(metaData.recommended.true)
+        // eslint-disable-next-line max-len
         / (Number(metaData.recommended.false) + Number(metaData.recommended.true))) * 100).toFixed(0);
       totalRatingsCount = Object.values(metaData.ratings)
         .map((item) => Number(item))
@@ -109,9 +110,13 @@ const Ratings = class extends React.Component {
           % of reviews recommend this product
         </div>
         <div id="breakdown-table">
-          <RatingTable
-            ratings={ratingBreakdown}
-          />
+          <table>
+            <tbody>
+              {ratingBreakdown.map((row) => (
+                <TableRow row={row} />
+              ))}
+            </tbody>
+          </table>
         </div>
         <div>
           size
