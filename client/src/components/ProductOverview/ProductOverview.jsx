@@ -8,6 +8,35 @@ import AddToCart from './AddToCart';
 import OverviewAndShare from './OverviewAndShare';
 
 class ProductOverview extends React.Component {
+  static filterSizesInStock(style) {
+    const sizeOptions = Object.entries(style.skus);
+    // console.log('sizeOptions', sizeOptions);
+    const sizeOptionsFiltered = {};
+    for (let i = 0; i < sizeOptions.length; i += 1) {
+      const sku = sizeOptions[i][0];
+      const option = sizeOptions[i][1];
+      // console.log(sku);
+      // console.log(option);
+      if (option.quantity > 10) {
+        // Handle the edge case where there are duplicate XLs - set 2nd XL equal to XXL
+        // The right way to do this is to edit the productStyle object itself; too much work for now
+        if (option.size === 'XL'
+          && Object.values(sizeOptionsFiltered).map((optionFiltered) => optionFiltered.size).indexOf('XL') !== -1) {
+          option.size = 'XXL';
+        }
+        sizeOptionsFiltered[sku] = option;
+        // // Using size instead of SKU as the key is cleaner for code re-use,
+        // // ...but causes shoe sizes to display out of order
+        // sizeOptionsFiltered[option.size] = {
+        //   sku,
+        //   quantity: option.quantity,
+        //   size: option.size,
+        // };
+      }
+    }
+    return sizeOptionsFiltered;
+  }
+
   constructor(props) {
     super(props);
 
@@ -19,6 +48,7 @@ class ProductOverview extends React.Component {
       productReviews: {},
       productRatings: {},
       productStyleSelected: {},
+      sizesInStock: {},
     };
 
     this.selectProductStyle = this.selectProductStyle.bind(this);
@@ -41,6 +71,7 @@ class ProductOverview extends React.Component {
           productReviews: results[2].data,
           productRatings: results[3].data,
           productStyleSelected: results[1].data.results[0],
+          sizesInStock: ProductOverview.filterSizesInStock(results[1].data.results[0]),
           isFetching: false,
         });
       })
@@ -70,7 +101,10 @@ class ProductOverview extends React.Component {
   selectProductStyle(style) {
     const { productStyleSelected } = this.state;
     if (style.style_id !== productStyleSelected.style_id) {
-      this.setState({ productStyleSelected: style });
+      this.setState({
+        productStyleSelected: style,
+        sizesInStock: ProductOverview.filterSizesInStock(style),
+      });
     }
   }
 
@@ -83,6 +117,7 @@ class ProductOverview extends React.Component {
       productReviews,
       productRatings,
       productStyleSelected,
+      sizesInStock,
     } = this.state;
 
     if (isFetching) {
@@ -114,7 +149,10 @@ class ProductOverview extends React.Component {
               productStyleSelected={productStyleSelected}
               selectProductStyle={this.selectProductStyle}
             />
-            <AddToCart productStyleSelected={productStyleSelected} key={productStyleSelected.style_id}/>
+            <AddToCart
+              productStyleSelected={productStyleSelected}
+              sizesInStock={sizesInStock}
+            />
           </div>
         </div>
         <OverviewAndShare product={product} />
