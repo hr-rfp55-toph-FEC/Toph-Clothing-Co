@@ -66,13 +66,14 @@ const Ratings = class extends React.Component {
 
     if (Object.keys(metaData.ratings).length > 0) {
       productRating = calcAvgRating(metaData.ratings).toFixed(1);
-      recommendPercentage = ((Number(metaData.recommended.true)
-        // eslint-disable-next-line max-len
-        / (Number(metaData.recommended.false) + Number(metaData.recommended.true))) * 100).toFixed(0);
       totalRatingsCount = Object.values(metaData.ratings)
         .map((item) => Number(item))
         .reduce((acc, item) => (acc + item));
 
+      if (metaData.recommended.true) {
+        recommendPercentage = ((Number(metaData.recommended.true)
+          / totalRatingsCount) * 100).toFixed(0);
+      }
       ratingsWithPercentage = ratings
         .map((rating) => ([rating[0], rating[1], ((Number(rating[1]) / totalRatingsCount) * 100).toFixed(0).concat('%')]));
     } else {
