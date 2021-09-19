@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Characteristic = ({ characteristic }) => {
   const sliderStyle = {
-    'margin-left': '40%',
+    'margin-left': characteristic[1].percent,
   };
 
   return (
@@ -18,6 +18,9 @@ const Characteristic = ({ characteristic }) => {
             <li className="slider-bar-segment" role="presentation" />
             <li className="slider-bar-segment" role="presentation" />
           </ul>
+          <div className="slider-value-container">
+            <span className="slider-value" style={sliderStyle}><i className="fas fa-caret-down" /></span>
+          </div>
         </div>
       </div>
     </div>

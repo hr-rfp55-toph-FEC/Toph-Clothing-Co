@@ -11,6 +11,7 @@ const ReviewsList = class extends React.Component {
     this.state = {
       reviews: [],
       display: [],
+      filtered: [],
       sortBy: 'relevant',
       reviewCount: 2,
       showMoreReviewsButton: false,
@@ -21,6 +22,7 @@ const ReviewsList = class extends React.Component {
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.sortClickHandler = this.sortClickHandler.bind(this);
     this.sortByOption = this.sortByOption.bind(this);
+    this.filterByStar = this.filterByStar.bind(this);
   }
 
   componentDidMount() {
@@ -35,7 +37,10 @@ const ReviewsList = class extends React.Component {
       this.sortByOption(sortBy, this.updateDisplay);
     }
     if (starFilter.length !== prevProps.starFilter.length) {
-      this.updateDisplay();
+      this.filterByStar(this.updateDisplay);
+      if (starFilter.length === 0) {
+        this.setState({filtered: []})
+      }
     }
   }
 
@@ -61,9 +66,9 @@ const ReviewsList = class extends React.Component {
   }
 
   updateDisplay() {
-    const { reviews, reviewCount } = this.state;
-    const { starFilter } = this.props;
+    const { reviews, filtered, reviewCount } = this.state;
     let reviewsCopy = [];
+    const { starFilter } = this.props;
 
     if (starFilter.length === 0) {
       if (reviews.length <= 2) {
@@ -77,10 +82,9 @@ const ReviewsList = class extends React.Component {
         }
       }
     } else {
-      starFilter.forEach((starCount) => {
-        reviewsCopy = reviewsCopy.concat(reviews.filter((review) => review.rating === starCount));
-      });
+      reviewsCopy = filtered;
     }
+
     this.setState({ display: reviewsCopy });
   }
 
@@ -112,6 +116,21 @@ const ReviewsList = class extends React.Component {
       });
     }
     this.setState({ reviews: reviewsCopy }, callback);
+  }
+
+  filterByStar(callback) {
+    const { filtered, reviews } = this.state;
+    const { starFilter } = this.props;
+
+    let reviewsCopy = [];
+    if (starFilter.length === 0) {
+      reviewsCopy = reviews.slice();
+    } else {
+      starFilter.forEach((starCount) => {
+        reviewsCopy = reviewsCopy.concat(reviews.filter((review) => review.rating === starCount));
+      });
+    }
+    this.setState({ filtered: reviewsCopy }, callback);
   }
 
   render() {
