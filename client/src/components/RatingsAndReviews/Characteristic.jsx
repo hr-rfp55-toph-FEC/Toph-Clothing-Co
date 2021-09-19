@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Characteristic = ({ characteristic }) => {
   const sliderStyle = {
-    'margin-left': characteristic[1].percent,
+    marginLeft: characteristic[1].percent,
   };
 
   return (

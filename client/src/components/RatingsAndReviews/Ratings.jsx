@@ -12,7 +12,7 @@ const Ratings = class extends React.Component {
 
     this.state = {
       metaData: {},
-      avgRating: null,
+      avgRating: 0,
       recommended: null,
       ratingBreakdown: [],
       characteristics: [],
@@ -69,7 +69,7 @@ const Ratings = class extends React.Component {
     ratings.sort((a, b) => (a[0] < b[0] ? 1 : -1));
 
     if (Object.keys(metaData.ratings).length > 0) {
-      productRating = calcAvgRating(metaData.ratings).toFixed(1);
+      productRating = Number(calcAvgRating(metaData.ratings).toFixed(1));
       totalRatingsCount = Object.values(metaData.ratings)
         .map((item) => Number(item))
         .reduce((acc, item) => (acc + item));
@@ -97,9 +97,19 @@ const Ratings = class extends React.Component {
   extractCharacteristics() {
     const { metaData } = this.state;
     const characteristicsArr = Object.entries(metaData.characteristics);
-    characteristicsArr.map((char) => {
+    characteristicsArr.forEach((char) => {
       const percentage = ((Number(char[1].value) / 5) * 100).toFixed(1).concat('%');
       char[1].percent = percentage;
+
+      if (char[0] === 'Quality' || char[0] === 'Comfort') {
+        char[1].scale = ['Poor', 'Okay', 'Great'];
+      } else if (char[0] === 'Size' || char[0] === 'Fit') {
+        char[1].scale = ['Too small', 'Perfect', 'Too Large'];
+      } else if (char[0] === 'Length') {
+        char[1].scale = ['Too short', 'Perfect', 'Too long'];
+      } else if (char[0] === 'Width') {
+        char[1].scale = ['Too narrow', 'Perfect', 'Too wide'];
+      }
       return char;
     });
     this.setState({ characteristics: characteristicsArr });
