@@ -11,16 +11,18 @@ const Characteristic = ({ characteristic }) => {
       <div className="char-summary">
         {characteristic[0]}
       </div>
-      <div className="slider-container">
-        <ul className="slider-bar" role="presentation">
-          <li className="slider-bar-segment" role="presentation"></li>
-          <li className="slider-bar-segment" role="presentation"></li>
-          <li className="slider-bar-segment" role="presentation"></li>
-          <li className="slider-bar-segment" role="presentation"></li>
-        </ul>
+      <div className="rating-summary-container">
+        <div className="slider-container">
+          <ul className="slider-bar" role="presentation">
+            <li className="slider-bar-segment" role="presentation" />
+            <li className="slider-bar-segment" role="presentation" />
+            <li className="slider-bar-segment" role="presentation" />
+            <li className="slider-bar-segment" role="presentation" />
+          </ul>
+        </div>
       </div>
     </div>
-  )
+  );
 };
 
 Characteristic.propTypes = {

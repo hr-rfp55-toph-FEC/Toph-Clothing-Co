@@ -609,29 +609,58 @@ tr:hover{
 
 .characteristics-container {
   font-size: 1.5rem;
+  margin: 2rem 0;
 }
 
 .char-bar-container {
   display: table-row;
   background-color: transparent;
-  height: 10px;
-  border: 1px solid #ccc;
-  border-color: rbg(62, 68, 70);
 }
 
 .char-summary {
-  display: table-cell;
-  padding: 10px;
+  display: table-row;
+  vertical-align: middle;
+  padding: 2rem 0;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  text-align: left;
+}
+
+.rating-summary-container {
+  width: 30rem;
+  display: block;
+  padding: 1rem 0 2rem 0;
+}
+
+.slider-container {
+  border: solid 1px;
+  border-color: rgb(62, 68, 70);
+  position: relative;
+  display: block;
+  width: 30rem;
+  height: 10px;
+  margin-bottom: 5px;
+  background-color: transparent;
 }
 
 .slider-bar {
   position: absolute;
   width: 100%;
+  z-index: 1;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
 }
 
 .slider-bar-segment {
   width: 25%;
+  border-left-color: rgb(118, 110, 97);
+  border-left: 0;
+  display: block;
+  height: 10px;
+  float: left;
 }
+
 
 .reviews-list {
   display: flex;
