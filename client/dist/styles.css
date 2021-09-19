@@ -607,6 +607,32 @@ tr:hover{
   cursor: pointer;
 }
 
+.characteristics-container {
+  font-size: 1.5rem;
+}
+
+.char-bar-container {
+  display: table-row;
+  background-color: transparent;
+  height: 10px;
+  border: 1px solid #ccc;
+  border-color: rbg(62, 68, 70);
+}
+
+.char-summary {
+  display: table-cell;
+  padding: 10px;
+}
+
+.slider-bar {
+  position: absolute;
+  width: 100%;
+}
+
+.slider-bar-segment {
+  width: 25%;
+}
+
 .reviews-list {
   display: flex;
   flex-direction: column;
@@ -648,10 +674,6 @@ h3 {
 .review-heading {
   display: flex;
   justify-content: space-between;
-}
-
-.review-stars {
-  font-size: 1.6rem;
 }
 
 .review-summary {

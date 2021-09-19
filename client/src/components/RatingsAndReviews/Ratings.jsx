@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import calcAvgRating from '../helpers/calcAvgRating';
 import Stars from '../Stars';
 import TableRow from './TableRow';
-import Characteristics from './Characteristics';
+import Characteristic from './Characteristic';
 
 const Ratings = class extends React.Component {
   constructor(props) {
@@ -97,6 +97,11 @@ const Ratings = class extends React.Component {
   extractCharacteristics() {
     const { metaData } = this.state;
     const characteristicsArr = Object.entries(metaData.characteristics);
+    characteristicsArr.map((characteristic) => {
+      const percentage = ((Number(characteristic[1].value) / 5) * 100).toFixed(1).concat('%');
+      characteristic[1].percent = percentage;
+      return characteristic;
+    });
     this.setState({ characteristics: characteristicsArr });
   }
 
@@ -160,11 +165,13 @@ const Ratings = class extends React.Component {
           {filterMesage}
           {clearFilter}
         </div>
-        <div>
-          <Characteristics characteristics={characteristics} />
-        </div>
-        <div>
-          comfort
+        <div className="characteristics-container">
+          {characteristics.map((characteristic) => (
+            <Characteristic
+              characteristic={characteristic}
+              key={characteristic[1].id}
+            />
+          ))}
         </div>
       </div>
     );
