@@ -115,6 +115,7 @@ class ProductOverview extends React.Component {
               selectProductStyle={this.selectProductStyle}
             />
             <AddToCart
+              product={product}
               productStyleSelected={productStyleSelected}
               key={productStyleSelected.style_id}
             />

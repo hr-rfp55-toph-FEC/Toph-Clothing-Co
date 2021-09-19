@@ -83,9 +83,9 @@ body {
   background-position: 98% center;
 }
 
-.product-search:focus {
+/* .product-search:focus {
   outline: none;
-}
+} */
 
 .mini-banner {
   text-align: center;
@@ -324,6 +324,19 @@ body {
 #add-to-cart-button,
 #add-to-favorites-button */
 
+#add-to-cart-error-container {
+  width: 65%;
+  height: 3rem;
+  padding-left: 2rem;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1rem;
+}
+
+#add-to-cart-error-message {
+  color: rgb(138, 13, 13);
+}
+
 #size-dropdown {
   width: 65%;
 }
@@ -338,6 +351,9 @@ body {
 
 #add-to-favorites-button {
   width: 17.5%;
+  padding: 2rem 2rem;
+  text-align: center;
+  /* font-size: 1.5rem; */
 }
 
 #size-dropdown:focus,
@@ -362,7 +378,7 @@ body {
   color: #000000;
   text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
   background-color: #ffffff;
-  text-align: center;
+  text-align: left;
   transition: background-color 0.15s;
   cursor: pointer;
 
