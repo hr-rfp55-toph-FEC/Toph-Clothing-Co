@@ -11,7 +11,6 @@ const ReviewsList = class extends React.Component {
     this.state = {
       reviews: [],
       display: [],
-      filtered: [],
       sortBy: 'relevant',
       reviewCount: 2,
       showMoreReviewsButton: false,
@@ -22,8 +21,6 @@ const ReviewsList = class extends React.Component {
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.sortClickHandler = this.sortClickHandler.bind(this);
     this.sortByOption = this.sortByOption.bind(this);
-    this.filterByStar = this.filterByStar.bind(this);
-    this.resetFiltered = this.resetFiltered.bind(this);
   }
 
   componentDidMount() {
@@ -38,10 +35,7 @@ const ReviewsList = class extends React.Component {
       this.sortByOption(sortBy, this.updateDisplay);
     }
     if (starFilter.length !== prevProps.starFilter.length) {
-      this.filterByStar(this.updateDisplay);
-      if (starFilter.length === 0) {
-        this.resetFiltered();
-      }
+      this.updateDisplay();
     }
   }
 
@@ -67,9 +61,9 @@ const ReviewsList = class extends React.Component {
   }
 
   updateDisplay() {
-    const { reviews, filtered, reviewCount } = this.state;
-    let reviewsCopy = [];
+    const { reviews, reviewCount } = this.state;
     const { starFilter } = this.props;
+    let reviewsCopy = [];
 
     if (starFilter.length === 0) {
       if (reviews.length <= 2) {
@@ -83,7 +77,9 @@ const ReviewsList = class extends React.Component {
         }
       }
     } else {
-      reviewsCopy = filtered;
+      starFilter.forEach((starCount) => {
+        reviewsCopy = reviewsCopy.concat(reviews.filter((review) => review.rating === starCount));
+      });
       this.setState({ showMoreReviewsButton: false });
     }
 
@@ -95,10 +91,12 @@ const ReviewsList = class extends React.Component {
   }
 
   sortByOption(option, callback) {
-    const { reviews, filtered } = this.state;
+    const { reviews, display } = this.state;
+    const { starFilter } = this.props;
+
     let reviewsCopy;
-    if (filtered.length > 0) {
-      reviewsCopy = filtered.slice();
+    if (starFilter.length > 0) {
+      reviewsCopy = display.slice();
     } else {
       reviewsCopy = reviews.slice();
     }
@@ -123,35 +121,16 @@ const ReviewsList = class extends React.Component {
         return a.helpfulness < b.helpfulness ? 1 : -1;
       });
     }
-    if (filtered.length > 0) {
-      this.setState({ filtered: reviewsCopy }, callback);
+    if (starFilter.length > 0) {
+      this.setState({ display: reviewsCopy });
     } else {
       this.setState({ reviews: reviewsCopy }, callback);
     }
   }
 
-  filterByStar(callback) {
-    const { reviews } = this.state;
-    const { starFilter } = this.props;
-
-    let reviewsCopy = [];
-    if (starFilter.length === 0) {
-      reviewsCopy = reviews.slice();
-    } else {
-      starFilter.forEach((starCount) => {
-        reviewsCopy = reviewsCopy.concat(reviews.filter((review) => review.rating === starCount));
-      });
-    }
-    this.setState({ filtered: reviewsCopy }, callback);
-  }
-
-  resetFiltered() {
-    this.setState({ filtered: [] });
-  }
-
   render() {
     const {
-      display, reviews, showMoreReviewsButton, sortBy, filtered,
+      display, reviews, showMoreReviewsButton, sortBy,
     } = this.state;
     const { starFilter } = this.props;
 
@@ -165,7 +144,7 @@ const ReviewsList = class extends React.Component {
     return (
       <div className="reviews-list">
         <h3>
-          {starFilter.length > 0 ? filtered.length : reviews.length}
+          {starFilter.length > 0 ? display.length : reviews.length}
           {' '}
           reviews,
           {' '}
