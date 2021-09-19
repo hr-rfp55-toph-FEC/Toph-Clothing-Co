@@ -106,13 +106,13 @@ body {
 
 #product-upper-container {
   display: flex;
-  height: 62rem;
+  height: 59rem;
 }
 
 /* Image section (Left side of Top Overview Container) */
 
 #image-gallery {
-  width: 65%;
+  width: 62%;
   /* height: 65vh;
   min-height: 80vh; */
   border-color: black;
@@ -136,7 +136,7 @@ body {
 /* Product Info & Options (Right side of Top Overview Container) */
 
 #product-right-container {
-  width: 35%;
+  width: 38%;
   border-color: black;
   border-style: solid;
   border-width: 1px;
@@ -146,40 +146,31 @@ body {
 }
 
 /* .product-right-component {
-  height: 33.33%;
-  font-size: 1vw;
+  height: calc(100% / 3);
 } */
 
 /* Don't need min height here. Entire top section (#product-upper-container) has height set to 62rem -> clamped at 8px*62 height */
 #product-information {
-  /* height: 33.33%; */
-  height: calc(100% / 3);
-  /* min-height: 80px; */
+  height: 35%;
   display: flex;
   flex-direction: column;
 }
 
 #style-selector {
-  /* height: 33.33%; */
-  height: calc(100% / 3);
-  /* min-height: 80px; */
-};
+  height: 35%;
+}
 
 #add-to-cart {
-  /* height: 33.33%; */
-  height: calc(100% / 3);
-  font-size: 1.7rem;
-  /* min-height: 80px; */
-};
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: flex-start; */
+}
 
 /* Product Info & Options Sub-Components */
 
 /* Product Info & Options Sub-Component: Stars, Reviews, Category, Name, Price */
-
-/* bug: Need to have this block here otherwise #product-reviews block doesn't work... this block doesn't work now */
-#product-rating {
-  font-size: 17rem;
-}
 
 /* #product-stars {
   font-size: 1vw;
@@ -240,8 +231,8 @@ body {
 #style-selector-body {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 5%;
-  width: 30rem;
+  gap: 0 7%;
+  width: 33rem;
   height: 16rem;
   overflow-y: scroll;
 }
@@ -315,8 +306,8 @@ body {
   transition: opacity 0.25s;
 }
 
-.checky-check,
-.product-style-thumbnail,
+.checky-check:hover,
+.product-style-thumbnail:hover,
 .product-style-thumbnail-checked:hover {
   cursor: pointer;
 }
@@ -328,16 +319,68 @@ body {
 
 /* Product Info & Options Sub-Component: Add to Cart */
 
-/* Bug fix to prevent containers from shifting - override transition time on button class */
-#size-dropdown,
+/* #size-dropdown,
 #quantity-dropdown,
 #add-to-cart-button,
-#add-to-favorites-button {
-  transition: all 0s;
+#add-to-favorites-button */
+
+#size-dropdown {
+  width: 65%;
 }
 
-#size-dropdown:focus {
+#quantity-dropdown {
+  width: 30%;
+}
+
+#add-to-cart-button {
+  width: 77.5%;
+}
+
+#add-to-favorites-button {
+  width: 17.5%;
+}
+
+#size-dropdown:focus,
+#quantity-dropdown:focus {
   outline: none;
+}
+
+.add-to-cart-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.interactive-button-copy {
+  text-transform: uppercase;
+  display: inline-block;
+  border: 0.1em solid #000000;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 450;
+  color: #000000;
+  text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+  background-color: #ffffff;
+  text-align: center;
+  transition: background-color 0.15s;
+  cursor: pointer;
+
+  /* border-radius: 0.12em;
+  margin: 0 2rem;
+  padding: 2rem 2rem;
+  letter-spacing: 0.1rem;   */
+  border-radius: 0.12em;
+  padding: 2rem 2rem;
+  letter-spacing: 0.1rem;
+}
+
+.interactive-button-copy:hover{
+  /* text-shadow: 0 0 2em rgba(255,255,255,1);
+  color: #ffffff;
+  border-color: #ffffff;
+  background-color:#447c47; */
+  background-color: rgb(226, 217, 217);
 }
 
 /* Bottom Overview Container */

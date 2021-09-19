@@ -57,7 +57,7 @@ function AddToCart(props) {
 
   function disabledSizeSelector(message) {
     return (
-      <select disabled defaultValue={message} id="size-dropdown" className="interactive-button">
+      <select disabled defaultValue={message} id="size-dropdown" className="interactive-button-copy">
         <option disabled hidden value={message}>{message}</option>
       </select>
     );
@@ -85,12 +85,12 @@ function AddToCart(props) {
   return (
     <div id="add-to-cart" className="product-right-component">
       <div id="add-to-cart-dropdowns" className="add-to-cart-component">
-        {isLoading && disabledSizeSelector('LOADING...')}
+        {isLoading && disabledSizeSelector('SELECT SIZE')}
         {!isLoading
           && (Object.values(sizesInStock).length === 0
             ? disabledSizeSelector('OUT OF STOCK')
             : (
-              <select defaultValue="Select Size" id="size-dropdown" className="interactive-button" onChange={handleSizeSelector}>
+              <select defaultValue="Select Size" id="size-dropdown" className="interactive-button-copy" onChange={handleSizeSelector}>
                 <option disabled hidden value="Select Size">SELECT SIZE</option>
                 {Object.values(sizesInStock)
                   .map((size) => <option key={size.size}>{size.size}</option>)}
@@ -98,24 +98,28 @@ function AddToCart(props) {
             ))}
         {Object.values(selectedSize).length === 0
           ? (
-            <select disabled defaultValue="—" id="quantity-dropdown" className="interactive-button">
+            <select disabled defaultValue="—" id="quantity-dropdown" className="interactive-button-copy">
               <option disabled hidden value="—">—</option>
             </select>
           )
           : (
-            <select id="quantity-dropdown" className="interactive-button">
+            <select id="quantity-dropdown" className="interactive-button-copy">
               {[...Array(Math.min(selectedSize.quantity + 1, 16)).keys()]
                 .slice(1)
                 .map((quantity) => <option key={quantity}>{quantity}</option>)}
             </select>
           )}
       </div>
-      <div id="add-to-cart-buttons" className="add-to-cart-component">
-        <button type="button" id="add-to-cart-button" className="interactive-button">Add To Bag</button>
-        <button type="button" id="add-to-favorites-button" className="interactive-button">
-          <i className="far fa-star" />
-        </button>
-      </div>
+      {!isLoading && Object.values(sizesInStock).length === 0
+        ? null
+        : (
+          <div id="add-to-cart-buttons" className="add-to-cart-component">
+            <button type="button" id="add-to-cart-button" className="interactive-button-copy">Add To Bag</button>
+            <button type="button" id="add-to-favorites-button" className="interactive-button-copy">
+              <i className="far fa-star" />
+            </button>
+          </div>
+        )}
     </div>
   );
 }
