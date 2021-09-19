@@ -97,10 +97,10 @@ const Ratings = class extends React.Component {
   extractCharacteristics() {
     const { metaData } = this.state;
     const characteristicsArr = Object.entries(metaData.characteristics);
-    characteristicsArr.map((characteristic) => {
-      const percentage = ((Number(characteristic[1].value) / 5) * 100).toFixed(1).concat('%');
-      characteristic[1].percent = percentage;
-      return characteristic;
+    characteristicsArr.map((char) => {
+      const percentage = ((Number(char[1].value) / 5) * 100).toFixed(1).concat('%');
+      char[1].percent = percentage;
+      return char;
     });
     this.setState({ characteristics: characteristicsArr });
   }
