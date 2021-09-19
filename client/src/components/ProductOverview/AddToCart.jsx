@@ -156,9 +156,13 @@ function AddToCart(props) {
         ? null
         : (
           <div id="add-to-cart-buttons" className="add-to-cart-component">
-            <button type="button" id="add-to-cart-button" className="interactive-button-copy" onClick={handleAddToBag}>Add To Bag</button>
+            <button type="button" id="add-to-cart-button" className="interactive-button-copy" onClick={handleAddToBag}>
+              <span>Add To Bag</span>
+              <span>&#65291;</span>
+            </button>
             <button type="button" id="add-to-favorites-button" className="interactive-button-copy">
               <i className="far fa-star" />
+              {/* <i className="fas fa-shopping-cart" /> */}
             </button>
           </div>
         )}

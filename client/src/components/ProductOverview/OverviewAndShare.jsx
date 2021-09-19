@@ -5,6 +5,14 @@ import PropTypes from 'prop-types';
 function OverviewAndShare(props) {
   const { product } = props;
 
+  function handleSocialClick() {
+    alert('Upgrade to PRO version to unlock social media sharing!');
+  }
+
+  function socialIcon(social) {
+    return (<img className="social-icon" src={`/assets/icon_${social.toLowerCase()}.png`} alt={`${social} Icon`} onClick={handleSocialClick} role="presentation" />);
+  }
+
   return (
     <div id="overview-and-share">
       <div id="slogan-description-container">
@@ -13,10 +21,10 @@ function OverviewAndShare(props) {
         <span id="product-description">{product.description}</span>
       </div>
       <div id="product-social">
-        <img className="social-icon" src="/assets/icon_facebook.png" alt="Facebook Icon" />
-        <img className="social-icon" src="/assets/icon_instagram.png" alt="Instagram Icon" />
-        <img className="social-icon" src="/assets/icon_pinterest.png" alt="Pinterest Icon" />
-        <img className="social-icon" src="/assets/icon_twitter.png" alt="Twitter Icon" />
+        {socialIcon('Facebook')}
+        {socialIcon('Instagram')}
+        {socialIcon('Pinterest')}
+        {socialIcon('Twitter')}
       </div>
     </div>
   );
