@@ -14,8 +14,7 @@ const Characteristic = ({ characteristic }) => {
       <div className="rating-summary-container">
         <div className="slider-container">
           <ul className="slider-bar" role="presentation">
-            <li className="slider-bar-segment" role="presentation" />
-            <li className="slider-bar-segment" role="presentation" />
+            <li className="slider-bar-segment left-borderless" role="presentation" />
             <li className="slider-bar-segment" role="presentation" />
             <li className="slider-bar-segment" role="presentation" />
           </ul>

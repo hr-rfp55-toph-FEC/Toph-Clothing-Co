@@ -610,6 +610,8 @@ tr:hover{
 .characteristics-container {
   font-size: 1.5rem;
   margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .char-bar-container {
@@ -626,41 +628,45 @@ tr:hover{
 }
 
 .rating-summary-container {
-  width: 30rem;
+  width: 100%;
   display: block;
   padding: 1rem 0 2rem 0;
 }
 
 .slider-container {
-  border: solid 1px;
-  border-color: rgb(62, 68, 70);
   position: relative;
   display: block;
-  width: 30rem;
+  border: 1px solid #ccc;
   height: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 1rem;
   background-color: transparent;
 }
 
 .slider-bar {
   position: absolute;
   width: 100%;
+  height: 10px;
   z-index: 1;
   list-style-type: none;
   padding: 0;
   margin: 0;
+  margin-top: -1px;
   background-color: transparent;
 }
 
 .slider-bar-segment {
-  width: 25%;
-  border-left-color: rgb(118, 110, 97);
-  border-left: 0;
+  width: 33.33%;
+  border-left: 1px solid #ccc;
   display: block;
   height: 10px;
   float: left;
+  min-height: auto;
+  min-width: auto;
 }
 
+.left-borderless {
+  border-left: 0;
+}
 
 .reviews-list {
   display: flex;
