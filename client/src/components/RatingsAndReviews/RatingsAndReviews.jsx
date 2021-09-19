@@ -7,7 +7,7 @@ const RatingsAndReviews = class extends React.Component {
     super(props);
 
     this.state = {
-      productId: 40344,
+      productId: 40345,
       starFilter: [],
     };
 

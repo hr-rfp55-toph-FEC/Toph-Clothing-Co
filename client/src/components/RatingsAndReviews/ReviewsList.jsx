@@ -23,6 +23,7 @@ const ReviewsList = class extends React.Component {
     this.sortClickHandler = this.sortClickHandler.bind(this);
     this.sortByOption = this.sortByOption.bind(this);
     this.filterByStar = this.filterByStar.bind(this);
+    this.resetFiltered = this.resetFiltered.bind(this);
   }
 
   componentDidMount() {
@@ -39,7 +40,7 @@ const ReviewsList = class extends React.Component {
     if (starFilter.length !== prevProps.starFilter.length) {
       this.filterByStar(this.updateDisplay);
       if (starFilter.length === 0) {
-        this.setState({ filtered: [] });
+        this.resetFiltered();
       }
     }
   }
@@ -83,6 +84,7 @@ const ReviewsList = class extends React.Component {
       }
     } else {
       reviewsCopy = filtered;
+      this.setState({ showMoreReviewsButton: false });
     }
 
     this.setState({ display: reviewsCopy });
@@ -143,10 +145,16 @@ const ReviewsList = class extends React.Component {
     this.setState({ filtered: reviewsCopy }, callback);
   }
 
+  resetFiltered() {
+    this.setState({ filtered: [] });
+  }
+
   render() {
     const {
-      display, reviews, showMoreReviewsButton, sortBy,
+      display, reviews, showMoreReviewsButton, sortBy, filtered,
     } = this.state;
+    const { starFilter } = this.props;
+
     let moreReviewsButton;
     if (showMoreReviewsButton) {
       moreReviewsButton = <button type="button" className="interactive-button" onClick={this.handleMoreReviews}>more reviews</button>;
@@ -157,7 +165,7 @@ const ReviewsList = class extends React.Component {
     return (
       <div className="reviews-list">
         <h3>
-          {reviews.length}
+          {starFilter.length > 0 ? filtered.length : reviews.length}
           {' '}
           reviews,
           {' '}
