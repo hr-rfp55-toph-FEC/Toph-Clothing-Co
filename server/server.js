@@ -62,6 +62,27 @@ app.get('/reviews/meta', (req, res) => {
     });
 });
 
+app.get('/cart', (req, res) => {
+  products.getCart()
+    .then((result) => {
+      res.status(200).send(result.data);
+    })
+    .catch((error) => {
+      res.status(404).send(error);
+    });
+});
+
+// app.post('/cart', (req, res) => {
+//   console.log(req.body);
+//   // products.addToCart(req.body)
+//   //   .then((result) => {
+//   //     res.status(201).send(result.data);
+//   //   })
+//   //   .catch((error) => {
+//   //     res.status(404).send(error);
+//   //   });
+// });
+
 // Alex
 
 

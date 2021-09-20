@@ -17,9 +17,19 @@ function getProductRatings(productID) {
   return api.get(`/reviews/meta/?product_id=${productID}`);
 }
 
+function getCart() {
+  return api.get('/cart');
+}
+
+function addToCart(product) {
+  return api.post('/cart', product);
+}
+
 module.exports = {
   getProductList,
   getProductStyles,
   getProductReviews,
   getProductRatings,
+  getCart,
+  addToCart,
 };

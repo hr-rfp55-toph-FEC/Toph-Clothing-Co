@@ -16,13 +16,12 @@ html {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
 }
 
 #app {
   width: 70%;
   margin: auto;
-  border: solid;
-  border-width: 1px;
   min-width: 860px;
 }
 
@@ -50,7 +49,9 @@ body {
 
 .stars-outer, .stars-inner {
   font-size: 1.5rem;
+  color: #f8ce0b;
 }
+
 /* Banner and Title */
 
 .titlebar {
@@ -90,7 +91,8 @@ body {
   height: 2.5rem;
   width: 20%;
   color: #ffffff;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
   background-color: transparent;
   border: 0.17rem solid transparent;
   border-bottom: 0.17rem solid #b3f8f2;
@@ -100,6 +102,10 @@ body {
   background-repeat: no-repeat;
   background-size: 1.53rem 1.53rem;
   background-position: 98% center;
+}
+
+.product-search:focus {
+  outline: none;
 }
 
 .mini-banner {
@@ -117,70 +123,213 @@ body {
 
 /* Daniel Product Detail & Overview */
 
+/* Top Overview Container */
+
 #product-upper-container {
   display: flex;
-  height: 60rem;
+  height: 59rem;
+  position: relative;
 }
 
+/* Image section (Left side of Top Overview Container) */
+
 #image-gallery {
-  width: 65%;
+  width: 62%;
   /* height: 65vh;
   min-height: 80vh; */
-  border-color: black;
+  /* border-color: black;
   border-style: solid;
-  border-width: 1px;
-
+  border-width: 1px; */
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  position: relative;
+  transition: width 0.6s;
+  z-index: 2;
+
+
 }
 
-#image-main {
-    flex-shrink: 10;
-    width: 100%;
-    /* max-width: 100%;
-    max-height: 100%; */
-}
-
-#product-right-container {
-  width: 35%;
+#image-gallery-expanded {
+  /* height: 100%; */
+  width: 100%;
   border-color: black;
-  border-style: solid;
+  border-style: none;
   border-width: 1px;
-  padding: 2%;
-  display: flex;
-  flex-direction: column;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: width 0.6s;
+  position: relative;
+  z-index: 2;
+
 }
 
-/* .product-right-component {
-  height: 33.33%;
-  font-size: 1vw;
+/* #image-gallery-expanded:hover {
+  transform: translate(-5%, -5%);
 } */
 
+#image-main {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* max-width: 100%;
+    max-height: 100%; */
+    position: relative;
+}
+
+/* #image-gallery:hover {
+  cursor: -moz-zoom-in;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+  cursor: url("./assets/search-plus-solid.png"), auto;
+}
+
+#image-gallery-expanded:hover {
+  cursor: -moz-zoom-out;
+  cursor: -webkit-zoom-out;
+  cursor: zoom-out;
+  cursor: url("./assets/search-plus-solid.png"), auto;
+} */
+
+#overlay-thumbnail-gallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  left: 0%;
+  padding: 1rem;
+  gap: 1rem;
+  position: absolute;
+  z-index: 3;
+  overflow-y: scroll;
+
+}
+
+#overlay-thumbnail-gallery::-webkit-scrollbar {
+  display: none;
+}
+
+/* #overlayThumbnailContainer {
+  display: block;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 9%;
+  top: 5%;
+  left: 5%;
+
+} */
+
+.overlay-thumbnail-image {
+  width: 4rem;
+  height: 4rem;
+  /* position: relative; */
+  flex-shrink: 1;
+  z-index: 4;
+  border: 0.1rem solid rgb(243, 243, 243, 0.5);
+  border-radius: 7%;
+}
+
+.overlay-thumbnail-image-select {
+  width: 4.5rem;
+  height: 4.5rem;
+  /* position: relative; */
+  flex-shrink: 1;
+  z-index: 4;
+  border: 0.1rem solid rgb(243, 243, 243, 0.5);
+  border-bottom: 0.4rem solid rgb(46, 151, 107);
+  border-radius: 7%;
+  /* transform: all 2s; */
+}
+
+#expand-main-image {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  font-size: 3rem;
+  z-index: 1;
+  color: gray;
+}
+
+#next-overlay-thumbnail-pic {
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  font-size: 3rem;
+  z-index: 1;
+  color: gray;
+}
+
+#prev-overlay-thumbnail-pic {
+  position: absolute;
+  top: 51%;
+  left: 10%;
+  font-size: 3rem;
+  z-index: 1;
+  color: gray;
+}
+
+#expand-main-image:hover,
+#next-overlay-thumbnail-pic:hover,
+#prev-overlay-thumbnail-pic:hover,
+.overlay-thumbnail-image:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+/* Product Info & Options (Right side of Top Overview Container) */
+
+/* Must have "position: absolute" in order to remove the entire right container from flow of the DOM and allow left container image to
+    transition smoothly from default to expanded view (assuming z-index of image is higher than right container).
+
+  Once positioned absolutely, the element will lose its width/height and we must manually set them again appropriately
+    The key to making this work was making the container a set width/height so that children elements had enough space to be positioned with Flex */
+#product-right-container {
+  height: 100%;
+  width: 38%;
+  /* border-color: black;
+  border-style: solid;
+  border-width: 1px; */
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+  right: 0%;
+}
+
+/* #product-right-container.product-right-container-hidden {
+  display: none;
+} */
+
+/* .product-right-component {
+  height: calc(100% / 3);
+} */
+
+/* Don't need min height here. Entire top section (#product-upper-container) has height set to 62rem -> clamped at 8px*62 height */
 #product-information {
-  height: 33.33%;
-  min-height: 80px;
+  height: 35%;
   display: flex;
   flex-direction: column;
 }
 
 #style-selector {
-  height: 33.33%;
-  font-size: 1.5rem;
-  min-height: 80px;
-};
+  height: 35%;
+}
 
 #add-to-cart {
-  height: 33.33%;
-  font-size: 1.7rem;
-  min-height: 80px;
-};
-
-/* bug: Need to have this block here otherwise #product-reviews block doesn't work... this block doesn't work now */
-#product-rating {
-  font-size: 17rem;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: flex-start; */
 }
+
+/* Product Info & Options Sub-Components */
+
+/* Product Info & Options Sub-Component: Stars, Reviews, Category, Name, Price */
 
 /* #product-stars {
   font-size: 1vw;
@@ -232,61 +381,18 @@ body {
   text-decoration: line-through;
 } */
 
-#overview-and-share {
-  display: flex;
-  /* height: 25vh; */
-  height: 20rem;
-  padding: 3% 3%;
-  border-color: black;
-  border-style: solid;
-  border-width: 1px;
+/* Product Info & Options Sub-Component: Style Selector */
+
+#style-selector-header {
+  font-size: 1.5rem;
 }
-
-#slogan-description-container {
-  width: 65%;
-  padding: 2% 5%;
-  border-right: 1px solid gray;
-
-}
-
-#product-social {
-  width: 35%;
-  padding: 2% 5%;
-  border-left: 1px solid gray;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-#product-slogan {
-  font-size: 1.7rem;
-  line-height: 5rem;
-}
-
-#product-description {
-  font-size: 1.36rem;
-}
-
-.social-icon {
-  /* height: 25%; */
-  height: 2.5rem;
-}
-
-/* Style Selector */
 
 #style-selector-body {
   display: flex;
   flex-wrap: wrap;
-  gap: 5%;
-  width: 30rem;
-  max-height: 16.3rem;
-  overflow-y: hidden;
-}
-
-/* Implement logic to scroll cleanly when there's 8+ style thumbnails later */
-
-/* #style-selector-body {
-  max-height: 16.3rem;
+  gap: 0 7%;
+  width: 33rem;
+  height: 16rem;
   overflow-y: scroll;
 }
 
@@ -294,7 +400,7 @@ body {
   display: none;
 }
 
-#style-selector-body::-webkit-scrollbar {
+/* #style-selector-body::-webkit-scrollbar {
   background-color: white;
 }
 
@@ -303,51 +409,250 @@ body {
   outline: 1px solid slategrey;
 } */
 
-.product-style-thumbnail-container {
-  margin-top: 6%;
+.product-style-thumbnail-container,
+.product-style-thumbnail-container-checked {
+  /* padding: 2% 0; */
+  padding-top: 4%;
+  height: 50%;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
 }
 
+/* To do: Add special coloring when checked later on */
 /* .product-style-thumbnail-container-checked {
-  margin-top: 1%;
 } */
 
-.product-style-thumbnail {
-  border: 3px double rgb(40, 80, 47);
+.product-style-thumbnail,
+.product-style-thumbnail-checked {
   border-radius: 50%;
   width: 6rem;
   height: 6rem;
-  display: inline-block;
-  position: relative;
-  z-index: -1;
+  /* z-index: -1; */
+}
+
+.product-style-thumbnail {
+  border: 3px double rgb(40, 80, 47);
 }
 
 .product-style-thumbnail-checked {
   border: 3px solid rgb(0, 0, 0);
+}
+
+.checky-check {
+  position: absolute;
+  top: 1.2rem;
+  left: 4rem;
   border-radius: 50%;
-  width: 6rem;
-  height: 6rem;
   display: inline-block;
-  position: relative;
-  z-index: -1;
-}
-
-.product-style-thumbnail-container,
-.product-style-thumbnail-container-checked:hover{
-  cursor: pointer;
-  align-items: inherit;
-}
-
-.checky-check{
-  position: relative;
-  top: 20%;
-  left: 69%;
-  border-radius: 50%;
+  padding-top: 0.12rem;
   text-align: center;
   background-color: rgb(0, 0, 0);
   color: white;
   width: 1.7rem;
   height: 1.7rem;
   font-size: 1.275rem;
+  z-index: 1;
+}
+
+/* To do: figure out how to make check-mark appear with 0.25s transition. The below doesn't work */
+/* .checky-check {
+  transition: all 2s;
+} */
+
+.product-style-thumbnail,
+.product-style-thumbnail-checked {
+  transition: opacity 0.25s;
+}
+
+.checky-check:hover,
+.product-style-thumbnail:hover {
+  cursor: pointer;
+}
+
+.product-style-thumbnail:hover {
+  opacity: 0.7;
+}
+
+/* Product Info & Options Sub-Component: Add to Cart */
+
+/* #size-dropdown,
+#quantity-dropdown,
+#add-to-cart-button,
+#add-to-favorites-button */
+
+#add-to-cart-error-container {
+  width: 65%;
+  height: 3rem;
+  padding-left: 2rem;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1rem;
+}
+
+#add-to-cart-error-message {
+  color: rgb(138, 13, 13);
+}
+
+.interactive-button-copy {
+  /* Keep these styles the same from Ya */
+  text-transform: uppercase;
+  border: 0.1em solid #000000;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 450;
+  color: #000000;
+  /* text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35); */
+  background-color: #ffffff;
+  text-align: left;
+  transition: background-color 0.15s;
+  cursor: pointer;
+
+  /* These styles from Ya are either replaced or removed */
+  /* display: inline-block;
+  border-radius: 0.12em;
+  margin: 0 2rem;
+  padding: 2rem 2rem;
+  letter-spacing: 0.1rem;   */
+  border-radius: 0.12em;
+  padding: 1rem 2rem;
+  letter-spacing: 0.1rem;
+
+  /* Need to set a height for our buttons here in order to keep them spaced proportionally vertically
+  (It doesn't work when we only set padding and let the size of the button depend on the inner text size) */
+  height: 6rem;
+  font-size: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.interactive-button-copy:hover {
+  /* text-shadow: 0 0 2em rgba(255,255,255,1);
+  color: #ffffff;
+  border-color: #ffffff;
+  background-color:#447c47; */
+  background-color: rgb(226, 217, 217);
+}
+
+/* Don't gray out the disabled buttons, looks weird. */
+/* .interactive-button-copy-disabled {
+  border: 0.1em solid #5e5252;
+  color: #5e5252;
+} */
+
+#size-dropdown {
+  width: 65%;
+}
+
+#quantity-dropdown {
+  width: 30%;
+}
+
+/* Custom arrow styling for dropdowns */
+#size-dropdown.interactive-button-copy,
+#quantity-dropdown.interactive-button-copy {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 50%;
+
+}
+
+#size-dropdown.interactive-button-copy-disabled,
+#quantity-dropdown.interactive-button-copy-disabled {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+}
+
+#add-to-cart-button {
+  width: 77.5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* background: transparent;
+  background-image: url("./assets/plus-solid.svg");
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 50%;
+  background-size: 20%; */
+}
+
+#add-to-favorites-button {
+  width: 17.5%;
+  text-align: center;
+}
+
+#size-dropdown:focus,
+#quantity-dropdown:focus {
+  outline: none;
+}
+
+.add-to-cart-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* Bottom Overview Container */
+
+#overview-and-share {
+  display: flex;
+  /* height: 25vh; */
+  height: 20rem;
+  padding: 3% 3%;
+  border-color: black;
+  border-style: none;
+  border-width: 1px;
+}
+
+/* Slogan & Description (Left side of Bottom Overview Container) */
+
+#slogan-description-container {
+  width: 65%;
+  padding: 2% 3%;
+  border-right: 2px solid gray;
+  margin-right: 3.2%;
+}
+
+#product-slogan {
+  font-size: 2rem;
+  line-height: 5rem;
+  color: rgb(87, 87, 87)
+}
+
+#product-description {
+  font-size: 1.56rem;
+  color: rgb(87, 87, 87);
+}
+
+/* Social (Right side of Bottom Overview Container) */
+
+#product-social {
+  width: 35%;
+  padding: 2% 1%;
+  border-left: 1px none gray;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.social-icon {
+  /* height: 25%; */
+ color: rgb(75, 75, 75);
+ font-size: 4rem;
+
+}
+
+.social-icon:hover {
+  cursor: pointer;
 }
 
 /* Bishal Related Products & Outfit Creation */
@@ -1117,4 +1422,37 @@ img.thumbnail:hover {
 
 .stars-outer, .stars-inner {
   font-size: 1.5rem;
+}
+
+/* Gold coloring below */
+/* .stars-outer, .stars-inner {
+  background: #cb9b51;
+
+  background-size: cover;
+
+  color:transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fas.fa-star,
+.far.fa-star {
+  background: linear-gradient(
+    to bottom right,
+    #ac7d36 0,
+    #cb9b51 22%,
+    #f6e27a 45%,
+    #f6f2c0 50%,
+    #f6e27a 55%,
+    #cb9b51 78%,
+    #683b38 100%
+  );
+
+  background-size: cover;
+
+  color:transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 } */
