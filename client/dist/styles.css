@@ -653,7 +653,7 @@ body {
   margin: 0 3rem 0 1rem;
 }
 
-.review-stars {
+.review-stars, .ratings-stars {
   color: #f8ce0b;
 }
 
