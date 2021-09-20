@@ -26,12 +26,13 @@ const ListCard = ({
             alt="model-in-clothing"
             className="card-image-src"
             // style={rotateImage90}
+            onClick={() => onRelatedCardClick(prodInfo.id)}
           />
-        ) : <i className="fas fa-image card-default-image" />}
+        ) : <i onClick={() => onRelatedCardClick(prodInfo.id)} className="fas fa-image card-default-image" />}
 
       </div>
 
-      <div onClick={() => onRelatedCardClick(prodInfo.id)} className="card-details-container">
+      <div className="card-details-container">
         <h6 className="category-heading">
           {prodInfo.category}
         </h6>

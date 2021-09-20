@@ -542,7 +542,8 @@ body {
 
 .card-default-image {
   font-size: 15rem;
-  color: #447c47
+  color: #447c47;
+  /* cursor:pointer; */
 }
 
 .card-image-src:hover {
