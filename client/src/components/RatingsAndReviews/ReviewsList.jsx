@@ -3,6 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import ReviewTile from './ReviewTile';
 import SortReviews from './SortReviews';
+import AddReviewForm from './AddReviewForm';
 
 const ReviewsList = class extends React.Component {
   constructor(props) {
@@ -154,6 +155,9 @@ const ReviewsList = class extends React.Component {
             <span id="plus-icon"><i className="fas fa-plus" /></span>
           </button>
         </div>
+        {/* <div>
+          <AddReviewForm />
+        </div> */}
       </div>
     );
   }
