@@ -32,6 +32,25 @@ body {
   flex-direction: column;
 }
 
+/* Stars*/
+
+.stars-outer {
+  display: inline-block;
+  position: relative;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-outer, .stars-inner {
+  font-size: 1.5rem;
+}
 /* Banner and Title */
 
 .titlebar {
@@ -333,15 +352,18 @@ body {
 
 /* Bishal Related Products & Outfit Creation */
 
-/* Related Products Container */
+/* BG Related Products Container */
 
 .related-product-list-container, .outfit-list-container {
-  max-width: fit-content;
-  margin: 30px auto 15px auto;
+  width: 90%;
+  margin: 30px 5% 15px 5%;
 }
 
+/*BG Headings CSS*/
 
-/* Carousel CSS */
+
+
+/* BG Carousel CSS */
 .carousel-container {
   width: 100%;
   display: flex;
@@ -368,20 +390,13 @@ body {
 }
 
 
-/* .carousel-content > * {
-  width: 100%;
-  flex-shrink: 0;
-  flex-grow: 1;
-} */
-
-
 .left-arrow, .right-arrow {
   position:absolute;
   z-index: 1;
   top: 50%;
   transform: translateY(-50%);
-  width: 38px;
-  height: 38px;
+  width: 50px;
+  height: 50px;
   border-radius: 25px;
   background-color:whitesmoke;
   border: none;
@@ -393,36 +408,30 @@ body {
 
 .left-arrow {
   left: -20px;
+
 }
 
 .right-arrow {
   right: -20px;
+
 }
 
 .arrow-hover:hover {
   background-color:rgb(177, 197, 177);
-  width: 42px;
-  height: 42px;
+  width: 55px;
+  height: 55px;
   opacity: 0.9;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  cursor: pointer;
 }
 
 
-/* .carousel-card-container {
-  display: flex;
-  gap: 10px 10px;
-  width: 90%;
-  margin: auto;
-  justify-content: space-between;
-
-} */
-
-/* Cards CSS */
+/* BG Cards CSS */
 
 .product-list-card {
   border: 0.1px solid gray;
-  height: 350px;
-  width: 250px;
+  height: 50rem;
+  width: 30rem;
   min-width: 250px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
@@ -442,37 +451,78 @@ body {
 .card-image-container img {
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: black;
 }
 
 .card-button {
-  /* right: 1px; */
-  z-index: 9000;
+  z-index: 2;
   position: absolute;
-  opacity: 0.8;
-  right: 2%;
-  top: 1%;
-
+  background: transparent;
+  border-color: transparent;
+  right: 1.7rem;
+  top: 0.3rem;
+  height: 1rem;
+  width: 2.0rem;
+  /* width: 1.0rem; */
 }
 
+.star-for-button {
+  z-index: 3;
+  opacity: 10;
+  font-size: 2.0rem;
+  color: green;
+  transition: font-size 0.8s;
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
+
+.star-for-button:hover {
+  font-size: 2.5rem;
+  animation-name: spin;
+  animation-duration: 1000ms;
+  cursor: pointer;
+  /* animation-iteration-count: infinite; */
+  /* animation-timing-function: linear; */
+}
 
 .card-details-container {
-  /* display: flex; */
+  display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  font-size: calc(5px + 0.8vw);
+  /* align-content: flex-start; default val*/
+  gap: 0.5rem;
 
 }
 
 .category-heading {
-  margin: 5px 2px;
-  font-size: calc(5px + 0.8vw);
+  margin: 1rem 1rem 0.5rem 1rem;
+  font-size: 1.7rem;
   color:gray;
 }
 
 
-.product-details {
-  margin: 1px 5px 1px 5px;
+.product-name-p {
+  margin: 0rem 1rem 0.5rem 1rem;
+  font-size: 2.0rem;
+}
+
+.prod-price-p {
+  margin: 0rem 1rem 0.5rem 1rem;
+  font-size: 1.4rem;
+}
+
+.rel-prod-card-stars {
+  margin: 0rem 1rem 0.5rem 1rem;
+  font-size: 1.5rem;
+
 }
 
 .sale-price {
@@ -482,6 +532,97 @@ body {
   color: gray;
   text-decoration: line-through;
 }
+
+/* BG Modal for Comparison  */
+
+.comparison-modal-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(2.0);
+}
+
+.comp-show-modal {
+  z-index: 5;
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.0);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.comp-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: whitesmoke;
+  padding: 1rem 1.5rem;
+  width: 80rem;
+  height: 50rem;
+  overflow-y: scroll;
+  border-radius: 0.5rem;
+}
+
+.comp-close-modal {
+  float: right;
+  font-size: 4rem;
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 1.0rem;
+  background-color: transparent;
+  border-color: transparent;
+  position: sticky;
+  top: 1.0rem;
+  right: 0.7rem;
+}
+
+
+.comp-modal-header {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: auto;
+}
+
+/* .table-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.flex {
+  align-items: center;
+} */
+
+.comp-table {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 0 3rem 0;
+  padding: 0;
+}
+.comp-table-cell {
+  box-sizing: border-box;
+  flex-grow: 1;
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  overflow: hidden;
+  list-style: none;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+/* Table column sizing
+================================== */
+.comp-table--3cols > .comp-table-cell  { width: 33.33%; }
+
+
 
 /* Alex Questions & Answers */
 
@@ -775,7 +916,7 @@ img.thumbnail:hover {
   margin: 0 0 0.5rem 2rem;
 }
 
-/* Stars*/
+/* Stars
 
 .stars-outer {
   display: inline-block;
@@ -793,4 +934,4 @@ img.thumbnail:hover {
 
 .stars-outer, .stars-inner {
   font-size: 1.5rem;
-}
+} */
