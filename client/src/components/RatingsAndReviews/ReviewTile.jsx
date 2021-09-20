@@ -56,11 +56,7 @@ const ReviewTile = ({ review, getReviews }) => {
   }
 
   function markAsHelpful(reviewId) {
-    axios.put(`/reviews/${reviewId}/helpful`, {
-      params: {
-        review_id: reviewId,
-      },
-    })
+    axios.put(`/reviews/${reviewId}/helpful`)
       .then(() => {
         getReviews();
       })

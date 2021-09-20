@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const AddReviewForm = () => {
-  const innerStarWidth = {
-    width: '50%',
-  };
+  const [innerWidth, setInnerWidth] = useState('0');
 
   return (
     <div className="review-form-container">
@@ -14,7 +12,7 @@ const AddReviewForm = () => {
           <i className="far fa-star" />
           <i className="far fa-star" />
           <i className="far fa-star" />
-          <div className="stars-inner" style={innerStarWidth}>
+          <div className="stars-inner" style={innerWidth}>
             <i className="fas fa-star" />
             <i className="fas fa-star" />
             <i className="fas fa-star" />

@@ -14,17 +14,22 @@ const ReviewsList = class extends React.Component {
       display: [],
       sortBy: 'relevant',
       reviewCount: 2,
+      productInfo: {},
       showMoreReviewsButton: false,
+      showAddReviewModal: false,
     };
 
     this.getReviews = this.getReviews.bind(this);
     this.updateDisplay = this.updateDisplay.bind(this);
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.sortClickHandler = this.sortClickHandler.bind(this);
+    this.addReviewClickHandler = this.addReviewClickHandler.bind(this);
+    this.getProductInfo = this.getProductInfo.bind(this);
   }
 
   componentDidMount() {
     this.getReviews();
+    this.getProductInfo();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -49,6 +54,17 @@ const ReviewsList = class extends React.Component {
     })
       .then((response) => {
         this.setState({ reviews: response.data.results }, this.updateDisplay);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  getProductInfo() {
+    const { productId } = this.props;
+    axios.get(`/products/${productId}`)
+      .then((res) => {
+        this.setState({ productInfo: res.data });
       })
       .catch((err) => {
         console.error(err);
@@ -116,6 +132,10 @@ const ReviewsList = class extends React.Component {
     this.setState({ sortBy: value });
   }
 
+  addReviewClickHandler() {
+    this.setState({ showAddReviewModal: true });
+  }
+
   render() {
     const {
       display, reviews, showMoreReviewsButton, sortBy,
@@ -152,7 +172,13 @@ const ReviewsList = class extends React.Component {
         </div>
         <div className="buttons-container">
           {moreReviewsButton}
-          <button type="submit" className="interactive-button">
+          <button
+            type="submit"
+            className="interactive-button"
+            onClick={() => {
+              this.addReviewClickHandler();
+            }}
+          >
             add a review
             <span id="plus-icon"><i className="fas fa-plus" /></span>
           </button>
