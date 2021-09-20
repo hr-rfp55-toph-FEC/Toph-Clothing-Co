@@ -23,7 +23,7 @@ function ImageGallery(props) {
   // To show next picture, up the current index and our hook will handle the render
   const showNextPic = () => {
     // console.log('index before showNextPic', currIndex, length);
-    if (currIndex !== productStyleSelected.photos.length - 1) {
+    if (currIndex < productStyleSelected.photos.length - 1) {
       setCurrIndex((prevState) => prevState + 1);
       // console.log('index after showNextPic', currIndex);
     }
@@ -32,7 +32,7 @@ function ImageGallery(props) {
   // To show previous picture, lower the current index and our hook will handle the render
   const showPrevPic = () => {
     // console.log('index before showPrevPic', currIndex, length);
-    if (currIndex !== 0) {
+    if (currIndex > 0) {
       setCurrIndex((prevState) => prevState - 1);
       // console.log('index after showPrevPic', currIndex);
     }
@@ -55,8 +55,10 @@ function ImageGallery(props) {
     <div id={imageGalleryId}>
       <img id="image-main" src={mainPicUrl} alt="Main Product" />
       <div id="expand-main-image"><i className="fas fa-expand" onClick={handleExpand} role="presentation" /></div>
-      <div id="next-overlay-thumbnail-pic"><i className="fas fa-chevron-right" onClick={showNextPic} role="presentation" /></div>
-      <div id="prev-overlay-thumbnail-pic"><i className="fas fa-chevron-left" onClick={showPrevPic} role="presentation" /></div>
+      {(currIndex < productStyleSelected.photos.length - 1)
+      && <div id="next-overlay-thumbnail-pic"><i className="fas fa-chevron-right" onClick={showNextPic} role="presentation" /></div>}
+      {(currIndex > 0)
+      && <div id="prev-overlay-thumbnail-pic"><i className="fas fa-chevron-left" onClick={showPrevPic} role="presentation" /></div>}
       <div id="overlay-thumbnail-gallery" className="stylish-right-component">
         {productStyleSelected.photos.map((photo) => (
           <OverlayThumbnail

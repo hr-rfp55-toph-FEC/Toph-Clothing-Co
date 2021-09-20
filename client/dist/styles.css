@@ -180,6 +180,20 @@ body {
     position: relative;
 }
 
+/* #image-gallery:hover {
+  cursor: -moz-zoom-in;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+  cursor: url("./assets/search-plus-solid.png"), auto;
+}
+
+#image-gallery-expanded:hover {
+  cursor: -moz-zoom-out;
+  cursor: -webkit-zoom-out;
+  cursor: zoom-out;
+  cursor: url("./assets/search-plus-solid.png"), auto;
+} */
+
 #overlay-thumbnail-gallery {
   display: flex;
   flex-direction: column;
