@@ -3,7 +3,7 @@ import React from 'react';
 import Banner from './Banner';
 import ProductOverview from './ProductOverview/ProductOverview';
 import RelatedItemsAndOutfit from './RelatedItemsAndOutfit/RelatedItemsAndOutfit';
-import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers';
+// import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers';
 import RatingsAndReviews from './RatingsAndReviews/RatingsAndReviews';
 
 class App extends React.Component {
@@ -21,7 +21,6 @@ class App extends React.Component {
         <Banner />
         <ProductOverview />
         <RelatedItemsAndOutfit />
-        <QuestionsAndAnswers />
         <RatingsAndReviews />
       </div>
     );

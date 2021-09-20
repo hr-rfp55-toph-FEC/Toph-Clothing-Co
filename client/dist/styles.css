@@ -16,13 +16,12 @@ html {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
 }
 
 #app {
   width: 70%;
   margin: auto;
-  border: solid;
-  border-width: 1px;
   min-width: 860px;
 }
 
@@ -314,7 +313,6 @@ body {
 
 .product-style-thumbnail:hover {
   opacity: 0.7;
-  /* border: 3px solid rgb(0, 0, 0); */
 }
 
 /* Product Info & Options Sub-Component: Add to Cart */
@@ -335,6 +333,49 @@ body {
 
 #add-to-cart-error-message {
   color: rgb(138, 13, 13);
+}
+
+.interactive-button-copy {
+  /* Keep these styles the same from Ya */
+  text-transform: uppercase;
+  border: 0.1em solid #000000;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 450;
+  color: #000000;
+  text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+  background-color: #ffffff;
+  text-align: left;
+  transition: background-color 0.15s;
+  cursor: pointer;
+
+  /* These styles from Ya are either replaced or removed */
+  /* display: inline-block;
+  border-radius: 0.12em;
+  margin: 0 2rem;
+  padding: 2rem 2rem;
+  letter-spacing: 0.1rem;   */
+  border-radius: 0.12em;
+  padding: 1rem 2rem;
+  letter-spacing: 0.1rem;
+
+  /* Need to set a height for our buttons here in order to keep them spaced proportionally vertically
+  (It doesn't work when we only set padding and let the size of the button depend on the inner text size) */
+  height: 6rem;
+  font-size: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.interactive-button-copy:hover{
+  /* text-shadow: 0 0 2em rgba(255,255,255,1);
+  color: #ffffff;
+  border-color: #ffffff;
+  background-color:#447c47; */
+  background-color: rgb(226, 217, 217);
 }
 
 #size-dropdown {
@@ -374,9 +415,7 @@ body {
 
 #add-to-favorites-button {
   width: 17.5%;
-  padding: 2rem 2rem;
   text-align: center;
-  /* font-size: 1.5rem; */
 }
 
 #size-dropdown:focus,
@@ -388,38 +427,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-}
-
-.interactive-button-copy {
-  text-transform: uppercase;
-  display: inline-block;
-  border: 0.1em solid #000000;
-  box-sizing: border-box;
-  text-decoration: none;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 450;
-  color: #000000;
-  text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-  background-color: #ffffff;
-  text-align: left;
-  transition: background-color 0.15s;
-  cursor: pointer;
-
-  /* border-radius: 0.12em;
-  margin: 0 2rem;
-  padding: 2rem 2rem;
-  letter-spacing: 0.1rem;   */
-  border-radius: 0.12em;
-  padding: 2rem 2rem;
-  letter-spacing: 0.1rem;
-}
-
-.interactive-button-copy:hover{
-  /* text-shadow: 0 0 2em rgba(255,255,255,1);
-  color: #ffffff;
-  border-color: #ffffff;
-  background-color:#447c47; */
-  background-color: rgb(226, 217, 217);
 }
 
 /* Bottom Overview Container */
@@ -935,3 +942,36 @@ img.thumbnail:hover {
 .stars-outer, .stars-inner {
   font-size: 1.5rem;
 }
+
+/* Gold coloring below */
+/* .stars-outer, .stars-inner {
+  background: #cb9b51;
+
+  background-size: cover;
+
+  color:transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fas.fa-star,
+.far.fa-star {
+  background: linear-gradient(
+    to bottom right,
+    #ac7d36 0,
+    #cb9b51 22%,
+    #f6e27a 45%,
+    #f6f2c0 50%,
+    #f6e27a 55%,
+    #cb9b51 78%,
+    #683b38 100%
+  );
+
+  background-size: cover;
+
+  color:transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+} */

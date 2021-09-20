@@ -15,8 +15,6 @@ function AddToCart(props) {
 
   // Grab only the sizes in stock for current style. Using Object.entries() to appease linter.
   useEffect(() => {
-    // setSelectedSize({});
-    // setSizesInStock({});
     // console.log('productStyleSelected', productStyleSelected);
     // console.log('productStyleSelected SKUs', productStyleSelected.skus);
     // console.log('Object.values of SKUs', Object.values(productStyleSelected.skus));
@@ -36,13 +34,6 @@ function AddToCart(props) {
           option.size = 'XXL';
         }
         sizeOptionsFiltered[sku] = option;
-        // // Using size instead of SKU as the key is cleaner for code re-use,
-        // // ...but causes shoe sizes to display out of order
-        // sizeOptionsFiltered[option.size] = {
-        //   sku,
-        //   quantity: option.quantity,
-        //   size: option.size,
-        // };
       }
     }
     setSizesInStock(sizeOptionsFiltered);
@@ -87,7 +78,7 @@ function AddToCart(props) {
 
   function handleAddToBag() {
     const selectedQuantity = document.getElementById('quantity-dropdown').value;
-    console.log('selectedQuantity', selectedQuantity);
+    // console.log('selectedQuantity', selectedQuantity);
     if (!isLoading) {
       if (Object.values(selectedSize).length === 0) {
         setShowError(true);
@@ -99,7 +90,7 @@ function AddToCart(props) {
           size: selectedSize.size,
           quantity: selectedQuantity,
         };
-        console.log('added to cart!', item);
+        // console.log('added to cart!', item);
         alert(`Added to Cart!
         \n ${item.product.name}
         \n ${item.style.name}
@@ -161,7 +152,9 @@ function AddToCart(props) {
               <span>&#65291;</span>
             </button>
             <button type="button" id="add-to-favorites-button" className="interactive-button-copy">
-              <i className="far fa-star" />
+              &#128722;
+              {/* &#9734; */}
+              {/* <i className="far fa-star" /> */}
               {/* <i className="fas fa-shopping-cart" /> */}
             </button>
           </div>
