@@ -1,9 +1,11 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import calcAvgRating from '../helpers/calcAvgRating';
 import Stars from '../Stars';
 import TableRow from './TableRow';
+import Characteristic from './Characteristic';
 
 const Ratings = class extends React.Component {
   constructor(props) {
@@ -11,13 +13,15 @@ const Ratings = class extends React.Component {
 
     this.state = {
       metaData: {},
-      avgRating: null,
+      avgRating: 0,
       recommended: null,
       ratingBreakdown: [],
+      characteristics: [],
     };
 
     this.getReviewMeta = this.getReviewMeta.bind(this);
     this.calcRatingAndRec = this.calcRatingAndRec.bind(this);
+    this.extractCharacteristics = this.extractCharacteristics.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +32,7 @@ const Ratings = class extends React.Component {
     const { metaData } = this.state;
     if (prevState.metaData.product_id !== metaData.product_id) {
       this.calcRatingAndRec();
+      this.extractCharacteristics();
     }
   }
 
@@ -65,7 +70,7 @@ const Ratings = class extends React.Component {
     ratings.sort((a, b) => (a[0] < b[0] ? 1 : -1));
 
     if (Object.keys(metaData.ratings).length > 0) {
-      productRating = calcAvgRating(metaData.ratings).toFixed(1);
+      productRating = Number(calcAvgRating(metaData.ratings).toFixed(1));
       totalRatingsCount = Object.values(metaData.ratings)
         .map((item) => Number(item))
         .reduce((acc, item) => (acc + item));
@@ -73,6 +78,8 @@ const Ratings = class extends React.Component {
       if (metaData.recommended.true) {
         recommendPercentage = ((Number(metaData.recommended.true)
           / totalRatingsCount) * 100).toFixed(0);
+      } else {
+        recommendPercentage = 0;
       }
       ratingsWithPercentage = ratings
         .map((rating) => ([rating[0], rating[1], ((Number(rating[1]) / totalRatingsCount) * 100).toFixed(0).concat('%')]));
@@ -90,9 +97,32 @@ const Ratings = class extends React.Component {
     });
   }
 
+  extractCharacteristics() {
+    const { metaData } = this.state;
+    const characteristicsArr = Object.entries(metaData.characteristics);
+    characteristicsArr.forEach((char) => {
+      const percentage = ((Number(char[1].value) / 5) * 100).toFixed(1).concat('%');
+      char[1].percent = percentage;
+
+      if (char[0] === 'Quality') {
+        char[1].scale = ['Poor', null, 'Great'];
+      } else if (char[0] === 'Size' || char[0] === 'Fit') {
+        char[1].scale = ['Too small', 'Perfect', 'Too big'];
+      } else if (char[0] === 'Length') {
+        char[1].scale = ['Too short', 'Perfect', 'Too long'];
+      } else if (char[0] === 'Width') {
+        char[1].scale = ['Too narrow', 'Perfect', 'Too wide'];
+      } else if (char[0] === 'Comfort') {
+        char[1].scale = ['Poor', null, 'Perfect'];
+      }
+      return char;
+    });
+    this.setState({ characteristics: characteristicsArr });
+  }
+
   render() {
     const {
-      avgRating, recommended, metaData, ratingBreakdown,
+      avgRating, recommended, metaData, ratingBreakdown, characteristics,
     } = this.state;
 
     const { handleStarClick, removeFilter, starFilter } = this.props;
@@ -150,11 +180,13 @@ const Ratings = class extends React.Component {
           {filterMesage}
           {clearFilter}
         </div>
-        <div>
-          size
-        </div>
-        <div>
-          comfort
+        <div className="characteristics-container">
+          {characteristics.map((characteristic) => (
+            <Characteristic
+              characteristic={characteristic}
+              key={characteristic[1].id}
+            />
+          ))}
         </div>
       </div>
     );
