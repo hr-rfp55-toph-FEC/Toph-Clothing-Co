@@ -1,21 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Stars from '../../Stars';
-import calcAvgRating from '../../helpers/calcAvgRating';
+import Stars from '../Stars';
+import calcAvgRating from '../helpers/calcAvgRating';
 
-const ProductListCard = ({ prodInfo, prodStyles, prodMeta }) => {
-  const origPrice = prodStyles.results[2].original_price;
-  const salePrice = prodStyles.results[2].sale_price;
+const ListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
+  const origPrice = prodStyles.results[0].original_price;
+  const salePrice = prodStyles.results[0].sale_price;
 
-  const onClickHandler = (e) => {
-    //this will do something for ProductListCards
-  };
   return (
     <div className="product-list-card">
       <div className="card-image-container">
-        <button onClick={onClickHandler} type="button" className="card-button">X</button>
+        { children }
         <img
-          src={prodStyles.results[2].photos[0].url}
+          src={prodStyles.results[0].photos[0].url}
           alt="model-in-clothing"
         />
 
@@ -25,9 +22,8 @@ const ProductListCard = ({ prodInfo, prodStyles, prodMeta }) => {
         <h6 className="category-heading">
           {prodInfo.category}
         </h6>
-        <p className="product-details">
-          {prodInfo.name}
-          <br />
+        <p className="product-name-p">{prodInfo.name}</p>
+        <p className="prod-price-p">
           {salePrice
             ? (
               <>
@@ -36,19 +32,21 @@ const ProductListCard = ({ prodInfo, prodStyles, prodMeta }) => {
               </>
             )
             : <span>{` $${origPrice}`}</span>}
-          <br />
         </p>
-        { Object.keys(prodMeta.ratings).length !== 0
-        && <Stars id={`BG${prodMeta.product_id}`} rating={calcAvgRating(prodMeta.ratings)} />}
+        <div className="rel-prod-card-stars">
+          { Object.keys(prodMeta.ratings).length !== 0
+          && <Stars id={`BG${prodMeta.product_id}`} rating={calcAvgRating(prodMeta.ratings)} />}
+        </div>
       </div>
     </div>
   );
 };
 
-ProductListCard.propTypes = {
+ListCard.propTypes = {
   prodInfo: PropTypes.instanceOf(Object).isRequired,
   prodStyles: PropTypes.instanceOf(Object).isRequired,
   prodMeta: PropTypes.instanceOf(Object).isRequired,
+  children: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default ProductListCard;
+export default ListCard;
