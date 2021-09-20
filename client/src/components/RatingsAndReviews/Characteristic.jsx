@@ -22,6 +22,11 @@ const Characteristic = ({ characteristic }) => {
             <span className="slider-value" style={sliderStyle}><i className="fas fa-caret-down" /></span>
           </div>
         </div>
+        <div className="char-scale-labels">
+          <span id="char-scale-label-1">{characteristic[1].scale[0]}</span>
+          <span id="char-scale-label-2">{characteristic[1].scale[1]}</span>
+          <span id="char-scale-label-3">{characteristic[1].scale[2]}</span>
+        </div>
       </div>
     </div>
   );

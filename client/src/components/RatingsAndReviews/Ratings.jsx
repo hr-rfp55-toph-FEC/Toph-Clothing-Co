@@ -78,6 +78,8 @@ const Ratings = class extends React.Component {
       if (metaData.recommended.true) {
         recommendPercentage = ((Number(metaData.recommended.true)
           / totalRatingsCount) * 100).toFixed(0);
+      } else {
+        recommendPercentage = 0;
       }
       ratingsWithPercentage = ratings
         .map((rating) => ([rating[0], rating[1], ((Number(rating[1]) / totalRatingsCount) * 100).toFixed(0).concat('%')]));
@@ -102,14 +104,16 @@ const Ratings = class extends React.Component {
       const percentage = ((Number(char[1].value) / 5) * 100).toFixed(1).concat('%');
       char[1].percent = percentage;
 
-      if (char[0] === 'Quality' || char[0] === 'Comfort') {
-        char[1].scale = ['Poor', 'Okay', 'Great'];
+      if (char[0] === 'Quality') {
+        char[1].scale = ['Poor', null, 'Great'];
       } else if (char[0] === 'Size' || char[0] === 'Fit') {
         char[1].scale = ['Too small', 'Perfect', 'Too Large'];
       } else if (char[0] === 'Length') {
         char[1].scale = ['Too short', 'Perfect', 'Too long'];
       } else if (char[0] === 'Width') {
         char[1].scale = ['Too narrow', 'Perfect', 'Too wide'];
+      } else if (char[0] === 'Comfort') {
+        char[1].scale = ['Poor', null, 'Perfect'];
       }
       return char;
     });

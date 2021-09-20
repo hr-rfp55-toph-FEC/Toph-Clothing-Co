@@ -624,6 +624,7 @@ tr:hover{
   display: table-row;
   vertical-align: middle;
   padding: 2rem 0;
+  font-size: 1.6rem;
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   text-align: left;
 }
@@ -682,6 +683,12 @@ tr:hover{
 
 .left-borderless {
   border-left: 0;
+}
+
+.char-scale-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
 }
 
 .reviews-list {
