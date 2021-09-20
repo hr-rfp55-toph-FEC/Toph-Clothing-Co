@@ -30,9 +30,9 @@ class ProductOverview extends React.Component {
       // For now, grab all products from the API and set the current product as the 1st one (40344)
       ProductOverview.getProductList(),
       // For now, grab product details only for the 1st product
-      ProductOverview.getProductStyles(40348),
-      ProductOverview.getProductReviews(40348),
-      ProductOverview.getProductRatings(40348),
+      ProductOverview.getProductStyles(40344),
+      ProductOverview.getProductReviews(40344),
+      ProductOverview.getProductRatings(40344),
     ])
       .then((results) => {
         // console.log(results);
@@ -103,7 +103,7 @@ class ProductOverview extends React.Component {
             expanded={expanded}
             handleExpand={this.handleExpand}
           />
-          <div id="product-right-container">
+          <div id="product-right-container" className={expanded ? 'product-right-container-hidden' : ''}>
             <ProductInformation
               product={product}
               productReviews={productReviews}

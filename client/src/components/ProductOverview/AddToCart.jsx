@@ -40,7 +40,7 @@ function AddToCart(props) {
 
   function disabledSizeSelector(message) {
     return (
-      <select disabled defaultValue={message} id="size-dropdown" className="interactive-button-copy">
+      <select disabled defaultValue={message} id="size-dropdown" className="interactive-button-copy interactive-button-copy-disabled">
         <option disabled hidden value={message}>{message}</option>
       </select>
     );
@@ -119,7 +119,7 @@ function AddToCart(props) {
               ))}
           {Object.values(selectedSize).length === 0
             ? (
-              <select disabled defaultValue="—" id="quantity-dropdown" className="interactive-button-copy">
+              <select disabled defaultValue="—" id="quantity-dropdown" className="interactive-button-copy interactive-button-copy-disabled">
                 <option disabled hidden value="—">—</option>
               </select>
             )

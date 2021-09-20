@@ -128,6 +128,7 @@ body {
 #product-upper-container {
   display: flex;
   height: 59rem;
+  position: relative;
 }
 
 /* Image section (Left side of Top Overview Container) */
@@ -136,9 +137,9 @@ body {
   width: 62%;
   /* height: 65vh;
   min-height: 80vh; */
-  border-color: black;
-  border-style: none;
-  border-width: 1px;
+  /* border-color: black;
+  border-style: solid;
+  border-width: 1px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -166,9 +167,9 @@ body {
 
 }
 
-#image-gallery-expanded:hover {
-  /* transform: translate(-5%, -5%); */
-}
+/* #image-gallery-expanded:hover {
+  transform: translate(-5%, -5%);
+} */
 
 #image-main {
     width: 100%;
@@ -210,9 +211,9 @@ body {
 .overlay-thumbnail-image {
   width: 4rem;
   height: 4rem;
-  position: relative;
+  /* position: relative; */
   flex-shrink: 1;
-  z-index: 1;
+  z-index: 4;
   border: 0.1rem solid rgb(243, 243, 243, 0.5);
   border-radius: 7%;
 }
@@ -220,9 +221,9 @@ body {
 .overlay-thumbnail-image-select {
   width: 4.5rem;
   height: 4.5rem;
-  position: relative;
+  /* position: relative; */
   flex-shrink: 1;
-  z-index: 1;
+  z-index: 4;
   border: 0.1rem solid rgb(243, 243, 243, 0.5);
   border-bottom: 0.4rem solid rgb(46, 151, 107);
   border-radius: 7%;
@@ -266,19 +267,28 @@ body {
 
 /* Product Info & Options (Right side of Top Overview Container) */
 
+/* Must have "position: absolute" in order to remove the entire right container from flow of the DOM and allow left container image to
+    transition smoothly from default to expanded view (assuming z-index of image is higher than right container).
+
+  Once positioned absolutely, the element will lose its width/height and we must manually set them again appropriately
+    The key to making this work was making the container a set width/height so that children elements had enough space to be positioned with Flex */
 #product-right-container {
-  /* width: 38%; */
-  border-color: black;
-  border-style: none;
-  border-width: 1px;
+  height: 100%;
+  width: 38%;
+  /* border-color: black;
+  border-style: solid;
+  border-width: 1px; */
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
 
-  width: 24%;
   position: absolute;
-  right: 17%;
+  right: 0%;
 }
+
+/* #product-right-container.product-right-container-hidden {
+  display: none;
+} */
 
 /* .product-right-component {
   height: calc(100% / 3);
@@ -479,7 +489,7 @@ body {
   font-family: 'Roboto', sans-serif;
   font-weight: 450;
   color: #000000;
-  text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+  /* text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35); */
   background-color: #ffffff;
   text-align: left;
   transition: background-color 0.15s;
@@ -505,13 +515,19 @@ body {
   justify-content: center;
 }
 
-.interactive-button-copy:hover{
+.interactive-button-copy:hover {
   /* text-shadow: 0 0 2em rgba(255,255,255,1);
   color: #ffffff;
   border-color: #ffffff;
   background-color:#447c47; */
   background-color: rgb(226, 217, 217);
 }
+
+/* Don't gray out the disabled buttons, looks weird. */
+/* .interactive-button-copy-disabled {
+  border: 0.1em solid #5e5252;
+  color: #5e5252;
+} */
 
 #size-dropdown {
   width: 65%;
@@ -522,8 +538,8 @@ body {
 }
 
 /* Custom arrow styling for dropdowns */
-#size-dropdown,
-#quantity-dropdown {
+#size-dropdown.interactive-button-copy,
+#quantity-dropdown.interactive-button-copy {
   -webkit-appearance: none;
   -moz-appearance: none;
   background: transparent;
@@ -532,6 +548,13 @@ body {
   background-position-x: 95%;
   background-position-y: 50%;
 
+}
+
+#size-dropdown.interactive-button-copy-disabled,
+#quantity-dropdown.interactive-button-copy-disabled {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
 }
 
 #add-to-cart-button {
