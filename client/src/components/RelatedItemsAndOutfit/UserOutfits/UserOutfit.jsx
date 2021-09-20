@@ -4,7 +4,7 @@ import Carousel from '../Carousel';
 import AddOutfitCard from './AddOutFitCard';
 import ListCard from '../ListCard';
 
-const UserOutfit = ({ currProd }) => {
+const UserOutfit = ({ currProd, onRelatedCardClick }) => {
   const [currOutfits, setCurrOutfits] = useState([]);
   const addToCurrOutfits = (e) => {
     e.preventDefault();
@@ -34,6 +34,7 @@ const UserOutfit = ({ currProd }) => {
             prodInfo={outfit[0]}
             prodStyles={outfit[1]}
             prodMeta={outfit[2]}
+            onRelatedCardClick={onRelatedCardClick}
           >
             <button onClick={(e) => removeOutfit(outfit[0].id)} type="button" className="card-button">X</button>
           </ListCard>

@@ -9,7 +9,10 @@ const Carousel = ({ children }) => {
     if (mappedChildrenLength > length) {
       setLength(mappedChildrenLength);
     }
+    // console.log(mappedChildrenLength,'mapped');
   }, [children, length, mappedChildrenLength]);
+
+  //update length on click of new card so arrows display dynamically
 
   const showPrev = () => {
     if (currIndex === 0) {
@@ -21,7 +24,7 @@ const Carousel = ({ children }) => {
   };
 
   const showNext = () => {
-    if (currIndex === length - 3) {
+    if (currIndex === length - 2) {
       return;
     }
     setCurrIndex((prevState) => prevState + 1);
@@ -47,7 +50,7 @@ const Carousel = ({ children }) => {
           </div>
         </div>
         {
-          currIndex < (length - 3)
+          currIndex < (length - 2)
           && (
             <button onClick={showNext} type="button" className="right-arrow arrow-hover">
               <i className="fas fa-chevron-right arrow-icon" />

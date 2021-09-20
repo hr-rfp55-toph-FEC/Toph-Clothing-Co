@@ -27,8 +27,9 @@ const ListCard = ({
             className="card-image-src"
             // style={rotateImage90}
             onClick={() => onRelatedCardClick(prodInfo.id)}
+            role="presentation"
           />
-        ) : <i onClick={() => onRelatedCardClick(prodInfo.id)} className="fas fa-image card-default-image" />}
+        ) : <i onClick={() => onRelatedCardClick(prodInfo.id)} role="presentation" className="fas fa-image card-default-image" />}
 
       </div>
 

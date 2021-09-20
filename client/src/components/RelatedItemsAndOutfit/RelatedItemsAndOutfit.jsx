@@ -76,6 +76,7 @@ class RelatedItemsAndOutfit extends React.Component {
                 prodsMeta={prodsMeta}
               />
               <UserOutfit
+                onRelatedCardClick={this.onRelatedCardClick}
                 currProd={currProd}
                 prodsInfo={prodsInfo}
                 prodsStyles={prodsStyles}
