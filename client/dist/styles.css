@@ -935,6 +935,7 @@ body {
 #ratings-reviews-section {
   display: flex;
   flex-direction: column;
+  margin: 3rem 0;
 }
 
 #ratings-reviews-title {
@@ -1301,6 +1302,39 @@ img.thumbnail:hover {
 
 #plus-icon {
   margin: 0 0 0.5rem 2rem;
+}
+
+.review-form-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(2.0);
+}
+
+.show-review-form {
+  z-index: 5;
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.0);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.review-form-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: whitesmoke;
+  padding: 1rem 1.5rem;
+  width: 80rem;
+  height: 50rem;
+  overflow-y: scroll;
+  border-radius: 0.5rem;
 }
 
 /* Stars

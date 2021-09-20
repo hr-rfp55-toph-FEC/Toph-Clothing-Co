@@ -24,6 +24,7 @@ const ReviewsList = class extends React.Component {
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.sortClickHandler = this.sortClickHandler.bind(this);
     this.addReviewClickHandler = this.addReviewClickHandler.bind(this);
+    this.closeReviewFormHandler = this.closeReviewFormHandler.bind(this);
     this.getProductInfo = this.getProductInfo.bind(this);
   }
 
@@ -136,9 +137,13 @@ const ReviewsList = class extends React.Component {
     this.setState({ showAddReviewModal: true });
   }
 
+  closeReviewFormHandler() {
+    this.setState({ showAddReviewModal: false });
+  }
+
   render() {
     const {
-      display, reviews, showMoreReviewsButton, sortBy, productInfo,
+      display, reviews, showMoreReviewsButton, sortBy, productInfo, showAddReviewModal,
     } = this.state;
     const { starFilter } = this.props;
 
@@ -183,11 +188,13 @@ const ReviewsList = class extends React.Component {
             <span id="plus-icon"><i className="fas fa-plus" /></span>
           </button>
         </div>
-        {/* <div>
+        <div>
           <AddReviewForm
             productInfo={productInfo}
+            showAddReviewModal={showAddReviewModal}
+            closeReviewFormHandler={this.closeReviewFormHandler}
           />
-        </div> */}
+        </div>
       </div>
     );
   }
