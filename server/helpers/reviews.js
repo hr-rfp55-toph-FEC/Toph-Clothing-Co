@@ -8,8 +8,9 @@ const postReview = (body) => (api.post('/reviews', body));
 
 const markHelpful = (id) => (api.put(`reviews/${id}/helpful`));
 
-const getProductInfo = (productId) => (api.get(`products/${productId}`));
+// const getProductInfo = (productId) => (api.get(`products/${productId}`));
 
 module.exports = {
-  getReviews, getReviewMeta, postReview, markHelpful, getProductInfo,
+  getReviews, getReviewMeta, postReview, markHelpful,
+  // getProductInfo,
 };
