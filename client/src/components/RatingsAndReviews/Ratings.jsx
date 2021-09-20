@@ -107,7 +107,7 @@ const Ratings = class extends React.Component {
       if (char[0] === 'Quality') {
         char[1].scale = ['Poor', null, 'Great'];
       } else if (char[0] === 'Size' || char[0] === 'Fit') {
-        char[1].scale = ['Too small', 'Perfect', 'Too Large'];
+        char[1].scale = ['Too small', 'Perfect', 'Too big'];
       } else if (char[0] === 'Length') {
         char[1].scale = ['Too short', 'Perfect', 'Too long'];
       } else if (char[0] === 'Width') {
