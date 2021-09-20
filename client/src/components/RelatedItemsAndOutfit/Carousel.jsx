@@ -34,7 +34,7 @@ const Carousel = ({ children }) => {
           currIndex > 0
           && (
           <button onClick={showPrev} type="button" className="left-arrow arrow-hover">
-            &lt;
+            <i className="fas fa-chevron-left arrow-icon" />
           </button>
           )
         }
@@ -50,7 +50,7 @@ const Carousel = ({ children }) => {
           currIndex < (length - 3)
           && (
             <button onClick={showNext} type="button" className="right-arrow arrow-hover">
-              &gt;
+              <i className="fas fa-chevron-right arrow-icon" />
             </button>
           )
         }

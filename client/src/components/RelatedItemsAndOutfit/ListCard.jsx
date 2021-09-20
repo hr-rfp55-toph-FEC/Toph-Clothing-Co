@@ -14,6 +14,7 @@ const ListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
         <img
           src={prodStyles.results[0].photos[0].url}
           alt="model-in-clothing"
+          className="card-image-src"
         />
 
       </div>
