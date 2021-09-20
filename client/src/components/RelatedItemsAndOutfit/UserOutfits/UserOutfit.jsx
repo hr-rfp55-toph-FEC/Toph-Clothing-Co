@@ -36,7 +36,9 @@ const UserOutfit = ({ currProd, onRelatedCardClick }) => {
             prodMeta={outfit[2]}
             onRelatedCardClick={onRelatedCardClick}
           >
-            <button onClick={(e) => removeOutfit(outfit[0].id)} type="button" className="card-button">X</button>
+            <button onClick={() => removeOutfit(outfit[0].id)} type="button" className="remove-card-button">
+              <i className="far fa-window-close" />
+            </button>
           </ListCard>
         ))}
       </Carousel>
@@ -46,6 +48,7 @@ const UserOutfit = ({ currProd, onRelatedCardClick }) => {
 
 UserOutfit.propTypes = {
   currProd: PropTypes.instanceOf(Array).isRequired,
+  onRelatedCardClick: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default UserOutfit;

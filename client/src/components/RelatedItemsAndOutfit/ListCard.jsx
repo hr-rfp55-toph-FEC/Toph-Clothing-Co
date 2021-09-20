@@ -62,6 +62,7 @@ ListCard.propTypes = {
   prodStyles: PropTypes.instanceOf(Object).isRequired,
   prodMeta: PropTypes.instanceOf(Object).isRequired,
   children: PropTypes.instanceOf(Object).isRequired,
+  onRelatedCardClick: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default ListCard;

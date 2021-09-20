@@ -504,6 +504,33 @@ body {
   /* width: 1.0rem; */
 }
 
+.remove-card-button {
+  z-index: 2;
+  position: absolute;
+  background: transparent;
+  border-color: transparent;
+  right: 2.6rem;
+  top: 0.0rem;
+  height: 1rem;
+  width: 2.0rem;
+  font-size: 2.8rem;
+  cursor: pointer;
+
+}
+
+.remove-card-button:hover {
+  z-index: 2;
+  position: absolute;
+  background: transparent;
+  border-color: transparent;
+  right: 2.5rem;
+  top: 0.0rem;
+  height: 1rem;
+  width: 2.0rem;
+  font-size: 3.3rem;
+  cursor: pointer;
+}
+
 .star-for-button {
   z-index: 3;
   opacity: 10;

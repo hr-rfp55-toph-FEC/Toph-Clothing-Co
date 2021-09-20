@@ -32,7 +32,7 @@ class RelatedItemsAndOutfit extends React.Component {
   }
 
   onRelatedCardClick(productId) {
-    console.log(productId);
+    // console.log(productId);
     this.setState({
       currProdId: productId,
     });
