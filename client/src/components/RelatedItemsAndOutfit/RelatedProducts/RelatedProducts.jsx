@@ -35,7 +35,7 @@ const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta, currProd }) => {
           >
             <button type="button" onClick={(e) => openModelHandler(prodInfo.name, prodsMeta[index].characteristics)} className="card-button">
               <i className="far fa-star star-for-button" />
-              {/* <img src="../../assets/Earth_Kingdom_emblem.png" className="far fa-star star-for-button"/> */}
+              {/* <img src="../../assets/earth-symbol.png" className="far fa-star star-for-button"/> */}
             </button>
           </ListCard>
         ))}

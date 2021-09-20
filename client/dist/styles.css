@@ -396,8 +396,8 @@ body {
   z-index: 1;
   top: 50%;
   transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
+  width: 4rem;
+  height: 10rem;
   border-radius: 25px;
   background-color:whitesmoke;
   border: none;
@@ -408,19 +408,19 @@ body {
 }
 
 .left-arrow {
-  left: -20px;
+  left: -3rem;
 
 }
 
 .right-arrow {
-  right: -20px;
+  right: -3rem;
 
 }
 
 .arrow-hover:hover {
   background-color:#447c47;
-  width: 55px;
-  height: 55px;
+  width: 5rem;
+  height: 11rem;
   opacity: 0.9;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   cursor: pointer;
@@ -430,16 +430,43 @@ body {
   font-size: 2rem;
 }
 
+/* BG outfit list */
+
+
+.add-outfit-image-container {
+  margin: 2px 2px;
+  object-fit: contain;
+  /* height: %; */
+  position: relative;
+  background: #2e8b5714;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+  padding-top: 10rem;
+}
+
+.add-to-outfit-button {
+  cursor: pointer;
+  height: 20rem;
+  width: 20rem;
+}
+
+
 
 
 /* BG Cards CSS */
 
 .product-list-card {
   border: 0.1px solid #8080803d;
-  height: 50rem;
-  width: 30rem;
   border-radius: 0.5rem;
-  min-width: 250px;
+  /* width: clamp(24rem, 24rem, 24rem);
+  height: clamp(50rem, 50rem, 50rem); */
+  min-width: 24rem;
+  max-width: 24rem;
+  min-height: 50rem;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
 }
@@ -454,6 +481,9 @@ body {
   height: 70%;
   position: relative;
   background: #2e8b5714;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .card-image-container img {
@@ -511,6 +541,12 @@ body {
 }
 
 .card-default-image {
+  font-size: 15rem;
+  color: #447c47
+}
+
+.card-image-src:hover {
+  cursor:pointer;
 
 }
 
@@ -537,6 +573,12 @@ body {
   margin: 1rem 1rem 0.5rem 1rem;
   font-size: 1.7rem;
   color:gray;
+}
+
+.add-to-outfit-heading {
+  font-size: 2.5rem;
+  color: #447c47;
+  text-align: center;
 }
 
 

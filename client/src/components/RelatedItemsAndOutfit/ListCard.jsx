@@ -6,16 +6,19 @@ import calcAvgRating from '../helpers/calcAvgRating';
 const ListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
   const origPrice = prodStyles.results[0].original_price;
   const salePrice = prodStyles.results[0].sale_price;
+  const prodUrl = prodStyles.results[0].photos[0].url;
 
   return (
     <div className="product-list-card">
       <div className="card-image-container">
         { children }
-        <img
-          src={prodStyles.results[0].photos[0].url}
-          alt="model-in-clothing"
-          className="card-image-src"
-        />
+        {prodUrl ? (
+          <img
+            src={prodUrl}
+            alt="model-in-clothing"
+            className="card-image-src"
+          />
+        ) : <i className="fas fa-image card-default-image" />}
 
       </div>
 
