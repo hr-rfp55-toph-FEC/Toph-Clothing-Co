@@ -3,10 +3,18 @@ import PropTypes from 'prop-types';
 import Stars from '../Stars';
 import calcAvgRating from '../helpers/calcAvgRating';
 
-const ListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
+const ListCard = ({
+  prodInfo, prodStyles, prodMeta, onRelatedCardClick, children,
+}) => {
   const origPrice = prodStyles.results[0].original_price;
   const salePrice = prodStyles.results[0].sale_price;
   const prodUrl = prodStyles.results[0].photos[0].url;
+
+  // const imgDimensions = prodUrl ? {
+  //   height: prodUrl.offsetHeight,
+  //   width: prodUrl.offsetWidth,
+  // } : null;
+  // const rotateImage90 = { transform: 'rotate(90deg) scale(1.5)' };
 
   return (
     <div className="product-list-card">
@@ -17,12 +25,13 @@ const ListCard = ({ prodInfo, prodStyles, prodMeta, children }) => {
             src={prodUrl}
             alt="model-in-clothing"
             className="card-image-src"
+            // style={rotateImage90}
           />
         ) : <i className="fas fa-image card-default-image" />}
 
       </div>
 
-      <div className="card-details-container">
+      <div onClick={() => onRelatedCardClick(prodInfo.id)} className="card-details-container">
         <h6 className="category-heading">
           {prodInfo.category}
         </h6>

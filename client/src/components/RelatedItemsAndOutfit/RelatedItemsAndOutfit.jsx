@@ -7,26 +7,35 @@ class RelatedItemsAndOutfit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currProdId: '40344',
       currProd: [],
       prodsInfo: [],
       prodsStyles: [],
       prodsMeta: [],
       isFetching: true,
     };
+    this.onRelatedCardClick = this.onRelatedCardClick.bind(this);
   }
 
   componentDidMount() {
-    const currProdId = '40344';
+    const { currProdId } = this.state;
     this.getCurrProdData(currProdId);
     this.getRelatedData(currProdId);
   }
 
-  getCurrProdData(currProdId) {
-    server.get(`/currentProduct/${currProdId}`)
-      .then((res) => this.setState({
-        currProd: res.data,
-      }))
-      .catch((err) => console.log(err));
+  componentDidUpdate(prevProps, prevState) {
+    const { currProdId } = this.state;
+    if (prevState.currProdId !== currProdId) {
+      this.getCurrProdData(currProdId);
+      this.getRelatedData(currProdId);
+    }
+  }
+
+  onRelatedCardClick(productId) {
+    console.log(productId);
+    this.setState({
+      currProdId: productId,
+    });
   }
 
   getRelatedData(currProdId) {
@@ -36,6 +45,14 @@ class RelatedItemsAndOutfit extends React.Component {
         prodsStyles: res.data[1],
         prodsMeta: res.data[2],
         isFetching: false,
+      }))
+      .catch((err) => console.log(err));
+  }
+
+  getCurrProdData(currProdId) {
+    server.get(`/currentProduct/${currProdId}`)
+      .then((res) => this.setState({
+        currProd: res.data,
       }))
       .catch((err) => console.log(err));
   }
@@ -52,6 +69,7 @@ class RelatedItemsAndOutfit extends React.Component {
           : (
             <div className="related-lists">
               <RelatedProducts
+                onRelatedCardClick={this.onRelatedCardClick}
                 currProd={currProd}
                 prodsInfo={prodsInfo}
                 prodsStyles={prodsStyles}

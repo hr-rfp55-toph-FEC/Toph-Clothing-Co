@@ -4,7 +4,10 @@ import Carousel from '../Carousel';
 import ListCard from '../ListCard';
 import ComparisonModal from '../ComparisonModal.jsx';
 
-const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta, currProd }) => {
+const RelatedProducts = ({
+  prodsInfo, prodsStyles, prodsMeta,
+  currProd, onRelatedCardClick
+}) => {
   const [modalClass, setModalClass] = useState('comparison-modal-container');
   const [modalRelProd, setmodalRelProd] = useState({});
   const openModelHandler = (relProdName, relProdMeta) => {
@@ -32,8 +35,9 @@ const RelatedProducts = ({ prodsInfo, prodsStyles, prodsMeta, currProd }) => {
             prodInfo={prodInfo}
             prodStyles={prodsStyles[index]}
             prodMeta={prodsMeta[index]}
+            onRelatedCardClick={onRelatedCardClick}
           >
-            <button type="button" onClick={(e) => openModelHandler(prodInfo.name, prodsMeta[index].characteristics)} className="card-button">
+            <button type="button" onClick={() => openModelHandler(prodInfo.name, prodsMeta[index].characteristics)} className="card-button">
               <i className="far fa-star star-for-button" />
               {/* <img src="../../assets/earth-symbol.png" className="far fa-star star-for-button"/> */}
             </button>
