@@ -24,8 +24,6 @@ function AddToCart(props) {
     for (let i = 0; i < sizeOptions.length; i += 1) {
       const sku = sizeOptions[i][0];
       const option = sizeOptions[i][1];
-      // console.log(sku);
-      // console.log(option);
       if (option.quantity > 0) {
         // Handle the edge case where there are duplicate XLs - set 2nd XL equal to XXL
         // The right way to do this is to edit the productStyle object itself; too much work for now
@@ -38,15 +36,7 @@ function AddToCart(props) {
     }
     setSizesInStock(sizeOptionsFiltered);
     setIsLoading(false); // This is ok, hooks don't trigger re-renders when state is unchanged
-    // console.log('sizeOptionsFiltered', sizeOptionsFiltered);
   }, [productStyleSelected, isLoading]);
-
-  // useEffect(() => {
-  //   const quantity = selectedSize.quantity;
-  //   console.log(quantity);
-  // });
-
-  // console.log('sizesInStock', sizesInStock);
 
   function disabledSizeSelector(message) {
     return (
@@ -74,6 +64,7 @@ function AddToCart(props) {
     setShowError(false);
   }
 
+  // console.log('sizesInStock', sizesInStock);
   // console.log('selectedSize', selectedSize);
 
   function handleAddToBag() {
@@ -98,8 +89,6 @@ function AddToCart(props) {
         \n ${item.size}
         \n ${item.quantity}
         \n ${item.style.sale_price ? item.style.sale_price : item.style.original_price}`);
-        // alert('added to cart!');
-        // console.log(selectedSize);
       }
     }
   }

@@ -49,6 +49,7 @@ body {
 
 .stars-outer, .stars-inner {
   font-size: 1.5rem;
+  color: #f8ce0b;
 }
 
 /* Banner and Title */
@@ -90,7 +91,8 @@ body {
   height: 2.5rem;
   width: 20%;
   color: #ffffff;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
   background-color: transparent;
   border: 0.17rem solid transparent;
   border-bottom: 0.17rem solid #b3f8f2;
@@ -102,9 +104,9 @@ body {
   background-position: 98% center;
 }
 
-/* .product-search:focus {
+.product-search:focus {
   outline: none;
-} */
+}
 
 .mini-banner {
   text-align: center;
@@ -135,13 +137,37 @@ body {
   /* height: 65vh;
   min-height: 80vh; */
   border-color: black;
-  border-style: solid;
+  border-style: none;
   border-width: 1px;
-
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  position: relative;
+  transition: width 0.6s;
+  z-index: 2;
+
+
+}
+
+#image-gallery-expanded {
+  /* height: 100%; */
+  width: 100%;
+  border-color: black;
+  border-style: none;
+  border-width: 1px;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: width 0.6s;
+  position: relative;
+  z-index: 2;
+
+}
+
+#image-gallery-expanded:hover {
+  /* transform: translate(-5%, -5%); */
 }
 
 #image-main {
@@ -150,18 +176,108 @@ body {
     object-fit: cover;
     /* max-width: 100%;
     max-height: 100%; */
+    position: relative;
+}
+
+#overlay-thumbnail-gallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  left: 0%;
+  padding: 1rem;
+  gap: 1rem;
+  position: absolute;
+  z-index: 3;
+  overflow-y: scroll;
+
+}
+
+#overlay-thumbnail-gallery::-webkit-scrollbar {
+  display: none;
+}
+
+/* #overlayThumbnailContainer {
+  display: block;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 9%;
+  top: 5%;
+  left: 5%;
+
+} */
+
+.overlay-thumbnail-image {
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+  flex-shrink: 1;
+  z-index: 1;
+  border: 0.1rem solid rgb(243, 243, 243, 0.5);
+  border-radius: 7%;
+}
+
+.overlay-thumbnail-image-select {
+  width: 4.5rem;
+  height: 4.5rem;
+  position: relative;
+  flex-shrink: 1;
+  z-index: 1;
+  border: 0.1rem solid rgb(243, 243, 243, 0.5);
+  border-bottom: 0.4rem solid rgb(46, 151, 107);
+  border-radius: 7%;
+  /* transform: all 2s; */
+}
+
+#expand-main-image {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  font-size: 3rem;
+  z-index: 1;
+  color: gray;
+}
+
+#next-overlay-thumbnail-pic {
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  font-size: 3rem;
+  z-index: 1;
+  color: gray;
+}
+
+#prev-overlay-thumbnail-pic {
+  position: absolute;
+  top: 51%;
+  left: 10%;
+  font-size: 3rem;
+  z-index: 1;
+  color: gray;
+}
+
+#expand-main-image:hover,
+#next-overlay-thumbnail-pic:hover,
+#prev-overlay-thumbnail-pic:hover,
+.overlay-thumbnail-image:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }
 
 /* Product Info & Options (Right side of Top Overview Container) */
 
 #product-right-container {
-  width: 38%;
+  /* width: 38%; */
   border-color: black;
-  border-style: solid;
+  border-style: none;
   border-width: 1px;
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
+
+  width: 24%;
+  position: absolute;
+  right: 17%;
 }
 
 /* .product-right-component {
@@ -326,8 +442,7 @@ body {
 }
 
 .checky-check:hover,
-.product-style-thumbnail:hover,
-.product-style-thumbnail-checked:hover {
+.product-style-thumbnail:hover {
   cursor: pointer;
 }
 
@@ -457,7 +572,7 @@ body {
   height: 20rem;
   padding: 3% 3%;
   border-color: black;
-  border-style: solid;
+  border-style: none;
   border-width: 1px;
 }
 
@@ -465,26 +580,28 @@ body {
 
 #slogan-description-container {
   width: 65%;
-  padding: 2% 5%;
-  border-right: 1px solid gray;
-
+  padding: 2% 3%;
+  border-right: 2px solid gray;
+  margin-right: 3.2%;
 }
 
 #product-slogan {
-  font-size: 1.7rem;
+  font-size: 2rem;
   line-height: 5rem;
+  color: rgb(87, 87, 87)
 }
 
 #product-description {
-  font-size: 1.36rem;
+  font-size: 1.56rem;
+  color: rgb(87, 87, 87);
 }
 
 /* Social (Right side of Bottom Overview Container) */
 
 #product-social {
   width: 35%;
-  padding: 2% 5%;
-  border-left: 1px solid gray;
+  padding: 2% 1%;
+  border-left: 1px none gray;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -492,7 +609,9 @@ body {
 
 .social-icon {
   /* height: 25%; */
-  height: 2.5rem;
+ color: rgb(75, 75, 75);
+ font-size: 4rem;
+
 }
 
 .social-icon:hover {

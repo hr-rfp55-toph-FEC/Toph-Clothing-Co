@@ -22,6 +22,7 @@ class ProductOverview extends React.Component {
     };
 
     this.selectProductStyle = this.selectProductStyle.bind(this);
+    this.handleExpand = this.handleExpand.bind(this);
   }
 
   componentDidMount() {
@@ -29,9 +30,9 @@ class ProductOverview extends React.Component {
       // For now, grab all products from the API and set the current product as the 1st one (40344)
       ProductOverview.getProductList(),
       // For now, grab product details only for the 1st product
-      ProductOverview.getProductStyles(40370),
-      ProductOverview.getProductReviews(40370),
-      ProductOverview.getProductRatings(40370),
+      ProductOverview.getProductStyles(40348),
+      ProductOverview.getProductReviews(40348),
+      ProductOverview.getProductRatings(40348),
     ])
       .then((results) => {
         // console.log(results);
@@ -67,6 +68,11 @@ class ProductOverview extends React.Component {
       .catch((error) => { throw new Error(`Error in getting product ratings from server: ${error.message}`); });
   }
 
+  handleExpand() {
+    const { expanded } = this.state;
+    this.setState({ expanded: !expanded });
+  }
+
   selectProductStyle(style) {
     const { productStyleSelected } = this.state;
     if (style.style_id !== productStyleSelected.style_id) {
@@ -89,19 +95,14 @@ class ProductOverview extends React.Component {
       return null;
     }
 
-    // Placeholder for 'expanded view'
-    if (expanded === true) {
-      return (
-        <div>
-          <ImageGallery productStyles={productStyles} />
-        </div>
-      );
-    }
-
     return (
       <div id="product-main-container">
         <div id="product-upper-container">
-          <ImageGallery productStyleSelected={productStyleSelected} />
+          <ImageGallery
+            productStyleSelected={productStyleSelected}
+            expanded={expanded}
+            handleExpand={this.handleExpand}
+          />
           <div id="product-right-container">
             <ProductInformation
               product={product}

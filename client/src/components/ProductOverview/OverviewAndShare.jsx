@@ -10,7 +10,8 @@ function OverviewAndShare(props) {
   }
 
   function socialIcon(social) {
-    return (<img className="social-icon" src={`/assets/icon_${social.toLowerCase()}.png`} alt={`${social} Icon`} onClick={handleSocialClick} role="presentation" />);
+    return (<i onClick={handleSocialClick} role="presentation" className={`social-icon fab fa-${social}-square`} />
+    );
   }
 
   return (
@@ -21,10 +22,10 @@ function OverviewAndShare(props) {
         <span id="product-description">{product.description}</span>
       </div>
       <div id="product-social">
-        {socialIcon('Facebook')}
-        {socialIcon('Instagram')}
-        {socialIcon('Pinterest')}
-        {socialIcon('Twitter')}
+        {socialIcon('facebook')}
+        {socialIcon('instagram')}
+        {socialIcon('pinterest')}
+        {socialIcon('twitter')}
       </div>
     </div>
   );
