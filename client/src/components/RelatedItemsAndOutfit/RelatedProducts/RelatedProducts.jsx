@@ -27,7 +27,7 @@ const RelatedProducts = ({
         }}
         modalRelProd={modalRelProd}
       />
-      <h2 className="related-products-header">RELATED PRODUCTS</h2>
+      <h2 className="related-products-header" id="ratings-reviews-title">RELATED PRODUCTS</h2>
       <Carousel>
         {prodsInfo.map((prodInfo, index) => (
           <ListCard

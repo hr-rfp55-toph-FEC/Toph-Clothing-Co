@@ -23,7 +23,7 @@ const UserOutfit = ({ currProd, onRelatedCardClick }) => {
   };
   return (
     <div className="outfit-list-container">
-      <h2 className="user-outfit-header">YOUR OUTFIT</h2>
+      <h2 className="user-outfit-header" id="ratings-reviews-title">YOUR OUTFIT</h2>
       <Carousel>
         <AddOutfitCard
           addToCurrOutfits={addToCurrOutfits}
