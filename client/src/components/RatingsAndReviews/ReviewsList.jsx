@@ -173,7 +173,7 @@ const ReviewsList = class extends React.Component {
         <div className="buttons-container">
           {moreReviewsButton}
           <button
-            type="submit"
+            type="button"
             className="interactive-button"
             onClick={() => {
               this.addReviewClickHandler();
@@ -183,11 +183,11 @@ const ReviewsList = class extends React.Component {
             <span id="plus-icon"><i className="fas fa-plus" /></span>
           </button>
         </div>
-        <div>
+        {/* <div>
           <AddReviewForm
             productInfo={productInfo}
           />
-        </div>
+        </div> */}
       </div>
     );
   }
