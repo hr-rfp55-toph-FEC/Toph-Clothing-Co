@@ -138,7 +138,7 @@ const ReviewsList = class extends React.Component {
 
   render() {
     const {
-      display, reviews, showMoreReviewsButton, sortBy,
+      display, reviews, showMoreReviewsButton, sortBy, productInfo,
     } = this.state;
     const { starFilter } = this.props;
 
@@ -183,9 +183,11 @@ const ReviewsList = class extends React.Component {
             <span id="plus-icon"><i className="fas fa-plus" /></span>
           </button>
         </div>
-        {/* <div>
-          <AddReviewForm />
-        </div> */}
+        <div>
+          <AddReviewForm
+            productInfo={productInfo}
+          />
+        </div>
       </div>
     );
   }
