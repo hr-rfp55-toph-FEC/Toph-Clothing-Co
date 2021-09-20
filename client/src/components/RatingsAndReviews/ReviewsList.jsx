@@ -21,21 +21,16 @@ const ReviewsList = class extends React.Component {
     this.updateDisplay = this.updateDisplay.bind(this);
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.sortClickHandler = this.sortClickHandler.bind(this);
-    this.sortByOption = this.sortByOption.bind(this);
   }
 
   componentDidMount() {
-    const { sortBy } = this.state;
-    this.getReviews(sortBy);
+    this.getReviews();
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { sortBy } = this.state;
     const { starFilter } = this.props;
-    if (sortBy !== prevState.sortBy) {
-      this.sortByOption(sortBy, this.updateDisplay);
-    }
-    if (starFilter.length !== prevProps.starFilter.length) {
+    if (sortBy !== prevState.sortBy || starFilter.length !== prevProps.starFilter.length) {
       this.updateDisplay();
     }
   }
@@ -44,13 +39,12 @@ const ReviewsList = class extends React.Component {
     this.setState((prevState) => ({ reviewCount: prevState.reviewCount + 2 }), this.updateDisplay);
   }
 
-  getReviews(sortBy) {
+  getReviews() {
     const { productId } = this.props;
     axios.get('/reviews', {
       params: {
         product_id: productId,
         count: 100,
-        sort: sortBy,
       },
     })
       .then((response) => {
@@ -62,15 +56,21 @@ const ReviewsList = class extends React.Component {
   }
 
   updateDisplay() {
-    const { reviews, reviewCount } = this.state;
+    // This function processes the reviews to be displayed on the page by editing the API response
+    // It first processes any star filter (if present)
+    // After applying star filters, it will sort the array based on selected sort by option
+    const { reviews, reviewCount, sortBy } = this.state;
     const { starFilter } = this.props;
-    let reviewsCopy = [];
 
+    let processed = [];
+
+    // First, see if any star filters are applied
+    // If no filter, display all reviews sent back by server, 2 at a time
     if (starFilter.length === 0) {
       if (reviews.length <= 2) {
-        reviewsCopy = reviews;
+        processed = reviews;
       } else {
-        reviewsCopy = reviews.slice(0, reviewCount);
+        processed = reviews.slice(0, reviewCount);
         if (reviewCount < reviews.length) {
           this.setState({ showMoreReviewsButton: true });
         } else {
@@ -78,32 +78,27 @@ const ReviewsList = class extends React.Component {
         }
       }
     } else {
+      // When there are star filters
+      // Only display reviews that match the star counts
       starFilter.forEach((starCount) => {
-        reviewsCopy = reviewsCopy.concat(reviews.filter((review) => review.rating === starCount));
+        processed = processed.concat(reviews.filter((review) => review.rating === starCount));
       });
+      this.setState({ showMoreReviewsButton: false });
     }
-    this.setState({ display: reviewsCopy });
-  }
 
-  sortClickHandler(value) {
-    this.setState({ sortBy: value });
-  }
-
-  sortByOption(option, callback) {
-    const { reviews } = this.state;
-    const reviewsCopy = reviews.slice();
-    if (option === 'helpful') {
-      reviewsCopy.sort((a, b) => (a.helpfulness < b.helpfulness ? 1 : -1));
+    // After having applied star filters, sort the reviews based on sort dropdown selection
+    if (sortBy === 'helpful') {
+      processed.sort((a, b) => (a.helpfulness < b.helpfulness ? 1 : -1));
     }
-    if (option === 'newest') {
-      reviewsCopy.sort((a, b) => {
+    if (sortBy === 'newest') {
+      processed.sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
         return dateA < dateB ? 1 : -1;
       });
     }
-    if (option === 'relevant') {
-      reviewsCopy.sort((a, b) => {
+    if (sortBy === 'relevant') {
+      processed.sort((a, b) => {
         if (a.helpfulness === b.helpfulness) {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
@@ -112,13 +107,21 @@ const ReviewsList = class extends React.Component {
         return a.helpfulness < b.helpfulness ? 1 : -1;
       });
     }
-    this.setState({ reviews: reviewsCopy }, callback);
+
+    // Finally, display the filtered & sorted array of reviews
+    this.setState({ display: processed });
+  }
+
+  sortClickHandler(value) {
+    this.setState({ sortBy: value });
   }
 
   render() {
     const {
       display, reviews, showMoreReviewsButton, sortBy,
     } = this.state;
+    const { starFilter } = this.props;
+
     let moreReviewsButton;
     if (showMoreReviewsButton) {
       moreReviewsButton = <button type="button" className="interactive-button" onClick={this.handleMoreReviews}>more reviews</button>;
@@ -129,7 +132,7 @@ const ReviewsList = class extends React.Component {
     return (
       <div className="reviews-list">
         <h3>
-          {reviews.length}
+          {starFilter.length > 0 ? display.length : reviews.length}
           {' '}
           reviews,
           {' '}
@@ -144,7 +147,6 @@ const ReviewsList = class extends React.Component {
               review={review}
               key={review.review_id}
               getReviews={this.getReviews}
-              sortBy={sortBy}
             />
           ))}
         </div>
