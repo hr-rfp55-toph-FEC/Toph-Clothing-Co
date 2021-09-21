@@ -50,15 +50,128 @@ function ImageGallery(props) {
   }, [productStyleSelected, currIndex]);
 
   const imageGalleryId = expanded ? 'image-gallery-expanded' : 'image-gallery';
+  // const imageMainId = expanded ? 'image-main-expanded' : 'image-main';
+
+  // console.log(mainPicUrl);
+
+  // useEffect(()=>{
+  //   if (expanded) {
+  //     const expandedImage = document.getElementById('image-main-expanded');
+  //     console.log(expandedImage);
+  //     expandedImage.addEventListener('mousemove', (e) => {
+  //       expandedImage.style.left = e.offsetX + 'px';
+  //       expandedImage.style.top = e.offsetY + 'px';
+  //     });
+  //   }
+  // }, [expanded]);
+
+  useEffect(() => {
+    const elExpanded = document.getElementById('image-main-expanded');
+    const elDefault = document.getElementById('image-main');
+
+    const handleMove = (e) => {
+      // console.log(elExpanded);
+      // console.log('Expanded View Background Size:', elExpanded.style.backgroundSize);
+      // console.log(e);
+      // elExpanded.style.backgroundPositionX = `${-e.offsetX}px`;
+      // elExpanded.style.backgroundPositionY = `${-e.offsetY}px`;
+      // elExpanded.style.backgroundPositionX = `${-e.layerX}px`;
+      // elExpanded.style.backgroundPositionY = `${-e.layerY}px`;
+
+      // elExpanded.style.backgroundPositionX = `${e.offsetX * 0.1}%`;
+      // elExpanded.style.backgroundPositionX = `center`;
+      // elExpanded.style.backgroundPositionY = `${e.offsetY * 0.5}%`;
+
+      elExpanded.style.backgroundPositionX = `${e.offsetX * 1}%`;
+      elExpanded.style.backgroundPositionY = `${e.offsetY * 0.3}%`;
+
+      // const windowWidth = window.innerWidth / 5;
+      // const windowHeight = window.innerHeight / 5;
+      // const mouseX = e.clientX / windowWidth;
+      // const mouseY = e.clientY / windowHeight;
+      // elExpanded.style.transform = `translate3d(-${mouseX}%, -${mouseY}%, 0)`;
+    };
+
+    if (expanded) {
+      console.log('Image:', mainPicUrl);
+      console.log('Expanded View:', elExpanded);
+      // console.log('Expanded View Height:', elExpanded.style.height);
+      // console.log('Expanded View Width:', elExpanded.style.width);
+      console.log('Expanded View Height:', elExpanded.offsetHeight);
+      console.log('Expanded View Width:', elExpanded.offsetWidth);
+      console.log(elExpanded.getBoundingClientRect());
+      // Getting the background size before mount doesn't work...
+      console.log('Expanded View Background Size:', elExpanded.style.backgroundSize);
+      // // Setting the background size works, b/c it doesn't require the element to be mounted yet
+      // console.log('Expanded View Background Size:', elExpanded.style.backgroundSize = "60px 120px");
+      elExpanded.addEventListener('mousemove', handleMove);
+      // Need to remove event listener right before expanded image unmounts, or else event listener will remain even after it's gone
+      // The event listener would get tied to the default image and end up moving that around, which we don't want.
+      return function cleanup() {
+        elExpanded.removeEventListener('mousemove', handleMove);
+      };
+    }
+
+    if (!expanded) {
+      console.log('Default View:', elDefault);
+      // el.removeEventListener("mousemove", handleMove);
+    }
+    return null;
+    // console.log(expanded);
+  }, [expanded]);
+
+  // const handleHover = (event) => {
+  //   const elExpanded = document.getElementById('image-main-expanded');
+  //   console.log('Expanded View Background Size:', elExpanded.style.backgroundSize);
+  //   console.log('Expanded View Background Size:', elExpanded.style);
+
+  //   console.log('Expanded View Background Size Event:', event.target.style);
+  // };
 
   return (
     <div id={imageGalleryId}>
-      <img id="image-main" src={mainPicUrl} alt="Main Product" />
+      {/* {expanded
+        ? (
+          <img
+            id="image-main-expanded"
+            src={mainPicUrl}
+          // onClick={handleHover}
+          // role="presentation"
+          />
+        )
+        : (
+          <img
+            id="image-main"
+            src={mainPicUrl}
+          />
+        )} */}
+      {expanded
+        ? (
+          <div
+            id="image-main-expanded"
+            style={{
+              backgroundImage: `url(${mainPicUrl})`,
+            }}
+          // onClick={handleHover}
+          // role="presentation"
+          />
+        )
+        : (
+          <div
+            id="image-main"
+            style={{
+              backgroundImage: `url(${mainPicUrl})`,
+              backgroundPosition: 'center',
+            }}
+          />
+        )}
+      {/* <div id={imageMainId} style={`background-image: url(${mainPicUrl.substring(0, mainPicUrl.length - 1)})`}></div> */}
+      {/* <img id={imageMainId} src={mainPicUrl} alt="Main Product" /> */}
       <div id="expand-main-image"><i className="fas fa-expand" onClick={handleExpand} role="presentation" /></div>
       {(currIndex < productStyleSelected.photos.length - 1)
-      && <div id="next-overlay-thumbnail-pic"><i className="fas fa-chevron-right" onClick={showNextPic} role="presentation" /></div>}
+        && <div id="next-overlay-thumbnail-pic"><i className="fas fa-chevron-right" onClick={showNextPic} role="presentation" /></div>}
       {(currIndex > 0)
-      && <div id="prev-overlay-thumbnail-pic"><i className="fas fa-chevron-left" onClick={showPrevPic} role="presentation" /></div>}
+        && <div id="prev-overlay-thumbnail-pic"><i className="fas fa-chevron-left" onClick={showPrevPic} role="presentation" /></div>}
       <div id="overlay-thumbnail-gallery" className="stylish-right-component">
         {productStyleSelected.photos.map((photo) => (
           <OverlayThumbnail

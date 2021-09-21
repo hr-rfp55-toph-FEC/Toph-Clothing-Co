@@ -18,6 +18,7 @@ class App extends React.Component {
       isFetching: true,
     };
     this.changeProductHandler = this.changeProductHandler.bind(this);
+    this.selectProductStyle = this.selectProductStyle.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +48,13 @@ class App extends React.Component {
     }
   }
 
+  selectProductStyle(style) {
+    const { prodStyleSelected } = this.state;
+    if (style.style_id !== prodStyleSelected.style_id) {
+      this.setState({ prodStyleSelected: style });
+    }
+  }
+
   render() {
     const {
       currProdId, prodInfo, prodStyles, prodReviewsMeta, prodReviews, isFetching, prodStyleSelected,
@@ -61,10 +69,12 @@ class App extends React.Component {
             <div className="app-container">
               <Banner changeProductHandler={this.changeProductHandler} />
               <ProductOverview
-                prodInfo={prodInfo}
-                prodStyles={prodStyles}
-                prodStyleSelected={prodStyleSelected}
-                prodReviewsMeta={prodReviewsMeta}
+                product={prodInfo}
+                productStyles={prodStyles}
+                productStyleSelected={prodStyleSelected}
+                productReviews={prodReviews}
+                productRatings={prodReviewsMeta}
+                selectProductStyle={this.selectProductStyle}
               />
               <RelatedItemsAndOutfit
                 // key={currProdId}

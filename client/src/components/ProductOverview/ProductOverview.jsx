@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+// import axios from 'axios';
 
 import ImageGallery from './ImageGallery';
 import ProductInformation from './ProductInformation';
@@ -12,60 +13,10 @@ class ProductOverview extends React.Component {
     super(props);
 
     this.state = {
-      isFetching: true,
       expanded: false,
-      product: {},
-      productStyles: {},
-      productReviews: {},
-      productRatings: {},
-      productStyleSelected: {},
     };
 
-    this.selectProductStyle = this.selectProductStyle.bind(this);
     this.handleExpand = this.handleExpand.bind(this);
-  }
-
-  componentDidMount() {
-    Promise.all([
-      // For now, grab all products from the API and set the current product as the 1st one (40344)
-      ProductOverview.getProductList(),
-      // For now, grab product details only for the 1st product
-      ProductOverview.getProductStyles(40344),
-      ProductOverview.getProductReviews(40344),
-      ProductOverview.getProductRatings(40344),
-    ])
-      .then((results) => {
-        // console.log(results);
-        this.setState({
-          product: results[0].data[0],
-          productStyles: results[1].data,
-          productReviews: results[2].data,
-          productRatings: results[3].data,
-          productStyleSelected: results[1].data.results[0],
-          isFetching: false,
-        });
-      })
-      .catch((error) => { throw new Error(`Error in fetching from server: ${error.message}`); });
-  }
-
-  static getProductList() {
-    return axios.get('/products')
-      .catch((error) => { throw new Error(`Error in getting product list from server: ${error.message}`); });
-  }
-
-  static getProductStyles(productID) {
-    return axios.get(`/products/${productID}/styles`)
-      .catch((error) => { throw new Error(`Error in getting product styles from server: ${error.message}`); });
-  }
-
-  static getProductReviews(productID) {
-    return axios.get(`/reviews/?product_id=${productID}`)
-      .catch((error) => { throw new Error(`Error in getting product reviews from server: ${error.message}`); });
-  }
-
-  static getProductRatings(productID) {
-    return axios.get(`/reviews/meta/?product_id=${productID}`)
-      .catch((error) => { throw new Error(`Error in getting product ratings from server: ${error.message}`); });
   }
 
   handleExpand() {
@@ -73,27 +24,17 @@ class ProductOverview extends React.Component {
     this.setState({ expanded: !expanded });
   }
 
-  selectProductStyle(style) {
-    const { productStyleSelected } = this.state;
-    if (style.style_id !== productStyleSelected.style_id) {
-      this.setState({ productStyleSelected: style });
-    }
-  }
-
   render() {
     const {
-      isFetching,
-      expanded,
       product,
       productStyles,
+      productStyleSelected,
       productReviews,
       productRatings,
-      productStyleSelected,
-    } = this.state;
+      selectProductStyle,
+    } = this.props;
 
-    if (isFetching) {
-      return null;
-    }
+    const { expanded } = this.state;
 
     return (
       <div id="product-main-container">
@@ -113,7 +54,8 @@ class ProductOverview extends React.Component {
             <StyleSelector
               productStyles={productStyles}
               productStyleSelected={productStyleSelected}
-              selectProductStyle={this.selectProductStyle}
+              selectProductStyle={selectProductStyle}
+              // selectProductStyle={this.selectProductStyle}
             />
             <AddToCart
               product={product}
@@ -127,5 +69,14 @@ class ProductOverview extends React.Component {
     );
   }
 }
+
+ProductOverview.propTypes = {
+  product: PropTypes.instanceOf(Object).isRequired,
+  productStyles: PropTypes.instanceOf(Object).isRequired,
+  productStyleSelected: PropTypes.instanceOf(Object).isRequired,
+  productReviews: PropTypes.instanceOf(Object).isRequired,
+  productRatings: PropTypes.instanceOf(Object).isRequired,
+  selectProductStyle: PropTypes.func.isRequired,
+};
 
 export default ProductOverview;
