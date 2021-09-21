@@ -10,10 +10,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       currProdId: '40344',
-      prodInfo: [],
-      prodStyles: [],
-      prodReviewsMeta: [],
-      prodReviews: [],
+      prodInfo: {},
+      prodStyles: {},
+      prodStyleSelected: {},
+      prodReviewsMeta: {},
+      prodReviews: {},
       isFetching: true,
     };
     this.changeProductHandler = this.changeProductHandler.bind(this);
@@ -30,6 +31,7 @@ class App extends React.Component {
         currProdId: data[0].id,
         prodInfo: data[0],
         prodStyles: data[1],
+        prodStyleSelected: data[1].results[0],
         prodReviewsMeta: data[2],
         prodReviews: data[3],
         isFetching: false,
@@ -40,16 +42,16 @@ class App extends React.Component {
   changeProductHandler(productId) {
     const { currProdId } = this.state;
     if (productId !== currProdId) {
-      this.setState({
-        isFetching: true,
-      });
+      // this.setState({
+      //   isFetching: true,
+      // });
       this.getCurrProdData(productId);
     }
   }
 
   render() {
     const {
-      prodInfo, prodStyles, prodReviewsMeta, prodReviews, isFetching,
+      prodInfo, prodStyles, prodReviewsMeta, prodReviews, isFetching, prodStyleSelected,
     } = this.state;
 
     return (
@@ -63,6 +65,7 @@ class App extends React.Component {
               <ProductOverview
                 prodInfo={prodInfo}
                 prodStyles={prodStyles}
+                prodStyleSelected={prodStyleSelected}
                 prodReviewsMeta={prodReviewsMeta}
               />
               <RelatedItemsAndOutfit
