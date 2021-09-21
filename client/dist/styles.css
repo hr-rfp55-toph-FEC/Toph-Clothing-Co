@@ -1337,6 +1337,10 @@ img.thumbnail:hover {
   border-radius: 0.5rem;
 }
 
+.review-form-title {
+  font-size: 2rem;
+}
+
 /* Stars
 
 .stars-outer {
