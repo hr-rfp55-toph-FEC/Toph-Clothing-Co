@@ -67,7 +67,7 @@ function ImageGallery(props) {
 
   useEffect(() => {
     const elExpanded = document.getElementById('image-main-expanded');
-    const elDefault = document.getElementById('image-main');
+    // const elDefault = document.getElementById('image-main');
 
     const handleMove = (e) => {
       // console.log(elExpanded);
@@ -81,6 +81,32 @@ function ImageGallery(props) {
       // elExpanded.style.backgroundPositionX = `${e.offsetX * 0.1}%`;
       // elExpanded.style.backgroundPositionX = `center`;
       // elExpanded.style.backgroundPositionY = `${e.offsetY * 0.5}%`;
+
+      console.log('e.offsetX', e.offsetX); // min is -1 on left side, max is 944 on right side
+      console.log('e.offsetY', e.offsetY); // min is -1 on top size, max is 478 on bottom side
+      // makes sense - when inspecting, the box for the image is 944.297 wide x 477.531 tall
+
+      // console.log('getBoundingClientRect', elExpanded.getBoundingClientRect());
+      // console.log('getClientRects', elExpanded.getClientRects());
+      // 250% view
+      // bottom: 1286.546875
+      // height: 1193.828125
+      // left: 202.34375 // SAME
+      // right: 2553.078125
+      // top: 92.71875 // SAME
+      // width: 2350.734375
+      // x: 202.34375 // SAME
+      // y: 92.71875 // SAME
+
+      // 100% view
+      // bottom: 570.25 // Subtract y from bottom to
+      // height: 477.53125
+      // left: 202.34375
+      // right: 1146.640625
+      // top: 92.71875 // SAME
+      // width: 944.296875
+      // x: 202.34375 // SAME
+      // y: 92.71875 // SAME
 
       elExpanded.style.backgroundPositionX = `${e.offsetX * 1}%`;
       elExpanded.style.backgroundPositionY = `${e.offsetY * 0.3}%`;
@@ -97,11 +123,12 @@ function ImageGallery(props) {
       console.log('Expanded View:', elExpanded);
       // console.log('Expanded View Height:', elExpanded.style.height);
       // console.log('Expanded View Width:', elExpanded.style.width);
-      console.log('Expanded View Height:', elExpanded.offsetHeight);
-      console.log('Expanded View Width:', elExpanded.offsetWidth);
-      console.log(elExpanded.getBoundingClientRect());
+      // console.log('Expanded View Height:', elExpanded.offsetHeight);
+      // console.log('Expanded View Width:', elExpanded.offsetWidth);
+      console.log('getBoundingClientRect', elExpanded.getBoundingClientRect());
+      console.log('getClientRects', elExpanded.getClientRects());
       // Getting the background size before mount doesn't work...
-      console.log('Expanded View Background Size:', elExpanded.style.backgroundSize);
+      // console.log('Expanded View Background Size:', elExpanded.style.backgroundSize);
       // // Setting the background size works, b/c it doesn't require the element to be mounted yet
       // console.log('Expanded View Background Size:', elExpanded.style.backgroundSize = "60px 120px");
       elExpanded.addEventListener('mousemove', handleMove);
@@ -113,7 +140,7 @@ function ImageGallery(props) {
     }
 
     if (!expanded) {
-      console.log('Default View:', elDefault);
+      // console.log('Default View:', elDefault);
       // el.removeEventListener("mousemove", handleMove);
     }
     return null;
