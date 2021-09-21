@@ -685,6 +685,7 @@ body {
   overflow: hidden;
   width: 100%;
   height: 100%;
+  padding: 1.5rem;
 }
 
 .carousel-content {
@@ -700,50 +701,83 @@ body {
   z-index: 1;
   top: 50%;
   transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
+  width: 4rem;
+  height: 10rem;
   border-radius: 25px;
   background-color:whitesmoke;
   border: none;
   transition: background-color 0.4s, width 0.3s, height 0.3s, opacity 0.6s;
   opacity: 0.6;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
 
 }
 
 .left-arrow {
-  left: -20px;
+  left: -3rem;
 
 }
 
 .right-arrow {
-  right: -20px;
+  right: -3rem;
 
 }
 
 .arrow-hover:hover {
-  background-color:rgb(177, 197, 177);
-  width: 55px;
-  height: 55px;
+  background-color:#447c47;
+  width: 5rem;
+  height: 11rem;
   opacity: 0.9;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   cursor: pointer;
 }
 
+.arrow-icon {
+  font-size: 2rem;
+}
+
+/* BG outfit list */
+
+
+.add-outfit-image-container {
+  margin: 2px 2px;
+  object-fit: contain;
+  /* height: %; */
+  position: relative;
+  background: #2e8b5714;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+  padding-top: 10rem;
+}
+
+.add-to-outfit-button {
+  cursor: pointer;
+  height: 20rem;
+  width: 20rem;
+}
+
+
+
 
 /* BG Cards CSS */
 
 .product-list-card {
-  border: 0.1px solid gray;
-  height: 50rem;
-  width: 30rem;
-  min-width: 250px;
+  border: 0.1px solid #8080803d;
+  border-radius: 0.5rem;
+  /* width: clamp(24rem, 24rem, 24rem);
+  height: clamp(50rem, 50rem, 50rem); */
+  min-width: 24rem;
+  max-width: 24rem;
+  min-height: 50rem;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
 }
 
 .product-list-card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
 }
 
 .card-image-container {
@@ -751,13 +785,16 @@ body {
   /* object-fit: contain; */
   height: 70%;
   position: relative;
+  background: #2e8b5714;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .card-image-container img {
   height: 100%;
   width: 100%;
   object-fit: contain;
-  background-color: black;
 }
 
 .card-button {
@@ -772,12 +809,50 @@ body {
   /* width: 1.0rem; */
 }
 
+.remove-card-button {
+  z-index: 2;
+  position: absolute;
+  background: transparent;
+  border-color: transparent;
+  right: 2.6rem;
+  top: 0.0rem;
+  height: 1rem;
+  width: 2.0rem;
+  font-size: 2.8rem;
+  cursor: pointer;
+  color: #c30606;
+
+}
+
+.remove-card-button:hover {
+  z-index: 2;
+  position: absolute;
+  background: transparent;
+  border-color: transparent;
+  right: 2.5rem;
+  top: 0.0rem;
+  height: 1rem;
+  width: 2.0rem;
+  font-size: 3.3rem;
+  cursor: pointer;
+}
+
 .star-for-button {
   z-index: 3;
   opacity: 10;
   font-size: 2.0rem;
   color: green;
   transition: font-size 0.8s;
+}
+
+
+.star-for-button:hover {
+  font-size: 3.0rem;
+  animation-name: spin;
+  animation-duration: 1000ms;
+  cursor: pointer;
+  /* animation-iteration-count: infinite; */
+  /* animation-timing-function: linear; */
 }
 
 @keyframes spin {
@@ -789,15 +864,6 @@ body {
   }
 }
 
-.star-for-button:hover {
-  font-size: 2.5rem;
-  animation-name: spin;
-  animation-duration: 1000ms;
-  cursor: pointer;
-  /* animation-iteration-count: infinite; */
-  /* animation-timing-function: linear; */
-}
-
 .card-details-container {
   display: flex;
   flex-direction: column;
@@ -807,10 +873,46 @@ body {
 
 }
 
+.card-default-image {
+  font-size: 15rem;
+  color: #447c47;
+  /* cursor:pointer; */
+}
+
+.card-image-src:hover {
+  cursor:pointer;
+
+}
+
+/* .card-image-src:hover {
+  animation: myAnim 5s ease 0s 1 normal none;
+  position:relative;
+  z-index: 10000;
+} */
+
+/*
+@keyframes myAnim {
+  0% {
+    transform: scale(1) translateY(0);
+    transform-origin: 50% 16%;
+  }
+
+  100% {
+    transform: scale(1.25) translateY(-15px);
+    transform-origin: top;
+  }
+} */
+
 .category-heading {
   margin: 1rem 1rem 0.5rem 1rem;
   font-size: 1.7rem;
   color:gray;
+}
+
+.add-to-outfit-heading {
+  font-size: 2.5rem;
+  color: #447c47;
+  text-align: center;
 }
 
 
@@ -865,7 +967,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: whitesmoke;
+  background-color: #e8f1ec;
   padding: 1rem 1.5rem;
   width: 80rem;
   height: 50rem;
@@ -935,6 +1037,7 @@ body {
 #ratings-reviews-section {
   display: flex;
   flex-direction: column;
+  margin: 3rem 0;
 }
 
 #ratings-reviews-title {
