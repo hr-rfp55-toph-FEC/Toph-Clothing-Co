@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../Stars';
 
-const ComparisonModal = ({ closeModalHandler, modalClass, currProd, modalRelProd }) => {
+const ComparisonModal = ({
+  closeModalHandler, modalClass, currProd, modalRelProd,
+}) => {
   const [characteristics, setCharacteristics] = useState(['']);
   const [currProdEntries, setCurrProdEntries] = useState(['']);
   const [relProdEntries, setRelProdEntries] = useState(['']);
