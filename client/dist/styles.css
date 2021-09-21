@@ -1444,6 +1444,14 @@ img.thumbnail:hover {
   font-size: 2rem;
 }
 
+.new-review-stars-label {
+  font-size: 2rem;
+  margin: 0 2rem;
+}
+
+#add-review-form {
+  font-size: 1.5rem;
+}
 /* Stars
 
 .stars-outer {

@@ -14,12 +14,12 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
     width: innerWidth,
   };
 
-  const [showStarLabel, setShowStarLabel] = useState(false);
-  const [clickedStar, setClickedStar] = useState(0);
-  let starLabel;
   const labels = {
     1: 'Poor', 2: 'Fair', 3: 'Average', 4: 'Good', 5: 'Great',
   };
+
+  const [showStarLabel, setShowStarLabel] = useState(false);
+  const [clickedStar, setClickedStar] = useState(0);
 
   const handleRatingClick = (id) => {
     setInnerWidth(String(id * 20).concat('%'));
@@ -27,15 +27,18 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
     setClickedStar(id);
   };
 
+  let starLabel;
   if (showStarLabel) {
     starLabel = (
-      <span>
+      <span className="new-review-stars-label">
         {clickedStar === 1 ? `${clickedStar} star` : `${clickedStar} stars`}
         {' - '}
         {labels[clickedStar]}
       </span>
     );
   }
+
+  const [recommendProduct, setRecommendProduct] = useState(false);
 
   return (
     <div className={reviewFormClass}>
@@ -47,10 +50,10 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
           {' '}
           {productInfo.name}
         </h3>
-        <form>
+        <form id="add-review-form">
           <label>
             Overall rating
-            <div className="new-review-stars">
+            <div>
               <div className="stars-outer new-review-stars">
                 {starIds.map((id) => (
                   <i
@@ -71,13 +74,18 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
                   ))}
                 </div>
               </div>
-              {showStarLabel ? starLabel : <></>}
+              {starLabel}
             </div>
           </label>
-          <label>
-            Name:
-            <input type="text" name="name" />
-          </label>
+          <div id="recommend-product">
+            <label>
+              Do you recommend this product?
+              <input type="radio" name="recommendation" value="yes" onClick={() => setRecommendProduct(true)} />
+              <label htmlFor="yes">Yes</label>
+              <input type="radio" name="recommendation" value="no" onClick={() => setRecommendProduct(false)} />
+              <label htmlFor="no">no</label>
+            </label>
+          </div>
         </form>
       </div>
     </div>
