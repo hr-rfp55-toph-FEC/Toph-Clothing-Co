@@ -1,5 +1,5 @@
 import React from 'react';
-import server from './Axios';
+import server from '../helpers/Axios';
 import RelatedProducts from './RelatedProducts/RelatedProducts';
 import UserOutfit from './UserOutfits/UserOutfit';
 

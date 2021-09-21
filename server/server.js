@@ -1,8 +1,6 @@
 const path = require('path');
 const express = require('express'); // npm installed
-const api = require('./helpers/api.js');
 const products = require('./helpers/products.js');
-const qna = require('./helpers/qna.js');
 const related = require('./helpers/related.js');
 const reviews = require('./helpers/reviews.js');
 
@@ -142,7 +140,6 @@ app.post('/reviews', (req, res) => {
       res.end();
     });
 });
-
 
 
 // Bishal - Related Products
