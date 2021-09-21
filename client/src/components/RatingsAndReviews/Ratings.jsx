@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import calcAvgRating from '../helpers/calcAvgRating';
 import Stars from '../Stars';
@@ -22,9 +21,14 @@ const Ratings = class extends React.Component {
     this.extractCharacteristics = this.extractCharacteristics.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidMount() {
+    this.calcRatingAndRec();
+    this.extractCharacteristics();
+  }
+
+  componentDidUpdate(prevProps) {
     const { reviewsMeta } = this.props;
-    if (prevState.reviewsMeta.product_id !== reviewsMeta.product_id) {
+    if (prevProps.reviewsMeta.product_id !== reviewsMeta.product_id) {
       this.calcRatingAndRec();
       this.extractCharacteristics();
     }
