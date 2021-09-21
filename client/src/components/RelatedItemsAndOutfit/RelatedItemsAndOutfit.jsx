@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import server from '../helpers/Axios';
 import RelatedProducts from './RelatedProducts/RelatedProducts';
 import UserOutfit from './UserOutfits/UserOutfit';
@@ -7,36 +8,54 @@ class RelatedItemsAndOutfit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currProdId: '40344',
+      currProdId: '',
       currProd: [],
       prodsInfo: [],
       prodsStyles: [],
       prodsMeta: [],
       isFetching: true,
     };
-    this.onRelatedCardClick = this.onRelatedCardClick.bind(this);
+    // this.onRelatedCardClick = this.onRelatedCardClick.bind(this);
+    // console.log(this.state.currProd);
   }
 
   componentDidMount() {
-    const { currProdId } = this.state;
-    this.getCurrProdData(currProdId);
+    this.setCurrProdToState();
+  }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   const {
+  //     currProdId,
+  //   } = this.props;
+  //   // console.log('doesnt fire request on "update" -- why is the method reaching here on initial page load?');
+  //   if (prevProps.currProdId && (prevProps.currProdId !== currProdId)) {
+  //     console.log(prevState.currProdId, currProdId);
+  //     this.setCurrProdToState(currProdId);
+  //     // console.log('it ran once per click!');
+  //   }
+  // }
+
+  setCurrProdToState() {
+    const {
+      currProdId, prodInfo, prodStyles, prodReviewsMeta,
+    } = this.props;
+    this.setState({ currProdId, currProd: [prodInfo, prodStyles, prodReviewsMeta] });
     this.getRelatedData(currProdId);
   }
+  // componentDidUpdate(prevProps, prevState) {
+  //   const { currProdId } = this.state;
+  //   if (prevState.currProdId !== currProdId) {
+  //     // this.getCurrProdData(currProdId);
+  //     this.getRelatedData(currProdId);
+  //   }
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { currProdId } = this.state;
-    if (prevState.currProdId !== currProdId) {
-      this.getCurrProdData(currProdId);
-      this.getRelatedData(currProdId);
-    }
-  }
-
-  onRelatedCardClick(productId) {
-    // console.log(productId);
-    this.setState({
-      currProdId: productId,
-    });
-  }
+  // onRelatedCardClick(productId) {
+  //   // console.log(productId);
+  //   this.setState({
+  //     currProdId: productId,
+  //   });
+  // }
 
   getRelatedData(currProdId) {
     server.get(`/related/${currProdId}`)
@@ -49,18 +68,19 @@ class RelatedItemsAndOutfit extends React.Component {
       .catch((err) => console.log(err));
   }
 
-  getCurrProdData(currProdId) {
-    server.get(`/currentProduct/${currProdId}`)
-      .then((res) => this.setState({
-        currProd: res.data,
-      }))
-      .catch((err) => console.log(err));
-  }
+  // getCurrProdData(currProdId) {
+  //   server.get(`/currentProduct/${currProdId}`)
+  //     .then((res) => this.setState({
+  //       currProd: res.data,
+  //     }))
+  //     .catch((err) => console.log(err));
+  // }
 
   render() {
     const {
       isFetching, prodsInfo, prodsMeta, prodsStyles, currProd,
     } = this.state;
+    const { changeProductHandler } = this.props;
     return (
       <div>
         {isFetching ? (
@@ -69,18 +89,15 @@ class RelatedItemsAndOutfit extends React.Component {
           : (
             <div className="related-lists">
               <RelatedProducts
-                onRelatedCardClick={this.onRelatedCardClick}
+                changeProductHandler={changeProductHandler}
                 currProd={currProd}
                 prodsInfo={prodsInfo}
                 prodsStyles={prodsStyles}
                 prodsMeta={prodsMeta}
               />
               <UserOutfit
-                onRelatedCardClick={this.onRelatedCardClick}
+                changeProductHandler={changeProductHandler}
                 currProd={currProd}
-                prodsInfo={prodsInfo}
-                prodsStyles={prodsStyles}
-                prodsMeta={prodsMeta}
               />
             </div>
           )}
@@ -89,5 +106,14 @@ class RelatedItemsAndOutfit extends React.Component {
     );
   }
 }
+
+RelatedItemsAndOutfit.propTypes = {
+  currProd: PropTypes.instanceOf(Object).isRequired,
+  currProdId: PropTypes.number.isRequired,
+  prodInfo: PropTypes.instanceOf(Object).isRequired,
+  prodStyles: PropTypes.instanceOf(Object).isRequired,
+  prodReviewsMeta: PropTypes.instanceOf(Object).isRequired,
+  changeProductHandler: PropTypes.func.isRequired,
+};
 
 export default RelatedItemsAndOutfit;

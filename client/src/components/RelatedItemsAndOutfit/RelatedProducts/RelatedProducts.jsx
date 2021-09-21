@@ -6,7 +6,7 @@ import ComparisonModal from '../ComparisonModal.jsx';
 
 const RelatedProducts = ({
   prodsInfo, prodsStyles, prodsMeta,
-  currProd, onRelatedCardClick,
+  currProd, changeProductHandler,
 }) => {
   const [modalClass, setModalClass] = useState('comparison-modal-container');
   const [modalRelProd, setmodalRelProd] = useState({});
@@ -35,7 +35,7 @@ const RelatedProducts = ({
             prodInfo={prodInfo}
             prodStyles={prodsStyles[index]}
             prodMeta={prodsMeta[index]}
-            onRelatedCardClick={onRelatedCardClick}
+            changeProductHandler={changeProductHandler}
           >
             <button type="button" onClick={() => openModelHandler(prodInfo.name, prodsMeta[index].characteristics)} className="card-button">
               <i className="far fa-star star-for-button" />
@@ -53,7 +53,7 @@ RelatedProducts.propTypes = {
   prodsStyles: PropTypes.instanceOf(Object).isRequired,
   prodsMeta: PropTypes.instanceOf(Object).isRequired,
   currProd: PropTypes.instanceOf(Object).isRequired,
-  onRelatedCardClick: PropTypes.instanceOf(Function).isRequired,
+  changeProductHandler: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default RelatedProducts;

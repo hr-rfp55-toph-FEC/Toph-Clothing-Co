@@ -26,6 +26,7 @@ class App extends React.Component {
   }
 
   getCurrProdData(currProdId) {
+    // console.log('here');
     server.get(`/currentProduct/${currProdId}`)
       .then(({ data }) => this.setState({
         currProdId: data[0].id,
@@ -41,17 +42,15 @@ class App extends React.Component {
 
   changeProductHandler(productId) {
     const { currProdId } = this.state;
+    console.log(productId, currProdId);
     if (productId !== currProdId) {
-      // this.setState({
-      //   isFetching: true,
-      // });
       this.getCurrProdData(productId);
     }
   }
 
   render() {
     const {
-      prodInfo, prodStyles, prodReviewsMeta, prodReviews, isFetching, prodStyleSelected,
+      currProdId, prodInfo, prodStyles, prodReviewsMeta, prodReviews, isFetching, prodStyleSelected,
     } = this.state;
 
     return (
@@ -69,6 +68,8 @@ class App extends React.Component {
                 prodReviewsMeta={prodReviewsMeta}
               />
               <RelatedItemsAndOutfit
+                key={currProdId}
+                currProdId={currProdId}
                 prodInfo={prodInfo}
                 prodStyles={prodStyles}
                 prodReviewsMeta={prodReviewsMeta}

@@ -4,7 +4,7 @@ import Carousel from '../Carousel';
 import AddOutfitCard from './AddOutFitCard';
 import ListCard from '../ListCard';
 
-const UserOutfit = ({ currProd, onRelatedCardClick }) => {
+const UserOutfit = ({ currProd, changeProductHandler }) => {
   const [currOutfits, setCurrOutfits] = useState([]);
   const addToCurrOutfits = (e) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ const UserOutfit = ({ currProd, onRelatedCardClick }) => {
             prodInfo={outfit[0]}
             prodStyles={outfit[1]}
             prodMeta={outfit[2]}
-            onRelatedCardClick={onRelatedCardClick}
+            onRelatedCardClick={changeProductHandler}
           >
             <button onClick={() => removeOutfit(outfit[0].id)} type="button" className="remove-card-button">
               <i className="far fa-window-close" />
@@ -48,7 +48,7 @@ const UserOutfit = ({ currProd, onRelatedCardClick }) => {
 
 UserOutfit.propTypes = {
   currProd: PropTypes.instanceOf(Array).isRequired,
-  onRelatedCardClick: PropTypes.instanceOf(Function).isRequired,
+  changeProductHandler: PropTypes.func.isRequired,
 };
 
 export default UserOutfit;

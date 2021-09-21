@@ -4,7 +4,7 @@ import Stars from '../Stars';
 import calcAvgRating from '../helpers/calcAvgRating';
 
 const ListCard = ({
-  prodInfo, prodStyles, prodMeta, onRelatedCardClick, children,
+  prodInfo, prodStyles, prodMeta, changeProductHandler, children,
 }) => {
   const origPrice = prodStyles.results[0].original_price;
   const salePrice = prodStyles.results[0].sale_price;
@@ -26,10 +26,10 @@ const ListCard = ({
             alt="model-in-clothing"
             className="card-image-src"
             // style={rotateImage90}
-            onClick={() => onRelatedCardClick(prodInfo.id)}
+            onClick={() => changeProductHandler(prodInfo.id)}
             role="presentation"
           />
-        ) : <i onClick={() => onRelatedCardClick(prodInfo.id)} role="presentation" className="fas fa-image card-default-image" />}
+        ) : <i onClick={() => changeProductHandler(prodInfo.id)} role="presentation" className="fas fa-image card-default-image" />}
 
       </div>
 
@@ -62,7 +62,7 @@ ListCard.propTypes = {
   prodStyles: PropTypes.instanceOf(Object).isRequired,
   prodMeta: PropTypes.instanceOf(Object).isRequired,
   children: PropTypes.instanceOf(Object).isRequired,
-  onRelatedCardClick: PropTypes.instanceOf(Function).isRequired,
+  changeProductHandler: PropTypes.func.isRequired,
 };
 
 export default ListCard;
