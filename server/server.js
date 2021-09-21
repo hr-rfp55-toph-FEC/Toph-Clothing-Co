@@ -1,8 +1,6 @@
 const path = require('path');
 const express = require('express'); // npm installed
-const api = require('./helpers/api.js');
 const products = require('./helpers/products.js');
-const qna = require('./helpers/qna.js');
 const related = require('./helpers/related.js');
 const reviews = require('./helpers/reviews.js');
 
@@ -85,36 +83,32 @@ app.get('/cart', (req, res) => {
 
 // Alex
 
-
-
-
-
 // Ya
-app.get('/reviews', (req, res) => {
-  const { product_id, count, sort } = req.query;
-  reviews.getReviews({ product_id, count, sort })
-    .then((APIRes) => {
-      res.send(APIRes.data);
-      res.status(200).end();
-    })
-    .catch((err) => {
-      console.error(err);
-      res.end();
-    });
-});
+// app.get('/reviews', (req, res) => {
+//   const { product_id, count, sort } = req.query;
+//   reviews.getReviews({ product_id, count, sort })
+//     .then((APIRes) => {
+//       res.send(APIRes.data);
+//       res.status(200).end();
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.end();
+//     });
+// });
 
-app.get('/reviews/meta', (req, res) => {
-  const { product_id } = req.query;
-  reviews.getReviewMeta({ product_id })
-    .then((APIRes) => {
-      res.send(APIRes.data);
-      res.status(200).end();
-    })
-    .catch((err) => {
-      console.error(err);
-      res.end();
-    });
-});
+// app.get('/reviews/meta', (req, res) => {
+//   const { product_id } = req.query;
+//   reviews.getReviewMeta({ product_id })
+//     .then((APIRes) => {
+//       res.send(APIRes.data);
+//       res.status(200).end();
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.end();
+//     });
+// });
 
 app.put('/reviews/:review_id/helpful', (req, res) => {
   reviews.markHelpful(req.params.review_id)
@@ -142,8 +136,6 @@ app.post('/reviews', (req, res) => {
       res.end();
     });
 });
-
-
 
 // Bishal - Related Products
 app.get('/related/:id', (req, res) => {

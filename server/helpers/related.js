@@ -1,4 +1,5 @@
 const { api } = require('./api.js');
+const products = require('./products.js');
 
 module.exports = {
 
@@ -25,10 +26,8 @@ module.exports = {
     const getProductInfo = module.exports.getProductInfo(currProdId).then((res) => res.data);
     const getProductStyles = module.exports.getProductStyles(currProdId).then((res) => res.data);
     const getProductMeta = module.exports.getProductMeta(currProdId).then((res) => res.data);
-    // const promises = [module.exports.getProductInfo(currProdId),
-    //   module.exports.getProductStyles(currProdId),
-    //   module.exports.getProductMeta(currProdId)];
-    const promises = [getProductInfo, getProductStyles, getProductMeta];
+    const getProductReviews = products.getProductReviews(currProdId).then((res) => res.data);
+    const promises = [getProductInfo, getProductStyles, getProductMeta, getProductReviews];
     return Promise.all(promises)
       .catch((err) => console.log(err));
   },
