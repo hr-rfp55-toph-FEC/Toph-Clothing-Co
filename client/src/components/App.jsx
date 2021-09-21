@@ -37,7 +37,7 @@ class App extends React.Component {
         prodReviews: data[3],
         isFetching: false,
       }))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err, 'too many API calls!'));
   }
 
   changeProductHandler(productId) {
