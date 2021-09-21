@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler }) => {
@@ -14,15 +14,18 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
     width: innerWidth,
   };
 
-  // const handleStarHover = (id) => {
-  //   // console.log('mouse was here');
-  //   setInnerWidth(String(id * 20).concat('%'));
-  // };
+  const [mouseOnStar, setMouseOnStar] = useState(false);
+  const handleStarHover = (id) => {
+    console.log('mouse over');
+    setInnerWidth(String(id * 20).concat('%'));
+  };
 
-  // const handleMouseLeave = () => {
-  //   // console.log('mouse left');
-  //   setInnerWidth('0%');
-  // };
+  const handleMouseLeave = () => {
+    console.log('mouse left');
+    // event.target.style.width = '0%';
+    // e.target.style.width
+    // setInnerWidth('0%');
+  };
 
   const handleRatingClick = (id) => {
     setInnerWidth(String(id * 20).concat('%'));
@@ -39,21 +42,24 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
           {productInfo.name}
         </h3>
         <div className="new-review-stars">
-          <div className="stars-outer new-stars">
+          <div className="stars-outer new-review-stars">
             {starIds.map((id) => (
               <i
                 className="far fa-star"
+                id={id}
                 key={id}
-                // onMouseEnter={() => handleStarHover(id)}
-                // onMouseLeave={() => handleMouseLeave()}
+                // onFocus={() => handleStarHover(id)}
+                onMouseEnter={() => handleStarHover(id)}
+                onMouseLeave={() => handleMouseLeave()}
                 onClick={() => handleRatingClick(id)}
                 role="presentation"
               />
             ))}
-            <div className="stars-inner" style={innerStarStyle}>
+            <div className="stars-inner new-review-stars" style={innerStarStyle}>
               {starIds.map((id) => (
                 <i
                   className="fas fa-star"
+                  id={id}
                   key={id}
                   onClick={() => handleRatingClick(id)}
                   role="presentation"

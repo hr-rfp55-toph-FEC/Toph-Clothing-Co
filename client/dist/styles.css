@@ -1341,11 +1341,8 @@ img.thumbnail:hover {
   font-size: 2rem;
 }
 
-.new-stars {
-  cursor: pointer;
-}
-
 .new-review-stars {
+  cursor: pointer;
   font-size: 2rem;
 }
 
