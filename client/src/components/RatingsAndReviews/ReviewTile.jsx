@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import Stars from '../Stars';
 import Thumbnail from './Thumbnail';
 
-const ReviewTile = ({ review, getCurrProdData, productId }) => {
+const ReviewTile = ({
+  review, getCurrProdData, productId,
+}) => {
   let readableDate = new Date(review.date);
   readableDate = readableDate.toDateString().slice(4);
   const reviewMonthDay = readableDate.slice(0, -5);

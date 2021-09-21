@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import ReviewTile from './ReviewTile';
 import SortReviews from './SortReviews';
@@ -30,8 +29,11 @@ const ReviewsList = class extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { sortBy } = this.state;
-    const { starFilter } = this.props;
-    if (sortBy !== prevState.sortBy || starFilter.length !== prevProps.starFilter.length) {
+    const { starFilter, reviews } = this.props;
+
+    if (sortBy !== prevState.sortBy
+      || starFilter.length !== prevProps.starFilter.length
+      || JSON.stringify(reviews) !== JSON.stringify(prevProps.reviews)) {
       this.updateDisplay();
     }
   }
@@ -114,7 +116,7 @@ const ReviewsList = class extends React.Component {
       display, showMoreReviewsButton, sortBy, showAddReviewModal,
     } = this.state;
     const {
-      starFilter, reviews, productInfo, getCurrProdData
+      starFilter, reviews, productInfo, getCurrProdData,
     } = this.props;
 
     let moreReviewsButton;

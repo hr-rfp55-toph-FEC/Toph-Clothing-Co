@@ -15,6 +15,12 @@ const RatingsAndReviews = class extends React.Component {
     this.removeFilter = this.removeFilter.bind(this);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { prodReviews } = this.props;
+    console.log("From RatingsAndReviews")
+    console.log(prodReviews.results);
+  }
+
   handleStarClick(starCount) {
     const { starFilter } = this.state;
     const selectedStars = starFilter.slice();
