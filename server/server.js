@@ -153,8 +153,6 @@ app.post('/reviews', (req, res) => {
     });
 });
 
-
-
 // Bishal - Related Products
 app.get('/related/:id', (req, res) => {
   const currId = req.params.id;
