@@ -10,27 +10,22 @@ const ReviewsList = class extends React.Component {
     super(props);
 
     this.state = {
-      reviews: [],
       display: [],
       sortBy: 'relevant',
       reviewCount: 2,
-      productInfo: {},
       showMoreReviewsButton: false,
       showAddReviewModal: false,
     };
 
-    this.getReviews = this.getReviews.bind(this);
     this.updateDisplay = this.updateDisplay.bind(this);
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.sortClickHandler = this.sortClickHandler.bind(this);
     this.addReviewClickHandler = this.addReviewClickHandler.bind(this);
     this.closeReviewFormHandler = this.closeReviewFormHandler.bind(this);
-    this.getProductInfo = this.getProductInfo.bind(this);
   }
 
   componentDidMount() {
-    this.getReviews();
-    this.getProductInfo();
+    this.updateDisplay();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -45,39 +40,12 @@ const ReviewsList = class extends React.Component {
     this.setState((prevState) => ({ reviewCount: prevState.reviewCount + 2 }), this.updateDisplay);
   }
 
-  getReviews() {
-    const { productId } = this.props;
-    axios.get('/reviews', {
-      params: {
-        product_id: productId,
-        count: 100,
-      },
-    })
-      .then((response) => {
-        this.setState({ reviews: response.data.results }, this.updateDisplay);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-
-  getProductInfo() {
-    const { productId } = this.props;
-    axios.get(`/products/${productId}`)
-      .then((res) => {
-        this.setState({ productInfo: res.data });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-
   updateDisplay() {
     // This function processes the reviews to be displayed on the page by editing the API response
     // It first processes any star filter (if present)
     // After applying star filters, it will sort the array based on selected sort by option
-    const { reviews, reviewCount, sortBy } = this.state;
-    const { starFilter } = this.props;
+    const { reviewCount, sortBy } = this.state;
+    const { starFilter, reviews } = this.props;
 
     let processed = [];
 
@@ -143,9 +111,11 @@ const ReviewsList = class extends React.Component {
 
   render() {
     const {
-      display, reviews, showMoreReviewsButton, sortBy, productInfo, showAddReviewModal,
+      display, showMoreReviewsButton, sortBy, showAddReviewModal,
     } = this.state;
-    const { starFilter } = this.props;
+    const {
+      starFilter, reviews, productInfo, getCurrProdData
+    } = this.props;
 
     let moreReviewsButton;
     if (showMoreReviewsButton) {
@@ -171,7 +141,8 @@ const ReviewsList = class extends React.Component {
             <ReviewTile
               review={review}
               key={review.review_id}
-              getReviews={this.getReviews}
+              getCurrProdData={getCurrProdData}
+              productId={productInfo.id}
             />
           ))}
         </div>
@@ -201,8 +172,10 @@ const ReviewsList = class extends React.Component {
 };
 
 ReviewsList.propTypes = {
-  productId: PropTypes.number.isRequired,
+  getCurrProdData: PropTypes.instanceOf(Function).isRequired,
   starFilter: PropTypes.instanceOf(Array).isRequired,
+  reviews: PropTypes.instanceOf(Array).isRequired,
+  productInfo: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default ReviewsList;

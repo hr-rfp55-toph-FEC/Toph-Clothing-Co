@@ -32,7 +32,9 @@ const RatingsAndReviews = class extends React.Component {
 
   render() {
     const { starFilter } = this.state;
-    const { prodInfo, prodReviews, prodReviewsMeta } = this.props;
+    const {
+      prodInfo, prodReviews, prodReviewsMeta, getCurrProdData
+    } = this.props;
 
     return (
       <section id="ratings-reviews-section">
@@ -49,8 +51,9 @@ const RatingsAndReviews = class extends React.Component {
           <div className="reviews-container">
             <ReviewsList
               productInfo={prodInfo}
-              reviews={prodReviews}
+              reviews={prodReviews.results}
               starFilter={starFilter}
+              getCurrProdData={getCurrProdData}
             />
           </div>
         </div>
@@ -60,7 +63,10 @@ const RatingsAndReviews = class extends React.Component {
 };
 
 RatingsAndReviews.propTypes = {
-
+  getCurrProdData: PropTypes.instanceOf(Function).isRequired,
+  prodReviews: PropTypes.instanceOf(Object).isRequired,
+  prodReviewsMeta: PropTypes.instanceOf(Object).isRequired,
+  prodInfo: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default RatingsAndReviews;

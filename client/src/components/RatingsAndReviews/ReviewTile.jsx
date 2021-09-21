@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Stars from '../Stars';
 import Thumbnail from './Thumbnail';
 
-const ReviewTile = ({ review, getReviews }) => {
+const ReviewTile = ({ review, getCurrProdData, productId }) => {
   let readableDate = new Date(review.date);
   readableDate = readableDate.toDateString().slice(4);
   const reviewMonthDay = readableDate.slice(0, -5);
@@ -58,7 +58,7 @@ const ReviewTile = ({ review, getReviews }) => {
   function markAsHelpful(reviewId) {
     axios.put(`/reviews/${reviewId}/helpful`)
       .then(() => {
-        getReviews();
+        getCurrProdData(productId);
       })
       .catch((err) => {
         console.error(err);
@@ -125,7 +125,8 @@ ReviewTile.propTypes = {
     reviewer_name: PropTypes.string,
     summary: PropTypes.string,
   }).isRequired,
-  getReviews: PropTypes.instanceOf(Function).isRequired,
+  getCurrProdData: PropTypes.instanceOf(Function).isRequired,
+  productId: PropTypes.number.isRequired,
 };
 
 export default ReviewTile;
