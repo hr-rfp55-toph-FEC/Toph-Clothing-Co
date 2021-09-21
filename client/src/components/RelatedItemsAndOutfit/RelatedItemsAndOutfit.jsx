@@ -8,54 +8,37 @@ class RelatedItemsAndOutfit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currProdId: '',
       currProd: [],
       prodsInfo: [],
       prodsStyles: [],
       prodsMeta: [],
       isFetching: true,
     };
-    // this.onRelatedCardClick = this.onRelatedCardClick.bind(this);
-    // console.log(this.state.currProd);
   }
 
   componentDidMount() {
     this.setCurrProdToState();
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const {
-  //     currProdId,
-  //   } = this.props;
-  //   // console.log('doesnt fire request on "update" -- why is the method reaching here on initial page load?');
-  //   if (prevProps.currProdId && (prevProps.currProdId !== currProdId)) {
-  //     console.log(prevState.currProdId, currProdId);
-  //     this.setCurrProdToState(currProdId);
-  //     // console.log('it ran once per click!');
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    const {
+      currProdId,
+    } = this.props;
+    /* console.log('doesnt fire request on "update" --
+    why is the method reaching here on initial page load?'); */
+    if ((prevProps.currProdId !== currProdId)) {
+      this.setCurrProdToState(currProdId);
+      // console.log('it ran once per click!');
+    }
+  }
 
   setCurrProdToState() {
     const {
       currProdId, prodInfo, prodStyles, prodReviewsMeta,
     } = this.props;
-    this.setState({ currProdId, currProd: [prodInfo, prodStyles, prodReviewsMeta] });
+    this.setState({ currProd: [prodInfo, prodStyles, prodReviewsMeta] });
     this.getRelatedData(currProdId);
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { currProdId } = this.state;
-  //   if (prevState.currProdId !== currProdId) {
-  //     // this.getCurrProdData(currProdId);
-  //     this.getRelatedData(currProdId);
-  //   }
-  // }
-
-  // onRelatedCardClick(productId) {
-  //   // console.log(productId);
-  //   this.setState({
-  //     currProdId: productId,
-  //   });
-  // }
 
   getRelatedData(currProdId) {
     server.get(`/related/${currProdId}`)
@@ -67,14 +50,6 @@ class RelatedItemsAndOutfit extends React.Component {
       }))
       .catch((err) => console.log(err));
   }
-
-  // getCurrProdData(currProdId) {
-  //   server.get(`/currentProduct/${currProdId}`)
-  //     .then((res) => this.setState({
-  //       currProd: res.data,
-  //     }))
-  //     .catch((err) => console.log(err));
-  // }
 
   render() {
     const {
@@ -108,7 +83,6 @@ class RelatedItemsAndOutfit extends React.Component {
 }
 
 RelatedItemsAndOutfit.propTypes = {
-  currProd: PropTypes.instanceOf(Object).isRequired,
   currProdId: PropTypes.number.isRequired,
   prodInfo: PropTypes.instanceOf(Object).isRequired,
   prodStyles: PropTypes.instanceOf(Object).isRequired,

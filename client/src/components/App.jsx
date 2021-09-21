@@ -42,7 +42,6 @@ class App extends React.Component {
 
   changeProductHandler(productId) {
     const { currProdId } = this.state;
-    console.log(productId, currProdId);
     if (productId !== currProdId) {
       this.getCurrProdData(productId);
     }
@@ -68,7 +67,7 @@ class App extends React.Component {
                 prodReviewsMeta={prodReviewsMeta}
               />
               <RelatedItemsAndOutfit
-                key={currProdId}
+                // key={currProdId}
                 currProdId={currProdId}
                 prodInfo={prodInfo}
                 prodStyles={prodStyles}
