@@ -3,14 +3,30 @@ import PropTypes from 'prop-types';
 
 const Carousel = ({ children }) => {
   const [currIndex, setCurrIndex] = useState(0);
-  const [length, setLength] = useState(children.length);
-  const mappedChildrenLength = children[1].length;
+  // const [length, setLength] = useState(children.length);
+  const [mappedChildrenLength, setMappedChildrenLength] = useState(children[1].length);
+
+  // useEffect(() => {
+  //   console.log(children);
+  //   // console.log(children.length, 'children length');
+  //   if (children.length !== length) {
+  //     setLength(children.length);
+  //     setCurrIndex(0);
+  //   }
+  //   // if (children[1].length !== mappedChildrenLength) {
+  //   //   setLength(children[1].length + 1);
+  //   //   setCurrIndex(0);
+  //   // }
+  //   // console.log(mappedChildrenLength,'mapped');
+  // }, [children, length, mappedChildrenLength]);
+
   useEffect(() => {
-    if (mappedChildrenLength > length) {
-      setLength(mappedChildrenLength);
+    if (mappedChildrenLength !== children[1].length) {
+      setMappedChildrenLength(children[1].length);
+      setCurrIndex(0);
     }
     // console.log(mappedChildrenLength,'mapped');
-  }, [children, length, mappedChildrenLength]);
+  }, [children, mappedChildrenLength]);
 
   //update length on click of new card so arrows display dynamically
 
@@ -24,7 +40,7 @@ const Carousel = ({ children }) => {
   };
 
   const showNext = () => {
-    if (currIndex === length - 2) {
+    if (currIndex === mappedChildrenLength - 2) {
       return;
     }
     setCurrIndex((prevState) => prevState + 1);
@@ -50,7 +66,7 @@ const Carousel = ({ children }) => {
           </div>
         </div>
         {
-          currIndex < (length - 2)
+          currIndex < (mappedChildrenLength - 2)
           && (
             <button onClick={showNext} type="button" className="right-arrow arrow-hover">
               <i className="fas fa-chevron-right arrow-icon" />
