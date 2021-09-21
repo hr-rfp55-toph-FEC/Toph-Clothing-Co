@@ -66,17 +66,29 @@ const ReviewTile = ({
         console.error(err);
       });
   }
-  const helpfulSection = (
+
+  function reportReview(reviewId) {
+    axios.put(`/reviews/${reviewId}/report`)
+      .then(() => {
+        getCurrProdData(productId);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  const helpfulAndReportSection = (
     <p className="helpful-review">
       Helpful?
       {' '}
       <span className="clicked-text" onClick={() => markAsHelpful(review.review_id)} role="presentation">Yes</span>
       {' '}
-      <span>
+      <span className="helpful-number">
         (
         {review.helpfulness}
         )
       </span>
+      <span className="clicked-text report-review" onClick={() => reportReview(review.review_id)} role="presentation">Report</span>
     </p>
   );
 
@@ -106,7 +118,7 @@ const ReviewTile = ({
               />
             ))}
           </div>
-          {helpfulSection}
+          {helpfulAndReportSection}
         </div>
       </div>
     </div>

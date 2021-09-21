@@ -45,14 +45,14 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
       <div className="review-form-content">
         <span className="close-modal" onClick={closeReviewFormHandler} role="presentation"><i className="fas fa-times" /></span>
         <h1 className="review-form-title">Write Your Review</h1>
-        <h3>
+        <h2>
           About the
           {' '}
           {productInfo.name}
-        </h3>
+        </h2>
         <form id="add-review-form">
           <label>
-            Overall rating*
+            Overall rating*:
             <div>
               <div className="stars-outer new-review-stars">
                 {starIds.map((id) => (
@@ -80,10 +80,14 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
           <div id="recommend-product">
             <label>
               Do you recommend this product?*
-              <input type="radio" name="recommendation" value="true" onClick={() => setRecommendProduct(true)} />
-              <label htmlFor="yes">Yes</label>
-              <input type="radio" name="recommendation" value="false" onClick={() => setRecommendProduct(false)} />
-              <label htmlFor="no">No</label>
+              <label htmlFor="recommend">
+                <input type="radio" name="recommendation" id="recommend" value="true" onClick={() => setRecommendProduct(true)} />
+                Yes
+              </label>
+              <label htmlFor="not-recommend">
+                <input type="radio" name="recommendation" id="not-recommend" value="false" onClick={() => setRecommendProduct(false)} />
+                No
+              </label>
             </label>
           </div>
         </form>

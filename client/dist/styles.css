@@ -1325,6 +1325,15 @@ h3 {
   word-break: break-all;
 }
 
+.helpful-number {
+  padding-right: 1rem;
+}
+
+.report-review {
+  padding-left: 1rem;
+  border-left: solid 1px black;
+}
+
 img.thumbnail {
   margin: 10px 10px 10px 0;
   border-radius: 3px;
@@ -1475,7 +1484,7 @@ img.thumbnail:hover {
 }
 
 #add-review-form {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 /* Stars
 
