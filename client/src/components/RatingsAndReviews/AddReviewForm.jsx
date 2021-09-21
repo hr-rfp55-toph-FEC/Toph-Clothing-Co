@@ -14,14 +14,18 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
     width: innerWidth,
   };
 
-  const handleStarHover = (id) => {
-    // console.log(`moused over star ${id}`);
-    setInnerWidth(String(id * 20).concat('%'));
-  };
+  // const handleStarHover = (id) => {
+  //   // console.log('mouse was here');
+  //   setInnerWidth(String(id * 20).concat('%'));
+  // };
 
-  const handleMouseLeave = () => {
-    // console.log('mouse left star');
-    setInnerWidth('0%');
+  // const handleMouseLeave = () => {
+  //   // console.log('mouse left');
+  //   setInnerWidth('0%');
+  // };
+
+  const handleRatingClick = (id) => {
+    setInnerWidth(String(id * 20).concat('%'));
   };
 
   return (
@@ -34,23 +38,27 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
           {' '}
           {productInfo.name}
         </h3>
-        <div className="pending-stars">
-          <div className="stars-outer">
+        <div className="new-review-stars">
+          <div className="stars-outer new-stars">
             {starIds.map((id) => (
               <i
                 className="far fa-star"
                 key={id}
-                onFocus={() => handleStarHover(id)}
-                onMouseOver={() => handleStarHover(id)}
-                onMouseLeave={handleMouseLeave}
+                // onMouseEnter={() => handleStarHover(id)}
+                // onMouseLeave={() => handleMouseLeave()}
+                onClick={() => handleRatingClick(id)}
+                role="presentation"
               />
             ))}
             <div className="stars-inner" style={innerStarStyle}>
-              <i className="fas fa-star" />
-              <i className="fas fa-star" />
-              <i className="fas fa-star" />
-              <i className="fas fa-star" />
-              <i className="fas fa-star" />
+              {starIds.map((id) => (
+                <i
+                  className="fas fa-star"
+                  key={id}
+                  onClick={() => handleRatingClick(id)}
+                  role="presentation"
+                />
+              ))}
             </div>
           </div>
         </div>
