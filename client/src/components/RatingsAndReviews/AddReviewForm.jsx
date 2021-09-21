@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler }) => {
@@ -14,22 +14,28 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
     width: innerWidth,
   };
 
-  const [mouseOnStar, setMouseOnStar] = useState(false);
-  const handleStarHover = (id) => {
-    console.log('mouse over');
-    setInnerWidth(String(id * 20).concat('%'));
-  };
-
-  const handleMouseLeave = () => {
-    console.log('mouse left');
-    // event.target.style.width = '0%';
-    // e.target.style.width
-    // setInnerWidth('0%');
+  const [showStarLabel, setShowStarLabel] = useState(false);
+  const [clickedStar, setClickedStar] = useState(0);
+  let starLabel;
+  const labels = {
+    1: 'Poor', 2: 'Fair', 3: 'Average', 4: 'Good', 5: 'Great',
   };
 
   const handleRatingClick = (id) => {
     setInnerWidth(String(id * 20).concat('%'));
+    setShowStarLabel(true);
+    setClickedStar(id);
   };
+
+  if (showStarLabel) {
+    starLabel = (
+      <span>
+        {clickedStar === 1 ? `${clickedStar} star` : `${clickedStar} stars`}
+        {' - '}
+        {labels[clickedStar]}
+      </span>
+    );
+  }
 
   return (
     <div className={reviewFormClass}>
@@ -41,34 +47,33 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
           {' '}
           {productInfo.name}
         </h3>
-        <div className="new-review-stars">
-          <div className="stars-outer new-review-stars">
-            {starIds.map((id) => (
-              <i
-                className="far fa-star"
-                id={id}
-                key={id}
-                // onFocus={() => handleStarHover(id)}
-                onMouseEnter={() => handleStarHover(id)}
-                onMouseLeave={() => handleMouseLeave()}
-                onClick={() => handleRatingClick(id)}
-                role="presentation"
-              />
-            ))}
-            <div className="stars-inner new-review-stars" style={innerStarStyle}>
-              {starIds.map((id) => (
-                <i
-                  className="fas fa-star"
-                  id={id}
-                  key={id}
-                  onClick={() => handleRatingClick(id)}
-                  role="presentation"
-                />
-              ))}
-            </div>
-          </div>
-        </div>
         <form>
+          <label>
+            Overall rating
+            <div className="new-review-stars">
+              <div className="stars-outer new-review-stars">
+                {starIds.map((id) => (
+                  <i
+                    className="far fa-star"
+                    key={id}
+                    onClick={() => handleRatingClick(id)}
+                    role="presentation"
+                  />
+                ))}
+                <div className="stars-inner new-review-stars" style={innerStarStyle}>
+                  {starIds.map((id) => (
+                    <i
+                      className="fas fa-star"
+                      key={id}
+                      onClick={() => handleRatingClick(id)}
+                      role="presentation"
+                    />
+                  ))}
+                </div>
+              </div>
+              {showStarLabel ? starLabel : <></>}
+            </div>
+          </label>
           <label>
             Name:
             <input type="text" name="name" />
@@ -86,3 +91,17 @@ AddReviewForm.propTypes = {
 };
 
 export default AddReviewForm;
+
+// const handleStarHover = (id) => {
+//   // console.log('mouse over');
+//   setInnerWidth(String(id * 20).concat('%'));
+// };
+
+// const handleMouseLeave = () => {
+//   // console.log('mouse left');
+//   // event.target.style.width = '0%';
+//   // setInnerWidth('0%');
+// };
+
+// onMouseEnter={() => handleStarHover(id)}
+// onMouseLeave={() => handleMouseLeave()}

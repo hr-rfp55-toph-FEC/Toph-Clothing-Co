@@ -1061,10 +1061,6 @@ body {
   margin: 0 3rem 0 1rem;
 }
 
-.review-stars, .ratings-stars {
-  color: #f8ce0b;
-}
-
 .ratings-container {
   display: flex;
   flex-direction: column;
@@ -1434,7 +1430,7 @@ img.thumbnail:hover {
   background-color: whitesmoke;
   padding: 1rem 1.5rem;
   width: 80rem;
-  height: 50rem;
+  height: 80rem;
   overflow-y: scroll;
   border-radius: 0.5rem;
 }
