@@ -50,10 +50,11 @@ function ImageGallery(props) {
   }, [productStyleSelected, currIndex]);
 
   const imageGalleryId = expanded ? 'image-gallery-expanded' : 'image-gallery';
+  const imageMainId = expanded ? 'image-main-expanded' : 'image-main';
 
   return (
     <div id={imageGalleryId}>
-      <img id="image-main" src={mainPicUrl} alt="Main Product" />
+      <img id={imageMainId} src={mainPicUrl} alt="Main Product" />
       <div id="expand-main-image"><i className="fas fa-expand" onClick={handleExpand} role="presentation" /></div>
       {(currIndex < productStyleSelected.photos.length - 1)
       && <div id="next-overlay-thumbnail-pic"><i className="fas fa-chevron-right" onClick={showNextPic} role="presentation" /></div>}

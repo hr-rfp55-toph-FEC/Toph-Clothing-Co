@@ -180,6 +180,22 @@ body {
     position: relative;
 }
 
+/* Expanded view gets same properties as default view - 100%/100%/cover - in order for things to look nice. They can share the same class name.
+Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover. */
+#image-main-expanded {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* max-width: 100%;
+  max-height: 100%; */
+  position: relative;
+
+  /* Work for 2.5x zoomed in image */
+  /* width: 250%;
+  height: 250%;
+  object-fit: cover; */
+}
+
 /* #image-gallery:hover {
   cursor: -moz-zoom-in;
   cursor: -webkit-zoom-in;
