@@ -17,6 +17,7 @@ const AddReviewForm = class extends React.Component {
       summary: '',
       body: '',
       name: '',
+      email: '',
     };
 
     this.processCharacteristics = this.processCharacteristics.bind(this);
@@ -25,6 +26,7 @@ const AddReviewForm = class extends React.Component {
     this.handleReviewSummaryChange = this.handleReviewSummaryChange.bind(this);
     this.handleReviewBodyChange = this.handleReviewBodyChange.bind(this);
     this.handleReviewerNicknameChange = this.handleReviewerNicknameChange.bind(this);
+    this.handleReviewerEmailChange = this.handleReviewerEmailChange.bind(this);
   }
 
   componentDidMount() {
@@ -67,6 +69,10 @@ const AddReviewForm = class extends React.Component {
 
   handleReviewerNicknameChange(e) {
     this.setState({ name: e.target.value });
+  }
+
+  handleReviewerEmailChange(e) {
+    this.setState({ email: e.target.value });
   }
 
   processCharacteristics() {
@@ -184,11 +190,24 @@ const AddReviewForm = class extends React.Component {
               <label>
                 Do you recommend this product?*
                 <label htmlFor="recommend">
-                  <input type="radio" name="recommendation" id="recommend" value="true" onClick={() => this.setState({ recommendProduct: true })} />
+                  <input
+                    type="radio"
+                    name="recommendation"
+                    id="recommend" value="true"
+                    onClick={() => this.setState({ recommendProduct: true })}
+                    required="required"
+                  />
                   Yes
                 </label>
                 <label htmlFor="not-recommend">
-                  <input type="radio" name="recommendation" id="not-recommend" value="false" onClick={() => this.setState({ recommendProduct: false })} />
+                  <input
+                    type="radio"
+                    name="recommendation"
+                    id="not-recommend"
+                    value="false"
+                    onClick={() => this.setState({ recommendProduct: false })}
+                    required="required"
+                  />
                   No
                 </label>
               </label>
@@ -222,6 +241,7 @@ const AddReviewForm = class extends React.Component {
                 <textarea
                   id="user-review-body"
                   name="new-review-body"
+                  required="required"
                   rows="20"
                   cols="50"
                   placeholder="Why did you like the product or not?"
@@ -254,14 +274,33 @@ const AddReviewForm = class extends React.Component {
                 <input
                   type="text"
                   id="review-user-nickname"
+                  required="required"
                   maxLength="60"
                   size="20"
                   placeholder="Example: jackson11!"
                   onChange={this.handleReviewerNicknameChange}
                 />
               </label>
-              <div id="reviewer-privacy-warning">
+              <div id="reviewname-privacy-warning">
                 For privacy reasons, do not use your full name or email address
+              </div>
+            </div>
+            <div className="review-user-email">
+              <label htmlFor="review-user-email">
+                What is your email?
+                <br />
+                <input
+                  type="email"
+                  id="review-user-email"
+                  required="required"
+                  maxLength="60"
+                  size="30"
+                  placeholder="Example: jackson11@email.com"
+                  onChange={this.handleReviewerEmailChange}
+                />
+              </label>
+              <div id="reviewemail-privacy-warning">
+                For authentication reasons, you will not be emailed
               </div>
             </div>
           </form>

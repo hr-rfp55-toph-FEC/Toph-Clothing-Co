@@ -26,6 +26,7 @@ const AddCharacteristic = ({ char, handleCharRatingClick }) => {
             name={char[0]}
             id={char[1].id}
             value={score}
+            required="required"
             onClick={(e) => {
               handleCharRatingClick(char[1].id, e);
               const copy = [false, false, false, false, false];
