@@ -78,30 +78,48 @@ function ImageGallery(props) {
       The aspect ratio of the original image vs. the container it's filling up is the key here,
         NOT whether the original image is wider than it is tall. The following would not work:
           const layout = imgOriginalHeight > imgOriginalWidth ? 'tall' : 'wide'; */
+      /* NOTE: Grabbing original dimensions of a photo at a url is asynchronous and would break our
+      code normally unless we wait for the photo to be loaded before continuing. It works here
+      because our browser has already stored all these photos in cache and acts as synchronous. */
       const imgOriginal = new Image();
       imgOriginal.src = mainPicUrl;
       const imgOriginalWidth = imgOriginal.width;
       const imgOriginalHeight = imgOriginal.height;
       const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
       const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
-      if (imgOriginalWidth === undefined || imgOriginalWidth === 0) {
-        console.log(imgOriginalWidth);
-      }
-      if (imgOriginalHeight === undefined || imgOriginalHeight === 0) {
-        console.log(imgOriginalHeight);
-      }
+      // if (imgOriginalWidth === undefined || imgOriginalWidth === 0) {
+      //   console.log(imgOriginalWidth);
+      // }
+      // if (imgOriginalHeight === undefined || imgOriginalHeight === 0) {
+      //   console.log(imgOriginalHeight);
+      // }
       // console.log('imgOriginalWidth', imgOriginalWidth);
       // console.log('imgOriginalHeight', imgOriginalHeight);
       // console.log('layout', layout);
 
+      // console.log('natural width', imgOriginal.naturalWidth);
+      // console.log('natural height', imgOriginal.naturalHeight);
+      // console.log('image class width', imgOriginalWidth);
+      // console.log('image class height', imgOriginalHeight);
+
       // Mouse coordinates with respect to image
       // Note: Image container also works here, since both are positioned at top 0/left 0
-      const cursorXCoordinate = e.offsetX;
-      const cursorYCoordinate = e.offsetY;
+      /* Note: Need to constrain coordinates to within (0, imgContainerWidth/Height),
+      since for some reason offsets were ranging from -1 to slightly over the width/height. */
+      const cursorXCoordinate = Math.min(Math.max(e.offsetX, 0), imgContainerWidth);
+      const cursorYCoordinate = Math.min(Math.max(e.offsetY, 0), imgContainerHeight);
 
       // Turn current mouse coordinates into a % of container width/height
       const cursorXPercentPosition = cursorXCoordinate / imgContainerWidth;
       const cursorYPercentPosition = cursorYCoordinate / imgContainerHeight;
+
+      // console.log('cursorXCoordinate', cursorXCoordinate);
+      // console.log('imgContainerWidth', imgContainerWidth);
+      // console.log('cursorXPercentPosition', cursorXPercentPosition);
+
+      // console.log('cursorYCoordinate', cursorYCoordinate);
+      // console.log('imgContainerHeight', imgContainerHeight);
+      // console.log('cursorYPercentPosition', cursorYPercentPosition);
 
       // Declare background image dimension and position variables
       let imgWidth;
@@ -115,6 +133,10 @@ function ImageGallery(props) {
           want to scroll it horizontally.
         NOTE: This relies on the original image's aspect ratio being maintained. We guarantee
           this by using "object-fit: contain" */
+      /* The idea is that for every 1% the cursor moves with respect to the container, the
+        background should also move by 1%. The hard part is trying to quantify that "1%" in units.
+        NOTE: Technically the background doesn't move by 100% of width/height; it moves by 100%
+        minus the height/width of container, hence the subtraction of container height/width */
       if (layout === 'tall') {
         imgWidth = imgContainerWidth;
         imgHeight = (imgContainerWidth * imgOriginalHeight) / imgOriginalWidth - imgContainerHeight;
@@ -136,13 +158,13 @@ function ImageGallery(props) {
       }
     };
 
-    const handleDefaultedParallax = (e) => {
-      const windowWidth = window.innerWidth / 5;
-      const windowHeight = window.innerHeight / 5;
-      const mouseX = e.clientX / windowWidth;
-      const mouseY = e.clientY / windowHeight;
-      imageDefaulted.style.transform = `translate3d(-${mouseX}%, -${mouseY}%, 0)`;
-    };
+    // const handleDefaultedParallax = (e) => {
+    //   const windowWidth = window.innerWidth / 5;
+    //   const windowHeight = window.innerHeight / 5;
+    //   const mouseX = e.clientX / windowWidth;
+    //   const mouseY = e.clientY / windowHeight;
+    //   imageDefaulted.style.transform = `translate3d(-${mouseX}%, -${mouseY}%, 0)`;
+    // };
 
     if (expanded) {
       // console.log('Image:', mainPicUrl);
@@ -155,10 +177,11 @@ function ImageGallery(props) {
         imageExpanded.removeEventListener('mousemove', handleZoomedScroll);
       };
     }
-    imageDefaulted.addEventListener('mousemove', handleDefaultedParallax);
-    return function cleanup() {
-      imageDefaulted.removeEventListener('mousemove', handleDefaultedParallax);
-    };
+    // imageDefaulted.addEventListener('mousemove', handleDefaultedParallax);
+    // return function cleanup() {
+    //   imageDefaulted.removeEventListener('mousemove', handleDefaultedParallax);
+    // };
+    return null;
   }, [expanded, mainPicUrl]);
 
   return (
