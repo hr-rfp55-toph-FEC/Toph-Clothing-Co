@@ -17,16 +17,31 @@ const ListCard = ({
     backgroundImage: `url('${prodUrl}')`,
   } : { backgroundImage: `url('${prodUrl}')` };
 
-  // console.log(rotateStyle, newImage.width, newImage.height);
   useEffect(() => {
-    // console.log('mounted');
-    const newImage = new Image();
-    newImage.src = prodUrl;
-    // console.log(prodUrl, newImage.naturalHeight, newImage.naturalWidth);
-    if (newImage.naturalHeight < newImage.naturalWidth) {
-      setRotateImage(true);
+    function getImage(src) {
+      return new Promise((resolve, reject) => {
+        const img = new window.Image();
+        img.src = src;
+        if (!src) resolve(null);
+        img.onload = () => {
+          resolve(img);
+        };
+        img.error = (e) => {
+          reject(e);
+        };
+      });
     }
+
+    getImage(prodUrl).then((res) => {
+      if (!res) return;
+      if (res.naturalHeight < res.naturalWidth) {
+        setRotateImage(true);
+      } else {
+        setRotateImage(false);
+      }
+    });
   }, [prodUrl]);
+
   return (
     <div className="product-list-card">
       <div className="card-image-container">
@@ -34,7 +49,6 @@ const ListCard = ({
         {prodUrl ? (
           <div
             // src={prodUrl}
-            key={prodUrl}
             alt="model-in-clothing"
             className="card-image-src"
             style={rotateStyle}
