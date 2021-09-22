@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../Stars';
 import calcAvgRating from '../helpers/calcAvgRating';
@@ -10,6 +10,7 @@ const ListCard = ({
   const salePrice = prodStyles.sale_price;
   const prodUrl = prodStyles.photos[0].url;
   const styleName = prodStyles.name;
+  const currStyle = useRef();
   const [rotateImage, setRotateImage] = useState(false);
 
   const rotateStyle = rotateImage ? {
@@ -17,30 +18,33 @@ const ListCard = ({
     backgroundImage: `url('${prodUrl}')`,
   } : { backgroundImage: `url('${prodUrl}')` };
 
-  useEffect(() => {
-    function getImage(src) {
-      return new Promise((resolve, reject) => {
-        const img = new window.Image();
-        img.src = src;
-        if (!src) resolve(null);
-        img.onload = () => {
-          resolve(img);
-        };
-        img.error = (e) => {
-          reject(e);
-        };
-      });
-    }
+  const getImage = (src) => new Promise((resolve, reject) => {
+    const img = new window.Image();
+    img.src = src;
+    if (!src) resolve(null);
+    img.onload = () => {
+      resolve(img);
+    };
+    img.error = (e) => {
+      reject(e);
+    };
+  });
 
-    getImage(prodUrl).then((res) => {
-      if (!res) return;
-      if (res.naturalHeight < res.naturalWidth) {
-        setRotateImage(true);
-      } else {
-        setRotateImage(false);
-      }
-    });
-  }, [prodUrl]);
+  useEffect(() => {
+    // console.log(currStyle.current, prodInfo.id);
+    if (currStyle.current !== prodInfo.id) {
+      getImage(prodUrl).then((res) => {
+        if (!res) return;
+        if (res.naturalHeight < res.naturalWidth) {
+          setRotateImage(true);
+        } else {
+          setRotateImage(false);
+        }
+      });
+      currStyle.current = prodInfo.id;
+      // console.log(currStyle.current, 'inside');
+    }
+  }, [prodUrl, prodInfo.id]);
 
   return (
     <div className="product-list-card">

@@ -36,8 +36,8 @@ class RelatedItemsAndOutfit extends React.Component {
     const {
       currProdId, prodInfo, prodStyles, prodReviewsMeta,
     } = this.props;
-    this.setState({ currProd: [prodInfo, prodStyles, prodReviewsMeta] });
-    this.getRelatedData(currProdId);
+    this.setState({ currProd: [prodInfo, prodStyles, prodReviewsMeta] },
+      this.getRelatedData(currProdId));
   }
 
   getRelatedData(currProdId) {
