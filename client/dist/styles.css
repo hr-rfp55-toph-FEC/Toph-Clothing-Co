@@ -1367,8 +1367,8 @@ img.thumbnail:hover {
   color: darkgray;
   top: 15px;
   right: 35px;
-  font-size: 40px;
-  font-weight: bold;
+  font-size: 5rem;
+  font-weight: regular;
   cursor: pointer;
 }
 
@@ -1463,10 +1463,12 @@ img.thumbnail:hover {
   transform: translate(-50%, -50%);
   background-color: whitesmoke;
   padding: 1rem 1.5rem;
-  width: 80rem;
+  width: 100rem;
   height: 80rem;
   overflow-y: scroll;
   border-radius: 0.5rem;
+  margin: 2rem;
+  padding: 2.5rem 5rem;
 }
 
 .review-form-title {
@@ -1486,10 +1488,53 @@ img.thumbnail:hover {
 
 #add-review-form {
   font-size: 2rem;
+  margin: 1rem 0;
 }
 
 h2 {
   font-size: 2rem;
+}
+
+#recommend-product {
+  margin: 1rem 0;
+}
+
+#add-characteristic-container {
+  margin: 2rem 0;
+}
+
+.new-char-content {
+  margin: 1rem 0;
+}
+
+.new-char-selections {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+}
+
+.selected-char-label {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.always-displayed-labels {
+  display: flex;
+  justify-content: space-around;
+}
+
+#always-displayed-label-start {
+  padding-right: 30rem;
+}
+
+#always-displayed-label-end {
+  padding-left: 3rem;
+}
+
+.user-review-summary {
+  margin: 1rem 0;
 }
 /* Stars
 

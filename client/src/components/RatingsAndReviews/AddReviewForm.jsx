@@ -14,6 +14,7 @@ const AddReviewForm = class extends React.Component {
       rating: 0,
       recommendProduct: false,
       characteristics: {},
+      summary: '',
     };
 
     this.processCharacteristics = this.processCharacteristics.bind(this);
@@ -166,6 +167,13 @@ const AddReviewForm = class extends React.Component {
                   handleCharRatingClick={this.handleCharRatingClick}
                 />
               ))}
+            </div>
+            <div className="user-review-summary">
+              <label htmlFor="user-review-summary">
+                Review Summary
+                <br />
+                <input type="text" id="user-review-summary" name="new-review-summary" maxLength="60" size="60" />
+              </label>
             </div>
           </form>
         </div>
