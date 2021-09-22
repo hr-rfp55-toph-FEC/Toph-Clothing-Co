@@ -12,7 +12,7 @@ const AddReviewForm = class extends React.Component {
       showStarLabel: false,
       innerWidth: '0%',
       rating: 0,
-      recommendProduct: false,
+      recommend: false,
       characteristics: {},
       summary: '',
       body: '',
@@ -23,10 +23,11 @@ const AddReviewForm = class extends React.Component {
     this.processCharacteristics = this.processCharacteristics.bind(this);
     this.handleStarRatingClick = this.handleStarRatingClick.bind(this);
     this.handleCharRatingClick = this.handleCharRatingClick.bind(this);
-    this.handleReviewSummaryChange = this.handleReviewSummaryChange.bind(this);
-    this.handleReviewBodyChange = this.handleReviewBodyChange.bind(this);
-    this.handleReviewerNicknameChange = this.handleReviewerNicknameChange.bind(this);
-    this.handleReviewerEmailChange = this.handleReviewerEmailChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    // this.handleReviewSummaryChange = this.handleReviewSummaryChange.bind(this);
+    // this.handleReviewBodyChange = this.handleReviewBodyChange.bind(this);
+    // this.handleReviewerNicknameChange = this.handleReviewerNicknameChange.bind(this);
+    // this.handleReviewerEmailChange = this.handleReviewerEmailChange.bind(this);
   }
 
   componentDidMount() {
@@ -59,21 +60,26 @@ const AddReviewForm = class extends React.Component {
     // console.log(e.target.name);
   }
 
-  handleReviewSummaryChange(e) {
-    this.setState({ summary: e.target.value });
+  handleInputChange(e) {
+    const { name } = e.target;
+    this.setState({ [name]: e.target.value });
   }
 
-  handleReviewBodyChange(e) {
-    this.setState({ body: e.target.value });
-  }
+  // handleReviewSummaryChange(e) {
+  //   this.setState({ summary: e.target.value });
+  // }
 
-  handleReviewerNicknameChange(e) {
-    this.setState({ name: e.target.value });
-  }
+  // handleReviewBodyChange(e) {
+  //   this.setState({ body: e.target.value });
+  // }
 
-  handleReviewerEmailChange(e) {
-    this.setState({ email: e.target.value });
-  }
+  // handleReviewerNicknameChange(e) {
+  //   this.setState({ name: e.target.value });
+  // }
+
+  // handleReviewerEmailChange(e) {
+  //   this.setState({ email: e.target.value });
+  // }
 
   processCharacteristics() {
     const { characteristics } = this.props;
@@ -192,9 +198,10 @@ const AddReviewForm = class extends React.Component {
                 <label htmlFor="recommend">
                   <input
                     type="radio"
-                    name="recommendation"
-                    id="recommend" value="true"
-                    onClick={() => this.setState({ recommendProduct: true })}
+                    name="recommend"
+                    id="recommend"
+                    value="true"
+                    onChange={this.handleInputChange}
                     required="required"
                   />
                   Yes
@@ -202,10 +209,10 @@ const AddReviewForm = class extends React.Component {
                 <label htmlFor="not-recommend">
                   <input
                     type="radio"
-                    name="recommendation"
+                    name="recommend"
                     id="not-recommend"
                     value="false"
-                    onClick={() => this.setState({ recommendProduct: false })}
+                    onChange={this.handleInputChange}
                     required="required"
                   />
                   No
@@ -228,9 +235,10 @@ const AddReviewForm = class extends React.Component {
                 <input
                   type="text"
                   id="user-review-summary"
+                  name="summary"
                   maxLength="60"
                   size="60"
-                  onChange={this.handleReviewSummaryChange}
+                  onChange={this.handleInputChange}
                 />
               </label>
             </div>
@@ -240,14 +248,14 @@ const AddReviewForm = class extends React.Component {
                 <br />
                 <textarea
                   id="user-review-body"
-                  name="new-review-body"
+                  name="body"
                   required="required"
                   rows="20"
                   cols="50"
                   placeholder="Why did you like the product or not?"
                   minLength="50"
                   maxLength="1000"
-                  onChange={this.handleReviewBodyChange}
+                  onChange={this.handleInputChange}
                 />
               </label>
               {reviewBodyCounter}
@@ -274,11 +282,12 @@ const AddReviewForm = class extends React.Component {
                 <input
                   type="text"
                   id="review-user-nickname"
+                  name="name"
                   required="required"
                   maxLength="60"
                   size="20"
                   placeholder="Example: jackson11!"
-                  onChange={this.handleReviewerNicknameChange}
+                  onChange={this.handleInputChange}
                 />
               </label>
               <div id="reviewname-privacy-warning">
@@ -292,11 +301,12 @@ const AddReviewForm = class extends React.Component {
                 <input
                   type="email"
                   id="review-user-email"
+                  name="email"
                   required="required"
                   maxLength="60"
                   size="30"
                   placeholder="Example: jackson11@email.com"
-                  onChange={this.handleReviewerEmailChange}
+                  onChange={this.handleInputChange}
                 />
               </label>
               <div id="reviewemail-privacy-warning">
