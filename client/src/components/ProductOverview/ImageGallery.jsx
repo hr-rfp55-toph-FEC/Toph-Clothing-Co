@@ -56,9 +56,11 @@ function ImageGallery(props) {
     const imageExpanded = document.getElementById('image-main-expanded');
     const imageContainerExpanded = document.getElementById('image-gallery-expanded');
 
+    const imageDefaulted = document.getElementById('image-main');
+
     // Image sizing and positioning must be contained within the event handler. Just inside the hook
     // is not good enough b/c we need to dynamically recalculate even when state doesn't change.
-    const handleMove = (e) => {
+    const handleZoomedScroll = (e) => {
       // Coordinates and size of image's container (The portion of the image we can see on screen).
       // Note: Will be strictly less than or equal to the size of the image.
       const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
@@ -82,6 +84,12 @@ function ImageGallery(props) {
       const imgOriginalHeight = imgOriginal.height;
       const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
       const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
+      if (imgOriginalWidth === undefined || imgOriginalWidth === 0) {
+        console.log(imgOriginalWidth);
+      }
+      if (imgOriginalHeight === undefined || imgOriginalHeight === 0) {
+        console.log(imgOriginalHeight);
+      }
       // console.log('imgOriginalWidth', imgOriginalWidth);
       // console.log('imgOriginalHeight', imgOriginalHeight);
       // console.log('layout', layout);
@@ -126,26 +134,31 @@ function ImageGallery(props) {
         imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
         imageExpanded.style.backgroundPositionY = '0px';
       }
+    };
 
-      // const windowWidth = window.innerWidth / 5;
-      // const windowHeight = window.innerHeight / 5;
-      // const mouseX = e.clientX / windowWidth;
-      // const mouseY = e.clientY / windowHeight;
-      // elExpanded.style.transform = `translate3d(-${mouseX}%, -${mouseY}%, 0)`;
+    const handleDefaultedParallax = (e) => {
+      const windowWidth = window.innerWidth / 5;
+      const windowHeight = window.innerHeight / 5;
+      const mouseX = e.clientX / windowWidth;
+      const mouseY = e.clientY / windowHeight;
+      imageDefaulted.style.transform = `translate3d(-${mouseX}%, -${mouseY}%, 0)`;
     };
 
     if (expanded) {
       // console.log('Image:', mainPicUrl);
       // console.log('Expanded View:', imageExpanded);
-      imageExpanded.addEventListener('mousemove', handleMove);
+      imageExpanded.addEventListener('mousemove', handleZoomedScroll);
       /* Need to remove event listener right before expanded image unmounts, or else event listener
         will remain on the DOM even after it's gone. The event listener would get tied to the
         default image and end up moving that around, which we don't want. */
       return function cleanup() {
-        imageExpanded.removeEventListener('mousemove', handleMove);
+        imageExpanded.removeEventListener('mousemove', handleZoomedScroll);
       };
     }
-    return null;
+    imageDefaulted.addEventListener('mousemove', handleDefaultedParallax);
+    return function cleanup() {
+      imageDefaulted.removeEventListener('mousemove', handleDefaultedParallax);
+    };
   }, [expanded, mainPicUrl]);
 
   return (
