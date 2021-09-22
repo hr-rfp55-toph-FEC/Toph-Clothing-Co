@@ -9,7 +9,7 @@ const AddCharacteristic = ({ char, handleCharRatingClick }) => {
   let charLabel = 'none selected';
   whichCharLabel.forEach((value, index) => {
     if (value) {
-      charLabel = char[1].scale[index];
+      charLabel = char[1].labels[index];
     }
   });
 
@@ -36,8 +36,8 @@ const AddCharacteristic = ({ char, handleCharRatingClick }) => {
         ))}
       </div>
       <div className="always-displayed-labels">
-        <span id="always-displayed-label-start">{char[1].scale[0]}</span>
-        <span id="always-displayed-label-end">{char[1].scale[4]}</span>
+        <span id="always-displayed-label-start">{char[1].labels[0]}</span>
+        <span id="always-displayed-label-end">{char[1].labels[4]}</span>
       </div>
     </div>
   );

@@ -18,6 +18,8 @@ const AddReviewForm = class extends React.Component {
       body: '',
     };
 
+    this.fileInput = React.createRef();
+
     this.processCharacteristics = this.processCharacteristics.bind(this);
     this.handleStarRatingClick = this.handleStarRatingClick.bind(this);
     this.handleCharRatingClick = this.handleCharRatingClick.bind(this);
@@ -68,17 +70,17 @@ const AddReviewForm = class extends React.Component {
     const chars = Object.entries(characteristics);
     chars.forEach((char) => {
       if (char[0] === 'Size') {
-        char[1].scale = ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too wide'];
+        char[1].labels = ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too wide'];
       } else if (char[0] === 'Width') {
-        char[1].scale = ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'];
+        char[1].labels = ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'];
       } else if (char[0] === 'Comfort') {
-        char[1].scale = ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'];
+        char[1].labels = ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'];
       } else if (char[0] === 'Quality') {
-        char[1].scale = ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'];
+        char[1].labels = ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'];
       } else if (char[0] === 'Length') {
-        char[1].scale = ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'];
+        char[1].labels = ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'];
       } else if (char[0] === 'Fit') {
-        char[1].scale = ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'];
+        char[1].labels = ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'];
       }
       return char;
     });
@@ -225,6 +227,22 @@ const AddReviewForm = class extends React.Component {
                 />
               </label>
               {reviewBodyCounter}
+            </div>
+            <div className="upload-review-photo">
+              <label htmlFor="upload-review-photo">
+                Please upload your photos here:
+                <br />
+                <input
+                  type="file"
+                  id="upload-review-photo"
+                  name="new-review-photo"
+                  ref={this.fileInput}
+                  accept="image/png, image/jpeg"
+                />
+              </label>
+              <span>
+                <button type="button">Upload</button>
+              </span>
             </div>
           </form>
         </div>
