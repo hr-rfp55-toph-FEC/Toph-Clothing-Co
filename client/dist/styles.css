@@ -1401,13 +1401,15 @@ img.thumbnail:hover {
 }
 
 .buttons-container {
+  display: flex;
   flex-direction: row;
   margin: 20px 0;
+  justify-content: space-evenly;
 }
 
 .interactive-button {
   text-transform: uppercase;
-  margin: 0 2rem;
+  /* margin: 0 2rem; */
   padding: 2rem 2rem;
   display: inline-block;
   border: 0.1em solid #000000;

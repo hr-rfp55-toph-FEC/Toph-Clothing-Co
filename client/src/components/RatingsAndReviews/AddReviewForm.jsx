@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import AddCharacteristic from './AddCharacteristic';
 
 const AddReviewForm = class extends React.Component {
@@ -12,22 +13,19 @@ const AddReviewForm = class extends React.Component {
       showStarLabel: false,
       innerWidth: '0%',
       rating: 0,
-      recommend: false,
-      characteristics: {},
       summary: '',
       body: '',
+      recommend: false,
       name: '',
       email: '',
+      photos: [],
+      characteristics: {},
     };
 
     this.processCharacteristics = this.processCharacteristics.bind(this);
     this.handleStarRatingClick = this.handleStarRatingClick.bind(this);
     this.handleCharRatingClick = this.handleCharRatingClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    // this.handleReviewSummaryChange = this.handleReviewSummaryChange.bind(this);
-    // this.handleReviewBodyChange = this.handleReviewBodyChange.bind(this);
-    // this.handleReviewerNicknameChange = this.handleReviewerNicknameChange.bind(this);
-    // this.handleReviewerEmailChange = this.handleReviewerEmailChange.bind(this);
   }
 
   componentDidMount() {
@@ -65,41 +63,28 @@ const AddReviewForm = class extends React.Component {
     this.setState({ [name]: e.target.value });
   }
 
-  // handleReviewSummaryChange(e) {
-  //   this.setState({ summary: e.target.value });
-  // }
-
-  // handleReviewBodyChange(e) {
-  //   this.setState({ body: e.target.value });
-  // }
-
-  // handleReviewerNicknameChange(e) {
-  //   this.setState({ name: e.target.value });
-  // }
-
-  // handleReviewerEmailChange(e) {
-  //   this.setState({ email: e.target.value });
-  // }
-
   processCharacteristics() {
     const { characteristics } = this.props;
-    const chars = Object.entries(characteristics);
-    chars.forEach((char) => {
-      if (char[0] === 'Size') {
-        char[1].labels = ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too wide'];
-      } else if (char[0] === 'Width') {
-        char[1].labels = ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'];
-      } else if (char[0] === 'Comfort') {
-        char[1].labels = ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'];
-      } else if (char[0] === 'Quality') {
-        char[1].labels = ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'];
-      } else if (char[0] === 'Length') {
-        char[1].labels = ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'];
-      } else if (char[0] === 'Fit') {
-        char[1].labels = ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'];
-      }
-      return char;
-    });
+    let chars = {};
+    if (Object.keys(characteristics).length > 0) {
+      chars = Object.entries(characteristics);
+      chars.forEach((char) => {
+        if (char[0] === 'Size') {
+          char[1].labels = ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too wide'];
+        } else if (char[0] === 'Width') {
+          char[1].labels = ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'];
+        } else if (char[0] === 'Comfort') {
+          char[1].labels = ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'];
+        } else if (char[0] === 'Quality') {
+          char[1].labels = ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'];
+        } else if (char[0] === 'Length') {
+          char[1].labels = ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'];
+        } else if (char[0] === 'Fit') {
+          char[1].labels = ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'];
+        }
+        return char;
+      });
+    }
     this.setState({ chars });
   }
 
@@ -267,7 +252,7 @@ const AddReviewForm = class extends React.Component {
                 <input
                   type="file"
                   id="upload-review-photo"
-                  name="new-review-photo"
+                  name="photos"
                   accept="image/png, image/jpeg"
                 />
               </label>
@@ -313,6 +298,12 @@ const AddReviewForm = class extends React.Component {
                 For authentication reasons, you will not be emailed
               </div>
             </div>
+            <button
+              type="submit"
+              className="interactive-button"
+            >
+              Submit Review
+            </button>
           </form>
         </div>
       </div>
@@ -328,17 +319,3 @@ AddReviewForm.propTypes = {
 };
 
 export default AddReviewForm;
-
-// const handleStarHover = (id) => {
-//   // console.log('mouse over');
-//   setInnerWidth(String(id * 20).concat('%'));
-// };
-
-// const handleMouseLeave = () => {
-//   // console.log('mouse left');
-//   // event.target.style.width = '0%';
-//   // setInnerWidth('0%');
-// };
-
-// onMouseEnter={() => handleStarHover(id)}
-// onMouseLeave={() => handleMouseLeave()}
