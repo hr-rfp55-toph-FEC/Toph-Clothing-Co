@@ -1,131 +1,160 @@
-import React, { useState, useEffect, useRef } from 'react';
+/* eslint-disable no-param-reassign */
+import React from 'react';
 import PropTypes from 'prop-types';
 import AddCharacteristic from './AddCharacteristic';
 
-const AddReviewForm = ({
-  productInfo, showAddReviewModal, closeReviewFormHandler, characteristics,
-}) => {
-  let chars = [];
+const AddReviewForm = class extends React.Component {
+  constructor(props) {
+    super(props);
 
-  useEffect(() => {
-    //debugger;
-    Object.keys(characteristics).forEach((char) => {
-      let scale;
-      if (char === 'Size') {
-        scale = ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too wide'];
-      } else if (char === 'Width') {
-        scale = ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'];
-      } else if (char === 'Comfort') {
-        scale = ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'];
-      } else if (char === 'Quality') {
-        scale = ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'];
-      } else if (char === 'Length') {
-        scale = ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'];
-      } else if (char === 'Fit') {
-        scale = ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'];
-      }
-      chars.push({ char, scale });
+    this.state = {
+      chars: [],
+      showStarLabel: false,
+      innerWidth: '0%',
+      rating: 0,
+      recommendProduct: false,
+    };
+
+    this.processCharacteristics = this.processCharacteristics.bind(this);
+    this.handleRatingClick = this.handleRatingClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.processCharacteristics();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { characteristics } = this.props;
+    if (JSON.stringify(characteristics) !== JSON.stringify(prevProps.characteristics)) {
+      this.processCharacteristics();
+    }
+  }
+
+  handleRatingClick(id) {
+    this.setState({
+      innerWidth: String(id * 20).concat('%'),
+      showStarLabel: true,
+      rating: id,
     });
-  }, [characteristics, chars]);
-
-  const starIds = [1, 2, 3, 4, 5];
-  let reviewFormClass = 'review-form-container';
-
-  if (showAddReviewModal) {
-    reviewFormClass = 'review-form-container show-review-form';
   }
 
-  const [innerWidth, setInnerWidth] = useState('0%');
-  const innerStarStyle = {
-    width: innerWidth,
-  };
-
-  const labels = {
-    1: 'Poor', 2: 'Fair', 3: 'Average', 4: 'Good', 5: 'Great',
-  };
-
-  const [showStarLabel, setShowStarLabel] = useState(false);
-  const [clickedStar, setClickedStar] = useState(0);
-
-  const handleRatingClick = (id) => {
-    setInnerWidth(String(id * 20).concat('%'));
-    setShowStarLabel(true);
-    setClickedStar(id);
-  };
-
-  let starLabel;
-  if (showStarLabel) {
-    starLabel = (
-      <span className="new-review-stars-label">
-        {clickedStar === 1 ? `${clickedStar} star` : `${clickedStar} stars`}
-        {' - '}
-        {labels[clickedStar]}
-      </span>
-    );
+  processCharacteristics() {
+    const { characteristics } = this.props;
+    const chars = Object.entries(characteristics);
+    chars.forEach((char) => {
+      if (char[0] === 'Size') {
+        char[1].scale = ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too wide'];
+      } else if (char[0] === 'Width') {
+        char[1].scale = ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'];
+      } else if (char[0] === 'Comfort') {
+        char[1].scale = ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'];
+      } else if (char[0] === 'Quality') {
+        char[1].scale = ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'];
+      } else if (char[0] === 'Length') {
+        char[1].scale = ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'];
+      } else if (char[0] === 'Fit') {
+        char[1].scale = ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'];
+      }
+      return char;
+    });
+    this.setState({ chars });
   }
 
-  const [recommendProduct, setRecommendProduct] = useState(false);
+  render() {
+    const {
+      productInfo, showAddReviewModal, closeReviewFormHandler,
+    } = this.props;
 
-  return (
-    <div className={reviewFormClass}>
-      <div className="review-form-content">
-        <span className="close-modal" onClick={closeReviewFormHandler} role="presentation"><i className="fas fa-times" /></span>
-        <h1 className="review-form-title">Write Your Review</h1>
-        <h2>
-          About the
-          {' '}
-          {productInfo.name}
-        </h2>
-        <form id="add-review-form">
-          <label>
-            Overall rating*:
-            <div>
-              <div className="stars-outer new-review-stars">
-                {starIds.map((id) => (
-                  <i
-                    className="far fa-star"
-                    key={id}
-                    onClick={() => handleRatingClick(id)}
-                    role="presentation"
-                  />
-                ))}
-                <div className="stars-inner new-review-stars" style={innerStarStyle}>
+    const {
+      innerWidth, showStarLabel, rating, chars,
+    } = this.state;
+
+    const starIds = [1, 2, 3, 4, 5];
+    const labels = {
+      1: 'Poor', 2: 'Fair', 3: 'Average', 4: 'Good', 5: 'Great',
+    };
+
+    let reviewFormClass = 'review-form-container';
+
+    if (showAddReviewModal) {
+      reviewFormClass = 'review-form-container show-review-form';
+    }
+
+    const innerStarStyle = {
+      width: innerWidth,
+    };
+
+    let starLabel;
+    if (showStarLabel) {
+      starLabel = (
+        <span className="new-review-stars-label">
+          {rating === 1 ? `${rating} star` : `${rating} stars`}
+          {' - '}
+          {labels[rating]}
+        </span>
+      );
+    }
+
+    return (
+      <div className={reviewFormClass}>
+        <div className="review-form-content">
+          <span className="close-modal" onClick={closeReviewFormHandler} role="presentation"><i className="fas fa-times" /></span>
+          <h1 className="review-form-title">Write Your Review</h1>
+          <h2>
+            About the
+            {' '}
+            {productInfo.name}
+          </h2>
+          <form id="add-review-form">
+            <label>
+              Overall rating*:
+              <div>
+                <div className="stars-outer new-review-stars">
                   {starIds.map((id) => (
                     <i
-                      className="fas fa-star"
+                      className="far fa-star"
                       key={id}
-                      onClick={() => handleRatingClick(id)}
+                      onClick={() => this.handleRatingClick(id)}
                       role="presentation"
                     />
                   ))}
+                  <div className="stars-inner new-review-stars" style={innerStarStyle}>
+                    {starIds.map((id) => (
+                      <i
+                        className="fas fa-star"
+                        key={id}
+                        onClick={() => this.handleRatingClick(id)}
+                        role="presentation"
+                      />
+                    ))}
+                  </div>
                 </div>
+                {starLabel}
               </div>
-              {starLabel}
-            </div>
-          </label>
-          <div id="recommend-product">
-            <label>
-              Do you recommend this product?*
-              <label htmlFor="recommend">
-                <input type="radio" name="recommendation" id="recommend" value="true" onClick={() => setRecommendProduct(true)} />
-                Yes
-              </label>
-              <label htmlFor="not-recommend">
-                <input type="radio" name="recommendation" id="not-recommend" value="false" onClick={() => setRecommendProduct(false)} />
-                No
-              </label>
             </label>
-          </div>
-          <div id="add-characteristic-container">
-            <AddCharacteristic
-              characteristic={chars}
-            />
-            Comfort
-          </div>
-        </form>
+            <div id="recommend-product">
+              <label>
+                Do you recommend this product?*
+                <label htmlFor="recommend">
+                  <input type="radio" name="recommendation" id="recommend" value="true" onClick={() => this.setState({ recommendProduct: true })} />
+                  Yes
+                </label>
+                <label htmlFor="not-recommend">
+                  <input type="radio" name="recommendation" id="not-recommend" value="false" onClick={() => this.setState({ recommendProduct: false })} />
+                  No
+                </label>
+              </label>
+            </div>
+            <div id="add-characteristic-container">
+              <AddCharacteristic
+                chars={chars}
+              />
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 AddReviewForm.propTypes = {
