@@ -12,7 +12,7 @@ const AddReviewForm = class extends React.Component {
       chars: [],
       showStarLabel: false,
       innerWidth: '0%',
-      rating: 0,
+      rating: null,
       summary: '',
       body: '',
       recommend: false,
@@ -26,6 +26,7 @@ const AddReviewForm = class extends React.Component {
     this.handleStarRatingClick = this.handleStarRatingClick.bind(this);
     this.handleCharRatingClick = this.handleCharRatingClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -61,6 +62,32 @@ const AddReviewForm = class extends React.Component {
   handleInputChange(e) {
     const { name } = e.target;
     this.setState({ [name]: e.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { productInfo } = this.props;
+    const {
+      rating, summary, body, recommend, name, email, photos, characteristics,
+    } = this.state;
+    const data = {
+      product_id: productInfo.id,
+      rating,
+      summary,
+      body,
+      recommend,
+      name,
+      email,
+      photos,
+      characteristics,
+    };
+    axios.post('/reviews', data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   processCharacteristics() {
@@ -150,9 +177,10 @@ const AddReviewForm = class extends React.Component {
             {' '}
             {productInfo.name}
           </h2>
-          <form id="add-review-form">
+          <form id="add-review-form" onSubmit={this.handleSubmit}>
             <label>
               Overall rating*:
+              {/* <input type="hidden" name="rating" value={rating} required /> */}
               <div>
                 <div className="stars-outer new-review-stars">
                   {starIds.map((id) => (
@@ -161,6 +189,7 @@ const AddReviewForm = class extends React.Component {
                       key={id}
                       onClick={() => this.handleStarRatingClick(id)}
                       role="presentation"
+                      required
                     />
                   ))}
                   <div className="stars-inner new-review-stars" style={innerStarStyle}>
@@ -170,6 +199,7 @@ const AddReviewForm = class extends React.Component {
                         key={id}
                         onClick={() => this.handleStarRatingClick(id)}
                         role="presentation"
+                        required
                       />
                     ))}
                   </div>
@@ -187,7 +217,7 @@ const AddReviewForm = class extends React.Component {
                     id="recommend"
                     value="true"
                     onChange={this.handleInputChange}
-                    required="required"
+                    required
                   />
                   Yes
                 </label>
@@ -198,7 +228,7 @@ const AddReviewForm = class extends React.Component {
                     id="not-recommend"
                     value="false"
                     onChange={this.handleInputChange}
-                    required="required"
+                    required
                   />
                   No
                 </label>
@@ -234,7 +264,7 @@ const AddReviewForm = class extends React.Component {
                 <textarea
                   id="user-review-body"
                   name="body"
-                  required="required"
+                  required
                   rows="20"
                   cols="50"
                   placeholder="Why did you like the product or not?"
@@ -268,7 +298,7 @@ const AddReviewForm = class extends React.Component {
                   type="text"
                   id="review-user-nickname"
                   name="name"
-                  required="required"
+                  required
                   maxLength="60"
                   size="20"
                   placeholder="Example: jackson11!"
@@ -287,7 +317,7 @@ const AddReviewForm = class extends React.Component {
                   type="email"
                   id="review-user-email"
                   name="email"
-                  required="required"
+                  required
                   maxLength="60"
                   size="30"
                   placeholder="Example: jackson11@email.com"
@@ -298,12 +328,11 @@ const AddReviewForm = class extends React.Component {
                 For authentication reasons, you will not be emailed
               </div>
             </div>
-            <button
+            <input
               type="submit"
+              value="Submit Review"
               className="interactive-button"
-            >
-              Submit Review
-            </button>
+            />
           </form>
         </div>
       </div>
