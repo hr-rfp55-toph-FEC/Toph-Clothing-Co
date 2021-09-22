@@ -55,6 +55,8 @@ class RelatedItemsAndOutfit extends React.Component {
     const {
       isFetching, prodsInfo, prodsMeta, prodsStyles, currProd,
     } = this.state;
+    const { prodStyleSelected } = this.props;
+    // console.log(prodStyleSelected, 'realted outfit and items');
     const { changeProductHandler } = this.props;
     return (
       <div>
@@ -73,6 +75,7 @@ class RelatedItemsAndOutfit extends React.Component {
               <UserOutfit
                 changeProductHandler={changeProductHandler}
                 currProd={currProd}
+                prodStyleSelected={prodStyleSelected}
               />
             </div>
           )}

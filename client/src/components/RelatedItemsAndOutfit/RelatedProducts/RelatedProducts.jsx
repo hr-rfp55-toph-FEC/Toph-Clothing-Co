@@ -35,7 +35,7 @@ const RelatedProducts = ({
           <ListCard
             key={prodInfo.id}
             prodInfo={prodInfo}
-            prodStyles={prodsStyles[index]}
+            prodStyles={prodsStyles[index].results[0]}
             prodMeta={prodsMeta[index]}
             changeProductHandler={changeProductHandler}
           >

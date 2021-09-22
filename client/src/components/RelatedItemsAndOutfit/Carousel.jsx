@@ -21,7 +21,6 @@ const Carousel = ({ children }) => {
   // }, [children, length, mappedChildrenLength]);
 
   useEffect(() => {
-    console.log(children);
     if (mappedChildrenLength !== children[1].length) {
       setMappedChildrenLength(children[1].length);
       setCurrIndex(0);

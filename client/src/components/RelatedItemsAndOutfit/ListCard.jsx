@@ -6,10 +6,13 @@ import calcAvgRating from '../helpers/calcAvgRating';
 const ListCard = ({
   prodInfo, prodStyles, prodMeta, changeProductHandler, children,
 }) => {
-  const origPrice = prodStyles.results[0].original_price;
-  const salePrice = prodStyles.results[0].sale_price;
-  const prodUrl = prodStyles.results[0].photos[0].url;
-
+  const origPrice = prodStyles.original_price;
+  const salePrice = prodStyles.sale_price;
+  const prodUrl = prodStyles.photos[0].url;
+  // const origPrice = prodStyles.results[0].original_price;
+  // const salePrice = prodStyles.results[0].sale_price;
+  // const prodUrl = prodStyles.results[0].photos[0].url;
+  // console.log(prodStyles, 'in list card for user');
   // const imgDimensions = prodUrl ? {
   //   height: prodUrl.offsetHeight,
   //   width: prodUrl.offsetWidth,
@@ -50,7 +53,7 @@ const ListCard = ({
         </p>
         <div className="rel-prod-card-stars">
           { Object.keys(prodMeta.ratings).length !== 0
-          && <Stars id={`BG${prodMeta.product_id}`} rating={calcAvgRating(prodMeta.ratings)} />}
+          && <Stars id={`BG${prodMeta.product_id}${Math.random() * 10000}`} rating={calcAvgRating(prodMeta.ratings)} />}
         </div>
       </div>
     </div>

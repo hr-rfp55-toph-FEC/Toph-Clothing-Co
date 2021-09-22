@@ -77,11 +77,11 @@ class App extends React.Component {
                 selectProductStyle={this.selectProductStyle}
               />
               <RelatedItemsAndOutfit
-                // key={currProdId}
                 currProdId={currProdId}
                 prodInfo={prodInfo}
                 prodStyles={prodStyles}
                 prodReviewsMeta={prodReviewsMeta}
+                prodStyleSelected={prodStyleSelected}
                 changeProductHandler={this.changeProductHandler}
               />
               <RatingsAndReviews

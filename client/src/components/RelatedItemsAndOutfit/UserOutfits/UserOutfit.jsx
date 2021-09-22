@@ -4,19 +4,34 @@ import Carousel from '../Carousel';
 import AddOutfitCard from './AddOutFitCard';
 import ListCard from '../ListCard';
 
-const UserOutfit = ({ currProd, changeProductHandler }) => {
+const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
   const [currOutfits, setCurrOutfits] = useState([]);
+  const [styleIds, setStyleIds] = useState([]);
+  // const prodStyleSelected = prodStyleSelected.style_id;
+  // console.log(prodStyleSelected);
   const addToCurrOutfits = (e) => {
     e.preventDefault();
+    const currProdStyleId = prodStyleSelected.style_id;
     let alreadyAdded = false;
-    currOutfits.forEach((outfit) => {
-      if (outfit[0].id === currProd[0].id) {
+    styleIds.forEach((id) => {
+      if (currProdStyleId === id) {
         alreadyAdded = true;
       }
     });
     if (alreadyAdded) return;
-    setCurrOutfits((oldList) => [...oldList, currProd]);
+    setStyleIds((prevIds) => [...prevIds, currProdStyleId]);
+    // currOutfits.forEach((outfit) => {
+    //   if (outfit[0].id === currProd[0].id) {
+    //     alreadyAdded = true;
+    //   }
+    // });
+    const [product, styles, metaData] = currProd;
+    // console.log(product, styles, metaData, 'currProd here');
+    const prod = [product, prodStyleSelected, metaData];
+    console.log(prod, 'new array');
+    setCurrOutfits((oldList) => [...oldList, prod]);
   };
+  console.log(currOutfits, 'current outfits');
   const removeOutfit = (idToRemove) => {
     const adjustedCurrOutFits = currOutfits.filter((outfit) => outfit[0].id !== idToRemove);
     setCurrOutfits(adjustedCurrOutFits);
@@ -32,6 +47,7 @@ const UserOutfit = ({ currProd, changeProductHandler }) => {
           <ListCard
             key={outfit[0].id}
             prodInfo={outfit[0]}
+            //change the productStyle sent to card
             prodStyles={outfit[1]}
             prodMeta={outfit[2]}
             onRelatedCardClick={changeProductHandler}
