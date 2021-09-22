@@ -797,7 +797,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   min-width: 24rem;
   max-width: 24rem;
   min-height: 50rem;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
   transition: 0.3s;
 }
 
@@ -846,6 +846,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   font-size: 2.8rem;
   cursor: pointer;
   color: #c30606;
+  transition: 0.4s;
 
 }
 
@@ -858,7 +859,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   top: 0.0rem;
   height: 1rem;
   width: 2.0rem;
-  font-size: 3.3rem;
+  font-size: 3.0rem;
   cursor: pointer;
 }
 
@@ -901,7 +902,15 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 .card-default-image {
   font-size: 15rem;
   color: #447c47;
-  /* cursor:pointer; */
+  cursor: pointer;
+}
+
+.card-image-src {
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .card-image-src:hover {
@@ -943,7 +952,13 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 .product-name-p {
   margin: 0rem 1rem 0.5rem 1rem;
-  font-size: 2.0rem;
+  font-size: 1.8rem;
+}
+
+.style-name-span {
+  margin: 0rem 1rem 0.5rem 0rem;
+  font-size: 1.3rem;
+  color: rgb(17 83 61);
 }
 
 .prod-price-p {

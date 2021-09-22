@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import server from '../helpers/Axios';
 import RelatedProducts from './RelatedProducts/RelatedProducts';
 import UserOutfit from './UserOutfits/UserOutfit';
@@ -7,35 +8,36 @@ class RelatedItemsAndOutfit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currProdId: '40344',
       currProd: [],
       prodsInfo: [],
       prodsStyles: [],
       prodsMeta: [],
       isFetching: true,
     };
-    this.onRelatedCardClick = this.onRelatedCardClick.bind(this);
   }
 
   componentDidMount() {
-    const { currProdId } = this.state;
-    this.getCurrProdData(currProdId);
-    this.getRelatedData(currProdId);
+    this.setCurrProdToState();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { currProdId } = this.state;
-    if (prevState.currProdId !== currProdId) {
-      this.getCurrProdData(currProdId);
-      this.getRelatedData(currProdId);
+  componentDidUpdate(prevProps) {
+    const {
+      currProdId,
+    } = this.props;
+    /* console.log('doesnt fire request on "update" --
+    why is the method reaching here on initial page load?'); */
+    if ((prevProps.currProdId !== currProdId)) {
+      this.setCurrProdToState(currProdId);
+      // console.log('it ran once per click!');
     }
   }
 
-  onRelatedCardClick(productId) {
-    // console.log(productId);
-    this.setState({
-      currProdId: productId,
-    });
+  setCurrProdToState() {
+    const {
+      currProdId, prodInfo, prodStyles, prodReviewsMeta,
+    } = this.props;
+    this.setState({ currProd: [prodInfo, prodStyles, prodReviewsMeta] },
+      this.getRelatedData(currProdId));
   }
 
   getRelatedData(currProdId) {
@@ -49,18 +51,13 @@ class RelatedItemsAndOutfit extends React.Component {
       .catch((err) => console.log(err));
   }
 
-  getCurrProdData(currProdId) {
-    server.get(`/currentProduct/${currProdId}`)
-      .then((res) => this.setState({
-        currProd: res.data,
-      }))
-      .catch((err) => console.log(err));
-  }
-
   render() {
     const {
       isFetching, prodsInfo, prodsMeta, prodsStyles, currProd,
     } = this.state;
+    const { prodStyleSelected } = this.props;
+    // console.log(prodStyleSelected, 'realted outfit and items');
+    const { changeProductHandler } = this.props;
     return (
       <div>
         {isFetching ? (
@@ -69,18 +66,16 @@ class RelatedItemsAndOutfit extends React.Component {
           : (
             <div className="related-lists">
               <RelatedProducts
-                onRelatedCardClick={this.onRelatedCardClick}
+                changeProductHandler={changeProductHandler}
                 currProd={currProd}
                 prodsInfo={prodsInfo}
                 prodsStyles={prodsStyles}
                 prodsMeta={prodsMeta}
               />
               <UserOutfit
-                onRelatedCardClick={this.onRelatedCardClick}
+                changeProductHandler={changeProductHandler}
                 currProd={currProd}
-                prodsInfo={prodsInfo}
-                prodsStyles={prodsStyles}
-                prodsMeta={prodsMeta}
+                prodStyleSelected={prodStyleSelected}
               />
             </div>
           )}
@@ -89,5 +84,13 @@ class RelatedItemsAndOutfit extends React.Component {
     );
   }
 }
+
+RelatedItemsAndOutfit.propTypes = {
+  currProdId: PropTypes.number.isRequired,
+  prodInfo: PropTypes.instanceOf(Object).isRequired,
+  prodStyles: PropTypes.instanceOf(Object).isRequired,
+  prodReviewsMeta: PropTypes.instanceOf(Object).isRequired,
+  changeProductHandler: PropTypes.func.isRequired,
+};
 
 export default RelatedItemsAndOutfit;

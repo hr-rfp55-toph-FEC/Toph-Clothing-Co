@@ -6,10 +6,13 @@ import ComparisonModal from '../ComparisonModal.jsx';
 
 const RelatedProducts = ({
   prodsInfo, prodsStyles, prodsMeta,
-  currProd, onRelatedCardClick,
+  currProd, changeProductHandler,
 }) => {
   const [modalClass, setModalClass] = useState('comparison-modal-container');
   const [modalRelProd, setmodalRelProd] = useState({});
+  const currProdDes = {
+    [currProd[0].name]: currProd[2].characteristics,
+  };
   const openModelHandler = (relProdName, relProdMeta) => {
     setmodalRelProd({ [relProdName]: relProdMeta });
     setModalClass('comparison-modal-container comp-show-modal');
@@ -22,24 +25,22 @@ const RelatedProducts = ({
       <ComparisonModal
         modalClass={modalClass}
         closeModalHandler={closeModalHandler}
-        currProd={{
-          [currProd[0].name]: currProd[2].characteristics,
-        }}
+        currProd={currProdDes}
         modalRelProd={modalRelProd}
       />
       <h2 className="related-products-header" id="ratings-reviews-title">RELATED PRODUCTS</h2>
       <Carousel>
+        <></>
         {prodsInfo.map((prodInfo, index) => (
           <ListCard
-            key={prodInfo.id}
+            key={`${prodInfo.id}BG${Math.random() * 10000}`}
             prodInfo={prodInfo}
-            prodStyles={prodsStyles[index]}
+            prodStyles={prodsStyles[index].results[0]}
             prodMeta={prodsMeta[index]}
-            onRelatedCardClick={onRelatedCardClick}
+            changeProductHandler={changeProductHandler}
           >
             <button type="button" onClick={() => openModelHandler(prodInfo.name, prodsMeta[index].characteristics)} className="card-button">
               <i className="far fa-star star-for-button" />
-              {/* <img src="../../assets/earth-symbol.png" className="far fa-star star-for-button"/> */}
             </button>
           </ListCard>
         ))}
@@ -53,7 +54,7 @@ RelatedProducts.propTypes = {
   prodsStyles: PropTypes.instanceOf(Object).isRequired,
   prodsMeta: PropTypes.instanceOf(Object).isRequired,
   currProd: PropTypes.instanceOf(Object).isRequired,
-  onRelatedCardClick: PropTypes.instanceOf(Function).isRequired,
+  changeProductHandler: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default RelatedProducts;
