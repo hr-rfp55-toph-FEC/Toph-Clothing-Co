@@ -194,9 +194,9 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   position: relative;
 
   /* Work for 2.5x zoomed in image */
-  /* width: 250%;
+  width: 250%;
   height: 250%;
-  object-fit: cover; */
+  object-fit: cover;
 
   /* Work for 2.5x zoomed in background + ability to pan */
   background-size: cover;

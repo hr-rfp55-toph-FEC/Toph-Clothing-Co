@@ -66,10 +66,67 @@ function ImageGallery(props) {
   // }, [expanded]);
 
   useEffect(() => {
-    const elExpanded = document.getElementById('image-main-expanded');
-    // const elDefault = document.getElementById('image-main');
+    const imageExpanded = document.getElementById('image-main-expanded');
+    const imageContainerExpanded = document.getElementById('image-gallery-expanded');
 
     const handleMove = (e) => {
+      // Coordinates and size of image (blown up in the background) and its container (smaller view)
+      let imgCoordinatesAndSize = imageExpanded.getBoundingClientRect();
+      let imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
+
+      console.log('Image coordinates and size', imgCoordinatesAndSize);
+      console.log('Container coordinates and size', imgContainerCoordinatesAndSize);
+
+      // Dimensions of image and its container
+      let imgWidth = imgCoordinatesAndSize.width;
+      let imgHeight = imgCoordinatesAndSize.height;
+      let imgContainerWidth = imgContainerCoordinatesAndSize.width;
+      let imgContainerHeight = imgContainerCoordinatesAndSize.height;
+
+      // Mouse coordinates with respect to image (or image container here, doesn't matter)
+      let cursorXCoordinate = e.offsetX;
+      let cursorYCoordinate = e.offsetY;
+
+      // Turn current mouse coordinates into a % of container width/height
+      let cursorXPercentPosition = cursorXCoordinate / imgContainerWidth;
+      let cursorYPercentPosition = cursorYCoordinate / imgContainerHeight;
+
+      let backgroundXPosition = cursorXPercentPosition * imgWidth;
+      let backgroundYPosition = cursorYPercentPosition * imgHeight;
+
+      // console.log('backgroundXPosition', backgroundXPosition);
+      // console.log('backgroundYPosition', backgroundYPosition);
+
+      // let imgToContainerRatioX = imgWidth / imgContainerWidth;
+      // let imgToContainerRatioY = imgHeight / imgContainerHeight;
+
+      let imgContainerAspectRatio = imgContainerWidth / imgContainerHeight;
+      // console.log(imgContainerAspectRatio);
+
+      // imageExpanded.style.backgroundPositionX = `${imgWidth - backgroundXPosition}px`;
+      // imageExpanded.style.backgroundPositionY = `${imgHeight - backgroundYPosition}px`;
+
+      // imageExpanded.style.backgroundPositionX = `${backgroundXPosition}%`;
+      // imageExpanded.style.backgroundPositionY = `${backgroundYPosition}%`;
+
+      // imageExpanded.style.backgroundPositionX = `${-backgroundXPosition / imgContainerAspectRatio}px`;
+      // imageExpanded.style.backgroundPositionY = `${-backgroundYPosition * imgContainerAspectRatio}px`;
+
+      // imageExpanded.style.backgroundPositionX = `${-backgroundXPosition / imgToContainerRatioX}px`; //2150/???? undershoot
+      // imageExpanded.style.backgroundPositionY = `${-backgroundYPosition * imgToContainerRatioY}px`; //1180/1100 overshoot
+
+      // imageExpanded.style.backgroundPositionX = `${-backgroundXPosition / 2}px`;
+      // imageExpanded.style.backgroundPositionY = `${-backgroundYPosition * 2}px`;
+
+      // elExpanded.style.backgroundPositionX = `${cursorXPercentPosition*100}%`;
+      // elExpanded.style.backgroundPositionY = `${cursorYPercentPosition*100}%`;
+
+      // console.log('cursorXPercentPosition', cursorXPercentPosition);
+      // console.log('cursorYPercentPosition', cursorYPercentPosition);
+
+      // console.log('Image coordinates and size', imgCoordinatesAndSize);
+      // console.log('Container coordinates and size', imgContainerCoordinatesAndSize);
+
       // console.log(elExpanded);
       // console.log('Expanded View Background Size:', elExpanded.style.backgroundSize);
       // console.log(e);
@@ -82,9 +139,9 @@ function ImageGallery(props) {
       // elExpanded.style.backgroundPositionX = `center`;
       // elExpanded.style.backgroundPositionY = `${e.offsetY * 0.5}%`;
 
-      console.log('e.offsetX', e.offsetX); // min is -1 on left side, max is 944 on right side
-      console.log('e.offsetY', e.offsetY); // min is -1 on top size, max is 478 on bottom side
-      // makes sense - when inspecting, the box for the image is 944.297 wide x 477.531 tall
+      // console.log('e.offsetX', e.offsetX); // min is -1 on left side, max is 944 on right side
+      // console.log('e.offsetY', e.offsetY); // min is -1 on top size, max is 478 on bottom side
+      // // makes sense - when inspecting, the box for the image is 944.297 wide x 477.531 tall
 
       // console.log('getBoundingClientRect', elExpanded.getBoundingClientRect());
       // console.log('getClientRects', elExpanded.getClientRects());
@@ -108,8 +165,12 @@ function ImageGallery(props) {
       // x: 202.34375 // SAME
       // y: 92.71875 // SAME
 
-      elExpanded.style.backgroundPositionX = `${e.offsetX * 1}%`;
-      elExpanded.style.backgroundPositionY = `${e.offsetY * 0.3}%`;
+      // elExpanded.style.backgroundPositionX = `${e.offsetX * 1}%`;
+      // elExpanded.style.backgroundPositionY = `${e.offsetY * 0.3}%`;
+
+      // Don't use offsetHeight/offsetWidth - these round to nearest integer, we want exact values
+      // console.log('Expanded View Container Offset Height:', elExpandedContainer.offsetHeight);
+      // console.log('Expanded View Container Offset Width:', elExpandedContainer.offsetWidth);
 
       // const windowWidth = window.innerWidth / 5;
       // const windowHeight = window.innerHeight / 5;
@@ -120,22 +181,26 @@ function ImageGallery(props) {
 
     if (expanded) {
       console.log('Image:', mainPicUrl);
-      console.log('Expanded View:', elExpanded);
-      // console.log('Expanded View Height:', elExpanded.style.height);
-      // console.log('Expanded View Width:', elExpanded.style.width);
-      // console.log('Expanded View Height:', elExpanded.offsetHeight);
-      // console.log('Expanded View Width:', elExpanded.offsetWidth);
-      console.log('getBoundingClientRect', elExpanded.getBoundingClientRect());
-      console.log('getClientRects', elExpanded.getClientRects());
+      console.log('Expanded View:', imageExpanded);
+      // console.log('Expanded View Style Height:', elExpanded.style.height);
+      // console.log('Expanded View Style Width:', elExpanded.style.width);
+      // console.log('Expanded View Offset Height:', elExpanded.offsetHeight);
+      // console.log('Expanded View Offset Width:', elExpanded.offsetWidth);
+      // console.log('Expanded View Container Style Height:', elExpandedContainer.style.height);
+      // console.log('Expanded View Container Style Width:', elExpandedContainer.style.width);
+      // console.log('Expanded View Container Offset Height:', elExpandedContainer.offsetHeight);
+      // console.log('Expanded View Container Offset Width:', elExpandedContainer.offsetWidth);
+      // console.log('getBoundingClientRect', elExpanded.getBoundingClientRect());
+      // console.log('getClientRects', elExpanded.getClientRects());
       // Getting the background size before mount doesn't work...
       // console.log('Expanded View Background Size:', elExpanded.style.backgroundSize);
       // // Setting the background size works, b/c it doesn't require the element to be mounted yet
       // console.log('Expanded View Background Size:', elExpanded.style.backgroundSize = "60px 120px");
-      elExpanded.addEventListener('mousemove', handleMove);
+      imageExpanded.addEventListener('mousemove', handleMove);
       // Need to remove event listener right before expanded image unmounts, or else event listener will remain even after it's gone
       // The event listener would get tied to the default image and end up moving that around, which we don't want.
       return function cleanup() {
-        elExpanded.removeEventListener('mousemove', handleMove);
+        imageExpanded.removeEventListener('mousemove', handleMove);
       };
     }
 
