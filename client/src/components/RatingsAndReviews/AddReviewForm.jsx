@@ -16,15 +16,15 @@ const AddReviewForm = class extends React.Component {
       characteristics: {},
       summary: '',
       body: '',
+      name: '',
     };
-
-    this.fileInput = React.createRef();
 
     this.processCharacteristics = this.processCharacteristics.bind(this);
     this.handleStarRatingClick = this.handleStarRatingClick.bind(this);
     this.handleCharRatingClick = this.handleCharRatingClick.bind(this);
     this.handleReviewSummaryChange = this.handleReviewSummaryChange.bind(this);
     this.handleReviewBodyChange = this.handleReviewBodyChange.bind(this);
+    this.handleReviewerNicknameChange = this.handleReviewerNicknameChange.bind(this);
   }
 
   componentDidMount() {
@@ -63,6 +63,10 @@ const AddReviewForm = class extends React.Component {
 
   handleReviewBodyChange(e) {
     this.setState({ body: e.target.value });
+  }
+
+  handleReviewerNicknameChange(e) {
+    this.setState({ name: e.target.value });
   }
 
   processCharacteristics() {
@@ -236,13 +240,29 @@ const AddReviewForm = class extends React.Component {
                   type="file"
                   id="upload-review-photo"
                   name="new-review-photo"
-                  ref={this.fileInput}
                   accept="image/png, image/jpeg"
                 />
               </label>
               <span>
                 <button type="button">Upload</button>
               </span>
+            </div>
+            <div className="review-user-nickname">
+              <label htmlFor="review-user-nickname">
+                What is your nickname?
+                <br />
+                <input
+                  type="text"
+                  id="review-user-nickname"
+                  maxLength="60"
+                  size="20"
+                  placeholder="Example: jackson11!"
+                  onChange={this.handleReviewerNicknameChange}
+                />
+              </label>
+              <div id="reviewer-privacy-warning">
+                For privacy reasons, do not use your full name or email address
+              </div>
             </div>
           </form>
         </div>
