@@ -57,69 +57,10 @@ function ImageGallery(props) {
   const imageGalleryId = expanded ? 'image-gallery-expanded' : 'image-gallery';
   // const imageMainId = expanded ? 'image-main-expanded' : 'image-main';
 
+  // Hook to scroll background image based on cursor position in zoomed view.
   useEffect(() => {
     const imageExpanded = document.getElementById('image-main-expanded');
     const imageContainerExpanded = document.getElementById('image-gallery-expanded');
-
-    // // Can't do our initial positioning within this hook. Must make its own hook.
-    // // Otherwise, this block would get kicked off even if we're just expanding the image, not
-    // // when toggling from one image to another.
-    // console.log(mainPicUrl);
-    // if (imageExpanded !== null) {
-    //   console.log('backgroundPositionX', imageExpanded.style.backgroundPositionX);
-    //   console.log('backgroundPositionY', imageExpanded.style.backgroundPositionY);
-    //   // console.log('savedCursorXCoordinate', savedCursorXCoordinate);
-    //   // console.log('savedCursorYCoordinate', savedCursorYCoordinate);
-    //   console.log('refCursorXPercentPosition', refCursorXPercentPosition.current);
-    //   console.log('refCursorYPercentPosition', refCursorYPercentPosition.current);
-    // Calculate position based on mouse position
-    //   imageExpanded.style.backgroundPositionX = '0px';
-    //   imageExpanded.style.backgroundPositionY = '0px';
-
-    //   const currCursorXPercentPosition = refCursorXPercentPosition.current;
-    //   const currCursorYPercentPosition = refCursorYPercentPosition.current;
-
-    //   const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
-
-    //   // Dimensions of image's container
-    //   const imgContainerWidth = imgContainerCoordinatesAndSize.width;
-    //   const imgContainerHeight = imgContainerCoordinatesAndSize.height;
-    //   const imgContainerAspRatio = imgContainerWidth / imgContainerHeight;
-
-    //   const imgOriginal = new Image();
-    //   imgOriginal.src = mainPicUrl;
-    //   const imgOriginalWidth = imgOriginal.width;
-    //   const imgOriginalHeight = imgOriginal.height;
-    //   const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
-    //   const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
-
-    //   let imgWidth;
-    //   let imgHeight;
-    //   let backgroundXPosition;
-    //   let backgroundYPosition;
-
-    //   if (layout === 'tall') {
-    //     imgWidth = imgContainerWidth;
-    //     imgHeight = (imgContainerWidth * imgOriginalHeight)
-    //      / imgOriginalWidth - imgContainerHeight;
-
-    //     backgroundXPosition = currCursorXPercentPosition * imgWidth;
-    //     backgroundYPosition = currCursorYPercentPosition * imgHeight;
-
-    //     imageExpanded.style.backgroundPositionX = '0px';
-    //     imageExpanded.style.backgroundPositionY = `${-backgroundYPosition}px`;
-    //   } else if (layout === 'wide') {
-    //     imgWidth = (imgContainerHeight * imgOriginalWidth)
-    //      / imgOriginalHeight - imgContainerWidth;
-    //     imgHeight = imgContainerHeight;
-
-    //     backgroundXPosition = currCursorXPercentPosition * imgWidth;
-    //     backgroundYPosition = currCursorYPercentPosition * imgHeight;
-
-    //     imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
-    //     imageExpanded.style.backgroundPositionY = '0px';
-    //   }
-    // }
 
     // Image sizing and positioning must be contained within the event handler. Just inside the hook
     // is not good enough b/c we need to dynamically recalculate even when state doesn't change.
@@ -235,23 +176,22 @@ function ImageGallery(props) {
     return null;
   }, [expanded, mainPicUrl]);
 
+  // Hook to position new images correctly when toggling between images in zoomed view.
   useEffect(() => {
     // console.log('currIndex', currIndex);
-    console.log('mainPicUrl', mainPicUrl);
+    // console.log('mainPicUrl', mainPicUrl);
 
     if (expanded) {
       const imageExpanded = document.getElementById('image-main-expanded');
       const imageContainerExpanded = document.getElementById('image-gallery-expanded');
 
       if (imageExpanded !== null) {
-        console.log('backgroundPositionX', imageExpanded.style.backgroundPositionX);
-        console.log('backgroundPositionY', imageExpanded.style.backgroundPositionY);
+        // console.log('backgroundPositionX', imageExpanded.style.backgroundPositionX);
+        // console.log('backgroundPositionY', imageExpanded.style.backgroundPositionY);
         // console.log('savedCursorXCoordinate', savedCursorXCoordinate);
         // console.log('savedCursorYCoordinate', savedCursorYCoordinate);
-        console.log('refCursorXPercentPosition', refCursorXPercentPosition.current);
-        console.log('refCursorYPercentPosition', refCursorYPercentPosition.current);
-        imageExpanded.style.backgroundPositionX = '0px'; // Calculate position based on mouse position
-        imageExpanded.style.backgroundPositionY = '0px'; // Calculate position based on mouse position
+        // console.log('refCursorXPercentPosition', refCursorXPercentPosition.current);
+        // console.log('refCursorYPercentPosition', refCursorYPercentPosition.current);
 
         const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
 
