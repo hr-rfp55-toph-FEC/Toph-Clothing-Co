@@ -38,6 +38,12 @@ function ImageGallery(props) {
     }
   };
 
+  // const getMeta = function(url, callback) {
+  //   var img = new Image();
+  //   img.src = url;
+  //   img.onload = function () { callback(this.width, this.height); }
+  // };
+
   // Every time a new style is selected, reset main image and current index
   useEffect(() => {
     setMainPicUrl(productStyleSelected.photos[0].url);
@@ -69,13 +75,32 @@ function ImageGallery(props) {
     const imageExpanded = document.getElementById('image-main-expanded');
     const imageContainerExpanded = document.getElementById('image-gallery-expanded');
 
+    const imgOriginal = new Image();
+    imgOriginal.src = mainPicUrl;
+    const imgOriginalWidth = imgOriginal.width;
+    const imgOriginalHeight = imgOriginal.height;
+    const layout = imgOriginalHeight > imgOriginalWidth ? 'tall' : 'wide';
+    console.log('imgOriginalWidth', imgOriginalWidth);
+    console.log('imgOriginalHeight', imgOriginalHeight);
+    console.log('layout', layout);
+
+    // function getMeta(url, callback) {
+    //   var img = new Image();
+    //   img.src = url;
+    //   img.onload = function () { callback(this.width, this.height); }
+    // };
+    // getMeta(
+    //   mainPicUrl,
+    //   function (width, height) { console.log(width + 'px ' + height + 'px') }
+    // );
+
     const handleMove = (e) => {
       // Coordinates and size of image (blown up in the background) and its container (smaller view)
       let imgCoordinatesAndSize = imageExpanded.getBoundingClientRect();
       let imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
 
-      console.log('Image coordinates and size', imgCoordinatesAndSize);
-      console.log('Container coordinates and size', imgContainerCoordinatesAndSize);
+      // console.log('Image coordinates and size', imgCoordinatesAndSize);
+      // console.log('Container coordinates and size', imgContainerCoordinatesAndSize);
 
       // Dimensions of image and its container
       let imgWidth = imgCoordinatesAndSize.width;
@@ -196,6 +221,9 @@ function ImageGallery(props) {
       // console.log('Expanded View Background Size:', elExpanded.style.backgroundSize);
       // // Setting the background size works, b/c it doesn't require the element to be mounted yet
       // console.log('Expanded View Background Size:', elExpanded.style.backgroundSize = "60px 120px");
+
+      // console.log(`${imgOriginalWidth}px ${imgOriginalHeight}px`)
+      // imageExpanded.style.backgroundSize = `${imgOriginalWidth}px ${imgOriginalHeight}px`;
       imageExpanded.addEventListener('mousemove', handleMove);
       // Need to remove event listener right before expanded image unmounts, or else event listener will remain even after it's gone
       // The event listener would get tied to the default image and end up moving that around, which we don't want.
