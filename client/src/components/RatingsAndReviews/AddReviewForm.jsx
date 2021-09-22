@@ -40,14 +40,15 @@ const AddReviewForm = class extends React.Component {
     });
   }
 
-  handleCharRatingClick(char, e) {
-    let selection = {};
-    selection[char] = e.target.value;
+  handleCharRatingClick(e) {
+    const { characteristics } = this.state;
+    const selection = { ...characteristics };
+    selection[e.target.name] = e.target.value;
     this.setState({
-      characteristics: selection
+      characteristics: selection,
     });
-    // console.log(char);
     // console.log(e.target.value);
+    // console.log(e.target.name);
   }
 
   processCharacteristics() {
