@@ -13,10 +13,12 @@ const AddReviewForm = class extends React.Component {
       innerWidth: '0%',
       rating: 0,
       recommendProduct: false,
+      characteristics: {},
     };
 
     this.processCharacteristics = this.processCharacteristics.bind(this);
-    this.handleRatingClick = this.handleRatingClick.bind(this);
+    this.handleStarRatingClick = this.handleStarRatingClick.bind(this);
+    this.handleCharRatingClick = this.handleCharRatingClick.bind(this);
   }
 
   componentDidMount() {
@@ -30,12 +32,22 @@ const AddReviewForm = class extends React.Component {
     }
   }
 
-  handleRatingClick(id) {
+  handleStarRatingClick(id) {
     this.setState({
       innerWidth: String(id * 20).concat('%'),
       showStarLabel: true,
       rating: id,
     });
+  }
+
+  handleCharRatingClick(char, e) {
+    let selection = {};
+    selection[char] = e.target.value;
+    this.setState({
+      characteristics: selection
+    });
+    // console.log(char);
+    // console.log(e.target.value);
   }
 
   processCharacteristics() {
@@ -114,7 +126,7 @@ const AddReviewForm = class extends React.Component {
                     <i
                       className="far fa-star"
                       key={id}
-                      onClick={() => this.handleRatingClick(id)}
+                      onClick={() => this.handleStarRatingClick(id)}
                       role="presentation"
                     />
                   ))}
@@ -123,7 +135,7 @@ const AddReviewForm = class extends React.Component {
                       <i
                         className="fas fa-star"
                         key={id}
-                        onClick={() => this.handleRatingClick(id)}
+                        onClick={() => this.handleStarRatingClick(id)}
                         role="presentation"
                       />
                     ))}
@@ -146,9 +158,13 @@ const AddReviewForm = class extends React.Component {
               </label>
             </div>
             <div id="add-characteristic-container">
-              <AddCharacteristic
-                chars={chars}
-              />
+              {chars.map((char) => (
+                <AddCharacteristic
+                  char={char}
+                  key={char[1].id}
+                  handleCharRatingClick={this.handleCharRatingClick}
+                />
+              ))}
             </div>
           </form>
         </div>
