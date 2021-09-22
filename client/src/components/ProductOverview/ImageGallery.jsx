@@ -75,14 +75,7 @@ function ImageGallery(props) {
     const imageExpanded = document.getElementById('image-main-expanded');
     const imageContainerExpanded = document.getElementById('image-gallery-expanded');
 
-    const imgOriginal = new Image();
-    imgOriginal.src = mainPicUrl;
-    const imgOriginalWidth = imgOriginal.width;
-    const imgOriginalHeight = imgOriginal.height;
-    const layout = imgOriginalHeight > imgOriginalWidth ? 'tall' : 'wide';
-    console.log('imgOriginalWidth', imgOriginalWidth);
-    console.log('imgOriginalHeight', imgOriginalHeight);
-    console.log('layout', layout);
+
 
     // function getMeta(url, callback) {
     //   var img = new Image();
@@ -95,16 +88,28 @@ function ImageGallery(props) {
     // );
 
     const handleMove = (e) => {
+      const imgOriginal = new Image();
+      imgOriginal.src = mainPicUrl;
+      const imgOriginalWidth = imgOriginal.width;
+      const imgOriginalHeight = imgOriginal.height;
+      const layout = imgOriginalHeight > imgOriginalWidth ? 'tall' : 'wide';
+      console.log('imgOriginalWidth', imgOriginalWidth);
+      console.log('imgOriginalHeight', imgOriginalHeight);
+      console.log('layout', layout);
+
+      // imageExpanded.style.backgroundPositionX = `${-e.offsetX}px`;
+      // imageExpanded.style.backgroundPositionY = `${-e.offsetY}px`;
+
       // Coordinates and size of image (blown up in the background) and its container (smaller view)
-      let imgCoordinatesAndSize = imageExpanded.getBoundingClientRect();
+      // let imgCoordinatesAndSize = imageExpanded.getBoundingClientRect();
       let imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
 
       // console.log('Image coordinates and size', imgCoordinatesAndSize);
       // console.log('Container coordinates and size', imgContainerCoordinatesAndSize);
 
       // Dimensions of image and its container
-      let imgWidth = imgCoordinatesAndSize.width;
-      let imgHeight = imgCoordinatesAndSize.height;
+      // let imgWidth = imgCoordinatesAndSize.width;
+      // let imgHeight = imgCoordinatesAndSize.height;
       let imgContainerWidth = imgContainerCoordinatesAndSize.width;
       let imgContainerHeight = imgContainerCoordinatesAndSize.height;
 
@@ -116,8 +121,34 @@ function ImageGallery(props) {
       let cursorXPercentPosition = cursorXCoordinate / imgContainerWidth;
       let cursorYPercentPosition = cursorYCoordinate / imgContainerHeight;
 
-      let backgroundXPosition = cursorXPercentPosition * imgWidth;
-      let backgroundYPosition = cursorYPercentPosition * imgHeight;
+      let imgWidth;
+      let imgHeight;
+
+      if (layout === 'tall') {
+        imgWidth = imgContainerWidth;
+        // imgHeight = imgWidth;
+        imgHeight = imgContainerWidth * imgOriginalHeight / imgOriginalWidth - imgContainerHeight;
+        // console.log(imgWidth);
+        // console.log(imgHeight);
+        // imgHeight = (imgWidth / imgOriginalWidth) * imgOriginalHeight;
+        let backgroundXPosition = cursorXPercentPosition * imgWidth;
+        let backgroundYPosition = cursorYPercentPosition * imgHeight;
+
+        imageExpanded.style.backgroundPositionX = `0px`;
+        imageExpanded.style.backgroundPositionY = `${-backgroundYPosition}px`;
+      } else if (layout === 'wide') {
+        // imgHeight = imgContainerHeight;
+        // imgWidth = (imgHeight / imgOriginalHeight) * imgOriginalWidth;
+        imgWidth = imgContainerHeight * imgOriginalWidth / imgOriginalHeight - imgContainerWidth;
+        imgHeight = imgContainerHeight;
+        let backgroundXPosition = cursorXPercentPosition * imgWidth;
+        let backgroundYPosition = cursorYPercentPosition * imgHeight;
+        imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
+        imageExpanded.style.backgroundPositionY = `0px`;
+      }
+
+
+      // console.log('backgroundYPosition', backgroundYPosition);
 
       // console.log('backgroundXPosition', backgroundXPosition);
       // console.log('backgroundYPosition', backgroundYPosition);
@@ -125,7 +156,7 @@ function ImageGallery(props) {
       // let imgToContainerRatioX = imgWidth / imgContainerWidth;
       // let imgToContainerRatioY = imgHeight / imgContainerHeight;
 
-      let imgContainerAspectRatio = imgContainerWidth / imgContainerHeight;
+      // let imgContainerAspectRatio = imgContainerWidth / imgContainerHeight;
       // console.log(imgContainerAspectRatio);
 
       // imageExpanded.style.backgroundPositionX = `${imgWidth - backgroundXPosition}px`;
