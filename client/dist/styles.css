@@ -210,10 +210,22 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   background-repeat: no-repeat; */
 
   /* Work for fixing the 'jump' in background position when first expanding due to zoom feature */
-  /* transition: all 0.2s; */
+  /* transition: all 0.1s; */
   /* transition: all 0.5s; */
 
+  /* animation: myAnim 1s ease 0s 1 normal forwards; */
+
 }
+
+/* @keyframes myAnim {
+  0% {
+    transform: scale(2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+} */
 
 /* #image-gallery:hover {
   cursor: -moz-zoom-in;
@@ -454,10 +466,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   position: relative;
 }
 
-/* To do: Add special coloring when checked later on */
-/* .product-style-thumbnail-container-checked {
-} */
-
 .product-style-thumbnail,
 .product-style-thumbnail-checked {
   border-radius: 50%;
@@ -465,6 +473,20 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   height: 6rem;
   /* z-index: -1; */
 }
+
+/* To do: Add special coloring when checked later on */
+/* .product-style-thumbnail-container-checked {
+} */
+/*
+.product-style-thumbnail,
+.product-style-thumbnail-checked {
+  margin: 0.5rem;
+}
+
+.product-style-thumbnail-checked {
+  box-shadow: .1rem .1rem 0.5rem .01rem #000;
+
+} */
 
 .product-style-thumbnail {
   border: 3px double rgb(40, 80, 47);

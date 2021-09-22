@@ -1,5 +1,5 @@
 // import React, { useState } from 'react';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import OverlayThumbnail from './OverlayThumbnail';
 
@@ -7,6 +7,11 @@ function ImageGallery(props) {
   const { productStyleSelected, expanded, handleExpand } = props;
   const [mainPicUrl, setMainPicUrl] = useState(productStyleSelected.photos[0].url);
   const [currIndex, setCurrIndex] = useState(0);
+  // const [savedCursorXPercentPosition, setSavedCursorXCoordinate] = useState(0);
+  // const [savedCursorYPercentPosition, setSavedCursorYCoordinate] = useState(0);
+
+  const refCursorXPercentPosition = useRef();
+  const refCursorYPercentPosition = useRef();
 
   // On thumbnail click, set main image to thumbnail's image and current index to thumbnail's index
   const selectMainPic = (overlayThumbnail) => {
@@ -56,11 +61,76 @@ function ImageGallery(props) {
     const imageExpanded = document.getElementById('image-main-expanded');
     const imageContainerExpanded = document.getElementById('image-gallery-expanded');
 
-    const imageDefaulted = document.getElementById('image-main');
+    // // Can't do our initial positioning within this hook. Must make its own hook.
+    // // Otherwise, this block would get kicked off even if we're just expanding the image, not
+    // // when toggling from one image to another.
+    // console.log(mainPicUrl);
+    // if (imageExpanded !== null) {
+    //   console.log('backgroundPositionX', imageExpanded.style.backgroundPositionX);
+    //   console.log('backgroundPositionY', imageExpanded.style.backgroundPositionY);
+    //   // console.log('savedCursorXCoordinate', savedCursorXCoordinate);
+    //   // console.log('savedCursorYCoordinate', savedCursorYCoordinate);
+    //   console.log('refCursorXPercentPosition', refCursorXPercentPosition.current);
+    //   console.log('refCursorYPercentPosition', refCursorYPercentPosition.current);
+    // Calculate position based on mouse position
+    //   imageExpanded.style.backgroundPositionX = '0px';
+    //   imageExpanded.style.backgroundPositionY = '0px';
+
+    //   const currCursorXPercentPosition = refCursorXPercentPosition.current;
+    //   const currCursorYPercentPosition = refCursorYPercentPosition.current;
+
+    //   const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
+
+    //   // Dimensions of image's container
+    //   const imgContainerWidth = imgContainerCoordinatesAndSize.width;
+    //   const imgContainerHeight = imgContainerCoordinatesAndSize.height;
+    //   const imgContainerAspRatio = imgContainerWidth / imgContainerHeight;
+
+    //   const imgOriginal = new Image();
+    //   imgOriginal.src = mainPicUrl;
+    //   const imgOriginalWidth = imgOriginal.width;
+    //   const imgOriginalHeight = imgOriginal.height;
+    //   const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
+    //   const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
+
+    //   let imgWidth;
+    //   let imgHeight;
+    //   let backgroundXPosition;
+    //   let backgroundYPosition;
+
+    //   if (layout === 'tall') {
+    //     imgWidth = imgContainerWidth;
+    //     imgHeight = (imgContainerWidth * imgOriginalHeight)
+    //      / imgOriginalWidth - imgContainerHeight;
+
+    //     backgroundXPosition = currCursorXPercentPosition * imgWidth;
+    //     backgroundYPosition = currCursorYPercentPosition * imgHeight;
+
+    //     imageExpanded.style.backgroundPositionX = '0px';
+    //     imageExpanded.style.backgroundPositionY = `${-backgroundYPosition}px`;
+    //   } else if (layout === 'wide') {
+    //     imgWidth = (imgContainerHeight * imgOriginalWidth)
+    //      / imgOriginalHeight - imgContainerWidth;
+    //     imgHeight = imgContainerHeight;
+
+    //     backgroundXPosition = currCursorXPercentPosition * imgWidth;
+    //     backgroundYPosition = currCursorYPercentPosition * imgHeight;
+
+    //     imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
+    //     imageExpanded.style.backgroundPositionY = '0px';
+    //   }
+    // }
 
     // Image sizing and positioning must be contained within the event handler. Just inside the hook
     // is not good enough b/c we need to dynamically recalculate even when state doesn't change.
     const handleZoomedScroll = (e) => {
+      // console.log(imageExpanded);
+      // console.log(imageExpanded.style.backgroundPositionX);
+      // console.log(imageExpanded.style.backgroundPositionY);
+
+      // imageExpanded.style.backgroundPositionX = '0px';
+      // imageExpanded.style.backgroundPositionY = '0px';
+
       // Coordinates and size of image's container (The portion of the image we can see on screen).
       // Note: Will be strictly less than or equal to the size of the image.
       const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
@@ -87,20 +157,9 @@ function ImageGallery(props) {
       const imgOriginalHeight = imgOriginal.height;
       const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
       const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
-      // if (imgOriginalWidth === undefined || imgOriginalWidth === 0) {
-      //   console.log(imgOriginalWidth);
-      // }
-      // if (imgOriginalHeight === undefined || imgOriginalHeight === 0) {
-      //   console.log(imgOriginalHeight);
-      // }
       // console.log('imgOriginalWidth', imgOriginalWidth);
       // console.log('imgOriginalHeight', imgOriginalHeight);
       // console.log('layout', layout);
-
-      // console.log('natural width', imgOriginal.naturalWidth);
-      // console.log('natural height', imgOriginal.naturalHeight);
-      // console.log('image class width', imgOriginalWidth);
-      // console.log('image class height', imgOriginalHeight);
 
       // Mouse coordinates with respect to image
       // Note: Image container also works here, since both are positioned at top 0/left 0
@@ -126,6 +185,9 @@ function ImageGallery(props) {
       let imgHeight;
       let backgroundXPosition;
       let backgroundYPosition;
+
+      refCursorXPercentPosition.current = cursorXPercentPosition;
+      refCursorYPercentPosition.current = cursorYPercentPosition;
 
       /* If layout is 'tall', image will expand its width to fill the container. In this case,
           we don't want to scroll the container horizontally; only vertically.
@@ -158,14 +220,6 @@ function ImageGallery(props) {
       }
     };
 
-    // const handleDefaultedParallax = (e) => {
-    //   const windowWidth = window.innerWidth / 5;
-    //   const windowHeight = window.innerHeight / 5;
-    //   const mouseX = e.clientX / windowWidth;
-    //   const mouseY = e.clientY / windowHeight;
-    //   imageDefaulted.style.transform = `translate3d(-${mouseX}%, -${mouseY}%, 0)`;
-    // };
-
     if (expanded) {
       // console.log('Image:', mainPicUrl);
       // console.log('Expanded View:', imageExpanded);
@@ -177,12 +231,75 @@ function ImageGallery(props) {
         imageExpanded.removeEventListener('mousemove', handleZoomedScroll);
       };
     }
-    // imageDefaulted.addEventListener('mousemove', handleDefaultedParallax);
-    // return function cleanup() {
-    //   imageDefaulted.removeEventListener('mousemove', handleDefaultedParallax);
-    // };
+
     return null;
   }, [expanded, mainPicUrl]);
+
+  useEffect(() => {
+    // console.log('currIndex', currIndex);
+    console.log('mainPicUrl', mainPicUrl);
+
+    if (expanded) {
+      const imageExpanded = document.getElementById('image-main-expanded');
+      const imageContainerExpanded = document.getElementById('image-gallery-expanded');
+
+      if (imageExpanded !== null) {
+        console.log('backgroundPositionX', imageExpanded.style.backgroundPositionX);
+        console.log('backgroundPositionY', imageExpanded.style.backgroundPositionY);
+        // console.log('savedCursorXCoordinate', savedCursorXCoordinate);
+        // console.log('savedCursorYCoordinate', savedCursorYCoordinate);
+        console.log('refCursorXPercentPosition', refCursorXPercentPosition.current);
+        console.log('refCursorYPercentPosition', refCursorYPercentPosition.current);
+        imageExpanded.style.backgroundPositionX = '0px'; // Calculate position based on mouse position
+        imageExpanded.style.backgroundPositionY = '0px'; // Calculate position based on mouse position
+
+        const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
+
+        // Dimensions of image's container
+        const imgContainerWidth = imgContainerCoordinatesAndSize.width;
+        const imgContainerHeight = imgContainerCoordinatesAndSize.height;
+        const imgContainerAspRatio = imgContainerWidth / imgContainerHeight;
+
+        const imgOriginal = new Image();
+        imgOriginal.src = mainPicUrl;
+        const imgOriginalWidth = imgOriginal.width;
+        const imgOriginalHeight = imgOriginal.height;
+        const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
+        const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
+
+        let imgWidth;
+        let imgHeight;
+        let backgroundXPosition;
+        let backgroundYPosition;
+
+        const currCursorXPercentPosition = refCursorXPercentPosition.current;
+        const currCursorYPercentPosition = refCursorYPercentPosition.current;
+
+        if (layout === 'tall') {
+          imgWidth = imgContainerWidth;
+          imgHeight = (imgContainerWidth * imgOriginalHeight)
+            / imgOriginalWidth - imgContainerHeight;
+
+          backgroundXPosition = currCursorXPercentPosition * imgWidth;
+          backgroundYPosition = currCursorYPercentPosition * imgHeight;
+
+          imageExpanded.style.backgroundPositionX = '0px';
+          imageExpanded.style.backgroundPositionY = `${-backgroundYPosition}px`;
+        } else if (layout === 'wide') {
+          imgWidth = (imgContainerHeight * imgOriginalWidth)
+            / imgOriginalHeight - imgContainerWidth;
+          imgHeight = imgContainerHeight;
+
+          backgroundXPosition = currCursorXPercentPosition * imgWidth;
+          backgroundYPosition = currCursorYPercentPosition * imgHeight;
+
+          imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
+          imageExpanded.style.backgroundPositionY = '0px';
+        }
+      }
+    }
+    // Can't use just currIndex here. Need to wait until after image re-renders after index change.
+  }, [mainPicUrl]);
 
   return (
     <div id={imageGalleryId}>
