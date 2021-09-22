@@ -905,6 +905,14 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   cursor: pointer;
 }
 
+.card-image-src {
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .card-image-src:hover {
   cursor:pointer;
 
@@ -944,7 +952,13 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 .product-name-p {
   margin: 0rem 1rem 0.5rem 1rem;
-  font-size: 2.0rem;
+  font-size: 1.8rem;
+}
+
+.style-name-span {
+  margin: 0rem 1rem 0.5rem 0rem;
+  font-size: 1.3rem;
+  color: rgb(17 83 61);
 }
 
 .prod-price-p {

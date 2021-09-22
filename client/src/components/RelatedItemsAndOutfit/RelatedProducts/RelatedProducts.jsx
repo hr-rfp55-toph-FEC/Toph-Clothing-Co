@@ -33,7 +33,7 @@ const RelatedProducts = ({
         <></>
         {prodsInfo.map((prodInfo, index) => (
           <ListCard
-            key={prodInfo.id}
+            key={`${prodInfo.id}BG${Math.random() * 10000}`}
             prodInfo={prodInfo}
             prodStyles={prodsStyles[index].results[0]}
             prodMeta={prodsMeta[index]}
@@ -41,7 +41,6 @@ const RelatedProducts = ({
           >
             <button type="button" onClick={() => openModelHandler(prodInfo.name, prodsMeta[index].characteristics)} className="card-button">
               <i className="far fa-star star-for-button" />
-              {/* <img src="../../assets/earth-symbol.png" className="far fa-star star-for-button"/> */}
             </button>
           </ListCard>
         ))}

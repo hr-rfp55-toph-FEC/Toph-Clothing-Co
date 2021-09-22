@@ -20,21 +20,15 @@ const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
     });
     if (alreadyAdded) return;
     setStyleIds((prevIds) => [...prevIds, currProdStyleId]);
-    // currOutfits.forEach((outfit) => {
-    //   if (outfit[0].id === currProd[0].id) {
-    //     alreadyAdded = true;
-    //   }
-    // });
     const [product, styles, metaData] = currProd;
-    // console.log(product, styles, metaData, 'currProd here');
     const prod = [product, prodStyleSelected, metaData];
-    console.log(prod, 'new array');
     setCurrOutfits((oldList) => [...oldList, prod]);
   };
-  console.log(currOutfits, 'current outfits');
   const removeOutfit = (idToRemove) => {
-    const adjustedCurrOutFits = currOutfits.filter((outfit) => outfit[0].id !== idToRemove);
+    const adjustedCurrOutFits = currOutfits.filter((outfit) => outfit[1].style_id !== idToRemove);
+    const adjustedSelectedStyleIds = styleIds.filter((id) => id !== idToRemove);
     setCurrOutfits(adjustedCurrOutFits);
+    setStyleIds(adjustedSelectedStyleIds);
   };
   return (
     <div className="outfit-list-container">
@@ -45,14 +39,13 @@ const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
         />
         {currOutfits.map((outfit) => (
           <ListCard
-            key={outfit[0].id}
+            key={`${outfit[0].id}BG${Math.random * 100000}`}
             prodInfo={outfit[0]}
-            //change the productStyle sent to card
             prodStyles={outfit[1]}
             prodMeta={outfit[2]}
-            onRelatedCardClick={changeProductHandler}
+            changeProductHandler={changeProductHandler}
           >
-            <button onClick={() => removeOutfit(outfit[0].id)} type="button" className="remove-card-button">
+            <button onClick={() => removeOutfit(outfit[1].style_id)} type="button" className="remove-card-button">
               <i className="far fa-window-close" />
             </button>
           </ListCard>

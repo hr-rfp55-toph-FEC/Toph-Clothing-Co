@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../Stars';
 import calcAvgRating from '../helpers/calcAvgRating';
@@ -9,26 +9,35 @@ const ListCard = ({
   const origPrice = prodStyles.original_price;
   const salePrice = prodStyles.sale_price;
   const prodUrl = prodStyles.photos[0].url;
-  // const origPrice = prodStyles.results[0].original_price;
-  // const salePrice = prodStyles.results[0].sale_price;
-  // const prodUrl = prodStyles.results[0].photos[0].url;
-  // console.log(prodStyles, 'in list card for user');
-  // const imgDimensions = prodUrl ? {
-  //   height: prodUrl.offsetHeight,
-  //   width: prodUrl.offsetWidth,
-  // } : null;
-  // const rotateImage90 = { transform: 'rotate(90deg) scale(1.5)' };
+  const styleName = prodStyles.name;
+  const [rotateImage, setRotateImage] = useState(false);
 
+  const rotateStyle = rotateImage ? {
+    transform: 'rotate(90deg) scale(1.5)',
+    backgroundImage: `url('${prodUrl}')`,
+  } : { backgroundImage: `url('${prodUrl}')` };
+
+  // console.log(rotateStyle, newImage.width, newImage.height);
+  useEffect(() => {
+    // console.log('mounted');
+    const newImage = new Image();
+    newImage.src = prodUrl;
+    // console.log(prodUrl, newImage.naturalHeight, newImage.naturalWidth);
+    if (newImage.naturalHeight < newImage.naturalWidth) {
+      setRotateImage(true);
+    }
+  }, [prodUrl]);
   return (
     <div className="product-list-card">
       <div className="card-image-container">
         { children }
         {prodUrl ? (
-          <img
-            src={prodUrl}
+          <div
+            // src={prodUrl}
+            key={prodUrl}
             alt="model-in-clothing"
             className="card-image-src"
-            // style={rotateImage90}
+            style={rotateStyle}
             onClick={() => changeProductHandler(prodInfo.id)}
             role="presentation"
           />
@@ -40,7 +49,13 @@ const ListCard = ({
         <h6 className="category-heading">
           {prodInfo.category}
         </h6>
-        <p className="product-name-p">{prodInfo.name}</p>
+        <p className="product-name-p">
+          {prodInfo.name}
+          <br />
+          <span className="style-name-span">
+            {`(${styleName})`}
+          </span>
+        </p>
         <p className="prod-price-p">
           {salePrice
             ? (
