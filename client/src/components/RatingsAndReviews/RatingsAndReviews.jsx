@@ -52,6 +52,7 @@ const RatingsAndReviews = class extends React.Component {
             <ReviewsList
               productInfo={prodInfo}
               reviews={prodReviews.results}
+              reviewsMeta={prodReviewsMeta}
               starFilter={starFilter}
               getCurrProdData={getCurrProdData}
             />

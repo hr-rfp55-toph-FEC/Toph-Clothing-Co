@@ -1,7 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import AddCharacteristic from './AddCharacteristic';
 
-const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler }) => {
+const AddReviewForm = ({
+  productInfo, showAddReviewModal, closeReviewFormHandler, characteristics,
+}) => {
+  const chars = Object.keys(characteristics);
+
+  useEffect(() => {
+    chars.map((char) => {
+      let scale;
+      if (char === 'Size') {
+        scale = ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too wide'];
+      } else if (char === 'Width') {
+        scale = ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'];
+      } else if (char === 'Comfort') {
+        scale = ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'];
+      } else if (char === 'Quality') {
+        scale = ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'];
+      } else if (char === 'Length') {
+        scale = ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'];
+      } else if (char === 'Fit') {
+        scale = ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'];
+      }
+      return { label: char, scale };
+    });
+  }, [characteristics, chars]);
+
   const starIds = [1, 2, 3, 4, 5];
   let reviewFormClass = 'review-form-container';
 
@@ -90,6 +115,12 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
               </label>
             </label>
           </div>
+          <div id="add-characteristic-container">
+            <AddCharacteristic
+              characteristic={chars}
+            />
+            Comfort
+          </div>
         </form>
       </div>
     </div>
@@ -98,6 +129,7 @@ const AddReviewForm = ({ productInfo, showAddReviewModal, closeReviewFormHandler
 
 AddReviewForm.propTypes = {
   productInfo: PropTypes.instanceOf(Object).isRequired,
+  characteristics: PropTypes.instanceOf(Object).isRequired,
   showAddReviewModal: PropTypes.bool.isRequired,
   closeReviewFormHandler: PropTypes.instanceOf(Function).isRequired,
 };

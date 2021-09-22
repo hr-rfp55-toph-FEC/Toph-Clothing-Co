@@ -1471,6 +1471,7 @@ img.thumbnail:hover {
 
 .review-form-title {
   font-size: 2rem;
+  text-align: center;
 }
 
 .new-review-stars {
@@ -1484,6 +1485,10 @@ img.thumbnail:hover {
 }
 
 #add-review-form {
+  font-size: 2rem;
+}
+
+h2 {
   font-size: 2rem;
 }
 /* Stars

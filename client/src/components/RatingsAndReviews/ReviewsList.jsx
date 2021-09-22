@@ -116,7 +116,7 @@ const ReviewsList = class extends React.Component {
       display, showMoreReviewsButton, sortBy, showAddReviewModal,
     } = this.state;
     const {
-      starFilter, reviews, productInfo, getCurrProdData,
+      starFilter, reviews, productInfo, getCurrProdData, reviewsMeta,
     } = this.props;
 
     let moreReviewsButton;
@@ -164,6 +164,7 @@ const ReviewsList = class extends React.Component {
         <div>
           <AddReviewForm
             productInfo={productInfo}
+            characteristics={reviewsMeta.characteristics}
             showAddReviewModal={showAddReviewModal}
             closeReviewFormHandler={this.closeReviewFormHandler}
           />
@@ -178,6 +179,7 @@ ReviewsList.propTypes = {
   starFilter: PropTypes.instanceOf(Array).isRequired,
   reviews: PropTypes.instanceOf(Array).isRequired,
   productInfo: PropTypes.instanceOf(Object).isRequired,
+  reviewsMeta: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default ReviewsList;
