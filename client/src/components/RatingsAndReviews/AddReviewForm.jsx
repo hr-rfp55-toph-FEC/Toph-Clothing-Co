@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import AddCharacteristic from './AddCharacteristic';
 
 const AddReviewForm = ({
   productInfo, showAddReviewModal, closeReviewFormHandler, characteristics,
 }) => {
-  const chars = Object.keys(characteristics);
+  let chars = [];
 
   useEffect(() => {
-    chars.map((char) => {
+    //debugger;
+    Object.keys(characteristics).forEach((char) => {
       let scale;
       if (char === 'Size') {
         scale = ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too wide'];
@@ -23,7 +24,7 @@ const AddReviewForm = ({
       } else if (char === 'Fit') {
         scale = ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'];
       }
-      return { label: char, scale };
+      chars.push({ char, scale });
     });
   }, [characteristics, chars]);
 
