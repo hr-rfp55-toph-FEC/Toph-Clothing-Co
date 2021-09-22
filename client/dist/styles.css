@@ -201,8 +201,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   /* Work for 2.5x zoomed in background + ability to pan */
   background-size: cover;
   background-clip: border-box;
-
-  /* Work for manually sized zoomed in background */
 }
 
 /* #image-gallery:hover {

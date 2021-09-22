@@ -38,12 +38,6 @@ function ImageGallery(props) {
     }
   };
 
-  // const getMeta = function(url, callback) {
-  //   var img = new Image();
-  //   img.src = url;
-  //   img.onload = function () { callback(this.width, this.height); }
-  // };
-
   // Every time a new style is selected, reset main image and current index
   useEffect(() => {
     setMainPicUrl(productStyleSelected.photos[0].url);
@@ -57,6 +51,14 @@ function ImageGallery(props) {
 
   const imageGalleryId = expanded ? 'image-gallery-expanded' : 'image-gallery';
   // const imageMainId = expanded ? 'image-main-expanded' : 'image-main';
+
+  // The following uses the Image class to log the width/height of the original image on load.
+  // Note that we don't actually need to wait until load to grab the image height/width.
+  const getMeta = function (url, callback) {
+    var img = new Image();
+    img.src = url;
+    img.onload = function () { callback(this.width, this.height); }
+  };
 
   // console.log(mainPicUrl);
 
@@ -75,59 +77,54 @@ function ImageGallery(props) {
     const imageExpanded = document.getElementById('image-main-expanded');
     const imageContainerExpanded = document.getElementById('image-gallery-expanded');
 
-
-
-    // function getMeta(url, callback) {
-    //   var img = new Image();
-    //   img.src = url;
-    //   img.onload = function () { callback(this.width, this.height); }
-    // };
-    // getMeta(
-    //   mainPicUrl,
-    //   function (width, height) { console.log(width + 'px ' + height + 'px') }
-    // );
-
     const handleMove = (e) => {
+      // Coordinates and size of image's container (The portion of the image we can see on screen).
+      // Note: Will be strictly less than or equal to the size of the image.
+      const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
+
+      // Dimensions of image's container
+      const imgContainerWidth = imgContainerCoordinatesAndSize.width;
+      const imgContainerHeight = imgContainerCoordinatesAndSize.height;
+      const imgContainerAspRatio = imgContainerWidth / imgContainerHeight;
+
+      /* Dimensions of image itself
+      In order to determine which side of the image gets used to fill a container when applying
+        "object-fit: contain", the browser compares the aspect ratio of the image and its container.
+      The aspect ratio of the original image vs. the container it's filling up is the key here,
+        NOT whether the original image is wider than it is tall. The following would not work:
+          const layout = imgOriginalHeight > imgOriginalWidth ? 'tall' : 'wide'; */
       const imgOriginal = new Image();
       imgOriginal.src = mainPicUrl;
       const imgOriginalWidth = imgOriginal.width;
       const imgOriginalHeight = imgOriginal.height;
-      const layout = imgOriginalHeight > imgOriginalWidth ? 'tall' : 'wide';
-      console.log('imgOriginalWidth', imgOriginalWidth);
-      console.log('imgOriginalHeight', imgOriginalHeight);
-      console.log('layout', layout);
+      const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
+      const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
+      // console.log('imgOriginalWidth', imgOriginalWidth);
+      // console.log('imgOriginalHeight', imgOriginalHeight);
+      // console.log('layout', layout);
 
-      // imageExpanded.style.backgroundPositionX = `${-e.offsetX}px`;
-      // imageExpanded.style.backgroundPositionY = `${-e.offsetY}px`;
-
-      // Coordinates and size of image (blown up in the background) and its container (smaller view)
-      // let imgCoordinatesAndSize = imageExpanded.getBoundingClientRect();
-      let imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
-
-      // console.log('Image coordinates and size', imgCoordinatesAndSize);
-      // console.log('Container coordinates and size', imgContainerCoordinatesAndSize);
-
-      // Dimensions of image and its container
-      // let imgWidth = imgCoordinatesAndSize.width;
-      // let imgHeight = imgCoordinatesAndSize.height;
-      let imgContainerWidth = imgContainerCoordinatesAndSize.width;
-      let imgContainerHeight = imgContainerCoordinatesAndSize.height;
-
-      // Mouse coordinates with respect to image (or image container here, doesn't matter)
-      let cursorXCoordinate = e.offsetX;
-      let cursorYCoordinate = e.offsetY;
+      // Mouse coordinates with respect to image
+      // Note: Image container also works here, since both are positioned at top 0/left 0
+      const cursorXCoordinate = e.offsetX;
+      const cursorYCoordinate = e.offsetY;
 
       // Turn current mouse coordinates into a % of container width/height
-      let cursorXPercentPosition = cursorXCoordinate / imgContainerWidth;
-      let cursorYPercentPosition = cursorYCoordinate / imgContainerHeight;
+      const cursorXPercentPosition = cursorXCoordinate / imgContainerWidth;
+      const cursorYPercentPosition = cursorYCoordinate / imgContainerHeight;
 
       let imgWidth;
       let imgHeight;
 
+      /* If layout is 'tall', image will expand its width to fill the container. In this case,
+          we don't want to scroll the container horizontally; only vertically.
+      If layout is 'wide', it's the opposite. Image will expand its height and we will only
+          want to scroll it horizontally.
+        NOTE: This relies on the original image's aspect ratio being maintained. We guarantee
+          this by using "object-fit: contain" */
       if (layout === 'tall') {
         imgWidth = imgContainerWidth;
+        imgHeight = (imgContainerWidth * imgOriginalHeight) / imgOriginalWidth - imgContainerHeight;
         // imgHeight = imgWidth;
-        imgHeight = imgContainerWidth * imgOriginalHeight / imgOriginalWidth - imgContainerHeight;
         // console.log(imgWidth);
         // console.log(imgHeight);
         // imgHeight = (imgWidth / imgOriginalWidth) * imgOriginalHeight;
@@ -139,7 +136,7 @@ function ImageGallery(props) {
       } else if (layout === 'wide') {
         // imgHeight = imgContainerHeight;
         // imgWidth = (imgHeight / imgOriginalHeight) * imgOriginalWidth;
-        imgWidth = imgContainerHeight * imgOriginalWidth / imgOriginalHeight - imgContainerWidth;
+        imgWidth = (imgContainerHeight * imgOriginalWidth) / imgOriginalHeight - imgContainerWidth;
         imgHeight = imgContainerHeight;
         let backgroundXPosition = cursorXPercentPosition * imgWidth;
         let backgroundYPosition = cursorYPercentPosition * imgHeight;
@@ -147,8 +144,15 @@ function ImageGallery(props) {
         imageExpanded.style.backgroundPositionY = `0px`;
       }
 
+      // imageExpanded.style.backgroundPositionX = `${-e.offsetX}px`;
+      // imageExpanded.style.backgroundPositionY = `${-e.offsetY}px`;
 
-      // console.log('backgroundYPosition', backgroundYPosition);
+      // Coordinates and size of image (blown up in the background) and its container (smaller view)
+      // let imgCoordinatesAndSize = imageExpanded.getBoundingClientRect();
+      // let imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
+
+      // console.log('Image coordinates and size', imgCoordinatesAndSize);
+      // console.log('Container coordinates and size', imgContainerCoordinatesAndSize);
 
       // console.log('backgroundXPosition', backgroundXPosition);
       // console.log('backgroundYPosition', backgroundYPosition);
