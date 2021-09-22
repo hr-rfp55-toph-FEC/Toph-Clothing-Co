@@ -28,6 +28,7 @@ class App extends React.Component {
   }
 
   getCurrProdData(currProdId) {
+    // console.log('here');
     server.get(`/currentProduct/${currProdId}`)
       .then(({ data }) => this.setState({
         currProdId: data[0].id,
@@ -38,15 +39,12 @@ class App extends React.Component {
         prodReviews: data[3],
         isFetching: false,
       }))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err, 'too many API calls!'));
   }
 
   changeProductHandler(productId) {
     const { currProdId } = this.state;
     if (productId !== currProdId) {
-      // this.setState({
-      //   isFetching: true,
-      // });
       this.getCurrProdData(productId);
     }
   }
@@ -60,7 +58,7 @@ class App extends React.Component {
 
   render() {
     const {
-      prodInfo, prodStyles, prodReviewsMeta, prodReviews, isFetching, prodStyleSelected,
+      currProdId, prodInfo, prodStyles, prodReviewsMeta, prodReviews, isFetching, prodStyleSelected,
     } = this.state;
 
     return (
@@ -80,9 +78,11 @@ class App extends React.Component {
                 selectProductStyle={this.selectProductStyle}
               />
               <RelatedItemsAndOutfit
+                currProdId={currProdId}
                 prodInfo={prodInfo}
                 prodStyles={prodStyles}
                 prodReviewsMeta={prodReviewsMeta}
+                prodStyleSelected={prodStyleSelected}
                 changeProductHandler={this.changeProductHandler}
               />
               <RatingsAndReviews
