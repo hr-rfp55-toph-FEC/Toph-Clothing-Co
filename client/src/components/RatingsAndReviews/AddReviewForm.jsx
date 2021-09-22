@@ -15,11 +15,14 @@ const AddReviewForm = class extends React.Component {
       recommendProduct: false,
       characteristics: {},
       summary: '',
+      body: '',
     };
 
     this.processCharacteristics = this.processCharacteristics.bind(this);
     this.handleStarRatingClick = this.handleStarRatingClick.bind(this);
     this.handleCharRatingClick = this.handleCharRatingClick.bind(this);
+    this.handleReviewSummaryChange = this.handleReviewSummaryChange.bind(this);
+    this.handleReviewBodyChange = this.handleReviewBodyChange.bind(this);
   }
 
   componentDidMount() {
@@ -52,6 +55,14 @@ const AddReviewForm = class extends React.Component {
     // console.log(e.target.name);
   }
 
+  handleReviewSummaryChange(e) {
+    this.setState({ summary: e.target.value });
+  }
+
+  handleReviewBodyChange(e) {
+    this.setState({ body: e.target.value });
+  }
+
   processCharacteristics() {
     const { characteristics } = this.props;
     const chars = Object.entries(characteristics);
@@ -80,7 +91,7 @@ const AddReviewForm = class extends React.Component {
     } = this.props;
 
     const {
-      innerWidth, showStarLabel, rating, chars,
+      innerWidth, showStarLabel, rating, chars, body,
     } = this.state;
 
     const starIds = [1, 2, 3, 4, 5];
@@ -106,6 +117,23 @@ const AddReviewForm = class extends React.Component {
           {' - '}
           {labels[rating]}
         </span>
+      );
+    }
+
+    let reviewBodyCounter;
+    if (body.length < 50) {
+      reviewBodyCounter = (
+        <div className="review-body-counter">
+          Minimum required characters left:
+          {' '}
+          {50 - body.length}
+        </div>
+      );
+    } else {
+      reviewBodyCounter = (
+        <div className="review-body-counter">
+          Minimum reached.
+        </div>
       );
     }
 
@@ -172,8 +200,31 @@ const AddReviewForm = class extends React.Component {
               <label htmlFor="user-review-summary">
                 Review Summary
                 <br />
-                <input type="text" id="user-review-summary" name="new-review-summary" maxLength="60" size="60" />
+                <input
+                  type="text"
+                  id="user-review-summary"
+                  maxLength="60"
+                  size="60"
+                  onChange={this.handleReviewSummaryChange}
+                />
               </label>
+            </div>
+            <div className="user-review-body">
+              <label htmlFor="user-review-body">
+                Please write your review here:
+                <br />
+                <textarea
+                  id="user-review-body"
+                  name="new-review-body"
+                  rows="20"
+                  cols="50"
+                  placeholder="Why did you like the product or not?"
+                  minLength="50"
+                  maxLength="1000"
+                  onChange={this.handleReviewBodyChange}
+                />
+              </label>
+              {reviewBodyCounter}
             </div>
           </form>
         </div>
