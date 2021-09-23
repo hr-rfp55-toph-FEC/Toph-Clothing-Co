@@ -8,7 +8,6 @@ const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
   const [currOutfits, setCurrOutfits] = useState([]);
   const [styleIds, setStyleIds] = useState([]);
 
-
   useEffect(() => {
     if (!currOutfits.length) {
       const cachedOutfits = [];

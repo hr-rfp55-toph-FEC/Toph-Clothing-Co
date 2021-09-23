@@ -32,6 +32,10 @@ const ListCard = ({
 
   useEffect(() => {
     // console.log(currStyle.current, prodInfo.id);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
     if (currStyle.current !== prodInfo.id) {
       getImage(prodUrl).then((res) => {
         if (!res) return;
