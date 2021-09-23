@@ -4,14 +4,7 @@ import PropTypes from 'prop-types';
 import OverlayThumbnail from './OverlayThumbnail';
 
 function ImageGallery(props) {
-  const {
-    productStyleSelected,
-    expanded,
-    handleExpand,
-    zoomed,
-    handleZoom,
-  } = props;
-
+  const { productStyleSelected, expanded, handleExpand } = props;
   const [mainPicUrl, setMainPicUrl] = useState(productStyleSelected.photos[0].url);
   const [currIndex, setCurrIndex] = useState(0);
   // const [savedCursorXPercentPosition, setSavedCursorXCoordinate] = useState(0);
@@ -67,7 +60,7 @@ function ImageGallery(props) {
 
   // Hook to scroll background image based on cursor position in zoomed view.
   useEffect(() => {
-    const imageZoomed = document.getElementById('image-main-zoomed');
+    const imageExpanded = document.getElementById('image-main-expanded');
     const imageContainerExpanded = document.getElementById('image-gallery-expanded');
 
     // Image sizing and positioning must be contained within the event handler. Just inside the hook
@@ -149,134 +142,127 @@ function ImageGallery(props) {
         NOTE: Technically the background doesn't move by 100% of width/height; it moves by 100%
         minus the height/width of container, hence the subtraction of container height/width */
       if (layout === 'tall') {
-        imgWidth = imgContainerWidth * 1.5 - imgContainerWidth;
-        imgHeight = (imgContainerWidth * 1.5 * imgOriginalHeight) / imgOriginalWidth - imgContainerHeight;
+        imgWidth = imgContainerWidth;
+        imgHeight = (imgContainerWidth * imgOriginalHeight) / imgOriginalWidth - imgContainerHeight;
 
         backgroundXPosition = cursorXPercentPosition * imgWidth;
         backgroundYPosition = cursorYPercentPosition * imgHeight;
 
-        imageZoomed.style.backgroundPositionX = `${-backgroundXPosition}px`;
-        imageZoomed.style.backgroundPositionY = `${-backgroundYPosition}px`;
+        imageExpanded.style.backgroundPositionX = '0px';
+        imageExpanded.style.backgroundPositionY = `${-backgroundYPosition}px`;
       } else if (layout === 'wide') {
-        imgWidth = (imgContainerHeight * 1.5 * imgOriginalWidth) / imgOriginalHeight - imgContainerWidth;
-        imgHeight = imgContainerHeight * 1.5 - imgContainerHeight;
+        imgWidth = (imgContainerHeight * imgOriginalWidth) / imgOriginalHeight - imgContainerWidth;
+        imgHeight = imgContainerHeight;
 
         backgroundXPosition = cursorXPercentPosition * imgWidth;
         backgroundYPosition = cursorYPercentPosition * imgHeight;
 
-        imageZoomed.style.backgroundPositionX = `${-backgroundXPosition}px`;
-        imageZoomed.style.backgroundPositionY = `${-backgroundYPosition}px`;
+        imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
+        imageExpanded.style.backgroundPositionY = '0px';
       }
     };
 
-    if (zoomed) {
+    if (expanded) {
       // console.log('Image:', mainPicUrl);
       // console.log('Expanded View:', imageExpanded);
-      imageZoomed.addEventListener('mousemove', handleZoomedScroll);
+      imageExpanded.addEventListener('mousemove', handleZoomedScroll);
       /* Need to remove event listener right before expanded image unmounts, or else event listener
         will remain on the DOM even after it's gone. The event listener would get tied to the
         default image and end up moving that around, which we don't want. */
       return function cleanup() {
-        imageZoomed.removeEventListener('mousemove', handleZoomedScroll);
+        imageExpanded.removeEventListener('mousemove', handleZoomedScroll);
       };
     }
 
     return null;
-  }, [zoomed, mainPicUrl]);
+  }, [expanded, mainPicUrl]);
 
-  // // Hook to position new images correctly when toggling between images in zoomed view.
-  // useEffect(() => {
-  //   // console.log('currIndex', currIndex);
-  //   // console.log('mainPicUrl', mainPicUrl);
+  // Hook to position new images correctly when toggling between images in zoomed view.
+  useEffect(() => {
+    // console.log('currIndex', currIndex);
+    // console.log('mainPicUrl', mainPicUrl);
 
-  //   if (expanded) {
-  //     const imageExpanded = document.getElementById('image-main-expanded');
-  //     const imageContainerExpanded = document.getElementById('image-gallery-expanded');
-
-  //     if (imageExpanded !== null) {
-  //       // console.log('backgroundPositionX', imageExpanded.style.backgroundPositionX);
-  //       // console.log('backgroundPositionY', imageExpanded.style.backgroundPositionY);
-  //       // console.log('savedCursorXCoordinate', savedCursorXCoordinate);
-  //       // console.log('savedCursorYCoordinate', savedCursorYCoordinate);
-  //       // console.log('refCursorXPercentPosition', refCursorXPercentPosition.current);
-  //       // console.log('refCursorYPercentPosition', refCursorYPercentPosition.current);
-
-  //       const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
-
-  //       // Dimensions of image's container
-  //       const imgContainerWidth = imgContainerCoordinatesAndSize.width;
-  //       const imgContainerHeight = imgContainerCoordinatesAndSize.height;
-  //       const imgContainerAspRatio = imgContainerWidth / imgContainerHeight;
-
-  //       const imgOriginal = new Image();
-  //       imgOriginal.src = mainPicUrl;
-  //       const imgOriginalWidth = imgOriginal.width;
-  //       const imgOriginalHeight = imgOriginal.height;
-  //       const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
-  //       const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
-
-  //       let imgWidth;
-  //       let imgHeight;
-  //       let backgroundXPosition;
-  //       let backgroundYPosition;
-
-  //       const currCursorXPercentPosition = refCursorXPercentPosition.current;
-  //       const currCursorYPercentPosition = refCursorYPercentPosition.current;
-
-  //       if (layout === 'tall') {
-  //         imgWidth = imgContainerWidth;
-  //         imgHeight = (imgContainerWidth * imgOriginalHeight)
-  //           / imgOriginalWidth - imgContainerHeight;
-
-  //         backgroundXPosition = currCursorXPercentPosition * imgWidth;
-  //         backgroundYPosition = currCursorYPercentPosition * imgHeight;
-
-  //         imageExpanded.style.backgroundPositionX = '0px';
-  //         imageExpanded.style.backgroundPositionY = `${-backgroundYPosition}px`;
-  //       } else if (layout === 'wide') {
-  //         imgWidth = (imgContainerHeight * imgOriginalWidth)
-  //           / imgOriginalHeight - imgContainerWidth;
-  //         imgHeight = imgContainerHeight;
-
-  //         backgroundXPosition = currCursorXPercentPosition * imgWidth;
-  //         backgroundYPosition = currCursorYPercentPosition * imgHeight;
-
-  //         imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
-  //         imageExpanded.style.backgroundPositionY = '0px';
-  //       }
-  //     }
-  //   }
-  //   // Can't use just currIndex here. Need to wait until after image re-renders after index change.
-  // }, [mainPicUrl]);
-
-  const renderImage = () => {
-    const defaultImage = <div id="image-main" style={{ backgroundImage: `url(${mainPicUrl})`, backgroundPosition: 'center' }} />;
-    const expandedImage = <div id="image-main-expanded" style={{ backgroundImage: `url(${mainPicUrl})` }} onClick={handleZoom} role="presentation" />;
-    const zoomedImage = <div id="image-main-zoomed" style={{ backgroundImage: `url(${mainPicUrl})` }} onClick={handleZoom} role="presentation" />;
-    if (zoomed) {
-      return zoomedImage;
-    }
     if (expanded) {
-      return expandedImage;
+      const imageExpanded = document.getElementById('image-main-expanded');
+      const imageContainerExpanded = document.getElementById('image-gallery-expanded');
+
+      if (imageExpanded !== null) {
+        // console.log('backgroundPositionX', imageExpanded.style.backgroundPositionX);
+        // console.log('backgroundPositionY', imageExpanded.style.backgroundPositionY);
+        // console.log('savedCursorXCoordinate', savedCursorXCoordinate);
+        // console.log('savedCursorYCoordinate', savedCursorYCoordinate);
+        // console.log('refCursorXPercentPosition', refCursorXPercentPosition.current);
+        // console.log('refCursorYPercentPosition', refCursorYPercentPosition.current);
+
+        const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
+
+        // Dimensions of image's container
+        const imgContainerWidth = imgContainerCoordinatesAndSize.width;
+        const imgContainerHeight = imgContainerCoordinatesAndSize.height;
+        const imgContainerAspRatio = imgContainerWidth / imgContainerHeight;
+
+        const imgOriginal = new Image();
+        imgOriginal.src = mainPicUrl;
+        const imgOriginalWidth = imgOriginal.width;
+        const imgOriginalHeight = imgOriginal.height;
+        const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
+        const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
+
+        let imgWidth;
+        let imgHeight;
+        let backgroundXPosition;
+        let backgroundYPosition;
+
+        const currCursorXPercentPosition = refCursorXPercentPosition.current;
+        const currCursorYPercentPosition = refCursorYPercentPosition.current;
+
+        if (layout === 'tall') {
+          imgWidth = imgContainerWidth;
+          imgHeight = (imgContainerWidth * imgOriginalHeight)
+            / imgOriginalWidth - imgContainerHeight;
+
+          backgroundXPosition = currCursorXPercentPosition * imgWidth;
+          backgroundYPosition = currCursorYPercentPosition * imgHeight;
+
+          imageExpanded.style.backgroundPositionX = '0px';
+          imageExpanded.style.backgroundPositionY = `${-backgroundYPosition}px`;
+        } else if (layout === 'wide') {
+          imgWidth = (imgContainerHeight * imgOriginalWidth)
+            / imgOriginalHeight - imgContainerWidth;
+          imgHeight = imgContainerHeight;
+
+          backgroundXPosition = currCursorXPercentPosition * imgWidth;
+          backgroundYPosition = currCursorYPercentPosition * imgHeight;
+
+          imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
+          imageExpanded.style.backgroundPositionY = '0px';
+        }
+      }
     }
-    return defaultImage;
-  };
+    // Can't use just currIndex here. Need to wait until after image re-renders after index change.
+  }, [mainPicUrl]);
 
   return (
     <div id={imageGalleryId}>
-      {renderImage()}
-      {/* {expanded
+      {expanded
         ? (
-          expandedImage
+          <div
+            id="image-main-expanded"
+            style={{
+              backgroundImage: `url(${mainPicUrl})`,
+            }}
+          />
         )
-        : (defaultImage
-        )} */}
-      {(!zoomed)
-        && (
-          <div id="expand-main-image">
-            <i className="fas fa-expand" onClick={handleExpand} role="presentation" />
-          </div>
+        : (
+          <div
+            id="image-main"
+            style={{
+              backgroundImage: `url(${mainPicUrl})`,
+              backgroundPosition: 'center',
+            }}
+          />
         )}
+      <div id="expand-main-image"><i className="fas fa-expand" onClick={handleExpand} role="presentation" /></div>
       {(currIndex < productStyleSelected.photos.length - 1)
         && <div id="next-overlay-thumbnail-pic"><i className="fas fa-chevron-right" onClick={showNextPic} role="presentation" /></div>}
       {(currIndex > 0)
@@ -297,9 +283,7 @@ function ImageGallery(props) {
 ImageGallery.propTypes = {
   productStyleSelected: PropTypes.instanceOf(Object).isRequired,
   expanded: PropTypes.bool.isRequired,
-  zoomed: PropTypes.bool.isRequired,
   handleExpand: PropTypes.func.isRequired,
-  handleZoom: PropTypes.func.isRequired,
 };
 
 export default ImageGallery;
