@@ -4,7 +4,7 @@ import server from '../helpers/Axios';
 import RelatedProducts from './RelatedProducts/RelatedProducts';
 import UserOutfit from './UserOutfits/UserOutfit';
 
-class RelatedItemsAndOutfit extends React.Component {
+class RelatedItemsAndOutfit extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +28,7 @@ class RelatedItemsAndOutfit extends React.Component {
     why is the method reaching here on initial page load?'); */
     if ((prevProps.currProdId !== currProdId)) {
       this.setCurrProdToState(currProdId);
-      // console.log('it ran once per click!');
+      console.log('it ran once per click!');
     }
   }
 

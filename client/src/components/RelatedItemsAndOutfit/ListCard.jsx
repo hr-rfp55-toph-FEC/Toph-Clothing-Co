@@ -16,6 +16,7 @@ const ListCard = ({
   const rotateStyle = rotateImage ? {
     transform: 'rotate(90deg) scale(1.5)',
     backgroundImage: `url('${prodUrl}')`,
+    height: '50%',
   } : { backgroundImage: `url('${prodUrl}')` };
 
   const getImage = (src) => new Promise((resolve, reject) => {
