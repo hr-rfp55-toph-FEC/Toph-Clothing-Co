@@ -198,11 +198,12 @@ const AddReviewForm = class extends React.Component {
           </div>
           <form id="add-review-form" onSubmit={this.handleSubmit}>
             <label htmlFor="overall-rating">
-              Overall rating
-              <span className="required-review-mark">
-                <i className="fas fa-asterisk" />
-              </span>
-              <br />
+              <div className="asterisk-wrapper">
+                Overall rating
+                <span className="required-review-mark">
+                  <i className="fas fa-asterisk" />
+                </span>
+              </div>
               <span className="muted-reminders">Click to rate!</span>
               <div id="overall-rating">
                 <div className="stars-outer new-review-stars">
@@ -230,10 +231,12 @@ const AddReviewForm = class extends React.Component {
             </label>
             <div id="recommend-product">
               <label htmlFor="recommend-product">
-                Do you recommend this product?
-                <span className="required-review-mark">
-                  <i className="fas fa-asterisk" />
-                </span>
+                <div className="asterisk-wrapper">
+                  Do you recommend this product?
+                  <span className="required-review-mark">
+                    <i className="fas fa-asterisk" />
+                  </span>
+                </div>
                 <div className="radio-button-container">
                   <label htmlFor="recommend">
                     <input
@@ -286,11 +289,12 @@ const AddReviewForm = class extends React.Component {
               </div>
               <div className="user-review-body">
                 <label htmlFor="user-review-body">
-                  Your Review
-                  <span className="required-review-mark">
-                    <i className="fas fa-asterisk" />
-                  </span>
-                  <br />
+                  <div className="asterisk-wrapper">
+                    Your Review
+                    <span className="required-review-mark">
+                      <i className="fas fa-asterisk" />
+                    </span>
+                  </div>
                   <textarea
                     id="user-review-body"
                     name="body"
@@ -322,11 +326,12 @@ const AddReviewForm = class extends React.Component {
             </div> */}
               <div className="review-user-nickname">
                 <label htmlFor="review-user-nickname">
-                  What is your nickname?
-                  <span className="required-review-mark">
-                    <i className="fas fa-asterisk" />
-                  </span>
-                  <br />
+                  <div className="asterisk-wrapper">
+                    What is your nickname?
+                    <span className="required-review-mark">
+                      <i className="fas fa-asterisk" />
+                    </span>
+                  </div>
                   <input
                     type="text"
                     id="review-user-nickname"
@@ -344,11 +349,12 @@ const AddReviewForm = class extends React.Component {
               </div>
               <div className="review-user-email">
                 <label htmlFor="review-user-email">
-                  What is your email?
-                  <span className="required-review-mark">
-                    <i className="fas fa-asterisk" />
-                  </span>
-                  <br />
+                  <div className="asterisk-wrapper">
+                    What is your email?
+                    <span className="required-review-mark">
+                      <i className="fas fa-asterisk" />
+                    </span>
+                  </div>
                   <input
                     type="email"
                     id="review-user-email"

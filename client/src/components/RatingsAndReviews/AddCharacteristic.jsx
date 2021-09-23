@@ -17,7 +17,7 @@ const AddCharacteristic = ({ char, handleCharRatingClick }) => {
 
   return (
     <div className="new-char-content">
-      <div className="new-char-heading">
+      <div className="new-char-heading asterisk-wrapper">
         {char[0]}
         <span className="required-review-mark">
           <i className="fas fa-asterisk" />
@@ -44,6 +44,7 @@ const AddCharacteristic = ({ char, handleCharRatingClick }) => {
               }}
             />
             {/* <i className={radioClass} /> */}
+            i am the label
           </label>
         ))}
       </div>
