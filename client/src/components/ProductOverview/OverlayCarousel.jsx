@@ -1,100 +1,31 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import OverlayThumbnail from './OverlayThumbnail';
 
 function OverlayCarousel(props) {
   const {
-    productStyleSelectedPhotos,
+    productStyleSelected,
     mainPicUrl,
     selectMainPic,
-    showNextPic,
-    showPrevPic,
     currIndex,
+    currCarouselView,
     expanded,
+    showUpArrow,
+    showDownArrow,
+    handleScrollUp,
+    handleScrollDown,
+    showNextPicAndScroll,
+    showPrevPicAndScroll,
   } = props;
 
-  // Carousel can have a max of 7 thumbnails at any given time. Initialize with first 7 thumbnails.
-  const [startIndex, setStartIndex] = useState(0);
-  const [lastIndex, setLastIndex] = useState(7);
-  const [showUpArrow, setShowUpArrow] = useState(true);
-  const [showDownArrow, setShowDownArrow] = useState(true);
-  const [currCarouselView, setCurrCarouselView] = useState(productStyleSelectedPhotos.slice(0, 7));
-
-  const updateThumbnailCarousel = () => {
-    const currentDisplay = productStyleSelectedPhotos.slice(startIndex, lastIndex);
-
-    if (productStyleSelectedPhotos.length <= 7) {
-      setShowDownArrow(false);
-      setShowUpArrow(false);
-      setCurrCarouselView(currentDisplay);
-    } else {
-      if (lastIndex !== productStyleSelectedPhotos.length) {
-        setShowDownArrow(true);
-      } else {
-        setShowDownArrow(false);
-      }
-      setCurrCarouselView(currentDisplay);
-
-      if (startIndex !== 0) {
-        setShowUpArrow(true);
-      } else {
-        setShowUpArrow(false);
-      }
-    }
-  };
-
-  const handleScrollUp = () => {
-    if (startIndex !== 0) {
-      setStartIndex((prevState) => prevState - 1);
-      setLastIndex((prevState) => prevState - 1);
-      updateThumbnailCarousel();
-    }
-  };
-
-  const handleScrollDown = () => {
-    // if (lastIndex < productStyleSelectedPhotos.length - 1) {
-    if (lastIndex < productStyleSelectedPhotos.length) {
-      setStartIndex((prevState) => prevState + 1);
-      setLastIndex((prevState) => prevState + 1);
-      updateThumbnailCarousel();
-    }
-  };
-
-  const scrollWithPic = (index) => {
-    if (index === startIndex) {
-      handleScrollUp();
-    } else if (index === lastIndex - 1) {
-      handleScrollDown();
-    }
-  };
-
-  const showNextPicAndScroll = () => {
-    showNextPic();
-    scrollWithPic(currIndex);
-  };
-
-  const showPrevPicAndScroll = () => {
-    showPrevPic();
-    scrollWithPic(currIndex);
-  };
-
-  useEffect(() => {
-    setStartIndex(0);
-    setLastIndex(7);
-    updateThumbnailCarousel();
-  }, [productStyleSelectedPhotos]);
-
-  useEffect(() => {
-    updateThumbnailCarousel();
-  }, [startIndex]);
-
-  var upDownArrowClass = expanded ? 'up-down-arrow-expanded' : 'up-down-arrow-default';
+  const upDownArrowClass = expanded ? 'up-down-arrow-expanded' : 'up-down-arrow-default';
 
   return (
     <>
       {/* !expanded &&  */}
       {!expanded
-        && (currIndex < productStyleSelectedPhotos.length - 1)
+        && (currIndex < productStyleSelected.photos.length - 1)
         && (
           <div id="next-overlay-thumbnail-pic">
             <i className="fas fa-chevron-right" onClick={showNextPicAndScroll} role="presentation" />
@@ -126,7 +57,7 @@ function OverlayCarousel(props) {
               overlayThumbnail={photo}
               selectMainPic={selectMainPic}
               mainPicUrl={mainPicUrl}
-              startIndex={startIndex}
+              // startIndex={startIndex}
               expanded={expanded}
             />
           ))}
@@ -145,13 +76,18 @@ function OverlayCarousel(props) {
 }
 
 OverlayCarousel.propTypes = {
-  productStyleSelectedPhotos: PropTypes.instanceOf(Array).isRequired,
+  productStyleSelected: PropTypes.instanceOf(Object).isRequired,
   mainPicUrl: PropTypes.string.isRequired,
   selectMainPic: PropTypes.func.isRequired,
-  showNextPic: PropTypes.func.isRequired,
-  showPrevPic: PropTypes.func.isRequired,
   currIndex: PropTypes.number.isRequired,
+  currCarouselView: PropTypes.instanceOf(Array).isRequired,
   expanded: PropTypes.bool.isRequired,
+  showUpArrow: PropTypes.bool.isRequired,
+  showDownArrow: PropTypes.bool.isRequired,
+  handleScrollUp: PropTypes.func.isRequired,
+  handleScrollDown: PropTypes.func.isRequired,
+  showNextPicAndScroll: PropTypes.func.isRequired,
+  showPrevPicAndScroll: PropTypes.func.isRequired,
 };
 
 export default OverlayCarousel;

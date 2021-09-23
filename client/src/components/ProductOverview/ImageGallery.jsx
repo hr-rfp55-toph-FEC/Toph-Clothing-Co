@@ -6,10 +6,23 @@ import OverlayCarousel from './OverlayCarousel';
 
 function ImageGallery(props) {
   const { productStyleSelected, expanded, handleExpand } = props;
+
+  // For tracking the main image
   const [mainPicUrl, setMainPicUrl] = useState(productStyleSelected.photos[0].url);
   const [currIndex, setCurrIndex] = useState(0);
+
+  // Thumbnail carousel can have a max of 7 thumbnails. Initialize with (up to) first 7 thumbnails.
+  const [startIndex, setStartIndex] = useState(0);
+  const [lastIndex, setLastIndex] = useState(7);
+  const [currCarouselView, setCurrCarouselView] = useState(productStyleSelected.photos.slice(0, 7));
+
+  // On render we'll immediately calculate whether or not the carousel up/down arrows should show
+  const [showUpArrow, setShowUpArrow] = useState(true);
+  const [showDownArrow, setShowDownArrow] = useState(true);
+
   const [imageExpandedCursorClass, setImageExpandedCursorClass] = useState('right-arrow-toggle-next-enabled');
 
+  // Save a reference to last cursor position so we can transition smoothly between images.
   const refCursorXPercentPosition = useRef();
   const refCursorYPercentPosition = useRef();
 
@@ -24,11 +37,10 @@ function ImageGallery(props) {
     }
   };
 
+  // Determine mouse cursor state (right arrow vs left arrow, enabled vs disabled)
   const calcAndSetImageExpandedCursorClass = () => {
-    // Set mouse cursor state (right arrow vs left arrow)
     const imageExpandedCursorClassRef = refCursorXPercentPosition.current < 0.5 ? 'left-arrow-toggle-prev' : 'right-arrow-toggle-next';
     // console.log(refCursorXPercentPosition.current);
-    // console.log(imageExpandedCursorClassRef);
 
     let imageExpandedCursorClassStyled;
 
@@ -46,29 +58,84 @@ function ImageGallery(props) {
         imageExpandedCursorClassStyled = 'left-arrow-toggle-prev-disabled';
       }
     }
-    // console.log(imageExpandedCursorClassStyled);
     setImageExpandedCursorClass(imageExpandedCursorClassStyled);
+  };
+
+  // Updates thumbnail carousel with the correct thumbnails and up/down arrows to display.
+  const updateThumbnailCarousel = () => {
+    const currentDisplay = productStyleSelected.photos.slice(startIndex, lastIndex);
+
+    if (productStyleSelected.photos.length <= 7) {
+      setShowDownArrow(false);
+      setShowUpArrow(false);
+    } else {
+      if (lastIndex !== productStyleSelected.photos.length) {
+        setShowDownArrow(true);
+      } else {
+        setShowDownArrow(false);
+      }
+
+      if (startIndex !== 0) {
+        setShowUpArrow(true);
+      } else {
+        setShowUpArrow(false);
+      }
+    }
+    setCurrCarouselView(currentDisplay);
+  };
+
+  // Helper functions to automatically scroll thumbnails up/down depending on the index
+  const handleScrollUp = () => {
+    if (startIndex !== 0) {
+      setStartIndex((prevState) => prevState - 1);
+      setLastIndex((prevState) => prevState - 1);
+      updateThumbnailCarousel();
+    }
+  };
+
+  const handleScrollDown = () => {
+    if (lastIndex < productStyleSelected.photos.length) {
+      setStartIndex((prevState) => prevState + 1);
+      setLastIndex((prevState) => prevState + 1);
+      updateThumbnailCarousel();
+    }
   };
 
   // To show next picture, up the current index and our hook will handle the render
   const showNextPic = () => {
-    // console.log('index before showNextPic', currIndex, length);
     if (currIndex < productStyleSelected.photos.length - 1) {
       setCurrIndex((prevState) => prevState + 1);
-      // console.log('index after showNextPic', currIndex);
     }
   };
 
   // To show previous picture, lower the current index and our hook will handle the render
   const showPrevPic = () => {
-    // console.log('index before showPrevPic', currIndex, length);
     if (currIndex > 0) {
       setCurrIndex((prevState) => prevState - 1);
-      // console.log('index after showPrevPic', currIndex);
     }
   };
 
-  // Which picture to show (next or previous) depends on cursor position
+  // Update thumbnail carousel view if needed
+  const scrollWithPic = (index) => {
+    if (index === startIndex) {
+      handleScrollUp();
+    } else if (index === lastIndex - 1) {
+      handleScrollDown();
+    }
+  };
+
+  // When showing next/previous pictures, also update the thumbnail carousel if needed
+  const showNextPicAndScroll = () => {
+    showNextPic();
+    scrollWithPic(currIndex);
+  };
+
+  const showPrevPicAndScroll = () => {
+    showPrevPic();
+    scrollWithPic(currIndex);
+  };
+
+  // Which picture to toggle to (next or previous) depends on cursor position
   const togglePic = () => {
     const currCursorXPercentPosition = refCursorXPercentPosition.current;
     // console.log(currCursorXPercentPosition);
@@ -76,16 +143,26 @@ function ImageGallery(props) {
     // If mouse hasn't moved after expanding view, the cursor's position will be undefined.
     // Treat this case as "right/next" since the cursor will be > 50% to the right after expanding.
     if (currCursorXPercentPosition < 0.5) {
-      showPrevPic();
+      // showPrevPic();
+      showPrevPicAndScroll();
     } else {
-      showNextPic();
+      // showNextPic();
+      showNextPicAndScroll();
     }
   };
 
-  // Every time a new style is selected, reset main image and current index
+  // Anytime the start/last index changes, update carousel. (Technically already taken care of)
+  useEffect(() => {
+    updateThumbnailCarousel();
+  }, [startIndex, lastIndex]);
+
+  // Every time a new style is selected, reset main image, current index and thumbnail carousel
   useEffect(() => {
     setMainPicUrl(productStyleSelected.photos[0].url);
     setCurrIndex(0);
+    setStartIndex(0);
+    setLastIndex(7);
+    updateThumbnailCarousel();
   }, [productStyleSelected]);
 
   // Every time the index changes, update main image to the image at that index
@@ -300,33 +377,19 @@ function ImageGallery(props) {
         )}
       <div id="expand-main-image"><i className="fas fa-expand" onClick={handleExpand} role="presentation" /></div>
       <OverlayCarousel
-        productStyleSelectedPhotos={productStyleSelected.photos}
-        selectMainPic={selectMainPic}
-        showNextPic={showNextPic}
-        showPrevPic={showPrevPic}
+        productStyleSelected={productStyleSelected}
         mainPicUrl={mainPicUrl}
+        selectMainPic={selectMainPic}
         currIndex={currIndex}
+        currCarouselView={currCarouselView}
         expanded={expanded}
+        showUpArrow={showUpArrow}
+        showDownArrow={showDownArrow}
+        handleScrollUp={handleScrollUp}
+        handleScrollDown={handleScrollDown}
+        showNextPicAndScroll={showNextPicAndScroll}
+        showPrevPicAndScroll={showPrevPicAndScroll}
       />
-      {/* {!expanded
-        && (currIndex < productStyleSelected.photos.length - 1)
-        && <div id="next-overlay-thumbnail-pic">
-        <i className="fas fa-chevron-right" onClick={showNextPic} role="presentation" />
-        </div>}
-      {!expanded
-        && (currIndex > 0)
-        && <div id="prev-overlay-thumbnail-pic">
-        <i className="fas fa-chevron-left" onClick={showPrevPic} role="presentation" />
-        </div>}
-      <div id="overlay-thumbnail-gallery" className="stylish-right-component">
-        {productStyleSelected.photos.map((photo) => (
-          <OverlayThumbnail
-            overlayThumbnail={photo}
-            selectMainPic={selectMainPic}
-            mainPicUrl={mainPicUrl}
-          />
-        ))}
-      </div> */}
     </div>
   );
 }

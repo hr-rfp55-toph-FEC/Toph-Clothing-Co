@@ -355,7 +355,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 #prev-overlay-thumbnail-pic {
   position: absolute;
-  top: 51%;
+  top: 50%;
   left: 10%;
   font-size: 3rem;
   z-index: 1;
