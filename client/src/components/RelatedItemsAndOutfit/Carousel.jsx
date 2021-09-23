@@ -51,7 +51,7 @@ const Carousel = ({ children }) => {
           currIndex > 0
           && (
           <button onClick={showPrev} type="button" className="left-arrow arrow-hover">
-            <i className="fas fa-chevron-left arrow-icon" />
+            <i onClick={showPrev} role="button" className="fas fa-chevron-left arrow-icon" />
           </button>
           )
         }
@@ -79,4 +79,4 @@ const Carousel = ({ children }) => {
 Carousel.propTypes = {
   children: PropTypes.instanceOf(Array).isRequired,
 };
-export default Carousel;
+export default React.memo(Carousel);

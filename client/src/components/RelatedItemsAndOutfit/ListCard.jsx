@@ -12,6 +12,7 @@ const ListCard = ({
   const styleName = prodStyles.name;
   const currStyle = useRef();
   const [rotateImage, setRotateImage] = useState(false);
+  const [selectedNextProd, setSelectedNextProd] = useState(false);
 
   const rotateStyle = rotateImage ? {
     transform: 'rotate(90deg) scale(1.5)',
@@ -32,11 +33,6 @@ const ListCard = ({
   });
 
   useEffect(() => {
-    // console.log(currStyle.current, prodInfo.id);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
     if (currStyle.current !== prodInfo.id) {
       getImage(prodUrl).then((res) => {
         if (!res) return;
@@ -49,7 +45,15 @@ const ListCard = ({
       currStyle.current = prodInfo.id;
       // console.log(currStyle.current, 'inside');
     }
-  }, [prodUrl, prodInfo.id]);
+  }, [prodUrl, prodInfo.id, selectedNextProd]);
+
+  const changeProductAndScrollTop = () => {
+    changeProductHandler(prodInfo.id);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <div className="product-list-card">
@@ -61,10 +65,10 @@ const ListCard = ({
             alt="model-in-clothing"
             className="card-image-src"
             style={rotateStyle}
-            onClick={() => changeProductHandler(prodInfo.id)}
+            onClick={changeProductAndScrollTop}
             role="presentation"
           />
-        ) : <i onClick={() => changeProductHandler(prodInfo.id)} role="presentation" className="fas fa-image card-default-image" />}
+        ) : <i onClick={changeProductAndScrollTop} role="presentation" className="fas fa-image card-default-image" />}
 
       </div>
 
