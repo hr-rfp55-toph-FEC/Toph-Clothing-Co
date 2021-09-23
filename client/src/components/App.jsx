@@ -41,7 +41,8 @@ class App extends React.Component {
       .catch((err) => console.log(err, 'too many API calls!'));
   }
 
-  changeProductHandler(productId) {
+  changeProductHandler(productId, e) {
+    e.preventDefault();
     const { currProdId } = this.state;
     if (productId !== currProdId) {
       this.getCurrProdData(productId);

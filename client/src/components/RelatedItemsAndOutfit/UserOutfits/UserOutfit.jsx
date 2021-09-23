@@ -7,7 +7,7 @@ import ListCard from '../ListCard';
 const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
   const [currOutfits, setCurrOutfits] = useState([]);
   const [styleIds, setStyleIds] = useState([]);
-
+  console.log('currprodId', currProd);
   useEffect(() => {
     if (!currOutfits.length) {
       const cachedOutfits = [];
@@ -75,4 +75,12 @@ UserOutfit.propTypes = {
   changeProductHandler: PropTypes.func.isRequired,
 };
 
-export default UserOutfit;
+const areEqual = (prevProps, nextProps) => {
+  // console.log(prevProps, nextProps, 'areEqual memo in RelatedOutfits');
+  if (prevProps.currProd[0].id === nextProps.currProd[0].id) {
+    return true;
+  }
+  return false;
+};
+
+export default React.memo(UserOutfit, areEqual);

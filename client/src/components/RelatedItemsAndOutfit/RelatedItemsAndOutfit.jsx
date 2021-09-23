@@ -14,6 +14,7 @@ class RelatedItemsAndOutfit extends React.PureComponent {
       prodsMeta: [],
       isFetching: true,
     };
+    console.log('entered here with', props);
   }
 
   componentDidMount() {
@@ -95,7 +96,7 @@ RelatedItemsAndOutfit.propTypes = {
 
 const areEqual = (prevProps, nextProps) => {
   // console.log(prevProps, nextProps, 'areEqual memo in RelatedOutfits');
-  if (prevProps.prodStyles.product_id === nextProps.prodStyles.product_id) {
+  if ((prevProps.prodStyles.product_id === nextProps.prodStyles.product_id)) {
     return true;
   }
   return false;

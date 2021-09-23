@@ -5,7 +5,6 @@ const Carousel = ({ children }) => {
   const [currIndex, setCurrIndex] = useState(0);
   // const [length, setLength] = useState(children.length);
   const [mappedChildrenLength, setMappedChildrenLength] = useState(children[1].length);
-
   // useEffect(() => {
   //   console.log(children);
   //   // console.log(children.length, 'children length');
@@ -19,11 +18,12 @@ const Carousel = ({ children }) => {
   //   // }
   //   // console.log(mappedChildrenLength,'mapped');
   // }, [children, length, mappedChildrenLength]);
-
+  console.log('loaded carousel');
   useEffect(() => {
     if (mappedChildrenLength !== children[1].length) {
       setMappedChildrenLength(children[1].length);
       setCurrIndex(0);
+      console.log('carousel state changed');
     }
     // console.log(mappedChildrenLength,'mapped');
   }, [children, mappedChildrenLength]);
@@ -79,4 +79,15 @@ const Carousel = ({ children }) => {
 Carousel.propTypes = {
   children: PropTypes.instanceOf(Array).isRequired,
 };
+
+// const areEqual = (prevProps, nextProps) => {
+//   console.log('areEqual memo in Carousel');
+//   if (prevProps.currProd[0].id !== nextProps.currProd[0].id) {
+//     return false;
+//     //return false means re-render because are not equal
+//   }
+//   return true;
+//   //return true means dont re-render bc are not equal
+// };
+
 export default Carousel;

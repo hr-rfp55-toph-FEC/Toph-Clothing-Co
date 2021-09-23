@@ -6,7 +6,7 @@ import calcAvgRating from '../helpers/calcAvgRating';
 const ListCard = ({
   prodInfo, prodStyles, prodMeta, changeProductHandler, children,
 }) => {
-  // console.log('rendered card', prodStyles.style_id);
+  console.log('rendered card', prodStyles.style_id, prodInfo.name);
   const origPrice = prodStyles.original_price;
   const salePrice = prodStyles.sale_price;
   const prodUrl = prodStyles.photos[0].url;
@@ -21,48 +21,48 @@ const ListCard = ({
     height: '50%',
   } : { backgroundImage: `url('${prodUrl}')` };
 
-  const getImage = (src) => new Promise((resolve, reject) => {
-    const img = new window.Image();
-    img.src = src;
-    if (!src) resolve(null);
-    img.onload = () => {
-      resolve(img);
-    };
-    img.error = (e) => {
-      reject(e);
-    };
-  });
+  // const getImage = (src) => new Promise((resolve, reject) => {
+  //   const img = new window.Image();
+  //   img.src = src;
+  //   if (!src) resolve(null);
+  //   img.onload = () => {
+  //     resolve(img);
+  //   };
+  //   img.error = (e) => {
+  //     reject(e);
+  //   };
+  // });
 
-  if (currStyle.current !== prodInfo.id) {
-    getImage(prodUrl).then((res) => {
-      if (!res) return;
-      if (res.naturalHeight < res.naturalWidth) {
-        setRotateImage(true);
-      } else {
-        setRotateImage(false);
-      }
-    });
-    currStyle.current = prodInfo.id;
-    // console.log(currStyle.current, 'inside');
-  }
+  // if (currStyle.current !== prodInfo.id) {
+  //   getImage(prodUrl).then((res) => {
+  //     if (!res) return;
+  //     if (res.naturalHeight < res.naturalWidth) {
+  //       setRotateImage(true);
+  //     } else {
+  //       setRotateImage(false);
+  //     }
+  //   });
+  //   currStyle.current = prodInfo.id;
+  //   // console.log(currStyle.current, 'inside');
+  // }
 
   // useEffect(() => {
-  //   // if (currStyle.current !== prodInfo.id) {
-  //   //   getImage(prodUrl).then((res) => {
-  //   //     if (!res) return;
-  //   //     if (res.naturalHeight < res.naturalWidth) {
-  //   //       setRotateImage(true);
-  //   //     } else {
-  //   //       setRotateImage(false);
-  //   //     }
-  //   //   });
-  //   //   currStyle.current = prodInfo.id;
-  //   //   // console.log(currStyle.current, 'inside');
-  //   // }
-  // }, [prodUrl, prodInfo.id, selectedNextProd]);
+  //   if (currStyle.current !== prodInfo.id) {
+  //     getImage(prodUrl).then((res) => {
+  //       if (!res) return;
+  //       if (res.naturalHeight < res.naturalWidth) {
+  //         setRotateImage(true);
+  //       } else {
+  //         setRotateImage(false);
+  //       }
+  //     });
+  //     currStyle.current = prodInfo.id;
+  //     // console.log(currStyle.current, 'inside');
+  //   }
+  // }, [prodUrl, prodInfo.id]);
 
-  const changeProductAndScrollTop = () => {
-    changeProductHandler(prodInfo.id);
+  const changeProductAndScrollTop = (e) => {
+    changeProductHandler(prodInfo.id, e);
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
