@@ -19,8 +19,13 @@ const AddCharacteristic = ({ char, handleCharRatingClick }) => {
     <div className="new-char-content">
       <div className="new-char-heading">
         {char[0]}
+        <span className="required-review-mark">
+          <i className="fas fa-asterisk" />
+        </span>
       </div>
-      <span className="selected-char-label">{charLabel}</span>
+      <span className="selected-char-label">
+        {charLabel}
+      </span>
       <div className="new-char-selections radio-button-container">
         {scores.map((score) => (
           <label htmlFor={char[1].id}>

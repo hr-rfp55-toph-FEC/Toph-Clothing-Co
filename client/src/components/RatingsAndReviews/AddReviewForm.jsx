@@ -291,8 +291,7 @@ const AddReviewForm = class extends React.Component {
                     <i className="fas fa-asterisk" />
                   </span>
                   <br />
-                  <input
-                    type="textarea"
+                  <textarea
                     id="user-review-body"
                     name="body"
                     required
