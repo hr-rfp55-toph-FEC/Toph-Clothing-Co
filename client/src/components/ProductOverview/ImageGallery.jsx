@@ -54,6 +54,7 @@ function ImageGallery(props) {
     setMainPicUrl(productStyleSelected.photos[currIndex].url);
   }, [productStyleSelected, currIndex]);
 
+  // Save work before refactoring to default, expanded, and zoomed views.
   const imageGalleryId = expanded ? 'image-gallery-expanded' : 'image-gallery';
   // const imageMainId = expanded ? 'image-main-expanded' : 'image-main';
 
