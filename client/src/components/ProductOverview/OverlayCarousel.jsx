@@ -17,6 +17,7 @@ function OverlayCarousel(props) {
     handleScrollDown,
     showNextPicAndScroll,
     showPrevPicAndScroll,
+    imageExpandedCursorClass,
   } = props;
 
   const upDownArrowClass = expanded ? 'up-down-arrow-expanded' : 'up-down-arrow-default';
@@ -28,7 +29,14 @@ function OverlayCarousel(props) {
         && (currIndex < productStyleSelected.photos.length - 1)
         && (
           <div id="next-overlay-thumbnail-pic">
-            <i className="fas fa-chevron-right" onClick={showNextPicAndScroll} role="presentation" />
+            <img
+              className="default-toggle-pic-arrow"
+              onClick={showNextPicAndScroll}
+              role="presentation"
+              alt="Style Thumbnail"
+              src="/assets/icons8-expand-arrow-64-default-bubble-right-new-green.png"
+            />
+            {/* <i className="fas fa-chevron-right" onClick={showNextPicAndScroll} role="presentation" /> */}
           </div>
         )}
       {/* {!expanded  && */}
@@ -36,14 +44,22 @@ function OverlayCarousel(props) {
         && (currIndex > 0)
         && (
           <div id="prev-overlay-thumbnail-pic">
-            <i className="fas fa-chevron-left" onClick={showPrevPicAndScroll} role="presentation" />
+            <img
+              className="default-toggle-pic-arrow"
+              onClick={showPrevPicAndScroll}
+              role="presentation"
+              alt="Style Thumbnail"
+              src="/assets/icons8-expand-arrow-64-default-bubble-left-new-green.png"
+            />
+            {/* <i className="fas fa-chevron-left" onClick={showPrevPicAndScroll} role="presentation" /> */}
           </div>
         )}
       <>
 
         <div
           id={expanded ? 'overlay-thumbnail-gallery-expanded' : 'overlay-thumbnail-gallery'}
-          className="stylish-right-component"
+          // className="stylish-right-component"
+          className={`stylish-right-component ${imageExpandedCursorClass}`}
         >
 
           {showUpArrow && (
@@ -54,6 +70,7 @@ function OverlayCarousel(props) {
 
           {currCarouselView.map((photo) => (
             <OverlayThumbnail
+              key={photo.url}
               overlayThumbnail={photo}
               selectMainPic={selectMainPic}
               mainPicUrl={mainPicUrl}
@@ -88,6 +105,7 @@ OverlayCarousel.propTypes = {
   handleScrollDown: PropTypes.func.isRequired,
   showNextPicAndScroll: PropTypes.func.isRequired,
   showPrevPicAndScroll: PropTypes.func.isRequired,
+  imageExpandedCursorClass: PropTypes.string.isRequired,
 };
 
 export default OverlayCarousel;

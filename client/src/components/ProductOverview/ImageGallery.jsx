@@ -375,7 +375,16 @@ function ImageGallery(props) {
             }}
           />
         )}
-      <div id="expand-main-image"><i className="fas fa-expand" onClick={handleExpand} role="presentation" /></div>
+      {/* <div id="expand-main-image"><i className="fas fa-expand" onClick={handleExpand} role="presentation" /></div> */}
+      <div id="expand-main-image">
+        <img
+          className="default-toggle-pic-arrow"
+          onClick={handleExpand}
+          role="presentation"
+          alt="Style Thumbnail"
+          src="/assets/icons8-full-screen-96-new-green.png"
+        />
+      </div>
       <OverlayCarousel
         productStyleSelected={productStyleSelected}
         mainPicUrl={mainPicUrl}
@@ -389,6 +398,7 @@ function ImageGallery(props) {
         handleScrollDown={handleScrollDown}
         showNextPicAndScroll={showNextPicAndScroll}
         showPrevPicAndScroll={showPrevPicAndScroll}
+        imageExpandedCursorClass={imageExpandedCursorClass}
       />
     </div>
   );
