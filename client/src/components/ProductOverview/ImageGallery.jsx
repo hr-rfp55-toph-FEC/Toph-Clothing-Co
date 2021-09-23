@@ -1,15 +1,14 @@
 // import React, { useState } from 'react';
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import OverlayThumbnail from './OverlayThumbnail';
+// import OverlayThumbnail from './OverlayThumbnail';
+import OverlayCarousel from './OverlayCarousel';
 
 function ImageGallery(props) {
   const { productStyleSelected, expanded, handleExpand } = props;
   const [mainPicUrl, setMainPicUrl] = useState(productStyleSelected.photos[0].url);
   const [currIndex, setCurrIndex] = useState(0);
   const [imageExpandedCursorClass, setImageExpandedCursorClass] = useState('right-arrow-toggle-next-enabled');
-  // const [savedCursorXPercentPosition, setSavedCursorXCoordinate] = useState(0);
-  // const [savedCursorYPercentPosition, setSavedCursorYCoordinate] = useState(0);
 
   const refCursorXPercentPosition = useRef();
   const refCursorYPercentPosition = useRef();
@@ -18,7 +17,6 @@ function ImageGallery(props) {
   const selectMainPic = (overlayThumbnail) => {
     setMainPicUrl(overlayThumbnail.url);
     for (let j = 0; j < productStyleSelected.photos.length; j += 1) {
-      // console.log(productStyleSelected.photos[j]);
       if (productStyleSelected.photos[j].url === overlayThumbnail.url) {
         setCurrIndex(j);
         break;
@@ -70,12 +68,10 @@ function ImageGallery(props) {
     }
   };
 
+  // Which picture to show (next or previous) depends on cursor position
   const togglePic = () => {
     const currCursorXPercentPosition = refCursorXPercentPosition.current;
     // console.log(currCursorXPercentPosition);
-
-    // We also want to change cursor on click, not just on movement.
-    calcAndSetImageExpandedCursorClass();
 
     // If mouse hasn't moved after expanding view, the cursor's position will be undefined.
     // Treat this case as "right/next" since the cursor will be > 50% to the right after expanding.
@@ -95,6 +91,8 @@ function ImageGallery(props) {
   // Every time the index changes, update main image to the image at that index
   useEffect(() => {
     setMainPicUrl(productStyleSelected.photos[currIndex].url);
+    // We also want to change cursor whenever index changes, not just on movement.
+    calcAndSetImageExpandedCursorClass();
   }, [productStyleSelected, currIndex]);
 
   // Hook to scroll background image based on cursor position in zoomed view.
@@ -108,9 +106,6 @@ function ImageGallery(props) {
       // console.log(imageExpanded);
       // console.log(imageExpanded.style.backgroundPositionX);
       // console.log(imageExpanded.style.backgroundPositionY);
-
-      // imageExpanded.style.backgroundPositionX = '0px';
-      // imageExpanded.style.backgroundPositionY = '0px';
 
       // Coordinates and size of image's container (The portion of the image we can see on screen).
       // Note: Will be strictly less than or equal to the size of the image.
@@ -152,14 +147,6 @@ function ImageGallery(props) {
       // Turn current mouse coordinates into a % of container width/height
       const cursorXPercentPosition = cursorXCoordinate / imgContainerWidth;
       const cursorYPercentPosition = cursorYCoordinate / imgContainerHeight;
-
-      // console.log('cursorXCoordinate', cursorXCoordinate);
-      // console.log('imgContainerWidth', imgContainerWidth);
-      // console.log('cursorXPercentPosition', cursorXPercentPosition);
-
-      // console.log('cursorYCoordinate', cursorYCoordinate);
-      // console.log('imgContainerHeight', imgContainerHeight);
-      // console.log('cursorYPercentPosition', cursorYPercentPosition);
 
       // Declare background image dimension and position variables
       let imgWidth;
@@ -285,23 +272,6 @@ function ImageGallery(props) {
     // Can't use just currIndex here. Need to wait until after image re-renders after index change.
   }, [mainPicUrl]);
 
-  // const getImageExpandedCursorClassStyled = () => {
-  //   if (imageExpandedCursorClass === 'right-arrow-toggle-next') {
-  //     if (currIndex < productStyleSelected.photos.length - 1) {
-  //       return 'right-arrow-toggle-next-enabled';
-  //     } else {
-  //       return 'right-arrow-toggle-next-disabled';
-  //     }
-  //   } else {
-  //     // do this
-  //     if (currIndex > 0) {
-  //       return 'left-arrow-toggle-prev-enabled';
-  //     } else {
-  //       return 'left-arrow-toggle-prev-disabled';
-  //     }
-  //   }
-  // };
-
   const imageGalleryId = expanded ? 'image-gallery-expanded' : 'image-gallery';
   // const imageMainId = expanded ? 'image-main-expanded' : 'image-main';
 
@@ -329,12 +299,25 @@ function ImageGallery(props) {
           />
         )}
       <div id="expand-main-image"><i className="fas fa-expand" onClick={handleExpand} role="presentation" /></div>
-      {!expanded
+      <OverlayCarousel
+        productStyleSelectedPhotos={productStyleSelected.photos}
+        selectMainPic={selectMainPic}
+        showNextPic={showNextPic}
+        showPrevPic={showPrevPic}
+        mainPicUrl={mainPicUrl}
+        currIndex={currIndex}
+        expanded={expanded}
+      />
+      {/* {!expanded
         && (currIndex < productStyleSelected.photos.length - 1)
-        && <div id="next-overlay-thumbnail-pic"><i className="fas fa-chevron-right" onClick={showNextPic} role="presentation" /></div>}
+        && <div id="next-overlay-thumbnail-pic">
+        <i className="fas fa-chevron-right" onClick={showNextPic} role="presentation" />
+        </div>}
       {!expanded
         && (currIndex > 0)
-        && <div id="prev-overlay-thumbnail-pic"><i className="fas fa-chevron-left" onClick={showPrevPic} role="presentation" /></div>}
+        && <div id="prev-overlay-thumbnail-pic">
+        <i className="fas fa-chevron-left" onClick={showPrevPic} role="presentation" />
+        </div>}
       <div id="overlay-thumbnail-gallery" className="stylish-right-component">
         {productStyleSelected.photos.map((photo) => (
           <OverlayThumbnail
@@ -343,7 +326,7 @@ function ImageGallery(props) {
             mainPicUrl={mainPicUrl}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

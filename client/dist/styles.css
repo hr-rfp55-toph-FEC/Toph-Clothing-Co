@@ -209,28 +209,27 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   background-repeat: no-repeat; */
 
   /* Work for fixing the 'jump' in background position when first expanding due to zoom feature */
-  /* transition: all 0.1s; */
+  /* transition: all 0.01s; */
   /* transition: all 0.5s; */
 
 }
 
 /* Logic to change cursor image */
 .right-arrow-toggle-next-enabled {
-    cursor: url("/assets/icons8-expand-arrow-40-green-right.png"), auto;
+    cursor: url("/assets/icons8-expand-arrow-40-minimal-green-right.png"), auto;
 }
 
 .right-arrow-toggle-next-disabled {
-  cursor: url("/assets/icons8-expand-arrow-40-gray-right.png"), auto;
+  cursor: url("/assets/icons8-expand-arrow-40-minimal-gray-right.png"), auto;
 }
 
 .left-arrow-toggle-prev-enabled {
-  cursor: url("/assets/icons8-expand-arrow-40-green-left.png"), auto;
+  cursor: url("/assets/icons8-expand-arrow-40-minimal-green-left.png"), auto;
 }
 
 .left-arrow-toggle-prev-disabled {
-  cursor: url("/assets/icons8-expand-arrow-40-gray-left.png"), auto;
+  cursor: url("/assets/icons8-expand-arrow-40-minimal-gray-left.png"), auto;
 }
-
 
 /* #image-gallery:hover {
   cursor: -moz-zoom-in;
@@ -248,14 +247,33 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 #overlay-thumbnail-gallery {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  height: 100%;
+  justify-content:center;
+  height: 70%;
   left: 0%;
-  padding: 1rem;
+  padding: 0rem 1rem ;
   gap: 1rem;
   position: absolute;
-  z-index: 3;
+  top: 0%;
+  z-index: 1;
+  /* z-index: 3; */
   overflow-y: scroll;
+  transition: all 1s;
+  width: 6.6rem;
+}
+
+#overlay-thumbnail-gallery-expanded {
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  height: 45%;
+  left: 0%;
+  padding: 3rem 2rem ;
+  gap: 1rem;
+  position: absolute;
+  top: 0%;
+  z-index: 1;
+  /* overflow-y: scroll; */
+  transition: all 1s;
 
 }
 
@@ -277,21 +295,44 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   height: 4rem;
   /* position: relative; */
   flex-shrink: 1;
-  z-index: 4;
+  z-index: 1;
+  /* z-index: 4; */
   border: 0.1rem solid rgb(243, 243, 243, 0.5);
   border-radius: 7%;
+  transition: all 0.25s;
 }
+
 
 .overlay-thumbnail-image-select {
   width: 4.5rem;
   height: 4.5rem;
   /* position: relative; */
   flex-shrink: 1;
-  z-index: 4;
+  z-index: 1;
+    /* z-index: 4; */
   border: 0.1rem solid rgb(243, 243, 243, 0.5);
-  border-bottom: 0.4rem solid rgb(46, 151, 107);
+  border-bottom: 0.4rem solid rgb(18, 196, 128);
   border-radius: 7%;
+  transition: all 0.25s;
   /* transform: all 2s; */
+}
+
+.overlay-thumbnail-image-expanded {
+  width: 1rem;
+  height: 1rem;
+  z-index: 1;
+  border-radius: 50%;
+  background-color: gray;
+  transition: all 0.25s;
+}
+
+.overlay-thumbnail-image-select-expanded {
+  width: 1.3rem;
+  height: 1.3rem;
+  z-index: 1;
+  background-color: rgb(18, 196, 128);
+  border-radius: 50%;
+  transition: all 0.25s;
 }
 
 #expand-main-image {
@@ -321,13 +362,44 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   color: gray;
 }
 
+#carousel-up-one:hover,
+#carousel-down-one:hover,
 #expand-main-image:hover,
 #next-overlay-thumbnail-pic:hover,
 #prev-overlay-thumbnail-pic:hover,
-.overlay-thumbnail-image:hover {
+.overlay-thumbnail-image:hover,
+.overlay-thumbnail-image-expanded:hover{
   cursor: pointer;
   opacity: 0.7;
 }
+
+#carousel-up-one {
+  position: absolute;
+  top: 1%;
+  font-size: 3rem;
+  z-index: 1;
+  color: rgb(18, 196, 128);
+}
+
+#carousel-down-one {
+  position: absolute;
+  bottom: 0%;
+  font-size: 3rem;
+  z-index: 1;
+  color: rgb(18, 196, 128);
+}
+
+#carousel-up-one.up-down-arrow-default,
+#carousel-down-one.up-down-arrow-default {
+  left: 31.25%;
+}
+
+#carousel-up-one.up-down-arrow-expanded,
+#carousel-down-one.up-down-arrow-expanded {
+  left: 29.5%;
+}
+
+
 
 /* Product Info & Options (Right side of Top Overview Container) */
 
@@ -349,9 +421,9 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   right: 0%;
 }
 
-/* #product-right-container.product-right-container-hidden {
+#product-right-container.product-right-container-hidden {
   display: none;
-} */
+}
 
 /* .product-right-component {
   height: calc(100% / 3);
