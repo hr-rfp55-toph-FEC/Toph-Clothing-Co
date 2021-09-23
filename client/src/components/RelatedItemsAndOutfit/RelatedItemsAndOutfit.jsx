@@ -93,4 +93,12 @@ RelatedItemsAndOutfit.propTypes = {
   changeProductHandler: PropTypes.func.isRequired,
 };
 
-export default RelatedItemsAndOutfit;
+const areEqual = (prevProps, nextProps) => {
+  // console.log(prevProps, nextProps, 'areEqual memo in RelatedOutfits');
+  if (prevProps.prodStyles.product_id === nextProps.prodStyles.product_id) {
+    return true;
+  }
+  return false;
+};
+
+export default React.memo(RelatedItemsAndOutfit, areEqual);
