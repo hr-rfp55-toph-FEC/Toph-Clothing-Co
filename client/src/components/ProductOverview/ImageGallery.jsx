@@ -25,6 +25,11 @@ function ImageGallery(props) {
     }
   };
 
+  const togglePic = () => {
+    const currCursorXPercentPosition = refCursorXPercentPosition.current;
+    console.log(currCursorXPercentPosition);
+  }
+
   // To show next picture, up the current index and our hook will handle the render
   const showNextPic = () => {
     // console.log('index before showNextPic', currIndex, length);
@@ -60,8 +65,39 @@ function ImageGallery(props) {
 
   // Hook to scroll background image based on cursor position in zoomed view.
   useEffect(() => {
+    const imageDefault = document.getElementById('image-main');
+    const imageContainerDefault = document.getElementById('image-gallery');
+
     const imageExpanded = document.getElementById('image-main-expanded');
     const imageContainerExpanded = document.getElementById('image-gallery-expanded');
+
+    const handleDefaultMouseTrack = (e) => {
+      const imgContainerCoordinatesAndSizeDef = imageContainerDefault.getBoundingClientRect();
+
+      const imgContainerWidthDef = imgContainerCoordinatesAndSizeDef.width;
+      const imgContainerHeightDef = imgContainerCoordinatesAndSizeDef.height;
+      // const imgContainerAspRatioDef = imgContainerWidthDef / imgContainerHeightDef;
+
+      // const imgOriginalDef = new Image();
+      // imgOriginalDef.src = mainPicUrl;
+      // const imgOriginalWidthDef = imgOriginalDef.width;
+      // const imgOriginalHeightDef = imgOriginalDef.height;
+      // const imgOriginalAspRatioDef = imgOriginalWidthDef / imgOriginalHeightDef;
+      // const layoutDef = ((imgOriginalAspRatioDef) < (imgContainerAspRatioDef)) ? 'tall' : 'wide';
+
+      const cursorXCoordinateDef = Math.min(Math.max(e.offsetX, 0), imgContainerWidthDef);
+      const cursorYCoordinateDef = Math.min(Math.max(e.offsetY, 0), imgContainerHeightDef);
+
+      // Turn current mouse coordinates into a % of container width/height
+      const cursorXPercentPositionDef = cursorXCoordinateDef / imgContainerWidthDef;
+      const cursorYPercentPositionDef = cursorYCoordinateDef / imgContainerHeightDef;
+
+      refCursorXPercentPosition.current = cursorXPercentPositionDef;
+      refCursorYPercentPosition.current = cursorYPercentPositionDef;
+
+      // console.log('cursorXPercentPositionDef', cursorXPercentPositionDef);
+      // console.log('cursorYPercentPositionDef', cursorYPercentPositionDef);
+    };
 
     // Image sizing and positioning must be contained within the event handler. Just inside the hook
     // is not good enough b/c we need to dynamically recalculate even when state doesn't change.
@@ -174,6 +210,13 @@ function ImageGallery(props) {
       };
     }
 
+    if (!expanded) {
+      imageDefault.addEventListener('mousemove', handleDefaultMouseTrack);
+      return function cleanup() {
+        imageDefault.removeEventListener('mousemove', handleDefaultMouseTrack);
+      };
+    }
+
     return null;
   }, [expanded, mainPicUrl]);
 
@@ -251,6 +294,8 @@ function ImageGallery(props) {
             style={{
               backgroundImage: `url(${mainPicUrl})`,
             }}
+            onClick={togglePic}
+            role="presentation"
           />
         )
         : (
@@ -264,9 +309,9 @@ function ImageGallery(props) {
         )}
       <div id="expand-main-image"><i className="fas fa-expand" onClick={handleExpand} role="presentation" /></div>
       {(currIndex < productStyleSelected.photos.length - 1)
-        && <div id="next-overlay-thumbnail-pic"><i className="fas fa-chevron-right" onClick={showNextPic} role="presentation" /></div>}
+        && <div id="next-overlay-thumbnail-pic"><i className="fas fa-chevron-right" role="presentation" /></div>}
       {(currIndex > 0)
-        && <div id="prev-overlay-thumbnail-pic"><i className="fas fa-chevron-left" onClick={showPrevPic} role="presentation" /></div>}
+        && <div id="prev-overlay-thumbnail-pic"><i className="fas fa-chevron-left" role="presentation" /></div>}
       <div id="overlay-thumbnail-gallery" className="stylish-right-component">
         {productStyleSelected.photos.map((photo) => (
           <OverlayThumbnail
