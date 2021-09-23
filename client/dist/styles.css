@@ -1538,12 +1538,17 @@ h2 {
 
 .muted-reminders {
   margin: 1rem 0;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: rgb(90, 90, 90);
+}
+
+.text-reminder {
+  text-align: right;
 }
 
 .radio-button-container {
   display: flex;
+  margin: 1rem 0;
 }
 
 #add-characteristic-container {
@@ -1580,16 +1585,26 @@ h2 {
   padding-left: 3rem;
 }
 
+.text-review-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .user-review-summary {
   margin: 1rem 0;
 }
 
-input[type=text] {
-  width: 80%;
+input[type=text], input[type=email] {
+  width: 100%;
 }
 
-input[type=textarea] {
-  width: 80%;
+input [type=textarea] {
+  /* width: 100%; */
+
+}
+
+.submit-button-holder {
+  text-align: center;
 }
 /* Stars
 

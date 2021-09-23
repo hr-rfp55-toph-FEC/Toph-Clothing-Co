@@ -167,7 +167,7 @@ const AddReviewForm = class extends React.Component {
     let reviewBodyCounter;
     if (body.length < 50) {
       reviewBodyCounter = (
-        <div className="review-body-counter muted-reminders">
+        <div className="review-body-counter muted-reminders text-reminder">
           Minimum required characters left:
           {' '}
           {50 - body.length}
@@ -175,7 +175,7 @@ const AddReviewForm = class extends React.Component {
       );
     } else {
       reviewBodyCounter = (
-        <div className="review-body-counter muted-reminders">
+        <div className="review-body-counter muted-reminders text-reminder">
           Minimum reached.
         </div>
       );
@@ -202,6 +202,7 @@ const AddReviewForm = class extends React.Component {
               <span className="required-review-mark">
                 <i className="fas fa-asterisk" />
               </span>
+              <br />
               <span className="muted-reminders">Click to rate!</span>
               <div id="overall-rating">
                 <div className="stars-outer new-review-stars">
@@ -229,7 +230,10 @@ const AddReviewForm = class extends React.Component {
             </label>
             <div id="recommend-product">
               <label htmlFor="recommend-product">
-                Do you recommend this product?*
+                Do you recommend this product?
+                <span className="required-review-mark">
+                  <i className="fas fa-asterisk" />
+                </span>
                 <div className="radio-button-container">
                   <label htmlFor="recommend">
                     <input
@@ -265,39 +269,44 @@ const AddReviewForm = class extends React.Component {
                 />
               ))}
             </div>
-            <div className="user-review-summary">
-              <label htmlFor="user-review-summary">
-                Review Summary
-                <br />
-                <input
-                  type="text"
-                  id="user-review-summary"
-                  name="summary"
-                  maxLength="60"
-                  // size="60"
-                  onChange={this.handleInputChange}
-                />
-              </label>
-            </div>
-            <div className="user-review-body">
-              <label htmlFor="user-review-body">
-                Please write your review here:
-                <br />
-                <textarea
-                  id="user-review-body"
-                  name="body"
-                  required
-                  // rows="20"
-                  // cols="50"
-                  placeholder="Why did you like the product or not?"
-                  minLength="50"
-                  maxLength="1000"
-                  onChange={this.handleInputChange}
-                />
-              </label>
-              {reviewBodyCounter}
-            </div>
-            {/* <div className="upload-review-photo">
+            <div className="text-review-container">
+              <div className="user-review-summary">
+                <label htmlFor="user-review-summary">
+                  Review Summary
+                  <br />
+                  <input
+                    type="text"
+                    id="user-review-summary"
+                    name="summary"
+                    maxLength="60"
+                    // size="60"
+                    onChange={this.handleInputChange}
+                  />
+                </label>
+              </div>
+              <div className="user-review-body">
+                <label htmlFor="user-review-body">
+                  Your Review
+                  <span className="required-review-mark">
+                    <i className="fas fa-asterisk" />
+                  </span>
+                  <br />
+                  <input
+                    type="textarea"
+                    id="user-review-body"
+                    name="body"
+                    required
+                    rows="20"
+                    cols="50"
+                    placeholder="Why did you like the product or not?"
+                    minLength="50"
+                    maxLength="1000"
+                    onChange={this.handleInputChange}
+                  />
+                </label>
+                {reviewBodyCounter}
+              </div>
+              {/* <div className="upload-review-photo">
               <label htmlFor="upload-review-photo">
                 Please upload your photos here:
                 <br />
@@ -312,50 +321,59 @@ const AddReviewForm = class extends React.Component {
                 <button type="button">Upload</button>
               </span>
             </div> */}
-            <div className="review-user-nickname">
-              <label htmlFor="review-user-nickname">
-                What is your nickname?
-                <br />
-                <input
-                  type="text"
-                  id="review-user-nickname"
-                  name="name"
-                  required
-                  maxLength="60"
-                  size="20"
-                  placeholder="Example: jackson11!"
-                  onChange={this.handleInputChange}
-                />
-              </label>
-              <div className="muted-reminders">
-                For privacy reasons, do not use your full name or email address
+              <div className="review-user-nickname">
+                <label htmlFor="review-user-nickname">
+                  What is your nickname?
+                  <span className="required-review-mark">
+                    <i className="fas fa-asterisk" />
+                  </span>
+                  <br />
+                  <input
+                    type="text"
+                    id="review-user-nickname"
+                    name="name"
+                    required
+                    maxLength="60"
+                    size="20"
+                    placeholder="Example: jackson11!"
+                    onChange={this.handleInputChange}
+                  />
+                </label>
+                <div className="muted-reminders text-reminder">
+                  For privacy reasons, do not use your full name or email address
+                </div>
+              </div>
+              <div className="review-user-email">
+                <label htmlFor="review-user-email">
+                  What is your email?
+                  <span className="required-review-mark">
+                    <i className="fas fa-asterisk" />
+                  </span>
+                  <br />
+                  <input
+                    type="email"
+                    id="review-user-email"
+                    name="email"
+                    required
+                    maxLength="60"
+                    size="30"
+                    placeholder="Example: jackson11@email.com"
+                    onChange={this.handleInputChange}
+                  />
+                </label>
+                <div className="muted-reminders text-reminder">
+                  For authentication reasons, you will not be emailed
+                </div>
               </div>
             </div>
-            <div className="review-user-email">
-              <label htmlFor="review-user-email">
-                What is your email?
-                <br />
-                <input
-                  type="email"
-                  id="review-user-email"
-                  name="email"
-                  required
-                  maxLength="60"
-                  size="30"
-                  placeholder="Example: jackson11@email.com"
-                  onChange={this.handleInputChange}
-                />
-              </label>
-              <div className="muted-reminders">
-                For authentication reasons, you will not be emailed
-              </div>
+            <div className="submit-button-holder">
+              <input
+                type="submit"
+                value="Submit Review"
+                className="interactive-button"
+              />
+              {ratingWarning}
             </div>
-            <input
-              type="submit"
-              value="Submit Review"
-              className="interactive-button"
-            />
-            {ratingWarning}
           </form>
         </div>
       </div>
