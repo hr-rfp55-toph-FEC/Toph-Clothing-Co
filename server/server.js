@@ -120,21 +120,15 @@ app.get('/products/:product_id', (req, res) => {
 });
 
 app.post('/reviews', (req, res) => {
-  const {
-    product_id, rating, summary, body, recommend, name, email, photos, characteristics,
-  } = req.body;
-  console.log(req.body);
-  res.end();
-  // reviews.postReview({
-  //   product_id, rating, summary, body, recommend, name, email, photos, characteristics,
-  // })
-  //   .then(() => {
-  //     res.status(201).end();
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //     res.end();
-  //   });
+  // console.log(req.body);
+  reviews.postReview(req.body)
+    .then(() => {
+      res.status(201).end();
+    })
+    .catch((err) => {
+      console.error(err);
+      res.end();
+    });
 });
 
 // Bishal - Related Products

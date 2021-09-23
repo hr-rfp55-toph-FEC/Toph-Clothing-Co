@@ -11,6 +11,7 @@ const AddReviewForm = class extends React.Component {
     this.state = {
       chars: [],
       showStarLabel: false,
+      showRatingWarning: false,
       innerWidth: '0%',
       rating: null,
       summary: '',
@@ -51,7 +52,7 @@ const AddReviewForm = class extends React.Component {
   handleCharRatingClick(id, e) {
     const { characteristics } = this.state;
     const selection = { ...characteristics };
-    selection[id] = e.target.value;
+    selection[id] = Number(e.target.value);
     this.setState({
       characteristics: selection,
     });
@@ -66,7 +67,7 @@ const AddReviewForm = class extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { productInfo } = this.props;
+    const { productInfo, closeReviewFormHandler, getCurrProdData } = this.props;
     const {
       rating, summary, body, recommend, name, email, photos, characteristics,
     } = this.state;
@@ -75,19 +76,23 @@ const AddReviewForm = class extends React.Component {
       rating,
       summary,
       body,
-      recommend,
+      recommend: JSON.parse(recommend),
       name,
       email,
       photos,
       characteristics,
     };
-    axios.post('/reviews', data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    if (data.rating === null) {
+      this.setState({ showRatingWarning: true });
+    } else {
+      this.setState({ showRatingWarning: false });
+      axios.post('/reviews', data)
+        .then(() => getCurrProdData(productInfo.id))
+        .then(() => closeReviewFormHandler())
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }
 
   processCharacteristics() {
@@ -121,7 +126,7 @@ const AddReviewForm = class extends React.Component {
     } = this.props;
 
     const {
-      innerWidth, showStarLabel, rating, chars, body,
+      innerWidth, showStarLabel, rating, chars, body, showRatingWarning,
     } = this.state;
 
     const starIds = [1, 2, 3, 4, 5];
@@ -147,6 +152,15 @@ const AddReviewForm = class extends React.Component {
           {' - '}
           {labels[rating]}
         </span>
+      );
+    }
+
+    let ratingWarning;
+    if (showRatingWarning) {
+      ratingWarning = (
+        <div className="rating-warning">
+          Please select a star rating before submitting your review!
+        </div>
       );
     }
 
@@ -333,6 +347,7 @@ const AddReviewForm = class extends React.Component {
               value="Submit Review"
               className="interactive-button"
             />
+            {ratingWarning}
           </form>
         </div>
       </div>

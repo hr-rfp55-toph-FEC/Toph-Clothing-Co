@@ -167,6 +167,7 @@ const ReviewsList = class extends React.Component {
             characteristics={reviewsMeta.characteristics}
             showAddReviewModal={showAddReviewModal}
             closeReviewFormHandler={this.closeReviewFormHandler}
+            getCurrProdData={getCurrProdData}
           />
         </div>
       </div>
