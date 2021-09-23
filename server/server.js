@@ -110,15 +110,6 @@ app.put('/reviews/:review_id/report', (req, res) => {
     });
 });
 
-app.get('/products/:product_id', (req, res) => {
-  related.getProductInfo(req.params.product_id)
-    .then((APIRes) => res.status(200).send(APIRes.data))
-    .catch((err) => {
-      console.error(err);
-      res.end();
-    });
-});
-
 app.post('/reviews', (req, res) => {
   // console.log(req.body);
   reviews.postReview(req.body)

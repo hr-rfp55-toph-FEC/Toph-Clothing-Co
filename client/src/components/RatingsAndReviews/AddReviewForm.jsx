@@ -192,7 +192,7 @@ const AddReviewForm = class extends React.Component {
             {productInfo.name}
           </h2>
           <form id="add-review-form" onSubmit={this.handleSubmit}>
-            <label>
+            <label htmlFor="add-review-form">
               Overall rating*:
               {/* <input type="hidden" name="rating" value={rating} required /> */}
               <div>
@@ -222,7 +222,7 @@ const AddReviewForm = class extends React.Component {
               </div>
             </label>
             <div id="recommend-product">
-              <label>
+              <label htmlFor="recommend-product">
                 Do you recommend this product?*
                 <label htmlFor="recommend">
                   <input
@@ -289,7 +289,7 @@ const AddReviewForm = class extends React.Component {
               </label>
               {reviewBodyCounter}
             </div>
-            <div className="upload-review-photo">
+            {/* <div className="upload-review-photo">
               <label htmlFor="upload-review-photo">
                 Please upload your photos here:
                 <br />
@@ -303,7 +303,7 @@ const AddReviewForm = class extends React.Component {
               <span>
                 <button type="button">Upload</button>
               </span>
-            </div>
+            </div> */}
             <div className="review-user-nickname">
               <label htmlFor="review-user-nickname">
                 What is your nickname?
@@ -360,6 +360,7 @@ AddReviewForm.propTypes = {
   characteristics: PropTypes.instanceOf(Object).isRequired,
   showAddReviewModal: PropTypes.bool.isRequired,
   closeReviewFormHandler: PropTypes.instanceOf(Function).isRequired,
+  getCurrProdData: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default AddReviewForm;
