@@ -42,6 +42,7 @@ class App extends React.Component {
   }
 
   changeProductHandler(productId) {
+    console.log(productId, 'product Id in App');
     const { currProdId } = this.state;
     if (productId !== currProdId) {
       this.getCurrProdData(productId);

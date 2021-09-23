@@ -4,7 +4,7 @@ import server from '../helpers/Axios';
 import RelatedProducts from './RelatedProducts/RelatedProducts';
 import UserOutfit from './UserOutfits/UserOutfit';
 
-class RelatedItemsAndOutfit extends React.Component {
+class RelatedItemsAndOutfit extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
