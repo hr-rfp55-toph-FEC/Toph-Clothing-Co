@@ -7,6 +7,7 @@ function ImageGallery(props) {
   const { productStyleSelected, expanded, handleExpand } = props;
   const [mainPicUrl, setMainPicUrl] = useState(productStyleSelected.photos[0].url);
   const [currIndex, setCurrIndex] = useState(0);
+  const [imageExpandedCursorClass, setImageExpandedCursorClass] = useState('right-arrow-toggle-next-enabled');
   // const [savedCursorXPercentPosition, setSavedCursorXCoordinate] = useState(0);
   // const [savedCursorYPercentPosition, setSavedCursorYCoordinate] = useState(0);
 
@@ -25,10 +26,31 @@ function ImageGallery(props) {
     }
   };
 
-  const togglePic = () => {
-    const currCursorXPercentPosition = refCursorXPercentPosition.current;
-    console.log(currCursorXPercentPosition);
-  }
+  const calcAndSetImageExpandedCursorClass = () => {
+    // Set mouse cursor state (right arrow vs left arrow)
+    const imageExpandedCursorClassRef = refCursorXPercentPosition.current < 0.5 ? 'left-arrow-toggle-prev' : 'right-arrow-toggle-next';
+    // console.log(refCursorXPercentPosition.current);
+    // console.log(imageExpandedCursorClassRef);
+
+    let imageExpandedCursorClassStyled;
+
+    if (imageExpandedCursorClassRef === 'right-arrow-toggle-next') {
+      if (currIndex < productStyleSelected.photos.length - 1) {
+        imageExpandedCursorClassStyled = 'right-arrow-toggle-next-enabled';
+      } else {
+        imageExpandedCursorClassStyled = 'right-arrow-toggle-next-disabled';
+      }
+    }
+    if (imageExpandedCursorClassRef === 'left-arrow-toggle-prev') {
+      if (currIndex > 0) {
+        imageExpandedCursorClassStyled = 'left-arrow-toggle-prev-enabled';
+      } else {
+        imageExpandedCursorClassStyled = 'left-arrow-toggle-prev-disabled';
+      }
+    }
+    // console.log(imageExpandedCursorClassStyled);
+    setImageExpandedCursorClass(imageExpandedCursorClassStyled);
+  };
 
   // To show next picture, up the current index and our hook will handle the render
   const showNextPic = () => {
@@ -48,6 +70,22 @@ function ImageGallery(props) {
     }
   };
 
+  const togglePic = () => {
+    const currCursorXPercentPosition = refCursorXPercentPosition.current;
+    // console.log(currCursorXPercentPosition);
+
+    // We also want to change cursor on click, not just on movement.
+    calcAndSetImageExpandedCursorClass();
+
+    // If mouse hasn't moved after expanding view, the cursor's position will be undefined.
+    // Treat this case as "right/next" since the cursor will be > 50% to the right after expanding.
+    if (currCursorXPercentPosition < 0.5) {
+      showPrevPic();
+    } else {
+      showNextPic();
+    }
+  };
+
   // Every time a new style is selected, reset main image and current index
   useEffect(() => {
     setMainPicUrl(productStyleSelected.photos[0].url);
@@ -59,45 +97,10 @@ function ImageGallery(props) {
     setMainPicUrl(productStyleSelected.photos[currIndex].url);
   }, [productStyleSelected, currIndex]);
 
-  // Save work before refactoring to default, expanded, and zoomed views.
-  const imageGalleryId = expanded ? 'image-gallery-expanded' : 'image-gallery';
-  // const imageMainId = expanded ? 'image-main-expanded' : 'image-main';
-
   // Hook to scroll background image based on cursor position in zoomed view.
   useEffect(() => {
-    const imageDefault = document.getElementById('image-main');
-    const imageContainerDefault = document.getElementById('image-gallery');
-
     const imageExpanded = document.getElementById('image-main-expanded');
     const imageContainerExpanded = document.getElementById('image-gallery-expanded');
-
-    const handleDefaultMouseTrack = (e) => {
-      const imgContainerCoordinatesAndSizeDef = imageContainerDefault.getBoundingClientRect();
-
-      const imgContainerWidthDef = imgContainerCoordinatesAndSizeDef.width;
-      const imgContainerHeightDef = imgContainerCoordinatesAndSizeDef.height;
-      // const imgContainerAspRatioDef = imgContainerWidthDef / imgContainerHeightDef;
-
-      // const imgOriginalDef = new Image();
-      // imgOriginalDef.src = mainPicUrl;
-      // const imgOriginalWidthDef = imgOriginalDef.width;
-      // const imgOriginalHeightDef = imgOriginalDef.height;
-      // const imgOriginalAspRatioDef = imgOriginalWidthDef / imgOriginalHeightDef;
-      // const layoutDef = ((imgOriginalAspRatioDef) < (imgContainerAspRatioDef)) ? 'tall' : 'wide';
-
-      const cursorXCoordinateDef = Math.min(Math.max(e.offsetX, 0), imgContainerWidthDef);
-      const cursorYCoordinateDef = Math.min(Math.max(e.offsetY, 0), imgContainerHeightDef);
-
-      // Turn current mouse coordinates into a % of container width/height
-      const cursorXPercentPositionDef = cursorXCoordinateDef / imgContainerWidthDef;
-      const cursorYPercentPositionDef = cursorYCoordinateDef / imgContainerHeightDef;
-
-      refCursorXPercentPosition.current = cursorXPercentPositionDef;
-      refCursorYPercentPosition.current = cursorYPercentPositionDef;
-
-      console.log('cursorXPercentPositionDef', cursorXPercentPositionDef);
-      console.log('cursorYPercentPositionDef', cursorYPercentPositionDef);
-    };
 
     // Image sizing and positioning must be contained within the event handler. Just inside the hook
     // is not good enough b/c we need to dynamically recalculate even when state doesn't change.
@@ -196,24 +199,21 @@ function ImageGallery(props) {
         imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
         imageExpanded.style.backgroundPositionY = '0px';
       }
+
+      // On each mouse movement, also determine the new cursor style.
+      calcAndSetImageExpandedCursorClass();
     };
 
     if (expanded) {
       // console.log('Image:', mainPicUrl);
       // console.log('Expanded View:', imageExpanded);
+
       imageExpanded.addEventListener('mousemove', handleZoomedScroll);
       /* Need to remove event listener right before expanded image unmounts, or else event listener
         will remain on the DOM even after it's gone. The event listener would get tied to the
         default image and end up moving that around, which we don't want. */
       return function cleanup() {
         imageExpanded.removeEventListener('mousemove', handleZoomedScroll);
-      };
-    }
-
-    if (!expanded) {
-      imageDefault.addEventListener('mousemove', handleDefaultMouseTrack);
-      return function cleanup() {
-        imageDefault.removeEventListener('mousemove', handleDefaultMouseTrack);
       };
     }
 
@@ -285,56 +285,25 @@ function ImageGallery(props) {
     // Can't use just currIndex here. Need to wait until after image re-renders after index change.
   }, [mainPicUrl]);
 
-  useEffect(() => {
-    if (expanded) {
-      const imageExpanded = document.getElementById('image-main-expanded');
-      const imageContainerExpanded = document.getElementById('image-gallery-expanded');
+  // const getImageExpandedCursorClassStyled = () => {
+  //   if (imageExpandedCursorClass === 'right-arrow-toggle-next') {
+  //     if (currIndex < productStyleSelected.photos.length - 1) {
+  //       return 'right-arrow-toggle-next-enabled';
+  //     } else {
+  //       return 'right-arrow-toggle-next-disabled';
+  //     }
+  //   } else {
+  //     // do this
+  //     if (currIndex > 0) {
+  //       return 'left-arrow-toggle-prev-enabled';
+  //     } else {
+  //       return 'left-arrow-toggle-prev-disabled';
+  //     }
+  //   }
+  // };
 
-      if (imageExpanded !== null) {
-        setTimeout(function () {
-          const imageExpanded = document.getElementById('image-main-expanded');
-          const imageContainerExpanded = document.getElementById('image-gallery-expanded');
-
-          const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
-
-          // Dimensions of image's container
-          const imgContainerWidth = imgContainerCoordinatesAndSize.width;
-          const imgContainerHeight = imgContainerCoordinatesAndSize.height;
-          const imgContainerAspRatio = imgContainerWidth / imgContainerHeight;
-
-          const imgOriginal = new Image();
-          imgOriginal.src = mainPicUrl;
-          const imgOriginalWidth = imgOriginal.width;
-          const imgOriginalHeight = imgOriginal.height;
-          const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
-          // const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
-          // imageExpanded.style.backgroundPositionX = '100px';
-          // imageExpanded.style.backgroundPositionY = '100px';
-
-          const currCursorXPercentPositionAgain = refCursorXPercentPosition.current;
-          const currCursorYPercentPositionAgain = refCursorYPercentPosition.current;
-
-          let imgWidthAgain;
-          let imgHeightAgain;
-          let backgroundXPositionAgain;
-          let backgroundYPositionAgain;
-
-          imgWidthAgain = imgContainerWidth;
-          imgHeightAgain = (imgContainerWidth * imgOriginalHeight)
-            / imgOriginalWidth - imgContainerHeight;
-
-          backgroundXPositionAgain = currCursorXPercentPositionAgain * imgWidthAgain;
-          backgroundYPositionAgain = currCursorYPercentPositionAgain * imgHeightAgain;
-
-          imageExpanded.style.backgroundPositionX = '0px';
-          imageExpanded.style.backgroundPositionY = `${-backgroundYPositionAgain * 2}px`;
-          console.log(backgroundYPositionAgain);
-
-        }, 600);
-      }
-
-    }
-  }, [expanded]);
+  const imageGalleryId = expanded ? 'image-gallery-expanded' : 'image-gallery';
+  // const imageMainId = expanded ? 'image-main-expanded' : 'image-main';
 
   return (
     <div id={imageGalleryId}>
@@ -347,6 +316,7 @@ function ImageGallery(props) {
             }}
             onClick={togglePic}
             role="presentation"
+            className={imageExpandedCursorClass}
           />
         )
         : (
@@ -359,10 +329,12 @@ function ImageGallery(props) {
           />
         )}
       <div id="expand-main-image"><i className="fas fa-expand" onClick={handleExpand} role="presentation" /></div>
-      {(currIndex < productStyleSelected.photos.length - 1)
-        && <div id="next-overlay-thumbnail-pic"><i className="fas fa-chevron-right" role="presentation" /></div>}
-      {(currIndex > 0)
-        && <div id="prev-overlay-thumbnail-pic"><i className="fas fa-chevron-left" role="presentation" /></div>}
+      {!expanded
+        && (currIndex < productStyleSelected.photos.length - 1)
+        && <div id="next-overlay-thumbnail-pic"><i className="fas fa-chevron-right" onClick={showNextPic} role="presentation" /></div>}
+      {!expanded
+        && (currIndex > 0)
+        && <div id="prev-overlay-thumbnail-pic"><i className="fas fa-chevron-left" onClick={showPrevPic} role="presentation" /></div>}
       <div id="overlay-thumbnail-gallery" className="stylish-right-component">
         {productStyleSelected.photos.map((photo) => (
           <OverlayThumbnail
