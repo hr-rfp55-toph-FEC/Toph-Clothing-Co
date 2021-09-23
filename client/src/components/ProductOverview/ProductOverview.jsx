@@ -14,14 +14,21 @@ class ProductOverview extends React.Component {
 
     this.state = {
       expanded: false,
+      zoomed: false,
     };
 
     this.handleExpand = this.handleExpand.bind(this);
+    this.handleZoom = this.handleZoom.bind(this);
   }
 
   handleExpand() {
     const { expanded } = this.state;
     this.setState({ expanded: !expanded });
+  }
+
+  handleZoom() {
+    const { zoomed } = this.state;
+    this.setState({ zoomed: !zoomed });
   }
 
   render() {
@@ -35,6 +42,7 @@ class ProductOverview extends React.Component {
     } = this.props;
 
     const { expanded } = this.state;
+    const { zoomed } = this.state;
 
     return (
       <div id="product-main-container">
@@ -42,7 +50,9 @@ class ProductOverview extends React.Component {
           <ImageGallery
             productStyleSelected={productStyleSelected}
             expanded={expanded}
+            zoomed={zoomed}
             handleExpand={this.handleExpand}
+            handleZoom={this.handleZoom}
           />
           <div id="product-right-container" className={expanded ? 'product-right-container-hidden' : ''}>
             <ProductInformation
