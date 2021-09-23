@@ -275,8 +275,9 @@ const AddReviewForm = class extends React.Component {
             <div className="text-review-container">
               <div className="user-review-summary">
                 <label htmlFor="user-review-summary">
-                  Review Summary
-                  <br />
+                  <div className="asterisk-wrapper">
+                    Review Summary
+                  </div>
                   <input
                     type="text"
                     id="user-review-summary"
@@ -309,21 +310,22 @@ const AddReviewForm = class extends React.Component {
                 </label>
                 {reviewBodyCounter}
               </div>
-              {/* <div className="upload-review-photo">
-              <label htmlFor="upload-review-photo">
-                Please upload your photos here:
-                <br />
-                <input
-                  type="file"
-                  id="upload-review-photo"
-                  name="photos"
-                  accept="image/png, image/jpeg"
-                />
-              </label>
-              <span>
-                <button type="button">Upload</button>
-              </span>
-            </div> */}
+              <div className="upload-review-photo">
+                <label htmlFor="upload-review-photo">
+                  <div className="upload-photo-prompt">
+                    Please upload your photos here:
+                  </div>
+                  <input
+                    type="file"
+                    id="upload-review-photo"
+                    name="photos"
+                    accept="image/png, image/jpeg"
+                  />
+                </label>
+                <div>
+                  <button type="button">Upload</button>
+                </div>
+              </div>
               <div className="review-user-nickname">
                 <label htmlFor="review-user-nickname">
                   <div className="asterisk-wrapper">

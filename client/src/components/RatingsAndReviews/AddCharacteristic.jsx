@@ -7,13 +7,14 @@ const AddCharacteristic = ({ char, handleCharRatingClick }) => {
   const [whichCharLabel, setWhichCharLabel] = useState([false, false, false, false, false]);
 
   let charLabel = 'none selected';
+  // let radioClass = 'far fa-circle';
   whichCharLabel.forEach((value, index) => {
     if (value) {
       charLabel = char[1].labels[index];
+      // radioClass = 'far fa-check-circle';
     }
   });
-
-  // const [radioClass, setRadioClass] = useState('far fa-circle');
+  // setRadioClass('far fa-check-circle');
 
   return (
     <div className="new-char-content">
@@ -28,29 +29,27 @@ const AddCharacteristic = ({ char, handleCharRatingClick }) => {
       </span>
       <div className="new-char-selections radio-button-container">
         {scores.map((score) => (
-          <label htmlFor={char[1].id}>
-            <input
-              type="radio"
-              name={char[0]}
-              id={char[1].id}
-              value={score}
-              required
-              onClick={(e) => {
-                handleCharRatingClick(char[1].id, e);
-                const copy = [false, false, false, false, false];
-                copy[score - 1] = true;
-                setWhichCharLabel(copy);
-                // setRadioClass('far fa-check-circle');
-              }}
-            />
-            {/* <i className={radioClass} /> */}
-            i am the label
-          </label>
+          <td>
+            <label htmlFor={char[1].id}>
+              <input
+                type="radio"
+                name={char[0]}
+                id={char[1].id}
+                value={score}
+                required
+                onClick={(e) => {
+                  handleCharRatingClick(char[1].id, e);
+                  const copy = [false, false, false, false, false];
+                  copy[score - 1] = true;
+                  setWhichCharLabel(copy);
+                }}
+              />
+              {score === 1 ? char[1].labels[0] : null}
+              {score === 5 ? char[1].labels[4] : null}
+            </label>
+          </td>
+          /* <i className={radioClass} /> */
         ))}
-      </div>
-      <div className="always-displayed-labels">
-        <span id="always-displayed-label-start">{char[1].labels[0]}</span>
-        <span id="always-displayed-label-end">{char[1].labels[4]}</span>
       </div>
     </div>
   );
