@@ -167,7 +167,7 @@ const AddReviewForm = class extends React.Component {
     let reviewBodyCounter;
     if (body.length < 50) {
       reviewBodyCounter = (
-        <div className="review-body-counter">
+        <div className="review-body-counter muted-reminders">
           Minimum required characters left:
           {' '}
           {50 - body.length}
@@ -175,7 +175,7 @@ const AddReviewForm = class extends React.Component {
       );
     } else {
       reviewBodyCounter = (
-        <div className="review-body-counter">
+        <div className="review-body-counter muted-reminders">
           Minimum reached.
         </div>
       );
@@ -187,15 +187,23 @@ const AddReviewForm = class extends React.Component {
           <span className="close-modal" onClick={closeReviewFormHandler} role="presentation"><i className="fas fa-times" /></span>
           <h1 className="review-form-title">Write Your Review</h1>
           <h2>
-            About the
-            {' '}
             {productInfo.name}
           </h2>
+          <div className="review-form-header">
+            <span className="review-section-header">Your product rating</span>
+            <span className="required-review-mark">
+              <i className="fas fa-asterisk" />
+              Required
+            </span>
+          </div>
           <form id="add-review-form" onSubmit={this.handleSubmit}>
-            <label htmlFor="add-review-form">
-              Overall rating*:
-              {/* <input type="hidden" name="rating" value={rating} required /> */}
-              <div>
+            <label htmlFor="overall-rating">
+              Overall rating
+              <span className="required-review-mark">
+                <i className="fas fa-asterisk" />
+              </span>
+              <span className="muted-reminders">Click to rate!</span>
+              <div id="overall-rating">
                 <div className="stars-outer new-review-stars">
                   {starIds.map((id) => (
                     <i
@@ -203,7 +211,6 @@ const AddReviewForm = class extends React.Component {
                       key={id}
                       onClick={() => this.handleStarRatingClick(id)}
                       role="presentation"
-                      required
                     />
                   ))}
                   <div className="stars-inner new-review-stars" style={innerStarStyle}>
@@ -213,7 +220,6 @@ const AddReviewForm = class extends React.Component {
                         key={id}
                         onClick={() => this.handleStarRatingClick(id)}
                         role="presentation"
-                        required
                       />
                     ))}
                   </div>
@@ -224,28 +230,30 @@ const AddReviewForm = class extends React.Component {
             <div id="recommend-product">
               <label htmlFor="recommend-product">
                 Do you recommend this product?*
-                <label htmlFor="recommend">
-                  <input
-                    type="radio"
-                    name="recommend"
-                    id="recommend"
-                    value="true"
-                    onChange={this.handleInputChange}
-                    required
-                  />
-                  Yes
-                </label>
-                <label htmlFor="not-recommend">
-                  <input
-                    type="radio"
-                    name="recommend"
-                    id="not-recommend"
-                    value="false"
-                    onChange={this.handleInputChange}
-                    required
-                  />
-                  No
-                </label>
+                <div className="radio-button-container">
+                  <label htmlFor="recommend">
+                    <input
+                      type="radio"
+                      name="recommend"
+                      id="recommend"
+                      value="true"
+                      onChange={this.handleInputChange}
+                      required
+                    />
+                    Yes
+                  </label>
+                  <label htmlFor="not-recommend">
+                    <input
+                      type="radio"
+                      name="recommend"
+                      id="not-recommend"
+                      value="false"
+                      onChange={this.handleInputChange}
+                      required
+                    />
+                    No
+                  </label>
+                </div>
               </label>
             </div>
             <div id="add-characteristic-container">
@@ -266,7 +274,7 @@ const AddReviewForm = class extends React.Component {
                   id="user-review-summary"
                   name="summary"
                   maxLength="60"
-                  size="60"
+                  // size="60"
                   onChange={this.handleInputChange}
                 />
               </label>
@@ -279,8 +287,8 @@ const AddReviewForm = class extends React.Component {
                   id="user-review-body"
                   name="body"
                   required
-                  rows="20"
-                  cols="50"
+                  // rows="20"
+                  // cols="50"
                   placeholder="Why did you like the product or not?"
                   minLength="50"
                   maxLength="1000"
@@ -319,7 +327,7 @@ const AddReviewForm = class extends React.Component {
                   onChange={this.handleInputChange}
                 />
               </label>
-              <div id="reviewname-privacy-warning">
+              <div className="muted-reminders">
                 For privacy reasons, do not use your full name or email address
               </div>
             </div>
@@ -338,7 +346,7 @@ const AddReviewForm = class extends React.Component {
                   onChange={this.handleInputChange}
                 />
               </label>
-              <div id="reviewemail-privacy-warning">
+              <div className="muted-reminders">
                 For authentication reasons, you will not be emailed
               </div>
             </div>

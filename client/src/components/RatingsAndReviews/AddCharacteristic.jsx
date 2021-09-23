@@ -13,27 +13,33 @@ const AddCharacteristic = ({ char, handleCharRatingClick }) => {
     }
   });
 
+  // const [radioClass, setRadioClass] = useState('far fa-circle');
+
   return (
     <div className="new-char-content">
       <div className="new-char-heading">
         {char[0]}
       </div>
       <span className="selected-char-label">{charLabel}</span>
-      <div className="new-char-selections">
+      <div className="new-char-selections radio-button-container">
         {scores.map((score) => (
-          <input
-            type="radio"
-            name={char[0]}
-            id={char[1].id}
-            value={score}
-            required
-            onClick={(e) => {
-              handleCharRatingClick(char[1].id, e);
-              const copy = [false, false, false, false, false];
-              copy[score - 1] = true;
-              setWhichCharLabel(copy);
-            }}
-          />
+          <label htmlFor={char[1].id}>
+            <input
+              type="radio"
+              name={char[0]}
+              id={char[1].id}
+              value={score}
+              required
+              onClick={(e) => {
+                handleCharRatingClick(char[1].id, e);
+                const copy = [false, false, false, false, false];
+                copy[score - 1] = true;
+                setWhichCharLabel(copy);
+                // setRadioClass('far fa-check-circle');
+              }}
+            />
+            {/* <i className={radioClass} /> */}
+          </label>
         ))}
       </div>
       <div className="always-displayed-labels">
