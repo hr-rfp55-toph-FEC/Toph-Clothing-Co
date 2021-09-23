@@ -95,8 +95,8 @@ function ImageGallery(props) {
       refCursorXPercentPosition.current = cursorXPercentPositionDef;
       refCursorYPercentPosition.current = cursorYPercentPositionDef;
 
-      // console.log('cursorXPercentPositionDef', cursorXPercentPositionDef);
-      // console.log('cursorYPercentPositionDef', cursorYPercentPositionDef);
+      console.log('cursorXPercentPositionDef', cursorXPercentPositionDef);
+      console.log('cursorYPercentPositionDef', cursorYPercentPositionDef);
     };
 
     // Image sizing and positioning must be contained within the event handler. Just inside the hook
@@ -284,6 +284,57 @@ function ImageGallery(props) {
     }
     // Can't use just currIndex here. Need to wait until after image re-renders after index change.
   }, [mainPicUrl]);
+
+  useEffect(() => {
+    if (expanded) {
+      const imageExpanded = document.getElementById('image-main-expanded');
+      const imageContainerExpanded = document.getElementById('image-gallery-expanded');
+
+      if (imageExpanded !== null) {
+        setTimeout(function () {
+          const imageExpanded = document.getElementById('image-main-expanded');
+          const imageContainerExpanded = document.getElementById('image-gallery-expanded');
+
+          const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
+
+          // Dimensions of image's container
+          const imgContainerWidth = imgContainerCoordinatesAndSize.width;
+          const imgContainerHeight = imgContainerCoordinatesAndSize.height;
+          const imgContainerAspRatio = imgContainerWidth / imgContainerHeight;
+
+          const imgOriginal = new Image();
+          imgOriginal.src = mainPicUrl;
+          const imgOriginalWidth = imgOriginal.width;
+          const imgOriginalHeight = imgOriginal.height;
+          const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
+          // const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
+          // imageExpanded.style.backgroundPositionX = '100px';
+          // imageExpanded.style.backgroundPositionY = '100px';
+
+          const currCursorXPercentPositionAgain = refCursorXPercentPosition.current;
+          const currCursorYPercentPositionAgain = refCursorYPercentPosition.current;
+
+          let imgWidthAgain;
+          let imgHeightAgain;
+          let backgroundXPositionAgain;
+          let backgroundYPositionAgain;
+
+          imgWidthAgain = imgContainerWidth;
+          imgHeightAgain = (imgContainerWidth * imgOriginalHeight)
+            / imgOriginalWidth - imgContainerHeight;
+
+          backgroundXPositionAgain = currCursorXPercentPositionAgain * imgWidthAgain;
+          backgroundYPositionAgain = currCursorYPercentPositionAgain * imgHeightAgain;
+
+          imageExpanded.style.backgroundPositionX = '0px';
+          imageExpanded.style.backgroundPositionY = `${-backgroundYPositionAgain * 2}px`;
+          console.log(backgroundYPositionAgain);
+
+        }, 600);
+      }
+
+    }
+  }, [expanded]);
 
   return (
     <div id={imageGalleryId}>
