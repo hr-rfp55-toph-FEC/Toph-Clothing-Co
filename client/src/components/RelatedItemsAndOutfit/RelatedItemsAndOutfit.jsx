@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import server from '../helpers/Axios';
+import axios from 'axios';
 import RelatedProducts from './RelatedProducts/RelatedProducts';
 import UserOutfit from './UserOutfits/UserOutfit';
 
@@ -41,7 +41,7 @@ class RelatedItemsAndOutfit extends React.Component {
   }
 
   getRelatedData(currProdId) {
-    server.get(`/related/${currProdId}`)
+    axios.get(`/related/${currProdId}`)
       .then((res) => this.setState({
         prodsInfo: res.data[0],
         prodsStyles: res.data[1],
