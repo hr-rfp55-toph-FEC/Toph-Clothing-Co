@@ -27,7 +27,9 @@ const AddReviewForm = class extends React.Component {
     this.handleStarRatingClick = this.handleStarRatingClick.bind(this);
     this.handleCharRatingClick = this.handleCharRatingClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.fileInput = React.createRef();
+    this.handleFileUpload = this.handleFileUpload.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -65,7 +67,21 @@ const AddReviewForm = class extends React.Component {
     this.setState({ [name]: e.target.value });
   }
 
-  handleSubmit(e) {
+  handleFileUpload(e) {
+    console.log(this.fileInput.current.files);
+    if (this.fileInput.current.files.length > 5) {
+      alert(`Cannot upload more than 5 images!`);
+    }
+    // console.log(this.fileInput.current.files[0].name);
+    // const reader = new FileReader();
+    // reader.onloadend = (e) => {
+    //   console.log(e.target.result);
+    // };
+    // const url = reader.readAsDataURL();
+    // console.log(url);
+  }
+
+  handleFormSubmit(e) {
     e.preventDefault();
     const { productInfo, closeReviewFormHandler, getCurrProdData } = this.props;
     const {
@@ -196,7 +212,7 @@ const AddReviewForm = class extends React.Component {
               Required
             </span>
           </div>
-          <form id="add-review-form" onSubmit={this.handleSubmit}>
+          <form id="add-review-form" onSubmit={this.handleFormSubmit}>
             <label htmlFor="overall-rating">
               <div className="asterisk-wrapper">
                 Overall rating
@@ -317,13 +333,16 @@ const AddReviewForm = class extends React.Component {
                   </div>
                   <input
                     type="file"
+                    ref={this.fileInput}
                     id="upload-review-photo"
                     name="photos"
                     accept="image/png, image/jpeg"
+                    multiple
+                    onChange={this.handleFileUpload}
                   />
                 </label>
                 <div>
-                  <button type="button">Upload</button>
+                  <button type="submit" value="upload">Upload</button>
                 </div>
               </div>
               <div className="review-user-nickname">
