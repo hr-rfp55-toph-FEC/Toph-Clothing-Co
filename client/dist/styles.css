@@ -53,6 +53,8 @@ body {
 
 /* Banner and Title */
 
+/* Option 1 */
+
 .titlebar {
   /* background: rgb(17,83,61);
   background: radial-gradient(circle, rgba(17,83,61,1) 0%, rgba(25,184,141,0.43040966386554624) 0%, rgba(17,83,61,1) 100%);  color: rgb(51, 92, 86); */
@@ -68,22 +70,31 @@ body {
   align-items: flex-end;
 }
 
-/* Logo option 1 */
 .logo {
-  /* height: 8vh; */
-  height: 6.8rem;
-  margin-left: 45%;
-  margin-top: 0.5%;
-  margin-bottom: 0.5%;
-}
-
-/* Logo option 2 */
-.logo2 {
-  /* height: 11vh; */
   height: 7rem;
   margin-left: 1.5%;
   margin-bottom: 0.5%;
 }
+
+/* Option 2 */
+.titlebar {
+  height: 11rem;
+  background: rgb(20,98,78);
+  background: radial-gradient(circle, rgba(20,98,78,1) 0%, rgba(19,97,77,1) 21%, rgba(34,48,46,1) 82%);
+  background-image: url('https://c4.wallpaperflare.com/wallpaper/726/764/940/dark-green-minimalism-geometry-abstraction-wallpaper-preview.jpg');
+  background-size: cover;
+  /* background-size: 100% 100%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.logo {
+  height: 10rem;
+  margin-left: 1.5%;
+  margin-bottom: 0.5%;
+}
+
 
 .product-search {
   margin-right: 5%;
