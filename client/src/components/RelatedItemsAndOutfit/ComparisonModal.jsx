@@ -87,7 +87,6 @@ ComparisonModal.propTypes = {
   modalRelProd: PropTypes.instanceOf(Object).isRequired,
 };
 
-
 // class ComparisonModal extends React.Component {
 //   constructor(props) {
 //     super(props);

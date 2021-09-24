@@ -21,30 +21,30 @@ const ListCard = ({
     height: '50%',
   } : { backgroundImage: `url('${prodUrl}')` };
 
-  // const getImage = (src) => new Promise((resolve, reject) => {
-  //   const img = new window.Image();
-  //   img.src = src;
-  //   if (!src) resolve(null);
-  //   img.onload = () => {
-  //     resolve(img);
-  //   };
-  //   img.error = (e) => {
-  //     reject(e);
-  //   };
-  // });
+  const getImage = (src) => new Promise((resolve, reject) => {
+    const img = new window.Image();
+    img.src = src;
+    if (!src) resolve(null);
+    img.onload = () => {
+      resolve(img);
+    };
+    img.error = (e) => {
+      reject(e);
+    };
+  });
 
-  // if (currStyle.current !== prodInfo.id) {
-  //   getImage(prodUrl).then((res) => {
-  //     if (!res) return;
-  //     if (res.naturalHeight < res.naturalWidth) {
-  //       setRotateImage(true);
-  //     } else {
-  //       setRotateImage(false);
-  //     }
-  //   });
-  //   currStyle.current = prodInfo.id;
-  //   // console.log(currStyle.current, 'inside');
-  // }
+  if (currStyle.current !== prodInfo.id) {
+    getImage(prodUrl).then((res) => {
+      if (!res) return;
+      if (res.naturalHeight < res.naturalWidth) {
+        setRotateImage(true);
+      } else {
+        setRotateImage(false);
+      }
+    });
+    currStyle.current = prodInfo.id;
+    // console.log(currStyle.current, 'inside');
+  }
 
   // useEffect(() => {
   //   if (currStyle.current !== prodInfo.id) {

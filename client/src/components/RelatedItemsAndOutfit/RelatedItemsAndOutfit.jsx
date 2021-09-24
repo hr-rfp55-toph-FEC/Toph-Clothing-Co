@@ -96,10 +96,18 @@ RelatedItemsAndOutfit.propTypes = {
 
 const areEqual = (prevProps, nextProps) => {
   // console.log(prevProps, nextProps, 'areEqual memo in RelatedOutfits');
-  if ((prevProps.prodStyles.product_id === nextProps.prodStyles.product_id)) {
+  if (prevProps.prodStyleSelected.style_id === nextProps.prodStyleSelected.style_id) {
+    // console.log(prevProps.prodStyles, prevProps.prodStyleSelected);
+    // console.log('RIO same style', prevProps.prodStyles.product_id, nextProps.prodStyles.product_id)
+    // console.log('styles were the same, stopped from rendering at RelatedItemsandOutfits')
     return true;
+    //return true, are equal, don't re-render
   }
+  // console.log('re-rendered RelatedItemsandoutfits, styles were different')
+  // console.log('RIO', prevProps.prodStyles.product_id, nextProps.prodStyles.product_id)
   return false;
 };
 
+// export default RelatedItemsAndOutfit;
 export default React.memo(RelatedItemsAndOutfit, areEqual);
+//this memo stops the childrens props from updating if the currentProduct is still the same product, but User Outfit needs the new style passed in from the upper component in order to render something new
