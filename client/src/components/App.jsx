@@ -1,5 +1,5 @@
 import React from 'react';
-import server from './helpers/Axios';
+import axios from 'axios';
 import Banner from './Banner';
 import ProductOverview from './ProductOverview/ProductOverview';
 import RelatedItemsAndOutfit from './RelatedItemsAndOutfit/RelatedItemsAndOutfit';
@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   getCurrProdData(currProdId) {
-    server.get(`/currentProduct/${currProdId}`)
+    axios.get(`/currentProduct/${currProdId}`)
       .then(({ data }) => this.setState({
         currProdId: data[0].id,
         prodInfo: data[0],

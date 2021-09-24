@@ -30,6 +30,7 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 react-client/dist/bundle.js
+react-client/dist/bundle.js.map
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:

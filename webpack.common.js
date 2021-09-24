@@ -1,5 +1,4 @@
 const path = require('path');
-const ESLintPlugin = require('eslint-webpack-plugin');
 
 const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/client/dist');
@@ -10,16 +9,7 @@ module.exports = {
     filename: 'bundle.js',
     path: DIST_DIR,
   },
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'client', 'dist'),
-    },
-    compress: true,
-    port: 9000,
-    open: true,
-  },
   resolve: { extensions: ['.js', '.jsx'] },
-  plugins: [new ESLintPlugin()],
   module: {
     rules: [
       {
