@@ -382,7 +382,7 @@ function ImageGallery(props) {
           onClick={handleExpand}
           role="presentation"
           alt="Style Thumbnail"
-          src="/assets/icons8-full-screen-96-new-green.png"
+          src="/assets/icons8-full-screen-100.png"
         />
       </div>
       <OverlayCarousel

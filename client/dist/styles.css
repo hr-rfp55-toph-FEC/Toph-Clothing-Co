@@ -142,7 +142,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
   transition: width 0.6s;
   z-index: 2;
@@ -217,22 +217,22 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 /* Logic to change cursor image */
 #image-main-expanded.right-arrow-toggle-next-enabled,
 #overlay-thumbnail-gallery-expanded.right-arrow-toggle-next-enabled {
-    cursor: url("/assets/icons8-expand-arrow-40-minimal-green-right.png"), auto;
+    cursor: url("/assets/icons8-enabled-green-right-arrow-30.png"), auto;
 }
 
 #image-main-expanded.right-arrow-toggle-next-disabled,
 #overlay-thumbnail-gallery-expanded.right-arrow-toggle-next-disabled {
-  cursor: url("/assets/icons8-expand-arrow-40-minimal-gray-right.png"), auto;
+  cursor: url("/assets/icons8-disabled-gray-right-arrow-30.png"), auto;
 }
 
 #image-main-expanded.left-arrow-toggle-prev-enabled,
 #overlay-thumbnail-gallery-expanded.left-arrow-toggle-prev-enabled {
-  cursor: url("/assets/icons8-expand-arrow-40-minimal-green-left.png"), auto;
+  cursor: url("/assets/icons8-enabled-green-left-arrow-30.png"), auto;
 }
 
 #image-main-expanded.left-arrow-toggle-prev-disabled,
 #overlay-thumbnail-gallery-expanded.left-arrow-toggle-prev-disabled {
-  cursor: url("/assets/icons8-expand-arrow-40-minimal-gray-left.png"), auto;
+  cursor: url("/assets/icons8-disabled-gray-left-arrow-30.png"), auto;
 }
 
 /* #image-gallery:hover {
