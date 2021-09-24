@@ -667,7 +667,8 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   color: rgb(138, 13, 13);
 }
 
-.interactive-button-copy {
+.interactive-button-copy,
+.interactive-button-copy-disabled {
   /* Keep these styles the same from Ya */
   text-transform: uppercase;
   border: 0.1em solid #000000;
@@ -736,7 +737,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   background-repeat: no-repeat;
   background-position-x: 95%;
   background-position-y: 50%;
-
 }
 
 #size-dropdown.interactive-button-copy-disabled,
@@ -744,6 +744,20 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   -webkit-appearance: none;
   -moz-appearance: none;
   background: transparent;
+}
+
+#size-dropdown.interactive-button-copy:hover,
+#quantity-dropdown.interactive-button-copy:hover {
+  text-shadow: 0 0 2em rgba(255,255,255,1);
+  /* color: #ffffff;
+  border-color: #ffffff;
+  background-color:#447c47; */
+  background-color: rgb(226, 217, 217);
+}
+
+#size-dropdown.interactive-button-copy-disabled:hover,
+#quantity-dropdown.interactive-button-copy-disabled:hover {
+  cursor: auto;
 }
 
 #add-to-cart-button {
@@ -898,7 +912,8 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 }
 
 .arrow-hover:hover {
-  background-color:#15b645;
+  background-color:rgb(22 76 55);
+  color: #e8f1ec;
   width: 5rem;
   height: 11rem;
   opacity: 0.9;
@@ -1017,7 +1032,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   z-index: 3;
   opacity: 10;
   font-size: 2.0rem;
-  color: green;
+  color: rgb(88, 179, 151);
   transition: font-size 0.8s;
 }
 
@@ -1051,7 +1066,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 .card-default-image {
   font-size: 15rem;
-  color: #447c47;
+  color: rgb(22 76 55);
   cursor: pointer;
 }
 
@@ -1094,7 +1109,9 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 .add-to-outfit-heading {
   font-size: 2.5rem;
-  color: #447c47;
+  /* color: #447c47; */
+  color: rgb(22 76 55);
+  /* color: rgb(17 83 61); */
   text-align: center;
 }
 
@@ -1323,17 +1340,17 @@ tr:hover{
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
   /* background-color: #447c47; */
-  /* background-color: #1a552e; */
-  background-color: rgb(27, 70, 52);
+  /* background-color: rgb(27, 70, 52); */
+  background-color: rgb(17 83 61);
   height: 12px;
 }
 
 .actual-progress-full {
   border-radius: 2px;
   /* background-color: #447c47; */
-  /* background-color: #1a552e; */
-  background-color: rgb(27, 70, 52);
-
+  /* background-color: rgb(27, 70, 52); */
+  background-color: rgb(22 76 55);
+  /* background-color: rgb(17 83 61); */
   height: 12px;
 }
 
@@ -1590,9 +1607,9 @@ img.thumbnail:hover {
 
 .interactive-button:hover{
   text-shadow: 0 0 2em rgba(255,255,255,1);
-  color: #ffffff;
+  color: #e8f1ec;
   border-color: #ffffff;
-  background-color:#447c47;
+  background-color: rgb(22 76 55);
 }
 
 #plus-icon {
