@@ -29,7 +29,7 @@ const RelatedProducts = ({
         modalRelProd={modalRelProd}
       />
       <h2 className="related-products-header" id="ratings-reviews-title">RELATED PRODUCTS</h2>
-      <Carousel>
+      <Carousel currProd={currProd}>
         <></>
         {prodsInfo.map((prodInfo, index) => (
           <ListCard
@@ -57,4 +57,11 @@ RelatedProducts.propTypes = {
   changeProductHandler: PropTypes.instanceOf(Function).isRequired,
 };
 
-export default RelatedProducts;
+const areEqual = (prevProps, nextProps) => {
+  if (prevProps.currProd[0].id === nextProps.currProd[0].id) {
+    return true;
+  }
+  return false;
+};
+
+export default React.memo(RelatedProducts, areEqual);

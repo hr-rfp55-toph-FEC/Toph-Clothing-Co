@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../Stars';
 import calcAvgRating from '../helpers/calcAvgRating';
@@ -16,6 +16,7 @@ const ListCard = ({
   const rotateStyle = rotateImage ? {
     transform: 'rotate(90deg) scale(1.5)',
     backgroundImage: `url('${prodUrl}')`,
+    height: '50%',
   } : { backgroundImage: `url('${prodUrl}')` };
 
   const getImage = (src) => new Promise((resolve, reject) => {
@@ -30,9 +31,8 @@ const ListCard = ({
     };
   });
 
-  useEffect(() => {
-    // console.log(currStyle.current, prodInfo.id);
-    if (currStyle.current !== prodInfo.id) {
+  if (currStyle.current !== prodInfo.id) {
+    if (prodUrl) {
       getImage(prodUrl).then((res) => {
         if (!res) return;
         if (res.naturalHeight < res.naturalWidth) {
@@ -41,10 +41,17 @@ const ListCard = ({
           setRotateImage(false);
         }
       });
-      currStyle.current = prodInfo.id;
-      // console.log(currStyle.current, 'inside');
     }
-  }, [prodUrl, prodInfo.id]);
+    currStyle.current = prodInfo.id;
+  }
+
+  const changeProductAndScrollTop = (e) => {
+    changeProductHandler(prodInfo.id, e);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <div className="product-list-card">
@@ -52,14 +59,13 @@ const ListCard = ({
         { children }
         {prodUrl ? (
           <div
-            // src={prodUrl}
             alt="model-in-clothing"
             className="card-image-src"
             style={rotateStyle}
-            onClick={() => changeProductHandler(prodInfo.id)}
+            onClick={changeProductAndScrollTop}
             role="presentation"
           />
-        ) : <i onClick={() => changeProductHandler(prodInfo.id)} role="presentation" className="fas fa-image card-default-image" />}
+        ) : <i onClick={changeProductAndScrollTop} role="presentation" className="fas fa-image card-default-image" />}
 
       </div>
 

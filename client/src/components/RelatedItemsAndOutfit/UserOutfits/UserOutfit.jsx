@@ -7,12 +7,13 @@ import ListCard from '../ListCard';
 const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
   const [currOutfits, setCurrOutfits] = useState([]);
   const [styleIds, setStyleIds] = useState([]);
-
   useEffect(() => {
     if (!currOutfits.length) {
-      const currStorage = [];
-      Object.entries(localStorage).forEach((entry) => currStorage.push(JSON.parse(entry[1])));
-      setCurrOutfits(currStorage);
+      const cachedOutfits = [];
+      const cachedIds = [...Object.keys(localStorage)];
+      Object.entries(localStorage).forEach((entry) => cachedOutfits.push(JSON.parse(entry[1])));
+      setCurrOutfits(cachedOutfits);
+      setStyleIds(cachedIds);
     }
   }, [currOutfits.length]);
 
@@ -21,11 +22,13 @@ const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
     const currProdStyleId = prodStyleSelected.style_id;
     let alreadyAdded = false;
     styleIds.forEach((id) => {
-      if (currProdStyleId === id) {
+      if (Number(currProdStyleId) === Number(id)) {
+        if (alreadyAdded) return;
         alreadyAdded = true;
       }
     });
     if (alreadyAdded) return;
+
     setStyleIds((prevIds) => [...prevIds, currProdStyleId]);
     const [product, styles, metaData] = currProd;
     const prod = [product, prodStyleSelected, metaData];
@@ -50,7 +53,7 @@ const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
         />
         {currOutfits.map((outfit) => (
           <ListCard
-            key={`${outfit[0].id}BG${Math.random * 100000}`}
+            key={`${outfit[0].id}BG${Math.random() * 100000}`}
             prodInfo={outfit[0]}
             prodStyles={outfit[1]}
             prodMeta={outfit[2]}
@@ -69,6 +72,7 @@ const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
 UserOutfit.propTypes = {
   currProd: PropTypes.instanceOf(Array).isRequired,
   changeProductHandler: PropTypes.func.isRequired,
+  prodStyleSelected: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default UserOutfit;
