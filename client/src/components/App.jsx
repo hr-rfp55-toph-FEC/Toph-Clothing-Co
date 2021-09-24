@@ -18,6 +18,7 @@ class App extends React.Component {
       isFetching: true,
     };
     this.changeProductHandler = this.changeProductHandler.bind(this);
+    this.getCurrProdData = this.getCurrProdData.bind(this);
     this.selectProductStyle = this.selectProductStyle.bind(this);
   }
 
@@ -88,6 +89,7 @@ class App extends React.Component {
                 prodInfo={prodInfo}
                 prodReviews={prodReviews}
                 prodReviewsMeta={prodReviewsMeta}
+                getCurrProdData={this.getCurrProdData}
               />
             </div>
           )}

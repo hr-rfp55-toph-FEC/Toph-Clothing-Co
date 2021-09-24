@@ -748,7 +748,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 }
 
 .arrow-hover:hover {
-  background-color:#447c47;
+  background-color:#28B351;
   width: 5rem;
   height: 11rem;
   opacity: 0.9;
@@ -901,7 +901,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 .card-default-image {
   font-size: 15rem;
-  color: #447c47;
+  color: #28B351;
   cursor: pointer;
 }
 
@@ -945,7 +945,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 .add-to-outfit-heading {
   font-size: 2.5rem;
-  color: #447c47;
+  color: #28B351;
   text-align: center;
 }
 
@@ -1101,10 +1101,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   margin: 0 3rem 0 1rem;
 }
 
-.review-stars, .ratings-stars {
-  color: #f8ce0b;
-}
-
 .ratings-container {
   display: flex;
   flex-direction: column;
@@ -1174,13 +1170,13 @@ tr:hover{
 .actual-progress {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
-  background-color: #447c47;
+  background-color: #28B351;
   height: 12px;
 }
 
 .actual-progress-full {
   border-radius: 2px;
-  background-color: #447c47;
+  background-color: #28B351;
   height: 12px;
 }
 
@@ -1344,6 +1340,15 @@ h3 {
   word-break: break-all;
 }
 
+.helpful-number {
+  padding-right: 1rem;
+}
+
+.report-review {
+  padding-left: 1rem;
+  border-left: solid 1px black;
+}
+
 img.thumbnail {
   margin: 10px 10px 10px 0;
   border-radius: 3px;
@@ -1360,7 +1365,7 @@ img.thumbnail:hover {
   width: 100%;
   height: 100%;
   overflow: auto;
-  z-index: 1;
+  z-index: 5;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.8);
 }
@@ -1377,8 +1382,8 @@ img.thumbnail:hover {
   color: darkgray;
   top: 15px;
   right: 35px;
-  font-size: 40px;
-  font-weight: bold;
+  font-size: 5rem;
+  font-weight: regular;
   cursor: pointer;
 }
 
@@ -1411,13 +1416,15 @@ img.thumbnail:hover {
 }
 
 .buttons-container {
+  display: flex;
   flex-direction: row;
-  margin: 20px 0;
+  margin: 3.5rem 2.5rem;
+  justify-content: space-between;
 }
 
 .interactive-button {
   text-transform: uppercase;
-  margin: 0 2rem;
+  /* margin: 0 2rem; */
   padding: 2rem 2rem;
   display: inline-block;
   border: 0.1em solid #000000;
@@ -1439,13 +1446,185 @@ img.thumbnail:hover {
   text-shadow: 0 0 2em rgba(255,255,255,1);
   color: #ffffff;
   border-color: #ffffff;
-  background-color:#447c47;
+  background-color:#28B351;
 }
 
 #plus-icon {
   margin: 0 0 0.5rem 2rem;
 }
 
+.review-form-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(2.0);
+}
+
+.show-review-form {
+  z-index: 5;
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.0);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.review-form-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: whitesmoke;
+  padding: 1rem 1.5rem;
+  width: 100rem;
+  height: 80rem;
+  overflow-y: scroll;
+  border-radius: 0.5rem;
+  padding: 5rem 15rem;
+  align-items: center;
+}
+
+.review-form-title {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.new-review-stars {
+  cursor: pointer;
+  font-size: 2.5rem;
+}
+
+.new-review-stars-label {
+  font-size: 2rem;
+  margin: 0 3rem;
+}
+
+#add-review-form {
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+h2 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.review-form-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px;
+  padding-bottom: 1rem;
+  align-items: center;
+}
+
+.review-section-header {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.required-review-mark {
+  font-size: 1.3rem;
+  color: red;
+}
+
+.asterisk-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+#recommend-product {
+  margin: 1rem 0;
+}
+
+.muted-reminders {
+  margin: 0.5rem 0 1rem 0;
+  font-size: 1.7rem;
+  color: rgb(90, 90, 90);
+}
+
+.text-reminder {
+  text-align: right;
+}
+
+.radio-button-container {
+  display: flex;
+  margin: 1rem 0;
+  justify-content: space-evenly;
+}
+
+.new-char-selections input[type=radio] {
+  display: block;
+  margin: 0 auto;
+}
+
+.new-char-selections label [for=radio] {
+  display: inline-block;
+}
+
+#add-characteristic-container {
+  margin: 2rem 0;
+}
+
+.new-char-content {
+  margin-bottom: 2rem;
+  border-bottom: solid 1px darkgray;
+}
+
+.new-char-selections {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  font-size: 1.6rem;
+}
+
+.selected-char-label {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.text-review-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-review-summary {
+  margin: 1rem 0;
+}
+
+.upload-review-photo {
+  margin-bottom: 1rem;
+}
+
+.rating-warning {
+  color: red;
+  font-size: 1.6rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-top: 1rem;
+}
+
+input[type=text], input[type=email] {
+  width: 100%;
+  height: 4rem;
+}
+
+textarea {
+  width: 100%;
+  height: 10rem;
+  box-sizing: border-box;
+}
+
+.submit-button-holder {
+  text-align: center;
+  margin-top: 4rem;
+}
 /* Stars
 
 .stars-outer {

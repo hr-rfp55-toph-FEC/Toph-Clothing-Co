@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReviewsList from './ReviewsList';
 import Ratings from './Ratings';
 
@@ -7,7 +8,6 @@ const RatingsAndReviews = class extends React.Component {
     super(props);
 
     this.state = {
-      productId: 40344,
       starFilter: [],
     };
 
@@ -31,7 +31,10 @@ const RatingsAndReviews = class extends React.Component {
   }
 
   render() {
-    const { productId, starFilter } = this.state;
+    const { starFilter } = this.state;
+    const {
+      prodInfo, prodReviews, prodReviewsMeta, getCurrProdData,
+    } = this.props;
 
     return (
       <section id="ratings-reviews-section">
@@ -39,7 +42,7 @@ const RatingsAndReviews = class extends React.Component {
         <div className="ratings-and-reviews">
           <div className="ratings-container">
             <Ratings
-              productId={productId}
+              reviewsMeta={prodReviewsMeta}
               handleStarClick={this.handleStarClick}
               removeFilter={this.removeFilter}
               starFilter={starFilter}
@@ -47,14 +50,24 @@ const RatingsAndReviews = class extends React.Component {
           </div>
           <div className="reviews-container">
             <ReviewsList
-              productId={productId}
+              productInfo={prodInfo}
+              reviews={prodReviews.results}
+              reviewsMeta={prodReviewsMeta}
               starFilter={starFilter}
+              getCurrProdData={getCurrProdData}
             />
           </div>
         </div>
       </section>
     );
   }
+};
+
+RatingsAndReviews.propTypes = {
+  getCurrProdData: PropTypes.instanceOf(Function).isRequired,
+  prodReviews: PropTypes.instanceOf(Object).isRequired,
+  prodReviewsMeta: PropTypes.instanceOf(Object).isRequired,
+  prodInfo: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default RatingsAndReviews;
