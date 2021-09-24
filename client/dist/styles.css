@@ -5,7 +5,6 @@
 /*
 Clamping our HTML here will define the minimum font size unit for our app when shrunken and when full-screen.
 All children will have > 1 rem. That way, they'll never be smaller than the minimum bounds we're defining here.
-
 MIN should be the minimum font size for all elements when shrunken
 VALUE should be the minimum font size for all elements when full-screen
 MAX doesn't matter too much right now
@@ -54,6 +53,8 @@ body {
 
 /* Banner and Title */
 
+/* Option 1 */
+
 .titlebar {
   /* background: rgb(17,83,61);
   background: radial-gradient(circle, rgba(17,83,61,1) 0%, rgba(25,184,141,0.43040966386554624) 0%, rgba(17,83,61,1) 100%);  color: rgb(51, 92, 86); */
@@ -69,25 +70,34 @@ body {
   align-items: flex-end;
 }
 
-/* Logo option 1 */
 .logo {
-  /* height: 8vh; */
-  height: 6.8rem;
-  margin-left: 45%;
-  margin-top: 0.5%;
-  margin-bottom: 0.5%;
-}
-
-/* Logo option 2 */
-.logo2 {
-  /* height: 11vh; */
   height: 7rem;
   margin-left: 1.5%;
   margin-bottom: 0.5%;
 }
 
+/* Option 2 */
+.titlebar {
+  height: 9rem;
+  background: rgb(20,98,78);
+  background: radial-gradient(circle, rgba(20,98,78,1) 0%, rgba(19,97,77,1) 21%, rgba(34,48,46,1) 82%);
+  background-image: url('https://c4.wallpaperflare.com/wallpaper/726/764/940/dark-green-minimalism-geometry-abstraction-wallpaper-preview.jpg');
+  background-size: cover;
+  /* background-size: 100% 100%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.logo {
+  height: 8rem;
+  margin-left: 1.5%;
+  margin-bottom: 0.5%;
+}
+
+
 .product-search {
-  margin-right: 5%;
+  margin-right: 3%;
   height: 2.5rem;
   width: 20%;
   color: #ffffff;
@@ -95,7 +105,8 @@ body {
   text-transform: uppercase;
   background-color: transparent;
   border: 0.17rem solid transparent;
-  border-bottom: 0.17rem solid #b3f8f2;
+  /* border-bottom: 0.17rem solid #b3f8f2; */
+  border-bottom: 0.17rem solid rgb(88, 179, 151);
   /* padding-bottom: 0.1vw; */
   margin-bottom: 1.1%;
   background-image: url("/assets/magny.png");
@@ -143,7 +154,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
   transition: width 0.6s;
   z-index: 2;
@@ -175,12 +186,18 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* max-width: 100%;
-    max-height: 100%; */
     position: relative;
 
     /* Background positioning */
     background-size: cover;
+
+    /* Slight adjustment for photo being positioned ~1px off for some reason, creating a 1px repeating border */
+    /* margin-top: -0.5rem;
+    margin-left: -0.5rem; */
+
+    /* Also try this instead to see it fixes background 1px positioning thing */
+    /* background-clip: padding-box; */
+    background-repeat: no-repeat;
 }
 
 /* Expanded view gets same properties as default view - 100%/100%/cover - in order for things to look nice. They can share the same class name.
@@ -194,15 +211,44 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   position: relative;
 
   /* Work for 2.5x zoomed in image */
-  width: 250%;
-  height: 250%;
-  object-fit: cover;
+  /* width: 250%;
+  height: 250%; */
+  /* object-fit: cover; */
 
   /* Work for 2.5x zoomed in background + ability to pan */
   background-size: cover;
-  background-clip: border-box;
+  /* background-clip: padding-box;
+  background-repeat: no-repeat; */
 
-  /* Work for manually sized zoomed in background */
+  /* Work for fixing the 'jump' in background position when first expanding due to zoom feature */
+  /* transition: all 0.01s; */
+  /* transition: all 0.5s; */
+
+}
+
+/* Logic to change cursor image */
+#image-main-expanded.right-arrow-toggle-next-enabled
+/* ,#overlay-thumbnail-gallery-expanded.right-arrow-toggle-next-enabled */
+{
+    cursor: url("/assets/icons8-enabled-green-right-arrow-30.png"), auto;
+}
+
+#image-main-expanded.right-arrow-toggle-next-disabled
+/* ,#overlay-thumbnail-gallery-expanded.right-arrow-toggle-next-disabled */
+{
+  cursor: url("/assets/icons8-disabled-gray-right-arrow-30.png"), auto;
+}
+
+#image-main-expanded.left-arrow-toggle-prev-enabled
+/* ,#overlay-thumbnail-gallery-expanded.left-arrow-toggle-prev-enabled */
+{
+  cursor: url("/assets/icons8-enabled-green-left-arrow-30.png"), auto;
+}
+
+#image-main-expanded.left-arrow-toggle-prev-disabled
+/* ,#overlay-thumbnail-gallery-expanded.left-arrow-toggle-prev-disabled */
+{
+  cursor: url("/assets/icons8-disabled-gray-left-arrow-30.png"), auto;
 }
 
 /* #image-gallery:hover {
@@ -211,7 +257,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   cursor: zoom-in;
   cursor: url("./assets/search-plus-solid.png"), auto;
 }
-
 #image-gallery-expanded:hover {
   cursor: -moz-zoom-out;
   cursor: -webkit-zoom-out;
@@ -220,16 +265,48 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 } */
 
 #overlay-thumbnail-gallery {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 100%;
+  align-items: flex-start; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  top: 1%;
   left: 0%;
-  padding: 1rem;
+  height: 70%;
+  padding: 0rem 1rem ;
+  padding-left: 1rem;
+
   gap: 1rem;
   position: absolute;
-  z-index: 3;
+  z-index: 1;
+  /* z-index: 3; */
   overflow-y: scroll;
+  /* transition: all 1s; */
+  width: 7rem;
+}
+
+#overlay-thumbnail-gallery-expanded {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start; */
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  top: 1%;
+  left: 0%;
+  height: 45%;
+  /* padding: 3rem 2rem ; */
+  /* padding: 0rem 1rem ; */
+  /* gap: 1rem; */
+  padding-left: 1rem;
+  position: absolute;
+  z-index: 1;
+  /* overflow-y: scroll; */
+  /* transition: all 1s; */
 
 }
 
@@ -244,7 +321,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   height: 9%;
   top: 5%;
   left: 5%;
-
 } */
 
 .overlay-thumbnail-image {
@@ -252,27 +328,55 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   height: 4rem;
   /* position: relative; */
   flex-shrink: 1;
-  z-index: 4;
+  z-index: 1;
+  /* z-index: 4; */
   border: 0.1rem solid rgb(243, 243, 243, 0.5);
   border-radius: 7%;
+  transition: all 0.25s;
 }
+
 
 .overlay-thumbnail-image-select {
   width: 4.5rem;
   height: 4.5rem;
   /* position: relative; */
   flex-shrink: 1;
-  z-index: 4;
+  z-index: 1;
+    /* z-index: 4; */
   border: 0.1rem solid rgb(243, 243, 243, 0.5);
-  border-bottom: 0.4rem solid rgb(46, 151, 107);
+  /* border-bottom: 0.4rem solid #15b645; */
+  border-bottom: 0.4rem solid rgb(88, 179, 151);
   border-radius: 7%;
+  transition: all 0.25s;
   /* transform: all 2s; */
+}
+
+.overlay-thumbnail-image-expanded {
+  width: 1rem;
+  height: 1rem;
+  z-index: 1;
+  border-radius: 50%;
+  /* background-color: #808080; */
+  background-color: gray;
+  transition: all 0.25s;
+  margin: 1rem;
+}
+
+.overlay-thumbnail-image-select-expanded {
+  width: 1.3rem;
+  height: 1.3rem;
+  z-index: 1;
+  /* background-color: rgb(18, 196, 128); */
+  background-color: rgb(88, 179, 151);
+  border-radius: 50%;
+  transition: all 0.25s;
+  margin: 1rem;
 }
 
 #expand-main-image {
   position: absolute;
-  top: 3%;
-  right: 3%;
+  top: 2.5%;
+  right: 2.5%;
   font-size: 3rem;
   z-index: 1;
   color: gray;
@@ -280,8 +384,8 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 #next-overlay-thumbnail-pic {
   position: absolute;
-  top: 50%;
-  right: 3%;
+  top: 93%;
+  right: 2.5%;
   font-size: 3rem;
   z-index: 1;
   color: gray;
@@ -289,26 +393,64 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 #prev-overlay-thumbnail-pic {
   position: absolute;
-  top: 51%;
-  left: 10%;
+  top: 93%;
+  left: 2.5%;
   font-size: 3rem;
   z-index: 1;
   color: gray;
 }
 
+#expand-main-image .default-toggle-pic-arrow {
+  width: 3rem;
+}
+
+#next-overlay-thumbnail-pic .default-toggle-pic-arrow,
+#prev-overlay-thumbnail-pic .default-toggle-pic-arrow {
+  width: 3rem;
+}
+
+#carousel-up-one:hover,
+#carousel-down-one:hover,
 #expand-main-image:hover,
-#next-overlay-thumbnail-pic:hover,
-#prev-overlay-thumbnail-pic:hover,
-.overlay-thumbnail-image:hover {
+#next-overlay-thumbnail-pic .default-toggle-pic-arrow:hover,
+#prev-overlay-thumbnail-pic .default-toggle-pic-arrow:hover,
+.overlay-thumbnail-image:hover,
+.overlay-thumbnail-image-expanded:hover{
   cursor: pointer;
   opacity: 0.7;
+}
+
+#carousel-up-one,
+#carousel-down-one {
+  position: absolute;
+  font-size: 3rem;
+  z-index: 1;
+  color: rgb(88, 179, 151);
+}
+
+#carousel-up-one {
+  top: 0%;
+}
+
+#carousel-down-one {
+  bottom: -1%;
+}
+
+#carousel-up-one.up-down-arrow-default,
+#carousel-down-one.up-down-arrow-default {
+  left: 29.5%;
+}
+
+#carousel-up-one.up-down-arrow-expanded,
+#carousel-down-one.up-down-arrow-expanded {
+  /* left: 29.5%; */
+  margin-left: 0.55rem;
 }
 
 /* Product Info & Options (Right side of Top Overview Container) */
 
 /* Must have "position: absolute" in order to remove the entire right container from flow of the DOM and allow left container image to
     transition smoothly from default to expanded view (assuming z-index of image is higher than right container).
-
   Once positioned absolutely, the element will lose its width/height and we must manually set them again appropriately
     The key to making this work was making the container a set width/height so that children elements had enough space to be positioned with Flex */
 #product-right-container {
@@ -325,9 +467,9 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   right: 0%;
 }
 
-/* #product-right-container.product-right-container-hidden {
+#product-right-container.product-right-container-hidden {
   display: none;
-} */
+}
 
 /* .product-right-component {
   height: calc(100% / 3);
@@ -399,7 +541,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 /* .sale-price {
   color: red
 }
-
 .orig-price-strike {
   margin-left: 2%;
   color: gray;
@@ -428,7 +569,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 /* #style-selector-body::-webkit-scrollbar {
   background-color: white;
 }
-
 #style-selector-body::-webkit-scrollbar-button {
   background-color: darkgrey;
   outline: 1px solid slategrey;
@@ -444,10 +584,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   position: relative;
 }
 
-/* To do: Add special coloring when checked later on */
-/* .product-style-thumbnail-container-checked {
-} */
-
 .product-style-thumbnail,
 .product-style-thumbnail-checked {
   border-radius: 50%;
@@ -456,12 +592,24 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   /* z-index: -1; */
 }
 
+/* To do: Add special coloring when checked later on */
+/* .product-style-thumbnail-container-checked {
+} */
+/*
+.product-style-thumbnail,
+.product-style-thumbnail-checked {
+  margin: 0.5rem;
+}
+.product-style-thumbnail-checked {
+  box-shadow: .1rem .1rem 0.5rem .01rem #000;
+} */
+
 .product-style-thumbnail {
   border: 3px double rgb(40, 80, 47);
 }
 
 .product-style-thumbnail-checked {
-  border: 3px solid rgb(0, 0, 0);
+  border: 3px solid rgb(88, 179, 151);
 }
 
 .checky-check {
@@ -472,7 +620,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   display: inline-block;
   padding-top: 0.12rem;
   text-align: center;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(88, 179, 151);
   color: white;
   width: 1.7rem;
   height: 1.7rem;
@@ -519,7 +667,8 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   color: rgb(138, 13, 13);
 }
 
-.interactive-button-copy {
+.interactive-button-copy,
+.interactive-button-copy-disabled {
   /* Keep these styles the same from Ya */
   text-transform: uppercase;
   border: 0.1em solid #000000;
@@ -555,11 +704,13 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 }
 
 .interactive-button-copy:hover {
-  /* text-shadow: 0 0 2em rgba(255,255,255,1);
-  color: #ffffff;
+  text-shadow: 0 0 2em rgba(255,255,255,1);
+  /* color: #ffffff;
   border-color: #ffffff;
   background-color:#447c47; */
   background-color: rgb(226, 217, 217);
+  /* background-color: #28B351;
+  color:white; */
 }
 
 /* Don't gray out the disabled buttons, looks weird. */
@@ -586,7 +737,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   background-repeat: no-repeat;
   background-position-x: 95%;
   background-position-y: 50%;
-
 }
 
 #size-dropdown.interactive-button-copy-disabled,
@@ -594,6 +744,20 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   -webkit-appearance: none;
   -moz-appearance: none;
   background: transparent;
+}
+
+#size-dropdown.interactive-button-copy:hover,
+#quantity-dropdown.interactive-button-copy:hover {
+  text-shadow: 0 0 2em rgba(255,255,255,1);
+  /* color: #ffffff;
+  border-color: #ffffff;
+  background-color:#447c47; */
+  background-color: rgb(226, 217, 217);
+}
+
+#size-dropdown.interactive-button-copy-disabled:hover,
+#quantity-dropdown.interactive-button-copy-disabled:hover {
+  cursor: auto;
 }
 
 #add-to-cart-button {
@@ -748,7 +912,8 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 }
 
 .arrow-hover:hover {
-  background-color:#28B351;
+  background-color:rgb(22 76 55);
+  color: #e8f1ec;
   width: 5rem;
   height: 11rem;
   opacity: 0.9;
@@ -788,6 +953,16 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 
 /* BG Cards CSS */
+
+.related-products-header,
+.user-outfit-header {
+  display: block;
+  font-weight: 400;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin: 1rem 3rem;
+  text-align: left;
+}
 
 .product-list-card {
   border: 0.1px solid #8080803d;
@@ -867,7 +1042,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   z-index: 3;
   opacity: 10;
   font-size: 2.0rem;
-  color: green;
+  color: rgb(88, 179, 151);
   transition: font-size 0.8s;
 }
 
@@ -901,7 +1076,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 .card-default-image {
   font-size: 15rem;
-  color: #28B351;
+  color: rgb(22 76 55);
   cursor: pointer;
 }
 
@@ -930,7 +1105,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
     transform: scale(1) translateY(0);
     transform-origin: 50% 16%;
   }
-
   100% {
     transform: scale(1.25) translateY(-15px);
     transform-origin: top;
@@ -945,7 +1119,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 .add-to-outfit-heading {
   font-size: 2.5rem;
-  color: #28B351;
+  color: rgb(22 76 55);
   text-align: center;
 }
 
@@ -1042,7 +1216,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   flex-direction: row;
   justify-content: space-evenly;
 }
-
 .flex {
   align-items: center;
 } */
@@ -1170,13 +1343,13 @@ tr:hover{
 .actual-progress {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
-  background-color: #28B351;
+  background-color: rgb(17 83 61);
   height: 12px;
 }
 
 .actual-progress-full {
   border-radius: 2px;
-  background-color: #28B351;
+  background-color: rgb(22 76 55);
   height: 12px;
 }
 
@@ -1444,9 +1617,9 @@ img.thumbnail:hover {
 
 .interactive-button:hover{
   text-shadow: 0 0 2em rgba(255,255,255,1);
-  color: #ffffff;
+  color: #e8f1ec;
   border-color: #ffffff;
-  background-color:#28B351;
+  background-color: rgb(22 76 55);
 }
 
 #plus-icon {
@@ -1626,12 +1799,10 @@ textarea {
   margin-top: 4rem;
 }
 /* Stars
-
 .stars-outer {
   display: inline-block;
   position: relative;
 }
-
 .stars-inner {
   position: absolute;
   top: 0;
@@ -1640,23 +1811,18 @@ textarea {
   overflow: hidden;
   width: 0;
 }
-
 .stars-outer, .stars-inner {
   font-size: 1.5rem;
 }
-
 /* Gold coloring below */
 /* .stars-outer, .stars-inner {
   background: #cb9b51;
-
   background-size: cover;
-
   color:transparent;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 .fas.fa-star,
 .far.fa-star {
   background: linear-gradient(
@@ -1669,9 +1835,7 @@ textarea {
     #cb9b51 78%,
     #683b38 100%
   );
-
   background-size: cover;
-
   color:transparent;
   background-clip: text;
   -webkit-background-clip: text;
