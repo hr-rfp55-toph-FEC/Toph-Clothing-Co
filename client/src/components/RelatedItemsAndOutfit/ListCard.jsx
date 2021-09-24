@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../Stars';
 import calcAvgRating from '../helpers/calcAvgRating';
@@ -34,14 +34,16 @@ const ListCard = ({
   });
 
   if (currStyle.current !== prodInfo.id) {
-    getImage(prodUrl).then((res) => {
-      if (!res) return;
-      if (res.naturalHeight < res.naturalWidth) {
-        setRotateImage(true);
-      } else {
-        setRotateImage(false);
-      }
-    });
+    if (prodUrl) {
+      getImage(prodUrl).then((res) => {
+        if (!res) return;
+        if (res.naturalHeight < res.naturalWidth) {
+          setRotateImage(true);
+        } else {
+          setRotateImage(false);
+        }
+      });
+    }
     currStyle.current = prodInfo.id;
     // console.log(currStyle.current, 'inside');
   }
