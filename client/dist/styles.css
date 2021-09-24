@@ -217,7 +217,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 /* Logic to change cursor image */
 #image-main-expanded.right-arrow-toggle-next-enabled,
 #overlay-thumbnail-gallery-expanded.right-arrow-toggle-next-enabled {
-    cursor: url("/assets/icons8-expand-arrow-30-bubble-right-new-green.png"), auto;
+    cursor: url("/assets/icons8-expand-arrow-40-minimal-green-right.png"), auto;
 }
 
 #image-main-expanded.right-arrow-toggle-next-disabled,
@@ -227,7 +227,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 #image-main-expanded.left-arrow-toggle-prev-enabled,
 #overlay-thumbnail-gallery-expanded.left-arrow-toggle-prev-enabled {
-  cursor: url("/assets/icons8-expand-arrow-30-bubble-left-new-green.png"), auto;
+  cursor: url("/assets/icons8-expand-arrow-40-minimal-green-left.png"), auto;
 }
 
 #image-main-expanded.left-arrow-toggle-prev-disabled,
@@ -672,11 +672,11 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 }
 
 .interactive-button-copy:hover {
-  /* text-shadow: 0 0 2em rgba(255,255,255,1);
-  color: #ffffff;
+  text-shadow: 0 0 2em rgba(255,255,255,1);
+  /* color: #ffffff;
   border-color: #ffffff;
   background-color:#447c47; */
-  /* background-color: rgb(226, 217, 217); */
+  background-color: rgb(226, 217, 217);
   /* background-color: #28B351;
   color:white; */
 }
