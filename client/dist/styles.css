@@ -270,9 +270,9 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   align-items: flex-start; */
   display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content: center;
 
-  top: 10%;
+  top: 1%;
   left: 0%;
   height: 70%;
   padding: 0rem 1rem ;
@@ -295,7 +295,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   display: flex;
   flex-direction: column;
   justify-content:center;
-  top: 10%;
+  top: 1%;
   left: 0%;
   height: 45%;
   /* padding: 3rem 2rem ; */

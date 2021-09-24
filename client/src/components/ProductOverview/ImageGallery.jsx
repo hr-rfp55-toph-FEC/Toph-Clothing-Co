@@ -375,7 +375,6 @@ function ImageGallery(props) {
             }}
           />
         )}
-      {/* <div id="expand-main-image"><i className="fas fa-expand" onClick={handleExpand} role="presentation" /></div> */}
       <div id="expand-main-image">
         <img
           className="default-toggle-pic-arrow"
