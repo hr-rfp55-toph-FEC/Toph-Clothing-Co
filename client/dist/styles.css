@@ -195,8 +195,8 @@ body {
     margin-left: -0.5rem; */
 
     /* Also try this instead to see it fixes background 1px positioning thing */
-    /* background-clip: padding-box;
-    background-repeat: no-repeat; */
+    /* background-clip: padding-box; */
+    background-repeat: no-repeat;
 }
 
 /* Expanded view gets same properties as default view - 100%/100%/cover - in order for things to look nice. They can share the same class name.
@@ -608,7 +608,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 }
 
 .product-style-thumbnail-checked {
-  border: 2px solid rgb(88, 179, 151);
+  border: 3px solid rgb(88, 179, 151);
 }
 
 .checky-check {
