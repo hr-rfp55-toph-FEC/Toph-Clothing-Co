@@ -1,12 +1,10 @@
 const path = require('path');
 const express = require('express'); // npm installed
-const cors = require('cors');
 const products = require('./helpers/products.js');
 const related = require('./helpers/related.js');
 const reviews = require('./helpers/reviews.js');
 
 const app = express();
-app.use(cors());
 
 app.use(express.static(path.join(__dirname, '..', '/client/dist')));
 app.use(express.json());
