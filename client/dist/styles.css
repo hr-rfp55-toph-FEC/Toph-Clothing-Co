@@ -78,7 +78,7 @@ body {
 
 /* Option 2 */
 .titlebar {
-  height: 11rem;
+  height: 9rem;
   background: rgb(20,98,78);
   background: radial-gradient(circle, rgba(20,98,78,1) 0%, rgba(19,97,77,1) 21%, rgba(34,48,46,1) 82%);
   background-image: url('https://c4.wallpaperflare.com/wallpaper/726/764/940/dark-green-minimalism-geometry-abstraction-wallpaper-preview.jpg');
@@ -90,14 +90,14 @@ body {
 }
 
 .logo {
-  height: 10rem;
+  height: 8rem;
   margin-left: 1.5%;
   margin-bottom: 0.5%;
 }
 
 
 .product-search {
-  margin-right: 5%;
+  margin-right: 3%;
   height: 2.5rem;
   width: 20%;
   color: #ffffff;
@@ -105,7 +105,8 @@ body {
   text-transform: uppercase;
   background-color: transparent;
   border: 0.17rem solid transparent;
-  border-bottom: 0.17rem solid #b3f8f2;
+  /* border-bottom: 0.17rem solid #b3f8f2; */
+  border-bottom: 0.17rem solid rgb(88, 179, 151);
   /* padding-bottom: 0.1vw; */
   margin-bottom: 1.1%;
   background-image: url("/assets/magny.png");
@@ -1321,13 +1322,18 @@ tr:hover{
 .actual-progress {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
-  background-color: #447c47;
+  /* background-color: #447c47; */
+  /* background-color: #1a552e; */
+  background-color: rgb(27, 70, 52);
   height: 12px;
 }
 
 .actual-progress-full {
   border-radius: 2px;
-  background-color: #447c47;
+  /* background-color: #447c47; */
+  /* background-color: #1a552e; */
+  background-color: rgb(27, 70, 52);
+
   height: 12px;
 }
 
