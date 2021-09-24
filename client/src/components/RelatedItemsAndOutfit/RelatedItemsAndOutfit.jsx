@@ -14,7 +14,7 @@ class RelatedItemsAndOutfit extends React.PureComponent {
       prodsMeta: [],
       isFetching: true,
     };
-    console.log('entered here with', props);
+    // console.log('entered here with', props);
   }
 
   componentDidMount() {
@@ -29,7 +29,7 @@ class RelatedItemsAndOutfit extends React.PureComponent {
     why is the method reaching here on initial page load?'); */
     if ((prevProps.currProdId !== currProdId)) {
       this.setCurrProdToState(currProdId);
-      console.log('it ran once per click!');
+      // console.log('it ran once per click!');
     }
   }
 

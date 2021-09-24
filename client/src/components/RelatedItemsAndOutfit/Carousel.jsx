@@ -18,12 +18,12 @@ const Carousel = ({ children }) => {
   //   // }
   //   // console.log(mappedChildrenLength,'mapped');
   // }, [children, length, mappedChildrenLength]);
-  console.log('loaded carousel');
+  // console.log('loaded carousel');
   useEffect(() => {
     if (mappedChildrenLength !== children[1].length) {
       setMappedChildrenLength(children[1].length);
       setCurrIndex(0);
-      console.log('carousel state changed');
+      // console.log('carousel state changed');
     }
     // console.log(mappedChildrenLength,'mapped');
   }, [children, mappedChildrenLength]);

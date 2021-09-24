@@ -59,10 +59,10 @@ RelatedProducts.propTypes = {
 
 const areEqual = (prevProps, nextProps) => {
   if (prevProps.currProd[0].id === nextProps.currProd[0].id) {
-    console.log(prevProps, nextProps, 'dont re-render, areEqual memo in RelatedProducts');
+    // console.log(prevProps, nextProps, 'dont re-render, areEqual memo in RelatedProducts');
     return true;
   }
-  console.log('re-rendered in relatedOutfits');
+  // console.log('re-rendered in relatedOutfits');
   return false;
 };
 
