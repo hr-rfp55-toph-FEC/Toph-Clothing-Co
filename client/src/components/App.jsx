@@ -18,6 +18,7 @@ class App extends React.Component {
       isFetching: true,
     };
     this.changeProductHandler = this.changeProductHandler.bind(this);
+    this.getCurrProdData = this.getCurrProdData.bind(this);
     this.selectProductStyle = this.selectProductStyle.bind(this);
   }
 
@@ -27,7 +28,6 @@ class App extends React.Component {
   }
 
   getCurrProdData(currProdId) {
-    // console.log('here');
     axios.get(`/currentProduct/${currProdId}`)
       .then(({ data }) => this.setState({
         currProdId: data[0].id,
@@ -41,7 +41,8 @@ class App extends React.Component {
       .catch((err) => console.log(err, 'too many API calls!'));
   }
 
-  changeProductHandler(productId) {
+  changeProductHandler(productId, e) {
+    e.preventDefault();
     const { currProdId } = this.state;
     if (productId !== currProdId) {
       this.getCurrProdData(productId);
@@ -88,6 +89,7 @@ class App extends React.Component {
                 prodInfo={prodInfo}
                 prodReviews={prodReviews}
                 prodReviewsMeta={prodReviewsMeta}
+                getCurrProdData={this.getCurrProdData}
               />
             </div>
           )}

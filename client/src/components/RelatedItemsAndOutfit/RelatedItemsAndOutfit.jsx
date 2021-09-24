@@ -4,7 +4,7 @@ import axios from 'axios';
 import RelatedProducts from './RelatedProducts/RelatedProducts';
 import UserOutfit from './UserOutfits/UserOutfit';
 
-class RelatedItemsAndOutfit extends React.Component {
+class RelatedItemsAndOutfit extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,11 +24,8 @@ class RelatedItemsAndOutfit extends React.Component {
     const {
       currProdId,
     } = this.props;
-    /* console.log('doesnt fire request on "update" --
-    why is the method reaching here on initial page load?'); */
     if ((prevProps.currProdId !== currProdId)) {
       this.setCurrProdToState(currProdId);
-      // console.log('it ran once per click!');
     }
   }
 
@@ -56,7 +53,6 @@ class RelatedItemsAndOutfit extends React.Component {
       isFetching, prodsInfo, prodsMeta, prodsStyles, currProd,
     } = this.state;
     const { prodStyleSelected } = this.props;
-    // console.log(prodStyleSelected, 'realted outfit and items');
     const { changeProductHandler } = this.props;
     return (
       <div>
@@ -91,6 +87,14 @@ RelatedItemsAndOutfit.propTypes = {
   prodStyles: PropTypes.instanceOf(Object).isRequired,
   prodReviewsMeta: PropTypes.instanceOf(Object).isRequired,
   changeProductHandler: PropTypes.func.isRequired,
+  prodStyleSelected: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default RelatedItemsAndOutfit;
+const areEqual = (prevProps, nextProps) => {
+  if (prevProps.prodStyleSelected.style_id === nextProps.prodStyleSelected.style_id) {
+    return true;
+  }
+  return false;
+};
+
+export default React.memo(RelatedItemsAndOutfit, areEqual);

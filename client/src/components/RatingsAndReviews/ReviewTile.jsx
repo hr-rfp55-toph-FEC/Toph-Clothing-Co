@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import Stars from '../Stars';
 import Thumbnail from './Thumbnail';
 
-const ReviewTile = ({ review, getReviews }) => {
+const ReviewTile = ({
+  review, getCurrProdData, productId,
+}) => {
   let readableDate = new Date(review.date);
   readableDate = readableDate.toDateString().slice(4);
   const reviewMonthDay = readableDate.slice(0, -5);
@@ -56,29 +58,37 @@ const ReviewTile = ({ review, getReviews }) => {
   }
 
   function markAsHelpful(reviewId) {
-    axios.put(`/reviews/${reviewId}/helpful`, {
-      params: {
-        review_id: reviewId,
-      },
-    })
+    axios.put(`/reviews/${reviewId}/helpful`)
       .then(() => {
-        getReviews();
+        getCurrProdData(productId);
       })
       .catch((err) => {
         console.error(err);
       });
   }
-  const helpfulSection = (
+
+  function reportReview(reviewId) {
+    axios.put(`/reviews/${reviewId}/report`)
+      .then(() => {
+        getCurrProdData(productId);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  const helpfulAndReportSection = (
     <p className="helpful-review">
       Helpful?
       {' '}
       <span className="clicked-text" onClick={() => markAsHelpful(review.review_id)} role="presentation">Yes</span>
       {' '}
-      <span>
+      <span className="helpful-number">
         (
         {review.helpfulness}
         )
       </span>
+      <span className="clicked-text report-review" onClick={() => reportReview(review.review_id)} role="presentation">Report</span>
     </p>
   );
 
@@ -108,7 +118,7 @@ const ReviewTile = ({ review, getReviews }) => {
               />
             ))}
           </div>
-          {helpfulSection}
+          {helpfulAndReportSection}
         </div>
       </div>
     </div>
@@ -129,7 +139,8 @@ ReviewTile.propTypes = {
     reviewer_name: PropTypes.string,
     summary: PropTypes.string,
   }).isRequired,
-  getReviews: PropTypes.instanceOf(Function).isRequired,
+  getCurrProdData: PropTypes.instanceOf(Function).isRequired,
+  productId: PropTypes.number.isRequired,
 };
 
 export default ReviewTile;

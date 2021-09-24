@@ -8,6 +8,8 @@ const postReview = (body) => (api.post('/reviews', body));
 
 const markHelpful = (id) => (api.put(`reviews/${id}/helpful`));
 
+const reportReview = (id) => (api.put(`reviews/${id}/report`));
+
 module.exports = {
-  getReviews, getReviewMeta, postReview, markHelpful,
+  getReviews, getReviewMeta, postReview, markHelpful, reportReview,
 };

@@ -81,35 +81,13 @@ app.get('/cart', (req, res) => {
 //   //   });
 // });
 
-// Alex
+// A list of data on the app level we need
+// product info for 1 product
+// styles for 1 product
+// reviews for 1 product
+// reviews meta for 1 product
 
 // Ya
-// app.get('/reviews', (req, res) => {
-//   const { product_id, count, sort } = req.query;
-//   reviews.getReviews({ product_id, count, sort })
-//     .then((APIRes) => {
-//       res.send(APIRes.data);
-//       res.status(200).end();
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.end();
-//     });
-// });
-
-// app.get('/reviews/meta', (req, res) => {
-//   const { product_id } = req.query;
-//   reviews.getReviewMeta({ product_id })
-//     .then((APIRes) => {
-//       res.send(APIRes.data);
-//       res.status(200).end();
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.end();
-//     });
-// });
-
 app.put('/reviews/:review_id/helpful', (req, res) => {
   reviews.markHelpful(req.params.review_id)
     .then(() => {
@@ -121,13 +99,20 @@ app.put('/reviews/:review_id/helpful', (req, res) => {
     });
 });
 
+app.put('/reviews/:review_id/report', (req, res) => {
+  reviews.reportReview(req.params.review_id)
+    .then(() => {
+      res.status(204).end();
+    })
+    .catch((err) => {
+      console.error(err);
+      res.end();
+    });
+});
+
 app.post('/reviews', (req, res) => {
-  const {
-    product_id, rating, summary, body, recommend, name, email, photos, characteristics,
-  } = req.body;
-  reviews.postReview({
-    product_id, rating, summary, body, recommend, name, email, photos, characteristics,
-  })
+  // console.log(req.body);
+  reviews.postReview(req.body)
     .then(() => {
       res.status(201).end();
     })
