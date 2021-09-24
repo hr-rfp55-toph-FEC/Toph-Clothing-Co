@@ -6,14 +6,12 @@ import calcAvgRating from '../helpers/calcAvgRating';
 const ListCard = ({
   prodInfo, prodStyles, prodMeta, changeProductHandler, children,
 }) => {
-  // console.log('rendered card', prodStyles.style_id, prodInfo.name);
   const origPrice = prodStyles.original_price;
   const salePrice = prodStyles.sale_price;
   const prodUrl = prodStyles.photos[0].url;
   const styleName = prodStyles.name;
   const currStyle = useRef();
   const [rotateImage, setRotateImage] = useState(false);
-  // const [selectedNextProd, setSelectedNextProd] = useState(false);
 
   const rotateStyle = rotateImage ? {
     transform: 'rotate(90deg) scale(1.5)',
@@ -45,23 +43,7 @@ const ListCard = ({
       });
     }
     currStyle.current = prodInfo.id;
-    // console.log(currStyle.current, 'inside');
   }
-
-  // useEffect(() => {
-  //   if (currStyle.current !== prodInfo.id) {
-  //     getImage(prodUrl).then((res) => {
-  //       if (!res) return;
-  //       if (res.naturalHeight < res.naturalWidth) {
-  //         setRotateImage(true);
-  //       } else {
-  //         setRotateImage(false);
-  //       }
-  //     });
-  //     currStyle.current = prodInfo.id;
-  //     // console.log(currStyle.current, 'inside');
-  //   }
-  // }, [prodUrl, prodInfo.id]);
 
   const changeProductAndScrollTop = (e) => {
     changeProductHandler(prodInfo.id, e);
@@ -77,7 +59,6 @@ const ListCard = ({
         { children }
         {prodUrl ? (
           <div
-            // src={prodUrl}
             alt="model-in-clothing"
             className="card-image-src"
             style={rotateStyle}

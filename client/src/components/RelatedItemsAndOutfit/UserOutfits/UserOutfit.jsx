@@ -7,7 +7,6 @@ import ListCard from '../ListCard';
 const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
   const [currOutfits, setCurrOutfits] = useState([]);
   const [styleIds, setStyleIds] = useState([]);
-  // console.log('currprodId', currProd);
   useEffect(() => {
     if (!currOutfits.length) {
       const cachedOutfits = [];
@@ -19,7 +18,6 @@ const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
   }, [currOutfits.length]);
 
   const addToCurrOutfits = (e) => {
-    // console.log(currProd, prodStyleSelected);
     e.preventDefault();
     const currProdStyleId = prodStyleSelected.style_id;
     let alreadyAdded = false;
@@ -74,18 +72,7 @@ const UserOutfit = ({ currProd, changeProductHandler, prodStyleSelected }) => {
 UserOutfit.propTypes = {
   currProd: PropTypes.instanceOf(Array).isRequired,
   changeProductHandler: PropTypes.func.isRequired,
+  prodStyleSelected: PropTypes.instanceOf(Object).isRequired,
 };
 
-// const areEqual = (prevProps, nextProps) => {
-//   if ((prevProps.currProd[0].id === nextProps.currProd[0].id) && (prevProps.prodStyleSelected.id === nextProps.prodStyleSelected.id)) {
-//     console.log('dont re-render, areEqual memo in User Outfits');
-//     return true;
-//     //return true, dont re-render
-//   }
-//   console.log('rendered in UserOutfits');
-//   return false;
-// };
-
 export default UserOutfit;
-
-// && (prevProps.prodStyleSelected.style_id === nextProps.prodStyleSelected.style_id)

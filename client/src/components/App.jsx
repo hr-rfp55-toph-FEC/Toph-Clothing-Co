@@ -27,7 +27,6 @@ class App extends React.Component {
   }
 
   getCurrProdData(currProdId) {
-    // console.log('here');
     server.get(`/currentProduct/${currProdId}`)
       .then(({ data }) => this.setState({
         currProdId: data[0].id,

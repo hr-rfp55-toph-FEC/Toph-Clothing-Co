@@ -14,7 +14,6 @@ class RelatedItemsAndOutfit extends React.PureComponent {
       prodsMeta: [],
       isFetching: true,
     };
-    // console.log('entered here with', props);
   }
 
   componentDidMount() {
@@ -25,11 +24,8 @@ class RelatedItemsAndOutfit extends React.PureComponent {
     const {
       currProdId,
     } = this.props;
-    /* console.log('doesnt fire request on "update" --
-    why is the method reaching here on initial page load?'); */
     if ((prevProps.currProdId !== currProdId)) {
       this.setCurrProdToState(currProdId);
-      // console.log('it ran once per click!');
     }
   }
 
@@ -57,7 +53,6 @@ class RelatedItemsAndOutfit extends React.PureComponent {
       isFetching, prodsInfo, prodsMeta, prodsStyles, currProd,
     } = this.state;
     const { prodStyleSelected } = this.props;
-    // console.log(prodStyleSelected, 'realted outfit and items');
     const { changeProductHandler } = this.props;
     return (
       <div>
@@ -92,22 +87,14 @@ RelatedItemsAndOutfit.propTypes = {
   prodStyles: PropTypes.instanceOf(Object).isRequired,
   prodReviewsMeta: PropTypes.instanceOf(Object).isRequired,
   changeProductHandler: PropTypes.func.isRequired,
+  prodStyleSelected: PropTypes.instanceOf(Object).isRequired,
 };
 
 const areEqual = (prevProps, nextProps) => {
-  // console.log(prevProps, nextProps, 'areEqual memo in RelatedOutfits');
   if (prevProps.prodStyleSelected.style_id === nextProps.prodStyleSelected.style_id) {
-    // console.log(prevProps.prodStyles, prevProps.prodStyleSelected);
-    // console.log('RIO same style', prevProps.prodStyles.product_id, nextProps.prodStyles.product_id)
-    // console.log('styles were the same, stopped from rendering at RelatedItemsandOutfits')
     return true;
-    //return true, are equal, don't re-render
   }
-  // console.log('re-rendered RelatedItemsandoutfits, styles were different')
-  // console.log('RIO', prevProps.prodStyles.product_id, nextProps.prodStyles.product_id)
   return false;
 };
 
-// export default RelatedItemsAndOutfit;
 export default React.memo(RelatedItemsAndOutfit, areEqual);
-//this memo stops the childrens props from updating if the currentProduct is still the same product, but User Outfit needs the new style passed in from the upper component in order to render something new
