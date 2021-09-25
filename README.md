@@ -30,7 +30,8 @@
 ## Project Catwalk
 
 Front End Capstone for Hack Reactor. We are from RFP-55.
-The goal of this project is to update an old e-commerce website to use modern front-end technologies. We created three widgets for this newly revamped website - Product Overview, Related Products & Outfit, and Ratings & Reviews. The project utilized react hooks for more flexible development tools, and adhere to the ESlint Airbnb style.
+
+The goal of this project is a complete redesign of the retail portal for an old e-commerce website to use modern front-end technologies. We created three widgets for this newly revamped website - Product Overview, Related Products & Outfit, and Ratings & Reviews. The project utilized react hooks for more flexible development, and adhere to the ESlint Airbnb style.
 
 ## Components
 
@@ -45,3 +46,7 @@ The goal of this project is to update an old e-commerce website to use modern fr
 ### [Ratings and Reviews](client/src/components/RatingsAndReviews)
 
 - Developed by [Ya Liu](https://github.com/ya-liu)
+
+### Installation
+The package management system for this project is npm.
+Use 'npm install' to install all dependencies for this project.
