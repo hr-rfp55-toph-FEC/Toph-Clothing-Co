@@ -69,3 +69,5 @@ npm is the package management system for this project.
 Use ```npm install``` to install all dependencies.
 
 To start the server, use ```npm run start-dev```.
+
+To run the production build, use ```npm run start-prod``` and ```npm run start-server-prod```.
