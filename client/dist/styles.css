@@ -1783,7 +1783,7 @@ h2 {
   margin-top: 1rem;
 }
 
-input[type=text], input[type=email] {
+#add-review form input[type=text], input[type=email] {
   width: 100%;
   height: 4rem;
 }
