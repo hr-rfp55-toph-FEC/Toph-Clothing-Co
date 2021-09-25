@@ -43,6 +43,15 @@ The goal of this project is a complete redesign of the retail portal for an old 
 
 - Developed by [Bishal Gautam](https://github.com/bishalkg)
 
+- The user is able to select a card, which will re-render and populate all the components on the page to display data for that card, and auto-scroll the user to the top of the page
+
+- The carousel arrows will advance the list by one card at a time
+
+- The user is able to to compare the product on a card with the product displayed at the top, by clicking the star button, which will populate a modal with characteristics data
+
+- Clicking the ‘add to card’ button will add the product at the top of the page to your outfit list, you can add cards for different styles for the same product. The selections will persist upon exit through use of the browser's local storage.
+
+
 ### [Ratings and Reviews](client/src/components/RatingsAndReviews)
 
 - Developed by [Ya Liu](https://github.com/ya-liu)
