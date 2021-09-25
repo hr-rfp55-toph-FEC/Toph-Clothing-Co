@@ -1,17 +1,21 @@
 const { api } = require('./api.js');
 const products = require('./products.js');
+const mongooseRepo = require('../../database/index.js');
 
 module.exports = {
 
   getProductInfo: (prodId) => api.get(`/products/${prodId}`)
-    .then((data) => data)
+    // .then((data) => data)
+    .then((data) => { mongooseRepo.saveProductInfo(data); return data; })
     .catch((err) => console.log(err)),
 
   getRelatedProductIds: (currProdId) => api.get(`/products/${currProdId}/related`)
+    .then((data) => { mongooseRepo.saveRelatedProductIds(currProdId, data); return data; })
     .catch((err) => console.log(err)),
 
   getProductStyles: (currProdId) => api.get(`/products/${currProdId}/styles`)
-    .then((data) => data)
+    // .then((data) => data)
+    .then((data) => { mongooseRepo.saveProductStyles(data); return data; })
     .catch((err) => console.log(err)),
 
   getProductMeta: (currProdId) => api.get('/reviews/meta', {
@@ -19,7 +23,8 @@ module.exports = {
       product_id: currProdId,
     },
   })
-    .then((data) => data)
+    // .then((data) => data)
+    // .then((data) => { mongooseRepo.saveProductMeta(data); return data; })
     .catch((err) => console.log(err)),
 
   getCurrrentProductsInfo: (currProdId) => {
@@ -55,8 +60,8 @@ module.exports = {
 
   genRelProdResObj: (currProdId) => {
     const promises = [module.exports.getRelatedProductsInfo(currProdId),
-      module.exports.getRelatedProductStyles(currProdId),
-      module.exports.getRelatedProductMeta(currProdId),
+    module.exports.getRelatedProductStyles(currProdId),
+    module.exports.getRelatedProductMeta(currProdId),
     ];
     return Promise.all(promises)
       .catch((err) => console.log(err));
