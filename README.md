@@ -70,4 +70,4 @@ Use ```npm install``` to install all dependencies.
 
 To start the server, use ```npm run start-dev```.
 
-To run the production build, use ```npm run start-prod``` and ```npm run start-server-prod```.
+To run the production build, use ```npm run build-prod``` and ```npm run start-server-prod```.
