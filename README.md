@@ -34,11 +34,14 @@ The goal of this project is to update an old e-commerce website to use modern fr
 
 ## Components
 
-### [Product Overview] (client/src/components/ProductOverview)
-- Developed by [Daniel Ho] (https://github.com/dho1994)
+### [Product Overview](client/src/components/ProductOverview)
 
-### [Related Items And Outfit] (client/src/components/RelatedItemsAndOutfit)
-- Developed by [Bishal Gautam] (https://github.com/bishalkg)
+- Developed by [Daniel Ho](https://github.com/dho1994)
 
-### [Ratings and Reviews] (client/src/components/RatingsAndReviews)
-- Developed by [Ya Liu] (https://github.com/ya-liu)
+### [Related Items And Outfit](client/src/components/RelatedItemsAndOutfit)
+
+- Developed by [Bishal Gautam](https://github.com/bishalkg)
+
+### [Ratings and Reviews](client/src/components/RatingsAndReviews)
+
+- Developed by [Ya Liu](https://github.com/ya-liu)
