@@ -47,16 +47,16 @@ The goal of this project is a complete redesign of the retail portal for an old 
 
 - Developed by [Ya Liu](https://github.com/ya-liu)
 
-- The user is able to see all reviews available for the current product with a breakdown visual of the ratings.
+- The user is able to browse all reviews available for the current product with a breakdown visual of the ratings.
 
-- All reviews are submitted by users, which will contain text commentary, date of the review, and ratings for characteristics of the product. Each review may also contain user-uploaded photos and a response from the business team.
+- All reviews are user submissions, which will contain text commentary, user nickname, date of the review, and ratings for characteristics of the product. Each review may also contain user-uploaded photos and a response from the business team. Users can add a review by clicking 'Add a review'.
 
-- The rating breakdown varies from product to product, depending on relevant characteristics.
+- The rating breakdown allows users to filter ratings by stars, and filtered ratings can be sorted by keyword. The characteristics applicable to each product will depend on the type of the current product.
 
 ### Installation
 
 npm is the package management system for this project.
 
-Use 'npm install' to install all dependencies.
+Use ```npm install``` to install all dependencies.
 
-To start the server, use 'npm run start-dev'.
+To start the server, use ```npm run start-dev```.
