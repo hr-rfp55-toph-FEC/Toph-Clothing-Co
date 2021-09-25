@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import axios from 'axios';
 
 import ImageGallery from './ImageGallery';
 import ProductInformation from './ProductInformation';
@@ -55,7 +54,6 @@ class ProductOverview extends React.Component {
               productStyles={productStyles}
               productStyleSelected={productStyleSelected}
               selectProductStyle={selectProductStyle}
-              // selectProductStyle={this.selectProductStyle}
             />
             <AddToCart
               product={product}

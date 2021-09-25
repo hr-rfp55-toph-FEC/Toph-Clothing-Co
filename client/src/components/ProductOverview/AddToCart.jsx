@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import React from 'react';
 import PropTypes from 'prop-types';
 
 function AddToCart(props) {
@@ -13,20 +12,15 @@ function AddToCart(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [showError, setShowError] = useState(false);
 
-  // Grab only the sizes in stock for current style. Using Object.entries() to appease linter.
+  // Grab only the sizes in stock for current style.
   useEffect(() => {
-    // console.log('productStyleSelected', productStyleSelected);
-    // console.log('productStyleSelected SKUs', productStyleSelected.skus);
-    // console.log('Object.values of SKUs', Object.values(productStyleSelected.skus));
     const sizeOptions = Object.entries(productStyleSelected.skus);
-    // console.log('sizeOptions', sizeOptions);
     const sizeOptionsFiltered = {};
     for (let i = 0; i < sizeOptions.length; i += 1) {
       const sku = sizeOptions[i][0];
       const option = sizeOptions[i][1];
       if (option.quantity > 0) {
-        // Handle the edge case where there are duplicate XLs - set 2nd XL equal to XXL
-        // The right way to do this is to edit the productStyle object itself; too much work for now
+        // Handle the data issue where there are duplicate XLs - set 2nd XL equal to XXL
         if (option.size === 'XL'
           && Object.values(sizeOptionsFiltered).map((optionFiltered) => optionFiltered.size).indexOf('XL') !== -1) {
           option.size = 'XXL';
@@ -35,7 +29,7 @@ function AddToCart(props) {
       }
     }
     setSizesInStock(sizeOptionsFiltered);
-    setIsLoading(false); // This is ok, hooks don't trigger re-renders when state is unchanged
+    setIsLoading(false);
   }, [productStyleSelected, isLoading]);
 
   function disabledSizeSelector(message) {
@@ -64,12 +58,8 @@ function AddToCart(props) {
     setShowError(false);
   }
 
-  // console.log('sizesInStock', sizesInStock);
-  // console.log('selectedSize', selectedSize);
-
   function handleAddToBag() {
     const selectedQuantity = document.getElementById('quantity-dropdown').value;
-    // console.log('selectedQuantity', selectedQuantity);
     if (!isLoading) {
       if (Object.values(selectedSize).length === 0) {
         setShowError(true);
@@ -81,7 +71,6 @@ function AddToCart(props) {
           size: selectedSize.size,
           quantity: selectedQuantity,
         };
-        // console.log('added to cart!', item);
         alert(`Added to Cart!
         \n ${item.product.name}
         \n ${item.style.name}
@@ -142,9 +131,6 @@ function AddToCart(props) {
             </button>
             <button type="button" id="add-to-favorites-button" className="interactive-button-copy">
               &#128722;
-              {/* &#9734; */}
-              {/* <i className="far fa-star" /> */}
-              {/* <i className="fas fa-shopping-cart" /> */}
             </button>
           </div>
         )}

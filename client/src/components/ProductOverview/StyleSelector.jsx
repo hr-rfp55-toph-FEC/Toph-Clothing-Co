@@ -1,4 +1,3 @@
-// import React, { useState } from 'react';
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleThumbnail from './StyleThumbnail';
@@ -9,9 +8,6 @@ function StyleSelector(props) {
     productStyleSelected,
     selectProductStyle,
   } = props;
-
-  // console.log('productStyles', productStyles);
-  // console.log('productStyleSelected', productStyleSelected);
 
   return (
     <div id="style-selector" className="product-right-component">

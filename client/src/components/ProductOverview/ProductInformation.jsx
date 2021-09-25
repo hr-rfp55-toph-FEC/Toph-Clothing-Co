@@ -1,4 +1,3 @@
-// import React, { useState } from 'react';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Stars from '../Stars';
@@ -11,9 +10,6 @@ function ProductInformation(props) {
     productRatings,
     productStyleSelected,
   } = props;
-
-  // console.log('product', product);
-  // console.log('productStyleSelected', productStyleSelected);
 
   const showStars = Object.keys(productRatings.ratings).length !== 0;
   const productReviewsID = showStars ? 'product-reviews' : 'product-reviews-no-stars';
