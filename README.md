@@ -47,6 +47,16 @@ The goal of this project is a complete redesign of the retail portal for an old 
 
 - Developed by [Ya Liu](https://github.com/ya-liu)
 
+- The user is able to see all reviews available for the current product with a breakdown visual of the ratings.
+
+- All reviews are submitted by users, which will contain text commentary, date of the review, and ratings for characteristics of the product. Each review may also contain user-uploaded photos and a response from the business team.
+
+- The rating breakdown varies from product to product, depending on relevant characteristics.
+
 ### Installation
-The package management system for this project is npm.
-Use 'npm install' to install all dependencies for this project.
+
+npm is the package management system for this project.
+
+Use 'npm install' to install all dependencies.
+
+To start the server, use 'npm run start-dev'.
