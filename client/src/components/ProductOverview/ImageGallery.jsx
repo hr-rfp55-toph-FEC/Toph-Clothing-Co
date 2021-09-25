@@ -137,6 +137,101 @@ function ImageGallery(props) {
     }
   };
 
+  /* This function repositions the background image and determines cursor appearance based
+   on cursor position in the expanded view */
+  const repositionBackground = (image, container, repositionType, e) => {
+    const imageExpanded = image;
+    const imageContainerExpanded = container;
+
+    // Coordinates and size of image's container (The portion of the image we can see on screen).
+    const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
+    const imgContainerWidth = imgContainerCoordinatesAndSize.width;
+    const imgContainerHeight = imgContainerCoordinatesAndSize.height;
+    const imgContainerAspRatio = imgContainerWidth / imgContainerHeight;
+
+    /* Dimensions of the background image itself (see comments below)
+    - There's no way to reliably grab the size of a background image after it's rendered, as
+      background images aren't HTML elements. We have to back into its size using its container
+      size, its zoom %, and its aspect ratio.
+    - In order to determine which side of the image gets used to fill a container when applying
+      "object-fit: contain", the browser compares the aspect ratio of the image and its container.
+    - The aspect ratio of the original image vs. the container it's filling up is the key here,
+      NOT whether the original image is wider than it is tall. The following would not work:
+        const layout = imgOriginalHeight > imgOriginalWidth ? 'tall' : 'wide'
+    - Grabbing original dimensions of a photo at a url is asynchronous and would break our
+    code normally unless we wait for the photo to be loaded before continuing. It works here
+    because our browser has already stored all these photos in cache and acts as synchronous. */
+    const imgOriginal = new Image();
+    imgOriginal.src = mainPicUrl;
+    const imgOriginalWidth = imgOriginal.width;
+    const imgOriginalHeight = imgOriginal.height;
+    const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
+    const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
+
+    // Declare background image dimension and position variables
+    let imgWidth;
+    let imgHeight;
+    let backgroundXPosition;
+    let backgroundYPosition;
+
+    let cursorXPercentPosition;
+    let cursorYPercentPosition;
+
+    if (repositionType === 'set') {
+      /* Mouse coordinates with respect to image (see comments below)
+      - Need to constrain coordinates to within (0, imgContainerWidth/Height),
+      since for some reason offsets were ranging from -1 to slightly over the width/height
+      due to rounding */
+      const cursorXCoordinate = Math.min(Math.max(e.offsetX, 0), imgContainerWidth);
+      const cursorYCoordinate = Math.min(Math.max(e.offsetY, 0), imgContainerHeight);
+
+      // Turn current mouse coordinates into a % of container width/height
+      cursorXPercentPosition = cursorXCoordinate / imgContainerWidth;
+      cursorYPercentPosition = cursorYCoordinate / imgContainerHeight;
+
+      refCursorXPercentPosition.current = cursorXPercentPosition;
+      refCursorYPercentPosition.current = cursorYPercentPosition;
+    } else if (repositionType === 'get') {
+      cursorXPercentPosition = refCursorXPercentPosition.current;
+      cursorYPercentPosition = refCursorYPercentPosition.current;
+    } else {
+      return;
+    }
+
+    /* Positioning logic
+    - Note: This relies on the original image's aspect ratio being maintained. We guarantee
+    this by using "object-fit: contain" in our CSS. Also assumes background image is sized
+    to 100% of container.
+    - The idea is that for every 1% the cursor moves with respect to the container, the
+    background should also move by 1% (minus the height/width of the original container
+    so that it doesn't overscroll).
+    - If layout is 'tall', image will expand its width to fill the container. In this case,
+    we don't want to scroll the container horizontally; only vertically.
+    - If layout is 'wide', it's the opposite. Image will expand its height and we will only
+    want to scroll it horizontally.
+    - Some erroneous logic here because we only need to scroll in one axis if sizing to 100%,
+    but keeping in case we want to re-scale to > 100% and need to scroll in two axes. */
+    if (layout === 'tall') {
+      imgWidth = imgContainerWidth;
+      imgHeight = (imgContainerWidth * imgOriginalHeight) / imgOriginalWidth - imgContainerHeight;
+
+      backgroundXPosition = cursorXPercentPosition * imgWidth;
+      backgroundYPosition = cursorYPercentPosition * imgHeight;
+
+      imageExpanded.style.backgroundPositionX = '0px';
+      imageExpanded.style.backgroundPositionY = `${-backgroundYPosition}px`;
+    } else if (layout === 'wide') {
+      imgWidth = (imgContainerHeight * imgOriginalWidth) / imgOriginalHeight - imgContainerWidth;
+      imgHeight = imgContainerHeight;
+
+      backgroundXPosition = cursorXPercentPosition * imgWidth;
+      backgroundYPosition = cursorYPercentPosition * imgHeight;
+
+      imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
+      imageExpanded.style.backgroundPositionY = '0px';
+    }
+  };
+
   useEffect(() => {
     updateThumbnailCarousel();
   }, [startIndex, lastIndex]);
@@ -157,92 +252,15 @@ function ImageGallery(props) {
   }, [productStyleSelected, currIndex]);
 
   /* This hook scrolls the background image and determines cursor appearance based on
-    cursor position in the expanded view, using an "mousemove" event listener.
-    - Note: Image sizing and positioning must be contained within the event handler in order to
-    dynamically recalculate even when state doesn't change. */
+    cursor position in the expanded view, using an "mousemove" event listener. Also
+    saves a reference to the previous cursor position so that when toggling to new images,
+    they can be immediately positioned correctly without waiting for mouse movement */
   useEffect(() => {
     const imageExpanded = document.getElementById('image-main-expanded');
     const imageContainerExpanded = document.getElementById('image-gallery-expanded');
 
     const handleZoomedScroll = (e) => {
-      // Coordinates and size of image's container (The portion of the image we can see on screen).
-      const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
-      const imgContainerWidth = imgContainerCoordinatesAndSize.width;
-      const imgContainerHeight = imgContainerCoordinatesAndSize.height;
-      const imgContainerAspRatio = imgContainerWidth / imgContainerHeight;
-
-      /* Dimensions of the background image itself (see comments below)
-      - There's no way to reliably grab the size of a background image after it's rendered, as
-        background images aren't HTML elements. We have to back into its size using its container
-        size, its zoom %, and its aspect ratio.
-      - In order to determine which side of the image gets used to fill a container when applying
-        "object-fit: contain", the browser compares the aspect ratio of the image and its container.
-      - The aspect ratio of the original image vs. the container it's filling up is the key here,
-        NOT whether the original image is wider than it is tall. The following would not work:
-          const layout = imgOriginalHeight > imgOriginalWidth ? 'tall' : 'wide'
-      - Grabbing original dimensions of a photo at a url is asynchronous and would break our
-      code normally unless we wait for the photo to be loaded before continuing. It works here
-      because our browser has already stored all these photos in cache and acts as synchronous. */
-      const imgOriginal = new Image();
-      imgOriginal.src = mainPicUrl;
-      const imgOriginalWidth = imgOriginal.width;
-      const imgOriginalHeight = imgOriginal.height;
-      const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
-      const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
-
-      /* Mouse coordinates with respect to image (see comments below)
-      - Need to constrain coordinates to within (0, imgContainerWidth/Height),
-      since for some reason offsets were ranging from -1 to slightly over the width/height
-      due to rounding */
-      const cursorXCoordinate = Math.min(Math.max(e.offsetX, 0), imgContainerWidth);
-      const cursorYCoordinate = Math.min(Math.max(e.offsetY, 0), imgContainerHeight);
-
-      // Turn current mouse coordinates into a % of container width/height
-      const cursorXPercentPosition = cursorXCoordinate / imgContainerWidth;
-      const cursorYPercentPosition = cursorYCoordinate / imgContainerHeight;
-
-      // Declare background image dimension and position variables
-      let imgWidth;
-      let imgHeight;
-      let backgroundXPosition;
-      let backgroundYPosition;
-
-      refCursorXPercentPosition.current = cursorXPercentPosition;
-      refCursorYPercentPosition.current = cursorYPercentPosition;
-
-      /* Positioning logic
-      - Note: This relies on the original image's aspect ratio being maintained. We guarantee
-      this by using "object-fit: contain" in our CSS. Also assumes background image is sized
-      to 100% of container.
-      - The idea is that for every 1% the cursor moves with respect to the container, the
-      background should also move by 1% (minus the height/width of the original container
-      so that it doesn't overscroll).
-      - If layout is 'tall', image will expand its width to fill the container. In this case,
-      we don't want to scroll the container horizontally; only vertically.
-      - If layout is 'wide', it's the opposite. Image will expand its height and we will only
-      want to scroll it horizontally.
-      - Some erroneous logic here because we only need to scroll in one axis if sizing to 100%,
-      but keeping in case we want to re-scale to > 100% and need to scroll in two axes. */
-      if (layout === 'tall') {
-        imgWidth = imgContainerWidth;
-        imgHeight = (imgContainerWidth * imgOriginalHeight) / imgOriginalWidth - imgContainerHeight;
-
-        backgroundXPosition = cursorXPercentPosition * imgWidth;
-        backgroundYPosition = cursorYPercentPosition * imgHeight;
-
-        imageExpanded.style.backgroundPositionX = '0px';
-        imageExpanded.style.backgroundPositionY = `${-backgroundYPosition}px`;
-      } else if (layout === 'wide') {
-        imgWidth = (imgContainerHeight * imgOriginalWidth) / imgOriginalHeight - imgContainerWidth;
-        imgHeight = imgContainerHeight;
-
-        backgroundXPosition = cursorXPercentPosition * imgWidth;
-        backgroundYPosition = cursorYPercentPosition * imgHeight;
-
-        imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
-        imageExpanded.style.backgroundPositionY = '0px';
-      }
-
+      repositionBackground(imageExpanded, imageContainerExpanded, 'set', e);
       calcAndSetImageExpandedCursorClass();
     };
 
@@ -256,55 +274,15 @@ function ImageGallery(props) {
     return null;
   }, [expanded, mainPicUrl]);
 
-  /* Hook to position new images correctly on render when toggling between images in expanded view.
-    Much of the same logic is repeated here from above, need to refactor. */
+  /* Hook to position new images correctly on render when toggling between images in expanded view
+  Uses a reference to the previous cursor position to determine where to position the new images */
   useEffect(() => {
     if (expanded) {
       const imageExpanded = document.getElementById('image-main-expanded');
       const imageContainerExpanded = document.getElementById('image-gallery-expanded');
 
       if (imageExpanded !== null) {
-        const imgContainerCoordinatesAndSize = imageContainerExpanded.getBoundingClientRect();
-        const imgContainerWidth = imgContainerCoordinatesAndSize.width;
-        const imgContainerHeight = imgContainerCoordinatesAndSize.height;
-        const imgContainerAspRatio = imgContainerWidth / imgContainerHeight;
-
-        const imgOriginal = new Image();
-        imgOriginal.src = mainPicUrl;
-        const imgOriginalWidth = imgOriginal.width;
-        const imgOriginalHeight = imgOriginal.height;
-        const imgOriginalAspRatio = imgOriginalWidth / imgOriginalHeight;
-        const layout = ((imgOriginalAspRatio) < (imgContainerAspRatio)) ? 'tall' : 'wide';
-
-        let imgWidth;
-        let imgHeight;
-        let backgroundXPosition;
-        let backgroundYPosition;
-
-        const currCursorXPercentPosition = refCursorXPercentPosition.current;
-        const currCursorYPercentPosition = refCursorYPercentPosition.current;
-
-        if (layout === 'tall') {
-          imgWidth = imgContainerWidth;
-          imgHeight = (imgContainerWidth * imgOriginalHeight)
-            / imgOriginalWidth - imgContainerHeight;
-
-          backgroundXPosition = currCursorXPercentPosition * imgWidth;
-          backgroundYPosition = currCursorYPercentPosition * imgHeight;
-
-          imageExpanded.style.backgroundPositionX = '0px';
-          imageExpanded.style.backgroundPositionY = `${-backgroundYPosition}px`;
-        } else if (layout === 'wide') {
-          imgWidth = (imgContainerHeight * imgOriginalWidth)
-            / imgOriginalHeight - imgContainerWidth;
-          imgHeight = imgContainerHeight;
-
-          backgroundXPosition = currCursorXPercentPosition * imgWidth;
-          backgroundYPosition = currCursorYPercentPosition * imgHeight;
-
-          imageExpanded.style.backgroundPositionX = `${-backgroundXPosition}px`;
-          imageExpanded.style.backgroundPositionY = '0px';
-        }
+        repositionBackground(imageExpanded, imageContainerExpanded, 'get');
       }
     }
   }, [mainPicUrl]);

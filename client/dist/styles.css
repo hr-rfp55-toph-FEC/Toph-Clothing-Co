@@ -53,37 +53,12 @@ body {
 
 /* Banner and Title */
 
-/* Option 1 */
-
-.titlebar {
-  /* background: rgb(17,83,61);
-  background: radial-gradient(circle, rgba(17,83,61,1) 0%, rgba(25,184,141,0.43040966386554624) 0%, rgba(17,83,61,1) 100%);  color: rgb(51, 92, 86); */
-  /* height: 12vh; */
-  height: 8rem;
-  background: rgb(20,98,78);
-  background: radial-gradient(circle, rgba(20,98,78,1) 0%, rgba(19,97,77,1) 21%, rgba(34,48,46,1) 82%);
-  background-image: url('https://t3.ftcdn.net/jpg/04/36/93/58/360_F_436935867_bFgV6XSbklEyrOlwvps8WNo1SerlSnuu.jpg');
-  background-size: cover;
-  background-size: 100% 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.logo {
-  height: 7rem;
-  margin-left: 1.5%;
-  margin-bottom: 0.5%;
-}
-
-/* Option 2 */
 .titlebar {
   height: 9rem;
   background: rgb(20,98,78);
   background: radial-gradient(circle, rgba(20,98,78,1) 0%, rgba(19,97,77,1) 21%, rgba(34,48,46,1) 82%);
   background-image: url('https://c4.wallpaperflare.com/wallpaper/726/764/940/dark-green-minimalism-geometry-abstraction-wallpaper-preview.jpg');
   background-size: cover;
-  /* background-size: 100% 100%; */
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -94,7 +69,6 @@ body {
   margin-left: 1.5%;
   margin-bottom: 0.5%;
 }
-
 
 .product-search {
   margin-right: 3%;
@@ -105,9 +79,7 @@ body {
   text-transform: uppercase;
   background-color: transparent;
   border: 0.17rem solid transparent;
-  /* border-bottom: 0.17rem solid #b3f8f2; */
   border-bottom: 0.17rem solid rgb(88, 179, 151);
-  /* padding-bottom: 0.1vw; */
   margin-bottom: 1.1%;
   background-image: url("/assets/magny.png");
   background-repeat: no-repeat;
@@ -146,24 +118,15 @@ body {
 
 #image-gallery {
   width: 62%;
-  /* height: 65vh;
-  min-height: 80vh; */
-  /* border-color: black;
-  border-style: solid;
-  border-width: 1px; */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* overflow: hidden; */
   position: relative;
   transition: width 0.6s;
   z-index: 2;
-
-
 }
 
 #image-gallery-expanded {
-  /* height: 100%; */
   width: 100%;
   border-color: black;
   border-style: none;
@@ -175,180 +138,92 @@ body {
   transition: width 0.6s;
   position: relative;
   z-index: 2;
-
 }
-
-/* #image-gallery-expanded:hover {
-  transform: translate(-5%, -5%);
-} */
 
 #image-main {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: relative;
-
-    /* Background positioning */
-    background-size: cover;
-
-    /* Slight adjustment for photo being positioned ~1px off for some reason, creating a 1px repeating border */
-    /* margin-top: -0.5rem;
-    margin-left: -0.5rem; */
-
-    /* Also try this instead to see it fixes background 1px positioning thing */
-    /* background-clip: padding-box; */
-    background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-/* Expanded view gets same properties as default view - 100%/100%/cover - in order for things to look nice. They can share the same class name.
-Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover. */
+/* Expanded view gets 100% zoom in order for image to look nice. 100%+ zoom is possible but too noisy. */
 #image-main-expanded {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  /* max-width: 100%;
-  max-height: 100%; */
   position: relative;
-
-  /* Work for 2.5x zoomed in image */
-  /* width: 250%;
-  height: 250%; */
-  /* object-fit: cover; */
-
-  /* Work for 2.5x zoomed in background + ability to pan */
   background-size: cover;
-  /* background-clip: padding-box;
-  background-repeat: no-repeat; */
-
-  /* Work for fixing the 'jump' in background position when first expanding due to zoom feature */
-  /* transition: all 0.01s; */
-  /* transition: all 0.5s; */
-
 }
 
-/* Logic to change cursor image */
-#image-main-expanded.right-arrow-toggle-next-enabled
-/* ,#overlay-thumbnail-gallery-expanded.right-arrow-toggle-next-enabled */
-{
-    cursor: url("/assets/icons8-enabled-green-right-arrow-30.png"), auto;
+/* Cursor image changes based on mouse position in expanded view */
+#image-main-expanded.right-arrow-toggle-next-enabled {
+  cursor: url("/assets/icons8-enabled-green-right-arrow-30.png"), auto;
 }
 
-#image-main-expanded.right-arrow-toggle-next-disabled
-/* ,#overlay-thumbnail-gallery-expanded.right-arrow-toggle-next-disabled */
-{
+#image-main-expanded.right-arrow-toggle-next-disabled {
   cursor: url("/assets/icons8-disabled-gray-right-arrow-30.png"), auto;
 }
 
-#image-main-expanded.left-arrow-toggle-prev-enabled
-/* ,#overlay-thumbnail-gallery-expanded.left-arrow-toggle-prev-enabled */
-{
+#image-main-expanded.left-arrow-toggle-prev-enabled {
   cursor: url("/assets/icons8-enabled-green-left-arrow-30.png"), auto;
 }
 
-#image-main-expanded.left-arrow-toggle-prev-disabled
-/* ,#overlay-thumbnail-gallery-expanded.left-arrow-toggle-prev-disabled */
-{
+#image-main-expanded.left-arrow-toggle-prev-disabled {
   cursor: url("/assets/icons8-disabled-gray-left-arrow-30.png"), auto;
 }
 
-/* #image-gallery:hover {
-  cursor: -moz-zoom-in;
-  cursor: -webkit-zoom-in;
-  cursor: zoom-in;
-  cursor: url("./assets/search-plus-solid.png"), auto;
-}
-#image-gallery-expanded:hover {
-  cursor: -moz-zoom-out;
-  cursor: -webkit-zoom-out;
-  cursor: zoom-out;
-  cursor: url("./assets/search-plus-solid.png"), auto;
-} */
-
 #overlay-thumbnail-gallery {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start; */
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   top: 1%;
   left: 0%;
   height: 70%;
   padding: 0rem 1rem ;
   padding-left: 1rem;
-
   gap: 1rem;
   position: absolute;
   z-index: 1;
-  /* z-index: 3; */
   overflow-y: scroll;
-  /* transition: all 1s; */
   width: 7rem;
 }
 
 #overlay-thumbnail-gallery-expanded {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start; */
   display: flex;
   flex-direction: column;
   justify-content:center;
   top: 1%;
   left: 0%;
   height: 45%;
-  /* padding: 3rem 2rem ; */
-  /* padding: 0rem 1rem ; */
-  /* gap: 1rem; */
   padding-left: 1rem;
   position: absolute;
   z-index: 1;
-  /* overflow-y: scroll; */
-  /* transition: all 1s; */
-
 }
 
 #overlay-thumbnail-gallery::-webkit-scrollbar {
   display: none;
 }
 
-/* #overlayThumbnailContainer {
-  display: block;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  height: 9%;
-  top: 5%;
-  left: 5%;
-} */
-
 .overlay-thumbnail-image {
   width: 4rem;
   height: 4rem;
-  /* position: relative; */
   flex-shrink: 1;
   z-index: 1;
-  /* z-index: 4; */
   border: 0.1rem solid rgb(243, 243, 243, 0.5);
   border-radius: 7%;
   transition: all 0.25s;
 }
 
-
 .overlay-thumbnail-image-select {
   width: 4.5rem;
   height: 4.5rem;
-  /* position: relative; */
   flex-shrink: 1;
   z-index: 1;
-    /* z-index: 4; */
   border: 0.1rem solid rgb(243, 243, 243, 0.5);
-  /* border-bottom: 0.4rem solid #15b645; */
   border-bottom: 0.4rem solid rgb(88, 179, 151);
   border-radius: 7%;
   transition: all 0.25s;
-  /* transform: all 2s; */
 }
 
 .overlay-thumbnail-image-expanded {
@@ -356,7 +231,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   height: 1rem;
   z-index: 1;
   border-radius: 50%;
-  /* background-color: #808080; */
   background-color: gray;
   transition: all 0.25s;
   margin: 1rem;
@@ -366,7 +240,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   width: 1.3rem;
   height: 1.3rem;
   z-index: 1;
-  /* background-color: rgb(18, 196, 128); */
   background-color: rgb(88, 179, 151);
   border-radius: 50%;
   transition: all 0.25s;
@@ -443,7 +316,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 #carousel-up-one.up-down-arrow-expanded,
 #carousel-down-one.up-down-arrow-expanded {
-  /* left: 29.5%; */
   margin-left: 0.55rem;
 }
 
@@ -451,18 +323,13 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 /* Must have "position: absolute" in order to remove the entire right container from flow of the DOM and allow left container image to
     transition smoothly from default to expanded view (assuming z-index of image is higher than right container).
-  Once positioned absolutely, the element will lose its width/height and we must manually set them again appropriately
-    The key to making this work was making the container a set width/height so that children elements had enough space to be positioned with Flex */
+  Once positioned absolutely, the element will lose its width/height and we must manually set them again to retain its size, or else flex breaks. */
 #product-right-container {
   height: 100%;
   width: 38%;
-  /* border-color: black;
-  border-style: solid;
-  border-width: 1px; */
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
-
   position: absolute;
   right: 0%;
 }
@@ -471,11 +338,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   display: none;
 }
 
-/* .product-right-component {
-  height: calc(100% / 3);
-} */
-
-/* Don't need min height here. Entire top section (#product-upper-container) has height set to 62rem -> clamped at 8px*62 height */
+/* Don't need min height here. Entire top section (#product-upper-container) is clamped at 59rem. */
 #product-information {
   height: 35%;
   display: flex;
@@ -491,18 +354,11 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: flex-start; */
 }
 
 /* Product Info & Options Sub-Components */
 
 /* Product Info & Options Sub-Component: Stars, Reviews, Category, Name, Price */
-
-/* #product-stars {
-  font-size: 1vw;
-  letter-spacing: 0.1vw;
-  margin-right: 2%;
-} */
 
 #product-reviews, #product-reviews-no-stars {
   font-size: 1.1rem;
@@ -527,7 +383,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 /* Note: We can limit children to a max font size while still applying the root clamp (e.g. font-size: min(3rem, 26px);) */
 #product-name {
   font-size: 3.3rem;
-  /* margin: 2% 0; */
   overflow-wrap: break-word;
 }
 
@@ -537,15 +392,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   margin-bottom: 2rem;
   margin-top: auto;
 }
-
-/* .sale-price {
-  color: red
-}
-.orig-price-strike {
-  margin-left: 2%;
-  color: gray;
-  text-decoration: line-through;
-} */
 
 /* Product Info & Options Sub-Component: Style Selector */
 
@@ -566,17 +412,8 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   display: none;
 }
 
-/* #style-selector-body::-webkit-scrollbar {
-  background-color: white;
-}
-#style-selector-body::-webkit-scrollbar-button {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-} */
-
 .product-style-thumbnail-container,
 .product-style-thumbnail-container-checked {
-  /* padding: 2% 0; */
   padding-top: 4%;
   height: 50%;
   display: flex;
@@ -589,20 +426,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   border-radius: 50%;
   width: 6rem;
   height: 6rem;
-  /* z-index: -1; */
 }
-
-/* To do: Add special coloring when checked later on */
-/* .product-style-thumbnail-container-checked {
-} */
-/*
-.product-style-thumbnail,
-.product-style-thumbnail-checked {
-  margin: 0.5rem;
-}
-.product-style-thumbnail-checked {
-  box-shadow: .1rem .1rem 0.5rem .01rem #000;
-} */
 
 .product-style-thumbnail {
   border: 3px double rgb(40, 80, 47);
@@ -628,11 +452,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   z-index: 1;
 }
 
-/* To do: figure out how to make check-mark appear with 0.25s transition. The below doesn't work */
-/* .checky-check {
-  transition: all 2s;
-} */
-
 .product-style-thumbnail,
 .product-style-thumbnail-checked {
   transition: opacity 0.25s;
@@ -649,11 +468,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 /* Product Info & Options Sub-Component: Add to Cart */
 
-/* #size-dropdown,
-#quantity-dropdown,
-#add-to-cart-button,
-#add-to-favorites-button */
-
 #add-to-cart-error-container {
   width: 65%;
   height: 3rem;
@@ -669,7 +483,7 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 .interactive-button-copy,
 .interactive-button-copy-disabled {
-  /* Keep these styles the same from Ya */
+  /* Keep these styles the same from Ya's button */
   text-transform: uppercase;
   border: 0.1em solid #000000;
   box-sizing: border-box;
@@ -677,18 +491,12 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   font-family: 'Roboto', sans-serif;
   font-weight: 450;
   color: #000000;
-  /* text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35); */
   background-color: #ffffff;
   text-align: left;
   transition: background-color 0.15s;
   cursor: pointer;
 
-  /* These styles from Ya are either replaced or removed */
-  /* display: inline-block;
-  border-radius: 0.12em;
-  margin: 0 2rem;
-  padding: 2rem 2rem;
-  letter-spacing: 0.1rem;   */
+  /* All styles below are custom */
   border-radius: 0.12em;
   padding: 1rem 2rem;
   letter-spacing: 0.1rem;
@@ -705,19 +513,8 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 .interactive-button-copy:hover {
   text-shadow: 0 0 2em rgba(255,255,255,1);
-  /* color: #ffffff;
-  border-color: #ffffff;
-  background-color:#447c47; */
   background-color: rgb(226, 217, 217);
-  /* background-color: #28B351;
-  color:white; */
 }
-
-/* Don't gray out the disabled buttons, looks weird. */
-/* .interactive-button-copy-disabled {
-  border: 0.1em solid #5e5252;
-  color: #5e5252;
-} */
 
 #size-dropdown {
   width: 65%;
@@ -749,9 +546,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 #size-dropdown.interactive-button-copy:hover,
 #quantity-dropdown.interactive-button-copy:hover {
   text-shadow: 0 0 2em rgba(255,255,255,1);
-  /* color: #ffffff;
-  border-color: #ffffff;
-  background-color:#447c47; */
   background-color: rgb(226, 217, 217);
 }
 
@@ -765,13 +559,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  /* background: transparent;
-  background-image: url("./assets/plus-solid.svg");
-  background-repeat: no-repeat;
-  background-position-x: 95%;
-  background-position-y: 50%;
-  background-size: 20%; */
 }
 
 #add-to-favorites-button {
@@ -794,7 +581,6 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 
 #overview-and-share {
   display: flex;
-  /* height: 25vh; */
   height: 20rem;
   padding: 3% 3%;
   border-color: black;
@@ -834,10 +620,8 @@ Need to instead change this to an "image-main-zoomed" class with 250%/250%/cover
 }
 
 .social-icon {
-  /* height: 25%; */
  color: rgb(75, 75, 75);
  font-size: 4rem;
-
 }
 
 .social-icon:hover {
@@ -1803,46 +1587,3 @@ textarea {
   text-align: center;
   margin-top: 4rem;
 }
-/* Stars
-.stars-outer {
-  display: inline-block;
-  position: relative;
-}
-.stars-inner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 0;
-}
-.stars-outer, .stars-inner {
-  font-size: 1.5rem;
-}
-/* Gold coloring below */
-/* .stars-outer, .stars-inner {
-  background: #cb9b51;
-  background-size: cover;
-  color:transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.fas.fa-star,
-.far.fa-star {
-  background: linear-gradient(
-    to bottom right,
-    #ac7d36 0,
-    #cb9b51 22%,
-    #f6e27a 45%,
-    #f6f2c0 50%,
-    #f6e27a 55%,
-    #cb9b51 78%,
-    #683b38 100%
-  );
-  background-size: cover;
-  color:transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-} */
