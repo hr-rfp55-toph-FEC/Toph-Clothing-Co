@@ -39,6 +39,16 @@ The goal of this project is a complete redesign of the retail portal for an old 
 
 - Developed by [Daniel Ho](https://github.com/dho1994)
 
+- The user is able to toggle through photos for the currently selected product and style combination using the left and right arrows overlayed near the bottom corners of the photo. The user may also jump to a specific photo by clicking on one of the photo thumbnails near the left edge of the image. 
+
+- The user may enter into an expanded view of the photo by clicking the 'expand' icon located near the top right of the photo. The user may pan the photo to view portions of the photo too large to show in the space provided by moving the mouse within this space.
+
+- Additionally, within the expanded view, the user may toggle through the photos by clicking on the image itself. Clicking on the right half of the image will show the next photo, while clicking on the left half of the image will show the previous photo. The user may also click on one of the thumbnail dots to jump to a specific photo. 
+
+- In the default view, the user may select different styles for the current product by clicking on the style thumbnails located within the product information panel to the right of the screen. The price and available photos will update upon selection.
+
+- Once a size and quantity has been selected, the 'Add to Cart' button will place the style, size and quantity of the product selected into the user’s cart.
+
 ### [Related Items And Outfit](client/src/components/RelatedItemsAndOutfit)
 
 - Developed by [Bishal Gautam](https://github.com/bishalkg)
