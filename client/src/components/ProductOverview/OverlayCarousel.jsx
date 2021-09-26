@@ -1,4 +1,3 @@
-// import React, { useState, useEffect } from 'react';
 import React from 'react';
 import PropTypes from 'prop-types';
 import OverlayThumbnail from './OverlayThumbnail';
@@ -29,14 +28,10 @@ function OverlayCarousel(props) {
         && (
           <div id="next-overlay-thumbnail-pic">
             <img
-              // className={`default-toggle-pic-arrow ${(currIndex < productStyleSelected.photos.length - 1) ? 'default-toggle-pic-arrow-enabled' : 'default-toggle-pic-arrow-disabled'}`}
               className="default-toggle-pic-arrow"
               onClick={showNextPicAndScroll}
               role="presentation"
               alt="Style Thumbnail"
-              // src={(currIndex < productStyleSelected.photos.length - 1)
-              //   ? '/assets/icons8-enabled-green-right-arrow-100.png'
-              //   : '/assets/icons8-disabled-gray-right-arrow-100.png'}
               src="/assets/icons8-enabled-green-right-arrow-100.png"
             />
           </div>
@@ -46,14 +41,10 @@ function OverlayCarousel(props) {
         && (
           <div id="prev-overlay-thumbnail-pic">
             <img
-              // className={`default-toggle-pic-arrow ${(currIndex > 0) ? 'default-toggle-pic-arrow-enabled' : 'default-toggle-pic-arrow-disabled'}`}
               className="default-toggle-pic-arrow"
               onClick={showPrevPicAndScroll}
               role="presentation"
               alt="Style Thumbnail"
-              // src={(currIndex > 0)
-              //   ? '/assets/icons8-enabled-green-left-arrow-100.png'
-              //   : '/assets/icons8-disabled-gray-left-arrow-100.png'}
               src="/assets/icons8-enabled-green-left-arrow-100.png"
             />
           </div>
