@@ -10,10 +10,7 @@ function StyleThumbnail(props) {
 
   const isStyleSelected = productStyleSelected.style_id === style.style_id;
 
-  // console.log('style', style);
-
   function handleSelectThumbnail() {
-    // console.log('click');
     selectProductStyle(style);
   }
 

@@ -22,8 +22,6 @@ function OverlayThumbnail(props) {
   const thumbnailOrDot = expanded
     ? (
       <i
-        // className={`fas fa-circle ${overlayThumbnailClass}`}
-        // className="fas fa-circle"
         className={overlayThumbnailClass}
         onClick={() => (handleOverlayThumbnailClick(overlayThumbnail))}
         role="presentation"
