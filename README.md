@@ -12,7 +12,7 @@
 <p
   align="center">
   <img
-    alt="product overview demo" src="client/demo/product_overview.gif">
+    alt="product overview demo" src="client/demo/product_overview_2.gif">
 </p>
 
 <p
@@ -31,7 +31,7 @@
 
 Front End Capstone for Hack Reactor. We are from RFP-55.
 
-The goal of this project is a complete redesign of the retail portal for an old e-commerce website to use modern front-end technologies. We created three widgets for this newly revamped website - Product Overview, Related Products & Outfit, and Ratings & Reviews. The project utilized React hooks for more flexible development and adheres to the ESlint Airbnb style.
+The goal of this project is a complete redesign of the retail portal for an old e-commerce website to use modern front-end technologies. We created three widgets for this newly revamped website - Product Overview, Related Products & Outfit, and Ratings & Reviews. The project utilized React hooks for more flexible development and adheres to the ESLint Airbnb style.
 
 ## Components
 
