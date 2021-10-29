@@ -75,8 +75,23 @@ The goal of this project is a complete redesign of the retail portal for an old 
 
 npm is the package management system for this project.
 
-Use ```npm install``` to install all dependencies.
-
-To start the server, use ```npm run start-dev```.
-
-To run the production build, use ```npm run build-prod``` and ```npm run start-server-prod```.
+1. Install dependencies
+   ```sh
+   npm install
+   ```
+   
+2. Create a `config.js` file within `/server/helpers/config`
+   ```js
+   module.exports = {
+   API_TOKEN: 'GITHUB_PERSONAL_ACCESS_TOKEN',
+   }
+   ``` 
+4. Run production client
+   ```sh
+   npm run build-prod
+   ```
+   
+3. Run production server
+   ```sh
+   npm run start-server-prod
+   ```
