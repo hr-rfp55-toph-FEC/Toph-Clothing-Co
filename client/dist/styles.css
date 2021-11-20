@@ -1284,7 +1284,7 @@ h3 {
   font-size: 1.8rem;
   font-weight: bold;
   margin: 10px 0;
-  overflow-wrap: break-word;
+  overflow-wrap: normal;
 }
 
 .review-summary::first-letter {
@@ -1293,7 +1293,7 @@ h3 {
 
 .reviewer-info, .review-body {
   font-size: 1.6rem;
-  overflow-wrap: break-word;
+  overflow-wrap: normal;
   word-break: break-all;
 }
 
@@ -1330,6 +1330,7 @@ img.thumbnail:hover {
 .modal-content {
   z-index: 5;
   margin: auto;
+  display: block;
   width: fit-content;
   height: fit-content;
 }
