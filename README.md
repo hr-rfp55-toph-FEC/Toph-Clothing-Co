@@ -89,14 +89,14 @@ npm is the package management system for this project.
    }
    ```
 
-3. Run production server
-
-   ```sh
-   npm run start-server-prod
-   ```
-
-4. Run production client
+3. Run production client
 
    ```sh
    npm run build-prod
+   ```
+
+4. Run production server
+
+   ```sh
+   npm run start-server-prod
    ```
