@@ -76,11 +76,13 @@ The goal of this project is a complete redesign of the retail portal for an old 
 npm is the package management system for this project.
 
 1. Install dependencies
+
    ```sh
    npm install
    ```
-   
+
 2. Create a `config.js` file within `/server/helpers/config`
+
    ```js
    module.exports = {
    API_TOKEN: 'GITHUB_PERSONAL_ACCESS_TOKEN',
@@ -88,11 +90,13 @@ npm is the package management system for this project.
    ```
 
 3. Run production server
+
    ```sh
    npm run start-server-prod
    ```
 
 4. Run production client
+
    ```sh
    npm run build-prod
    ```
