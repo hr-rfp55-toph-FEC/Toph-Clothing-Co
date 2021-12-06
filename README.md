@@ -12,7 +12,7 @@
 <p
   align="center">
   <img
-    alt="product overview demo" src="client/demo/product_overview_low_q.gif">
+    alt="product overview demo" src="client/demo/product_overview_med_q.gif">
 </p>
 
 <p
